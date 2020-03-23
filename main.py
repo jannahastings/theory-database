@@ -51,32 +51,60 @@ def displayTheory(theory_number=None,theory_name=None):
         theory_num = TheoryDatabase.theory_names_to_ids[theory_name]
         theory = TheoryDatabase.theories[theory_num]
 
-    print('GOT THEORY: ',theory.name,theory.number)
+    #print('GOT THEORY: ',theory.name,theory.number)
     net_image_file = url_for('static', filename=theory.number+".png")
     wc_image_file = url_for('static', filename=theory.number+"-wc.png")
     return render_template('theory.html',theory=theory,net_image_file=net_image_file,wc_image_file=wc_image_file)
 
 
-@app.route("/search",methods=['GET', 'POST'])
-@app.route("/search/<string>",methods=['GET', 'POST'])
-def searchResult(string=None):
+@app.route("/searchConstruct",methods=['GET', 'POST'])
+@app.route("/searchConstruct/<string>",methods=['GET', 'POST'])
+def searchConstructResult(string=None):
     if request.method == 'POST':
-        searchstr = request.form['searchstr']
-        print("GOT SEARCH STRING: ",searchstr)
+        searchstr = request.form['searchconstruct']
+        #print("GOT SEARCH STRING: ",searchstr)
         index_dir = "static/index/"
         results = TheoryDatabase.searchForConstruct(searchstr,index_dir)
         len_results = len(results)
-        return render_template('search.html',string=searchstr,results=results,len_results=len_results)
+        return render_template('searchConstruct.html',string=searchstr,results=results,len_results=len_results)
     # Display the search results for a given search string (theories)
     else:
         results = TheoryDatabase.searchForConstruct(string,index_dir)
         len_results = len(results)
-        return render_template('search.html',string=string,results=results,len_results=len_results)
+        return render_template('searchConstruct.html',string=string,results=results,len_results=len_results)
+
+@app.route("/searchTheory",methods=['GET', 'POST'])
+@app.route("/searchTheory/<string>",methods=['GET', 'POST'])
+def searchTheoryResult(string=None):
+    if request.method == 'POST':
+        searchtheory = request.form['searchtheory']
+        index_dir = "static/index/"
+        results = TheoryDatabase.searchForTheory(searchtheory,index_dir)
+        len_results = len(results)
+        return render_template('searchTheory.html',string=searchtheory,results=results,len_results=len_results)
+    # Display the search results for a given search string (theories)
+    else:
+        results = TheoryDatabase.searchForTheory(string,index_dir)
+        len_results = len(results)
+        return render_template('searchTheory.html',string=string,results=results,len_results=len_results)
 
 
-def getTheory(theory_name):
+@app.route("/searchRelation",methods=['GET', 'POST'])
+@app.route("/searchRelation/<string>",methods=['GET', 'POST'])
+def searchRelationResult(string=None):
+    if request.method == 'POST':
+        searchstr = request.form['searchrelation']
+        #print("GOT SEARCH STRING: ",searchstr)
+        index_dir = "static/index/"
+        results = TheoryDatabase.searchForRelation(searchstr,index_dir)
+        len_results = len(results)
+        return render_template('searchRelation.html',string=searchstr,results=results,len_results=len_results)
+    # Display the search results for a given search string (theories)
+    else:
+        results = TheoryDatabase.searchForRelation(string,index_dir)
+        len_results = len(results)
+        return render_template('searchRelation.html',string=string,results=results,len_results=len_results)
 
-    return TheoryDatabase.theories[theory_id]
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

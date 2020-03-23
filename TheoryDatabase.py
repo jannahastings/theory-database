@@ -151,6 +151,7 @@ def setup():
             model_num = str(f).split('.')[0]
             model_name = str(f).split('.')[1].strip()
             model_name = model_name.replace(' - FINAL','')
+            model_name = model_name.replace('FINAL','')
             model_name = model_name.replace(' - RW','')
             theory_names_to_ids[model_name] = model_num
 
@@ -300,7 +301,7 @@ def searchForConstruct(construct,index_dir):
 def searchForRelation(relation,index_dir):
     ix = open_dir(index_dir)
     qp = QueryParser("relation_name", schema=ix.schema)
-    q = qp.parse("doc_type:Triple and relation_name:"+Relation)
+    q = qp.parse("doc_type:Triple and relation_name:"+relation)
     returned_values = {}
     with ix.searcher() as s:
         results = s.search(q,limit=None)
@@ -308,7 +309,11 @@ def searchForRelation(relation,index_dir):
         for h in results:
             theory_name = h['theory_name']
             relation_name = h['relation_name']
+            const_1 = h['construct_name']
+            const_2 = h['triple_construct_two_name']
             if relation_name not in returned_values:
-                returned_values[relation_name]=[]
-            returned_values[relation_name].append(theory_name)
+                returned_values[relation_name]={}
+            if theory_name not in returned_values[relation_name]:
+                returned_values[relation_name][theory_name]=[]
+            returned_values[relation_name][theory_name].append(" ".join([const_1,relation_name,const_2]))
         return (returned_values)
