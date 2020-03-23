@@ -1,0 +1,42 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,Practices of consumption
+3,Process,Flowchart Shapes,1,,,,,,,Globalised systems of provision
+4,Process,Flowchart Shapes,1,,,,,,,Discursive and practical consciousness
+5,Process,Flowchart Shapes,1,,,,,,,Rate of exchange
+6,Process,Flowchart Shapes,1,,,,,,,Rules and resources
+7,Process,Flowchart Shapes,1,,,,,,,Environmental utilisation space
+8,Process,Flowchart Shapes,1,,,,,,,Knowledge and skills
+9,Process,Flowchart Shapes,1,,,,,,,Environmental innovations
+10,Process,Flowchart Shapes,1,,,,,,,Modes of production- consumption 
+11,Process,Flowchart Shapes,1,,,,,,,"Standards of comfort, cleanliness and convenience"
+12,Process,Flowchart Shapes,1,,,,,,,Time-space structures
+13,Process,Flowchart Shapes,1,,,,,,,Structures
+14,Process,Flowchart Shapes,1,,,,,,,Lifestyles
+17,Process,Flowchart Shapes,1,,,,,,,Socio-technical innovations
+18,Process,Flowchart Shapes,1,,,,,,,Social actors
+20,Line,,1,,,4,53,None,Arrow,relates through
+21,Line,,1,,,2,3,None,Arrow,
+22,Line,,1,,,3,2,None,Arrow,
+23,Line,,1,,,7,2,None,Arrow,
+24,Line,,1,,,8,2,None,Arrow,
+25,Line,,1,,,9,10,None,Arrow,
+26,Line,,1,,,10,6,None,Arrow,
+27,Line,,1,,,10,3,None,Arrow,
+28,Line,,1,,,10,2,None,Arrow,
+29,Line,,1,,,11,2,None,Arrow,
+30,Line,,1,,,12,2,None,Arrow,
+36,Line,,1,,,5,53,None,Arrow,
+37,Line,,1,,,6,2,None,Arrow,
+38,Line,,1,,,17,2,None,Arrow,
+40,Line,,1,,,6,3,None,Arrow,
+42,Line,,1,,,14,2,None,Arrow,
+46,Line,,1,,,2,14,None,Arrow,Part of
+47,Line,,1,,,4,14,None,Arrow,Part of
+48,Line,,1,,,3,13,None,Arrow,Part of
+49,Line,,1,,,6,13,None,Arrow,Part of
+50,Line,,1,,,12,13,None,Arrow,Part of
+51,Line,,1,,,14,18,None,Arrow,Part of
+52,Line,,1,,,4,18,None,Arrow,Part of
+53,Terminator,Flowchart Shapes,1,,,,,,,the 'Discursive and practical consciousness' to 'Lifestyles' Influences relationship
+54,Line,,1,,,53,14,None,Arrow,relates to

@@ -1,0 +1,88 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,Macro / societal factors
+3,Process,Flowchart Shapes,1,,,,,,,Technology
+4,Process,Flowchart Shapes,1,,,,,,,Economy
+5,Process,Flowchart Shapes,1,,,,,,,Demography
+6,Process,Flowchart Shapes,1,,,,,,,Institutions
+7,Process,Flowchart Shapes,1,,,,,,,Culture
+9,Process,Flowchart Shapes,1,,,,,,,Needs
+10,Process,Flowchart Shapes,1,,,,,,,Social relations
+11,Process,Flowchart Shapes,1,,,,,,,Pleasure / arousal
+12,Process,Flowchart Shapes,1,,,,,,,Health
+13,Process,Flowchart Shapes,1,,,,,,,Status
+14,Process,Flowchart Shapes,1,,,,,,,Freedom / control
+15,Process,Flowchart Shapes,1,,,,,,,Development / education
+16,Process,Flowchart Shapes,1,,,,,,,Beauty
+17,Process,Flowchart Shapes,1,,,,,,,Privacy
+18,Process,Flowchart Shapes,1,,,,,,,Safety
+19,Process,Flowchart Shapes,1,,,,,,,Leisure time
+20,Process,Flowchart Shapes,1,,,,,,,Nature / environment
+21,Process,Flowchart Shapes,1,,,,,,,Work / labour
+22,Process,Flowchart Shapes,1,,,,,,,Money
+23,Process,Flowchart Shapes,1,,,,,,,Comfort
+24,Process,Flowchart Shapes,1,,,,,,,Social justice
+26,Process,Flowchart Shapes,1,,,,,,,Opportunities
+27,Process,Flowchart Shapes,1,,,,,,,Social
+28,Process,Flowchart Shapes,1,,,,,,,Technical
+29,Process,Flowchart Shapes,1,,,,,,,Physical
+31,Process,Flowchart Shapes,1,,,,,,,Abilities
+33,Process,Flowchart Shapes,1,,,,,,,Financial
+34,Process,Flowchart Shapes,1,,,,,,,Physical 
+35,Process,Flowchart Shapes,1,,,,,,,Spatial
+36,Process,Flowchart Shapes,1,,,,,,,Temporal
+37,Process,Flowchart Shapes,1,,,,,,,Cognitive
+38,Process,Flowchart Shapes,1,,,,,,,Opportunity search
+39,Process,Flowchart Shapes,1,,,,,,,Motivation to perform
+40,Process,Flowchart Shapes,1,,,,,,,Behavioural control
+41,Process,Flowchart Shapes,1,,,,,,,Intention
+42,Process,Flowchart Shapes,1,,,,,,,Behaviour
+43,Process,Flowchart Shapes,1,,,,,,,Consequences
+75,Line,,1,,,42,43,None,Arrow,
+76,Line,,1,,,41,42,None,Arrow,
+77,Line,,1,,,39,41,None,Arrow,
+78,Line,,1,,,40,41,None,Arrow,
+79,Line,,1,,,2,31,None,Arrow,
+80,Line,,1,,,2,9,None,Arrow,
+81,Line,,1,,,2,26,None,Arrow,
+83,Line,,1,,,31,120,None,Arrow,relates through
+84,Line,,1,,,38,26,None,Arrow,
+85,Line,,1,,,26,122,None,Arrow,relates through
+86,Line,,1,,,26,118,None,Arrow,relates through
+87,Line,,1,,,31,118,None,Arrow,
+88,Line,,1,,,9,120,None,Arrow,
+89,Line,,1,,,9,122,None,Arrow,
+90,Line,,1,,,3,2,None,Arrow,Type of
+91,Line,,1,,,4,2,None,Arrow,Type of
+92,Line,,1,,,5,2,None,Arrow,Type of
+93,Line,,1,,,6,2,None,Arrow,Type of
+94,Line,,1,,,7,2,None,Arrow,Type of
+95,Line,,1,,,19,9,None,Arrow,Type of
+96,Line,,1,,,12,9,None,Arrow,Type of
+97,Line,,1,,,10,9,None,Arrow,Type of
+98,Line,,1,,,11,9,None,Arrow,Type of
+99,Line,,1,,,18,9,None,Arrow,Type of
+100,Line,,1,,,15,9,None,Arrow,Type of
+101,Line,,1,,,13,9,None,Arrow,Type of
+102,Line,,1,,,20,9,None,Arrow,Type of
+103,Line,,1,,,14,9,None,Arrow,Type of
+104,Line,,1,,,16,9,None,Arrow,Type of
+105,Line,,1,,,17,9,None,Arrow,Type of
+106,Line,,1,,,21,9,None,Arrow,Type of
+107,Line,,1,,,22,9,None,Arrow,Type of
+108,Line,,1,,,23,9,None,Arrow,Type of
+109,Line,,1,,,24,9,None,Arrow,Type of
+110,Line,,1,,,27,26,None,Arrow,Type of
+111,Line,,1,,,28,26,None,Arrow,Type of
+112,Line,,1,,,29,26,None,Arrow,Type of
+113,Line,,1,,,37,31,None,Arrow,Type of
+114,Line,,1,,,36,31,None,Arrow,Type of
+115,Line,,1,,,35,31,None,Arrow,Type of
+116,Line,,1,,,34,31,None,Arrow,Type of
+117,Line,,1,,,33,31,None,Arrow,Type of
+118,Terminator,Flowchart Shapes,1,,,,,,,the 'Opportunities' to 'Behavioural control' Influences relationship
+119,Line,,1,,,118,40,None,Arrow,relates to
+120,Terminator,Flowchart Shapes,1,,,,,,,the 'Abilities' to 'Opportunity search' Influences relationship
+121,Line,,1,,,120,38,None,Arrow,relates to
+122,Terminator,Flowchart Shapes,1,,,,,,,the 'Opportunities' to 'Motivation to perform' Influences relationship
+123,Line,,1,,,122,39,None,Arrow,relates to

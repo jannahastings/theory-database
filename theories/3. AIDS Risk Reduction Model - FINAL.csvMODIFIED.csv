@@ -1,0 +1,61 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,Labelling
+3,Process,Flowchart Shapes,1,,,,,,,Commitment
+4,Process,Flowchart Shapes,1,,,,,,,Knowledge
+5,Process,Flowchart Shapes,1,,,,,,,Self-efficacy
+6,Process,Flowchart Shapes,1,,,,,,,Response efficacy
+7,Process,Flowchart Shapes,1,,,,,,,Enjoyment
+8,Process,Flowchart Shapes,1,,,,,,,Social networks and norms
+9,Process,Flowchart Shapes,1,,,,,,,Aversive emotional states
+10,Process,Flowchart Shapes,1,,,,,,,Transmission knowledge
+11,Process,Flowchart Shapes,1,,,,,,,Perceived susceptibility
+12,Process,Flowchart Shapes,1,,,,,,,Beliefs about the undesirability of AIDS
+13,Process,Flowchart Shapes,1,,,,,,,Information-seeking
+14,Process,Flowchart Shapes,1,,,,,,,Enacting solutions
+15,Process,Flowchart Shapes,1,,,,,,,Obtaining remedies
+16,Process,Flowchart Shapes,1,,,,,,,Drug consumption
+17,Process,Flowchart Shapes,1,,,,,,,Environmental cues
+18,Process,Flowchart Shapes,1,,,,,,,Partner engagement
+19,Process,Flowchart Shapes,1,,,,,,,Social factors
+20,Process,Flowchart Shapes,1,,,,,,,Reference group norms
+21,Process,Flowchart Shapes,1,,,,,,,Social support
+23,Process,Flowchart Shapes,1,,,,,,,Perceived costs and benefits of changing behaviour
+25,Process,Flowchart Shapes,1,,,,,,,Enactment
+27,Line,,1,,,2,68,Arrow,Arrow,relates through
+28,Line,,1,,,3,70,Arrow,Arrow,relates through
+29,Line,,1,,,10,2,None,Arrow,
+30,Line,,1,,,8,2,None,Arrow,
+31,Line,,1,,,11,2,None,Arrow,
+32,Line,,1,,,5,3,None,Arrow,
+33,Line,,1,,,16,9,None,Arrow,
+34,Line,,1,,,9,68,None,Arrow,
+35,Line,,1,,,9,70,None,Arrow,
+36,Line,,1,,,17,70,None,Arrow,
+37,Line,,1,,,25,72,Arrow,Arrow,relates through
+38,Line,,1,,,18,68,None,Arrow,
+39,Line,,1,,,18,70,None,Arrow,
+43,Line,,1,,,20,5,None,Arrow,
+46,Line,,1,,,23,3,None,Arrow,
+47,Line,,1,,,4,23,None,Arrow,
+48,Line,,1,,,12,2,None,Arrow,
+53,Line,,1,,,13,15,Arrow,Arrow,Transition
+54,Line,,1,,,15,14,Arrow,Arrow,Transition
+55,Line,,1,,,18,72,None,Arrow,
+56,Line,,1,,,9,72,None,Arrow,
+57,Line,,1,,,17,72,None,Arrow,
+58,Line,,1,,,17,68,None,Arrow,
+60,Line,,1,,,21,23,None,Arrow,
+61,Line,,1,,,20,19,None,Arrow,Type of
+62,Line,,1,,,21,19,None,Arrow,Type of
+63,Line,,1,,,7,23,None,Arrow,*
+64,Line,,1,,,6,23,None,Arrow,*
+65,Line,,1,,,15,25,None,Arrow,Part of
+66,Line,,1,,,13,25,None,Arrow,Part of
+67,Line,,1,,,14,25,None,Arrow,Part of
+68,Terminator,Flowchart Shapes,1,,,,,,,the 'Labelling' to 'Commitment' Transitions to relationship
+69,Line,,1,,,68,3,Arrow,Arrow,relates to
+70,Terminator,Flowchart Shapes,1,,,,,,,the 'Commitment' to 'Enactment' Transitions to relationship
+71,Line,,1,,,70,25,Arrow,Arrow,relates to
+72,Terminator,Flowchart Shapes,1,,,,,,,the 'Enactment' to 'Labelling' Transitions to relationship
+73,Line,,1,,,72,2,Arrow,Arrow,relates to

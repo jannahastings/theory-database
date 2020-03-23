@@ -1,0 +1,9 @@
+body {margin: 1em; padding: 20px; font-size: 100%; line-height: 1.5}
+h1, h2, h3, h4 {margin: 1em 0 .5em; line-height: 1.25}
+h1 {font-size: 2em color:darkblue}
+h2 {font-size: 1.5em}
+h3 {font-size: 1.2em}
+ul, ol {margin: 2em 0; padding-left: 40px}
+p, figure {margin: 2em 0}
+a img {border: none}
+sup, sub {line-height: 0}

@@ -1,0 +1,116 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,Social bonding
+3,Process,Flowchart Shapes,1,,,,,,,Health-related knowledge
+4,Process,Flowchart Shapes,1,,,,,,,Biology / personality
+5,Process,Flowchart Shapes,1,,,,,,,Sense of self
+6,Process,Flowchart Shapes,1,,,,,,,Self-determination
+7,Process,Flowchart Shapes,1,,,,,,,Self-efficacy
+8,Process,Flowchart Shapes,1,,,,,,,Tiers of influence
+9,Process,Flowchart Shapes,1,,,,,,,Ultimate causes tier
+10,Process,Flowchart Shapes,1,,,,,,,Social personal nexus tier
+11,Process,Flowchart Shapes,1,,,,,,,Expectancy-value tier
+12,Process,Flowchart Shapes,1,,,,,,,Affective / cognitive tier
+13,Process,Flowchart Shapes,1,,,,,,,Decisions tier
+14,Process,Flowchart Shapes,1,,,,,,,Experience
+16,Process,Flowchart Shapes,1,,,,,,,Streams of influence
+19,Process,Flowchart Shapes,1,,,,,,,Decisions / intentions
+20,Process,Flowchart Shapes,1,,,,,,,Intrapersonal influences
+22,Process,Flowchart Shapes,1,,,,,,,Social influences
+24,Process,Flowchart Shapes,1,,,,,,,Attitudinal influences
+28,Process,Flowchart Shapes,1,,,,,,,Cultural environment
+29,Process,Flowchart Shapes,1,,,,,,,Immediate social context
+31,Process,Flowchart Shapes,1,,,,,,,Social competence
+32,Process,Flowchart Shapes,1,,,,,,,Social learning
+33,Process,Flowchart Shapes,1,,,,,,,Health-related values
+35,Process,Flowchart Shapes,1,,,,,,,Skills
+36,Process,Flowchart Shapes,1,,,,,,,Perceived norms
+37,Process,Flowchart Shapes,1,,,,,,,Motivation to comply
+38,Process,Flowchart Shapes,1,,,,,,,Expectations about consequences
+39,Process,Flowchart Shapes,1,,,,,,,Evaluations of consequences
+41,Process,Flowchart Shapes,1,,,,,,,Social normative beliefs
+43,Process,Flowchart Shapes,1,,,,,,,Health-related behaviour
+44,Process,Flowchart Shapes,1,,,,,,,Attitudes
+46,Line,,1,,,7,19,None,Arrow,
+49,Line,,1,,,43,14,None,Arrow,
+60,Line,,1,,,29,32,None,Arrow,
+61,Line,,1,,,29,2,None,Arrow,
+63,Line,,1,,,19,43,None,Arrow,
+67,Line,,1,,,28,33,None,Arrow,
+68,Line,,1,,,28,3,None,Arrow,
+70,Line,,1,,,44,19,None,Arrow,
+79,Line,,1,,,20,22,None,Arrow,
+80,Line,,1,,,14,33,None,Arrow,
+81,Line,,1,,,14,38,None,Arrow,
+82,Line,,1,,,14,37,None,Arrow,
+83,Line,,1,,,14,36,None,Arrow,
+84,Line,,1,,,14,35,None,Arrow,
+85,Line,,1,,,14,6,None,Arrow,
+91,Line,,1,,,24,22,None,Arrow,
+92,Line,,1,,,22,20,None,Arrow,
+93,Line,,1,,,22,24,None,Arrow,
+94,Line,,1,,,24,20,None,Arrow,
+95,Line,,1,,,5,6,None,Arrow,
+96,Line,,1,,,2,6,None,Arrow,
+97,Line,,1,,,3,6,None,Arrow,
+98,Line,,1,,,31,35,None,Arrow,
+99,Line,,1,,,3,35,None,Arrow,
+100,Line,,1,,,31,36,None,Arrow,
+101,Line,,1,,,3,36,None,Arrow,
+102,Line,,1,,,33,37,None,Arrow,
+103,Line,,1,,,31,38,None,Arrow,
+104,Line,,1,,,32,38,None,Arrow,
+105,Line,,1,,,33,39,None,Arrow,
+113,Line,,1,,,5,37,None,Arrow,
+115,Line,,1,,,20,24,None,Arrow,
+116,Line,,1,,,41,19,None,Arrow,
+117,Line,,1,,,32,36,None,Arrow,
+118,Line,,1,,,32,35,None,Arrow,
+119,Line,,1,,,14,3,None,Arrow,
+123,Line,,1,,,4,5,None,Arrow,
+124,Line,,1,,,4,31,None,Arrow,
+132,Line,,1,,,5,39,None,Arrow,
+133,Line,,1,,,32,39,None,Arrow,
+134,Line,,1,,,3,38,None,Arrow,
+135,Line,,1,,,2,37,None,Arrow,
+136,Line,,1,,,14,39,None,Arrow,
+137,Line,,1,,,14,5,None,Arrow,
+138,Line,,1,,,14,31,None,Arrow,
+139,Line,,1,,,14,32,None,Arrow,
+141,Line,,1,,,14,2,None,Arrow,
+142,Line,,1,,,20,16,None,Arrow,Type of
+143,Line,,1,,,22,16,None,Arrow,Type of
+144,Line,,1,,,24,16,None,Arrow,Type of
+145,Line,,1,,,36,41,None,Arrow,*
+146,Line,,1,,,37,41,None,Arrow,*
+147,Line,,1,,,35,7,None,Arrow,*
+148,Line,,1,,,6,7,None,Arrow,*
+149,Line,,1,,,4,20,None,Arrow,Part of
+150,Line,,1,,,29,22,None,Arrow,Part of
+151,Line,,1,,,28,24,None,Arrow,Part of
+152,Line,,1,,,39,44,None,Arrow,*
+153,Line,,1,,,38,44,None,Arrow,*
+154,Line,,1,,,9,8,None,Arrow,Type of
+155,Line,,1,,,10,8,None,Arrow,Type of
+156,Line,,1,,,12,8,None,Arrow,Type of
+157,Line,,1,,,13,8,None,Arrow,Type of
+158,Line,,1,,,11,8,None,Arrow,Type of
+159,Line,,1,,,31,10,None,Arrow,Part of
+160,Line,,1,,,32,10,None,Arrow,Part of
+161,Line,,1,,,2,10,None,Arrow,Part of
+162,Line,,1,,,3,10,None,Arrow,Part of
+163,Line,,1,,,5,10,None,Arrow,Part of
+164,Line,,1,,,33,10,None,Arrow,Part of
+165,Line,,1,,,6,11,None,Arrow,Part of
+166,Line,,1,,,35,11,None,Arrow,Part of
+167,Line,,1,,,36,11,None,Arrow,Part of
+168,Line,,1,,,37,11,None,Arrow,Part of
+169,Line,,1,,,38,11,None,Arrow,Part of
+170,Line,,1,,,39,11,None,Arrow,Part of
+171,Line,,1,,,7,12,None,Arrow,Part of
+172,Line,,1,,,41,12,None,Arrow,Part of
+173,Line,,1,,,44,12,None,Arrow,Part of
+174,Line,,1,,,19,13,None,Arrow,Part of
+175,Line,,1,,,4,9,None,Arrow,Part of
+176,Line,,1,,,29,9,None,Arrow,Part of
+177,Line,,1,,,28,9,None,Arrow,Part of

@@ -1,0 +1,29 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,Impulsivity
+3,Process,Flowchart Shapes,1,,,,,,,Sensitivity
+4,Process,Flowchart Shapes,1,,,,,,,Physicality
+5,Process,Flowchart Shapes,1,,,,,,,Risk-taking preference
+6,Process,Flowchart Shapes,1,,,,,,,Time orientation (near / far-sighted)
+7,Process,Flowchart Shapes,1,,,,,,,Self-control
+9,Process,Flowchart Shapes,1,,,,,,,Parental child-rearing practices
+10,Process,Flowchart Shapes,1,,,,,,,Monitoring of child
+11,Process,Flowchart Shapes,1,,,,,,,Recognition of deviant behaviour
+12,Process,Flowchart Shapes,1,,,,,,,Punishment of deviant behaviour
+13,Process,Flowchart Shapes,1,,,,,,,Parent-child attachment
+15,Process,Flowchart Shapes,1,,,,,,,Socialising institutions
+16,Process,Flowchart Shapes,1,,,,,,,School
+18,Process,Flowchart Shapes,1,,,,,,,"Criminal, deviant, and risky behaviours"
+32,Line,,1,,,15,7,None,Arrow,
+33,Line,,1,,,9,7,None,Arrow,
+34,Line,,1,,,7,18,None,Arrow,-
+35,Line,,1,,,2,7,None,Arrow,Part of
+36,Line,,1,,,3,7,None,Arrow,Part of
+37,Line,,1,,,4,7,None,Arrow,Part of
+38,Line,,1,,,5,7,None,Arrow,Part of
+39,Line,,1,,,6,7,None,Arrow,Part of
+40,Line,,1,,,10,9,None,Arrow,Part of
+41,Line,,1,,,11,9,None,Arrow,Part of
+42,Line,,1,,,12,9,None,Arrow,Part of
+43,Line,,1,,,13,9,None,Arrow,Part of
+44,Line,,1,,,16,15,None,Arrow,Type of

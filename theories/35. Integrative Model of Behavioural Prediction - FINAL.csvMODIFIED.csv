@@ -1,0 +1,39 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,External variables
+3,Process,Flowchart Shapes,1,,,,,,,Demographic variables
+4,Process,Flowchart Shapes,1,,,,,,,Attitudes towards targets
+5,Process,Flowchart Shapes,1,,,,,,,Personality traits
+6,Process,Flowchart Shapes,1,,,,,,,Other individual differences
+8,Process,Flowchart Shapes,1,,,,,,,Beliefs
+9,Process,Flowchart Shapes,1,,,,,,,Efficacy beliefs
+10,Process,Flowchart Shapes,1,,,,,,,Behavioural beliefs
+11,Process,Flowchart Shapes,1,,,,,,,Normative beliefs
+13,Process,Flowchart Shapes,1,,,,,,,Attitude towards the behaviour
+14,Process,Flowchart Shapes,1,,,,,,,Perceived norms 
+15,Process,Flowchart Shapes,1,,,,,,,Self-efficacy
+16,Process,Flowchart Shapes,1,,,,,,,Intention
+17,Process,Flowchart Shapes,1,,,,,,,Skills and abilities
+18,Process,Flowchart Shapes,1,,,,,,,Environmental constraints
+19,Process,Flowchart Shapes,1,,,,,,,Behaviour
+21,Process,Flowchart Shapes,1,,,,,,,Injunctive norms
+22,Process,Flowchart Shapes,1,,,,,,,Descriptive norms
+32,Line,,1,,,2,8,None,Arrow,
+33,Line,,1,,,8,15,None,Arrow,
+34,Line,,1,,,8,13,None,Arrow,
+35,Line,,1,,,8,14,None,Arrow,
+36,Line,,1,,,14,16,None,Arrow,
+37,Line,,1,,,15,16,None,Arrow,
+38,Line,,1,,,13,16,None,Arrow,
+39,Line,,1,,,18,19,None,Arrow,
+40,Line,,1,,,17,19,None,Arrow,
+41,Line,,1,,,16,19,None,Arrow,
+45,Line,,1,,,3,2,None,Arrow,Part of
+46,Line,,1,,,4,2,None,Arrow,Part of
+47,Line,,1,,,5,2,None,Arrow,Part of
+48,Line,,1,,,6,2,None,Arrow,Part of
+49,Line,,1,,,9,8,None,Arrow,Type of
+50,Line,,1,,,10,8,None,Arrow,Type of
+51,Line,,1,,,11,8,None,Arrow,Type of
+52,Line,,1,,,21,14,None,Arrow,Type of
+53,Line,,1,,,22,14,None,Arrow,Type of

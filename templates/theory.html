@@ -1,0 +1,40 @@
+<html>
+    <head> <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/base-min.css"/> </head>
+    <body style="margin:2em;padding:10px">
+
+    <h1>
+     Theory Database (prototype)
+     </h1>
+
+    <h2>
+     {{theory.number}}: {{theory.name}}
+     </h2>
+
+    <p>
+    <img src="{{wc_image_file}}"/> <br/>
+    Number of Constructs: {{theory.getNumConstructs()}} <br/>
+        Number of Triples: {{theory.getNumTriples()}}
+    </p>
+
+     <h3> Theory triples </h3>
+     <p>
+     <ul>
+
+    {% for item in theory.triples %}
+        <li>{{item.const1.name}} <i>{{item.relStr.lower()}}</i> {{item.const2.name}}</li>
+    {% endfor %}
+
+    </ul>
+    </p>
+
+    <h3> Theory illustration </h3>
+
+     <p> <img src="{{net_image_file}}"/> </p>
+
+
+     <p> </p>
+
+    <p> <a href="/">Home</a> | <a href="mailto:j.hastings@ucl.ac.uk">Contact</a> </p>
+    </body>
+</html>
+

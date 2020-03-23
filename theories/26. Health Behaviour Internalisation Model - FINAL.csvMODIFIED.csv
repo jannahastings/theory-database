@@ -1,0 +1,42 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,Self-needs
+3,Process,Flowchart Shapes,1,,,,,,,Ownership
+4,Process,Flowchart Shapes,1,,,,,,,Self-determination
+5,Process,Flowchart Shapes,1,,,,,,,Security
+6,Process,Flowchart Shapes,1,,,,,,,Support
+8,Process,Flowchart Shapes,1,,,,,,,Health behaviour-related needs
+9,Process,Flowchart Shapes,1,,,,,,,Preference
+10,Process,Flowchart Shapes,1,,,,,,,Context
+11,Process,Flowchart Shapes,1,,,,,,,Coping
+12,Process,Flowchart Shapes,1,,,,,,,Competence
+13,Process,Flowchart Shapes,1,,,,,,,Self-efficacy
+15,Process,Flowchart Shapes,1,,,,,,,External regulation of health behaviour
+16,Process,Flowchart Shapes,1,,,,,,,Introjected internalisation and self-regulation of health behaviour
+17,Process,Flowchart Shapes,1,,,,,,,Experience of being controlled and conflicted about health behaviour 
+18,Process,Flowchart Shapes,1,,,,,,,Health behaviour maintenance
+20,Process,Flowchart Shapes,1,,,,,,,Motivation to engage in health behaviour
+21,Process,Flowchart Shapes,1,,,,,,,Integrated internalisation and self-regulation of health behaviour
+23,Process,Flowchart Shapes,1,,,,,,,Experience of autonomy support and positive engagement with health behaviour 
+29,Line,,1,,,15,16,None,Arrow,
+30,Line,,1,,,16,15,None,Arrow,Transition
+36,Line,,1,,,16,18,None,Arrow,-
+37,Line,,1,,,15,18,None,Arrow,-
+38,Line,,1,,,21,18,None,Arrow,+
+39,Line,,1,,,16,21,Arrow,Arrow,Transition
+42,Line,,1,,,20,17,None,Arrow,
+43,Line,,1,,,17,15,None,Arrow,
+44,Line,,1,,,17,16,None,Arrow,
+46,Line,,1,,,23,21,None,Arrow,
+47,Line,,1,,,20,23,None,Arrow,
+50,Line,,1,,,3,2,None,Arrow,Type of
+51,Line,,1,,,4,2,None,Arrow,Type of
+52,Line,,1,,,5,2,None,Arrow,Type of
+53,Line,,1,,,6,2,None,Arrow,Type of
+54,Line,,1,,,9,8,None,Arrow,Type of
+55,Line,,1,,,12,8,None,Arrow,Type of
+56,Line,,1,,,11,8,None,Arrow,Type of
+57,Line,,1,,,10,8,None,Arrow,Type of
+58,Line,,1,,,13,12,None,Arrow,Part of
+59,Line,,1,,,8,20,None,Arrow,Type of
+60,Line,,1,,,2,20,None,Arrow,Type of

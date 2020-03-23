@@ -1,0 +1,37 @@
+<html>
+    <head> <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/base-min.css"/> </head>
+    <body style="margin:2em;padding:10px">
+    <h1>
+     Theory Database (prototype)
+     </h1>
+    <h2>
+     Search Results
+     </h2>
+
+     {% if len_results > 0 %}
+
+     <p> Your search for '{{string}}' found the following results: </p>
+
+    {% for item in results %}
+    <p> Construct <i>{{item}}</i> was found in theories:
+    <ul>
+        {% for theoryname in results[item] %}
+        <li><a href="/theory/name={{theoryname}}">{{theoryname}}</a></li>
+        {% endfor %}
+     </ul>
+    {% endfor %}
+     <p> </p>
+
+     {% endif %}
+
+      {% if len_results == 0 %}
+        Sorry, your search for '{{string}}' did not find any results.
+      {% endif %}
+
+      <p/>
+
+      <p> <a href="/">Home</a> | <a href="mailto:j.hastings@ucl.ac.uk">Contact</a> </p>
+
+    </body>
+</html>
+

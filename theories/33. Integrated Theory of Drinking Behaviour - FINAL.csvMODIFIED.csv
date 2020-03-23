@@ -1,0 +1,82 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,Macro / societal level 
+4,Process,Flowchart Shapes,1,,,,,,,Social interaction
+5,Process,Flowchart Shapes,1,,,,,,,Models of drinking
+6,Process,Flowchart Shapes,1,,,,,,,Formal social controls
+7,Process,Flowchart Shapes,1,,,,,,,Legal availability
+8,Process,Flowchart Shapes,1,,,,,,,Economic availability
+9,Process,Flowchart Shapes,1,,,,,,,Physical availability
+10,Process,Flowchart Shapes,1,,,,,,,Social roles
+11,Process,Flowchart Shapes,1,,,,,,,Social integration / anomie
+12,Process,Flowchart Shapes,1,,,,,,,Public policy
+13,Process,Flowchart Shapes,1,,,,,,,Social / institutional structures
+14,Process,Flowchart Shapes,1,,,,,,,Market mechanisms
+15,Process,Flowchart Shapes,1,,,,,,,Biological / pharmacological factors
+16,Process,Flowchart Shapes,1,,,,,,,Conditioned responses
+17,Process,Flowchart Shapes,1,,,,,,,Individual level
+19,Process,Flowchart Shapes,1,,,,,,,Expectancies about alcohol's effects
+20,Process,Flowchart Shapes,1,,,,,,,Meanings of alcohol use
+21,Process,Flowchart Shapes,1,,,,,,,Rewarding effects of alcohol with respect to costs
+22,Process,Flowchart Shapes,1,,,,,,,Cognitive perceptions 
+24,Process,Flowchart Shapes,1,,,,,,,Self-esteem
+25,Process,Flowchart Shapes,1,,,,,,,Locus of control
+27,Process,Flowchart Shapes,1,,,,,,,General beliefs / perceptions / personality
+28,Process,Flowchart Shapes,1,,,,,,,Behaviour
+29,Line,,1,,,4,10,None,Arrow,
+30,Line,,1,,,11,4,None,Arrow,
+31,Line,,1,,,14,9,None,Arrow,
+32,Line,,1,,,13,11,None,Arrow,
+33,Line,,1,,,14,13,None,Arrow,
+34,Line,,1,,,12,13,None,Arrow,
+35,Line,,1,,,13,8,None,Arrow,
+36,Line,,1,,,14,5,None,Arrow,
+37,Line,,1,,,13,5,None,Arrow,
+38,Line,,1,,,12,8,None,Arrow,
+44,Line,,1,,,6,28,None,Arrow,
+45,Line,,1,,,7,28,None,Arrow,
+46,Line,,1,,,4,16,None,Arrow,
+47,Line,,1,,,8,22,None,Arrow,
+48,Line,,1,,,4,22,None,Arrow,
+49,Line,,1,,,4,16,None,Arrow,
+50,Line,,1,,,4,27,None,Arrow,
+51,Line,,1,,,10,28,None,Arrow,
+52,Line,,1,,,28,27,None,Arrow,
+53,Line,,1,,,27,28,None,Arrow,
+54,Line,,1,,,16,28,None,Arrow,
+55,Line,,1,,,15,28,None,Arrow,
+62,Line,,1,,,12,5,None,Arrow,
+63,Line,,1,,,13,4,None,Arrow,
+64,Line,,1,,,9,22,None,Arrow,
+72,Line,,1,,,8,107,None,Arrow,
+75,Line,,1,,,7,22,None,Arrow,
+76,Line,,1,,,10,22,None,Arrow,
+77,Line,,1,,,5,22,None,Arrow,
+78,Line,,1,,,9,28,None,Arrow,
+80,Line,,1,,,12,9,None,Arrow,
+81,Line,,1,,,12,7,None,Arrow,
+82,Line,,1,,,12,6,None,Arrow,
+84,Line,,1,,,22,28,None,Arrow,
+85,Line,,1,,,8,28,None,Arrow,
+86,Line,,1,,,6,22,None,Arrow,
+88,Line,,1,,,7,2,None,Arrow,Part of
+89,Line,,1,,,6,2,None,Arrow,Part of
+90,Line,,1,,,5,2,None,Arrow,Part of
+91,Line,,1,,,14,2,None,Arrow,Part of
+92,Line,,1,,,13,2,None,Arrow,Part of
+93,Line,,1,,,10,2,None,Arrow,Part of
+94,Line,,1,,,9,2,None,Arrow,Part of
+95,Line,,1,,,4,2,None,Arrow,Part of
+96,Line,,1,,,11,107,None,Arrow,relates through
+97,Line,,1,,,12,2,None,Arrow,Part of
+98,Line,,1,,,27,17,None,Arrow,Part of
+99,Line,,1,,,15,17,None,Arrow,Part of
+100,Line,,1,,,16,17,None,Arrow,Part of
+101,Line,,1,,,22,17,None,Arrow,Part of
+102,Line,,1,,,19,22,None,Arrow,Part of
+103,Line,,1,,,21,22,None,Arrow,Part of
+104,Line,,1,,,20,22,None,Arrow,Part of
+105,Line,,1,,,24,27,None,Arrow,Part of
+106,Line,,1,,,25,27,None,Arrow,Part of
+107,Terminator,Flowchart Shapes,1,,,,,,,the 'Social integration / anomie' to 'Macro / societal level ' Part of relationship
+108,Line,,1,,,107,2,None,Arrow,relates to

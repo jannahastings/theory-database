@@ -1,0 +1,42 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,Intrapersonal factors
+3,Process,Flowchart Shapes,1,,,,,,,Environmental factors
+4,Process,Flowchart Shapes,1,,,,,,,Behaviour change
+7,Process,Flowchart Shapes,1,,,,,,,Perceived severity / severity of the problem
+8,Process,Flowchart Shapes,1,,,,,,,Behavioural options
+9,Process,Flowchart Shapes,1,,,,,,,Perceived susceptibility / personal susceptibility 
+10,Process,Flowchart Shapes,1,,,,,,,Motivation to  change
+11,Process,Flowchart Shapes,1,,,,,,,Efficacy expectations
+12,Process,Flowchart Shapes,1,,,,,,,Behavioural skills
+13,Process,Flowchart Shapes,1,,,,,,,Outcome expectations
+14,Process,Flowchart Shapes,1,,,,,,,Self-efficacy
+15,Process,Flowchart Shapes,1,,,,,,,Supportive environment
+16,Process,Flowchart Shapes,1,,,,,,,Environmental pressures
+17,Process,Flowchart Shapes,1,,,,,,,Interpersonal situations
+18,Process,Flowchart Shapes,1,,,,,,,Health-enhancing activities
+24,Line,,1,,,7,10,None,Arrow,
+26,Line,,1,,,8,10,None,Arrow,
+27,Line,,1,,,9,10,None,Arrow,
+29,Line,,1,,,10,55,None,Arrow,relates through
+30,Line,,1,,,11,55,None,Arrow,
+31,Line,,1,,,12,55,None,Arrow,
+33,Line,,1,,,13,10,None,Arrow,
+36,Line,,1,,,13,4,None,Arrow,
+37,Line,,1,,,15,4,None,Arrow,
+38,Line,,1,,,18,15,None,Arrow,
+39,Line,,1,,,17,15,None,Arrow,
+40,Line,,1,,,16,15,None,Arrow,
+44,Line,,1,,,7,2,None,Arrow,Part of
+45,Line,,1,,,8,2,None,Arrow,Part of
+46,Line,,1,,,9,2,None,Arrow,Part of
+47,Line,,1,,,17,3,None,Arrow,Part of
+48,Line,,1,,,17,3,None,Arrow,Part of
+49,Line,,1,,,16,3,None,Arrow,Part of
+50,Line,,1,,,16,3,None,Arrow,Part of
+51,Line,,1,,,18,3,None,Arrow,Part of
+52,Line,,1,,,18,3,None,Arrow,Part of
+53,Line,,1,,,13,11,None,Arrow,Part of
+54,Line,,1,,,14,11,None,Arrow,Part of
+55,Terminator,Flowchart Shapes,1,,,,,,,the 'Motivation to  change' to 'Behaviour change' Influences relationship
+56,Line,,1,,,55,4,None,Arrow,relates to

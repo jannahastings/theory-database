@@ -1,0 +1,38 @@
+<html>
+    <head> <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/base-min.css"/> </head>
+    <body style="margin:2em;padding:10px">
+    <h1>
+     Theory Database (prototype)
+     </h1>
+     <p> This is a searchable database of theories of behaviour change that have been formalised according to an <a href="https://osf.io/q25nw/">Ontology-Based Modelling System</a>. </p>
+
+     <p>For more information, see West, R., Godinho, C. A., Bohlen, L. C., Carey, R. N., Hastings, J., Lefevre, C. E., & Michie, S. (2019). Development of a formal system for representing behaviour-change theories. Nature human behaviour, 3(5), 526. <a href="http://doi.org/10.1038/s41562-019-0561-2">doi.org/10.1038/s41562-019-0561-2</a>.</p>
+
+    <h3> Statistics </h3>
+
+    <p> Number of theories: {{num_theories}} <br/>
+    <p> Number of unique constructs: {{num_constructs}} <br/>
+    <p> Number of triples: {{num_triples}} </p>
+
+    <h3> Search </h3>
+
+     <p> To search for a construct within a theory, please enter a search term below. <br/>
+    <form action="/search" method="post" name="search">
+        Search term: <input type = "search" name="searchstr"> <input type="submit" value="Search">
+    </form>
+    </p>
+
+    <h3> Browse theories </h3>
+
+     <p> To view the content of a theory, you can select a theory from the list: </p>
+     <ul>
+    {% for item in theories %}
+        <li> <a href="/theory/{{item.number}}">{{item.number}}: {{item.name}} </a> </li>
+    {% endfor %}
+     </ul>
+
+     <p/>
+     <p> <a href="/">Home</a> | <a href="mailto:j.hastings@ucl.ac.uk">Contact</a> </p>
+    </body>
+</html>
+

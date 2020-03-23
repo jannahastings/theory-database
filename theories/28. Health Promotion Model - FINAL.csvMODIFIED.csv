@@ -1,0 +1,61 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,Page 1
+2,Process,Flowchart Shapes,1,,,,,,,Personal factors
+3,Process,Flowchart Shapes,1,,,,,,,Perceived benefits of action
+4,Process,Flowchart Shapes,1,,,,,,,Perceived barriers to action
+5,Process,Flowchart Shapes,1,,,,,,,Perceived self-efficacy
+6,Process,Flowchart Shapes,1,,,,,,,Interpersonal influences 
+7,Process,Flowchart Shapes,1,,,,,,,Situational influences
+8,Process,Flowchart Shapes,1,,,,,,,Immediate competing demands and preferences
+9,Process,Flowchart Shapes,1,,,,,,,Affect
+10,Process,Flowchart Shapes,1,,,,,,,Commitment to a plan of action
+11,Process,Flowchart Shapes,1,,,,,,,Health promoting behaviour
+12,Process,Flowchart Shapes,1,,,,,,,Biological 
+13,Process,Flowchart Shapes,1,,,,,,,Socio-cultural
+14,Process,Flowchart Shapes,1,,,,,,,Psychological
+16,Process,Flowchart Shapes,1,,,,,,,Activity-related 
+17,Process,Flowchart Shapes,1,,,,,,,Self-related
+18,Process,Flowchart Shapes,1,,,,,,,Context-related
+19,Process,Flowchart Shapes,1,,,,,,,Cognitions
+21,Process,Flowchart Shapes,1,,,,,,,Norms
+22,Process,Flowchart Shapes,1,,,,,,,Modelling
+23,Process,Flowchart Shapes,1,,,,,,,Social support
+24,Process,Flowchart Shapes,1,,,,,,,Prior related behaviour
+45,Line,,1,,,2,11,None,Arrow,
+46,Line,,1,,,2,19,None,Arrow,
+48,Line,,1,,,24,19,None,Arrow,
+49,Line,,1,,,24,9,None,Arrow,
+50,Line,,1,,,24,11,None,Arrow,
+51,Line,,1,,,3,10,None,Arrow,+
+52,Line,,1,,,4,11,None,Arrow,
+53,Line,,1,,,4,10,None,Arrow,-
+54,Line,,1,,,5,4,None,Arrow,
+55,Line,,1,,,5,4,None,Arrow,
+56,Line,,1,,,5,4,None,Arrow,+
+57,Line,,1,,,5,11,None,Arrow,
+58,Line,,1,,,10,11,None,Arrow,+
+59,Line,,1,,,5,10,None,Arrow,+
+60,Line,,1,,,9,5,Arrow,Arrow,+
+61,Line,,1,,,6,10,None,Arrow,
+62,Line,,1,,,7,10,None,Arrow,
+64,Line,,1,,,8,10,None,Arrow,-
+65,Line,,1,,,2,9,None,Arrow,
+66,Line,,1,,,9,10,None,Arrow,+
+67,Line,,1,,,9,11,None,Arrow,+/-
+68,Line,,1,,,6,11,None,Arrow,
+69,Line,,1,,,12,2,None,Arrow,Part of
+70,Line,,1,,,14,2,None,Arrow,Part of
+71,Line,,1,,,13,2,None,Arrow,Part of
+72,Line,,1,,,3,19,None,Arrow,Part of
+73,Line,,1,,,4,19,None,Arrow,Part of
+74,Line,,1,,,5,19,None,Arrow,Part of
+75,Line,,1,,,9,19,None,Arrow,Part of
+76,Line,,1,,,6,19,None,Arrow,Part of
+77,Line,,1,,,7,19,None,Arrow,Part of
+78,Line,,1,,,8,19,None,Arrow,Part of
+79,Line,,1,,,16,9,None,Arrow,Type of
+80,Line,,1,,,17,9,None,Arrow,Type of
+81,Line,,1,,,18,9,None,Arrow,Type of
+82,Line,,1,,,22,6,None,Arrow,Type of
+83,Line,,1,,,21,6,None,Arrow,Type of
+84,Line,,1,,,23,6,None,Arrow,Type of

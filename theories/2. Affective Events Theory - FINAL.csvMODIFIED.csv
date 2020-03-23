@@ -1,0 +1,19 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,Work environment features
+3,Process,Flowchart Shapes,1,,,,,,,Work events
+4,Process,Flowchart Shapes,1,,,,,,,Affective reactions
+5,Process,Flowchart Shapes,1,,,,,,,Work attitudes
+6,Process,Flowchart Shapes,1,,,,,,,Judgement-driven behaviours
+7,Process,Flowchart Shapes,1,,,,,,,Affect-driven behaviours
+8,Process,Flowchart Shapes,1,,,,,,,Dispositions
+9,Line,,1,,,2,3,None,Arrow,
+10,Line,,1,,,3,17,None,Arrow,relates through
+11,Line,,1,,,4,5,None,Arrow,
+12,Line,,1,,,5,6,None,Arrow,
+13,Line,,1,,,4,7,None,Arrow,
+14,Line,,1,,,8,17,None,Arrow,
+15,Line,,1,,,8,4,None,Arrow,
+16,Line,,1,,,2,5,None,Arrow,
+17,Terminator,Flowchart Shapes,1,,,,,,,the 'Work events' to 'Affective reactions' Influences relationship
+18,Line,,1,,,17,4,None,Arrow,relates to

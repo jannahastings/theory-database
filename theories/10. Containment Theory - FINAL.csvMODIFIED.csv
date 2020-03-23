@@ -1,0 +1,43 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,Inner drives or pushes
+3,Process,Flowchart Shapes,1,,,,,,,External environment
+4,Process,Flowchart Shapes,1,,,,,,,Deviant behaviour
+5,Process,Flowchart Shapes,1,,,,,,,Self-control
+6,Process,Flowchart Shapes,1,,,,,,,Self-concept
+7,Process,Flowchart Shapes,1,,,,,,,Ego strength
+8,Process,Flowchart Shapes,1,,,,,,,Superego
+9,Process,Flowchart Shapes,1,,,,,,,Frustration tolerace
+10,Process,Flowchart Shapes,1,,,,,,, Resistance to diversions
+11,Process,Flowchart Shapes,1,,,,,,,Goal orientation
+12,Process,Flowchart Shapes,1,,,,,,,Ability to find substitute satisfations
+13,Process,Flowchart Shapes,1,,,,,,,Tension-reducing rationalisations
+14,Process,Flowchart Shapes,1,,,,,,,"Opportunity for acceptance, Identity, and belonging"
+15,Process,Flowchart Shapes,1,,,,,,,Safety valves
+16,Process,Flowchart Shapes,1,,,,,,,Limits and responsibilities
+17,Process,Flowchart Shapes,1,,,,,,,Supervision and discipline
+18,Process,Flowchart Shapes,1,,,,,,,Social expectations
+19,Process,Flowchart Shapes,1,,,,,,,Presentation of consistent moral front
+20,Process,Flowchart Shapes,1,,,,,,,"Institutional reinforcement of norms, goals, expectations"
+21,Process,Flowchart Shapes,1,,,,,,,Inner containment
+22,Process,Flowchart Shapes,1,,,,,,,Outer containment
+26,Line,,1,,,3,22,None,Arrow,
+27,Line,,1,,,2,21,None,Arrow,
+49,Line,,1,,,22,4,None,Arrow,*
+50,Line,,1,,,21,4,None,Arrow,*
+51,Line,,1,,,5,21,None,Arrow,Part of
+52,Line,,1,,,6,21,None,Arrow,Part of
+53,Line,,1,,,7,21,None,Arrow,Part of
+54,Line,,1,,,8,21,None,Arrow,Part of
+55,Line,,1,,,9,21,None,Arrow,Part of
+56,Line,,1,,,10,21,None,Arrow,Part of
+57,Line,,1,,,11,21,None,Arrow,Part of
+58,Line,,1,,,12,21,None,Arrow,Part of
+59,Line,,1,,,13,21,None,Arrow,Part of
+60,Line,,1,,,14,22,None,Arrow,Part of
+61,Line,,1,,,15,22,None,Arrow,Part of
+62,Line,,1,,,16,22,None,Arrow,Part of
+63,Line,,1,,,17,22,None,Arrow,Part of
+64,Line,,1,,,18,22,None,Arrow,Part of
+65,Line,,1,,,19,22,None,Arrow,Part of
+66,Line,,1,,,20,22,None,Arrow,Part of

@@ -1,0 +1,32 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,Page 1
+2,Process,Flowchart Shapes,1,,,,,,,Motivational sphere 
+3,Process,Flowchart Shapes,1,,,,,,,Executive function 
+4,Process,Flowchart Shapes,1,,,,,,,Observed behaviour 
+5,Process,Flowchart Shapes,1,,,,,,,Behavioural pre-potency 
+6,Process,Flowchart Shapes,1,,,,,,,Perceived temporal proximity 
+7,Process,Flowchart Shapes,1,,,,,,,Value 
+8,Process,Flowchart Shapes,1,,,,,,,Temporal valuations 
+9,Process,Flowchart Shapes,1,,,,,,,Intentions 
+10,Process,Flowchart Shapes,1,,,,,,,Contectedness beliefs 
+16,Line,,1,,,8,9,None,Arrow,+
+17,Line,,1,,,10,9,None,Arrow,+
+23,Line,,1,,,9,43,None,Arrow,relates through
+24,Line,,1,,,5,43,None,Arrow,-
+25,Line,,1,,,3,43,None,Arrow,+
+26,Line,,1,,,3,4,None,Arrow,+
+27,Line,,1,,,5,4,None,Arrow,+
+28,Line,,1,,,4,5,None,Arrow,
+29,Line,,1,,,4,3,None,Arrow,
+30,Line,,1,,,4,10,None,Arrow,
+31,Line,,1,,,4,8,None,Arrow,
+35,Line,,1,,,3,5,None,Arrow,
+36,Line,,1,,,7,8,None,Arrow,*
+37,Line,,1,,,6,8,None,Arrow,*
+38,Line,,1,,,7,8,None,Arrow,Part of
+39,Line,,1,,,6,8,None,Arrow,Part of
+40,Line,,1,,,8,2,None,Arrow,Part of
+41,Line,,1,,,10,2,None,Arrow,Part of
+42,Line,,1,,,9,2,None,Arrow,Part of
+43,Terminator,Flowchart Shapes,1,,,,,,,the 'Intentions ' to 'Observed behaviour ' Positively influences relationship
+44,Line,,1,,,43,4,None,Arrow,relates to

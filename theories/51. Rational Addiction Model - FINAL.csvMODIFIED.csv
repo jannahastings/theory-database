@@ -1,0 +1,52 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,Past consumption
+3,Process,Flowchart Shapes,1,,,,,,,Current consumption
+4,Process,Flowchart Shapes,1,,,,,,,Addiction
+5,Process,Flowchart Shapes,1,,,,,,,Marginal utility
+6,Process,Flowchart Shapes,1,,,,,,,Adjacent complementarity
+7,Process,Flowchart Shapes,1,,,,,,,Rationality
+8,Process,Flowchart Shapes,1,,,,,,,Unstable steady states
+9,Process,Flowchart Shapes,1,,,,,,,Multiple steady states
+10,Process,Flowchart Shapes,1,,,,,,,Bimodal distribution of consumption
+11,Process,Flowchart Shapes,1,,,,,,,Harmful addiction
+12,Process,Flowchart Shapes,1,,,,,,,Beneficial addiction
+14,Process,Flowchart Shapes,1,,,,,,,Present-oriented
+15,Process,Flowchart Shapes,1,,,,,,,Future-oriented
+16,Process,Flowchart Shapes,1,,,,,,,Price
+17,Process,Flowchart Shapes,1,,,,,,,Stress
+19,Process,Flowchart Shapes,1,,,,,,,Time preference
+20,Process,Flowchart Shapes,1,,,,,,,Myopia
+21,Process,Flowchart Shapes,1,,,,,,,Binging
+22,Process,Flowchart Shapes,1,,,,,,,Quitting
+25,Process,Flowchart Shapes,1,,,,,,,People
+29,Process,Flowchart Shapes,1,,,,,,,Goods 
+32,Line,,1,,,2,5,None,Arrow,
+36,Line,,1,,,14,11,None,Arrow,
+37,Line,,1,,,15,12,None,Arrow,
+38,Line,,1,,,16,3,None,Arrow,-
+39,Line,,1,,,17,11,None,Arrow,
+40,Line,,1,,,17,5,None,Arrow,
+45,Line,,1,,,5,6,None,Arrow,
+46,Line,,1,,,6,4,None,Arrow,+
+47,Line,,1,,,4,20,None,Arrow,
+48,Line,,1,,,20,4,None,Arrow,
+51,Line,,1,,,14,20,Arrow,Arrow,Correlation
+59,Line,,1,,,8,9,None,Arrow,
+60,Line,,1,,,9,4,None,Arrow,
+61,Line,,1,,,9,3,None,Arrow,
+62,Line,,1,,,21,5,None,Arrow,
+63,Line,,1,,,5,21,None,Arrow,
+64,Line,,1,,,22,5,None,Arrow,
+65,Line,,1,,,5,22,None,Arrow,
+66,Line,,1,,,11,4,None,Arrow,Type of
+67,Line,,1,,,12,4,None,Arrow,Type of
+68,Line,,1,,,14,19,None,Arrow,Type of
+69,Line,,1,,,15,19,None,Arrow,Type of
+70,Line,,1,,,5,4,None,Arrow,*
+71,Line,,1,,,3,4,None,Arrow,*
+72,Line,,1,,,20,7,None,Arrow,Part of
+73,Line,,1,,,19,25,None,Arrow,Part of
+74,Line,,1,,,10,29,None,Arrow,Part of
+75,Line,,1,,,25,4,None,Arrow,*
+76,Line,,1,,,29,4,None,Arrow,*

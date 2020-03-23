@@ -1,0 +1,37 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,Health scenarios / threats
+3,Process,Flowchart Shapes,1,,,,,,,Death thought activation
+4,Process,Flowchart Shapes,1,,,,,,,Unconscious
+5,Process,Flowchart Shapes,1,,,,,,,Conscious
+6,Process,Flowchart Shapes,1,,,,,,,Relevance of behaviour for coping with threat
+7,Process,Flowchart Shapes,1,,,,,,,Threat-avoidance outcomes
+9,Process,Flowchart Shapes,1,,,,,,,Health behaviour-oriented outcomes 
+10,Process,Flowchart Shapes,1,,,,,,,Relevance of behaviour for meaning and self-esteem
+11,Process,Flowchart Shapes,1,,,,,,,Health-defeating Outcomes
+12,Process,Flowchart Shapes,1,,,,,,,Health-facilitating outcomes
+13,Process,Flowchart Shapes,1,,,,,,,Relevance of behaviour for threat of creatureliness
+14,Process,Flowchart Shapes,1,,,,,,,Avoidance of body-oriented health behaviour
+15,Line,,1,,,2,3,None,Arrow,
+19,Line,,1,,,6,31,None,Arrow,
+20,Line,,1,,,5,31,None,Arrow,relates through
+21,Line,,1,,,5,33,None,Arrow,relates through
+22,Line,,1,,,6,33,None,Arrow,
+23,Line,,1,,,4,35,None,Arrow,relates through
+24,Line,,1,,,4,37,None,Arrow,relates through
+25,Line,,1,,,10,35,None,Arrow,
+26,Line,,1,,,10,37,None,Arrow,
+27,Line,,1,,,4,39,None,Arrow,relates through
+28,Line,,1,,,13,39,None,Arrow,
+29,Line,,1,,,5,3,None,Arrow,Type of
+30,Line,,1,,,4,3,None,Arrow,Type of
+31,Terminator,Flowchart Shapes,1,,,,,,,the 'Conscious' to 'Threat-avoidance outcomes' Influences relationship
+32,Line,,1,,,31,7,None,Arrow,relates to
+33,Terminator,Flowchart Shapes,1,,,,,,,the 'Conscious' to 'Health behaviour-oriented outcomes ' Influences relationship
+34,Line,,1,,,33,9,None,Arrow,relates to
+35,Terminator,Flowchart Shapes,1,,,,,,,the 'Unconscious' to 'Health-defeating Outcomes' Influences relationship
+36,Line,,1,,,35,11,None,Arrow,relates to
+37,Terminator,Flowchart Shapes,1,,,,,,,the 'Unconscious' to 'Health-facilitating outcomes' Influences relationship
+38,Line,,1,,,37,12,None,Arrow,relates to
+39,Terminator,Flowchart Shapes,1,,,,,,,the 'Unconscious' to 'Avoidance of body-oriented health behaviour' Influences relationship
+40,Line,,1,,,39,14,None,Arrow,relates to

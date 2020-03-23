@@ -1,0 +1,73 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,Expected consequences of target behaviour
+3,Process,Flowchart Shapes,1,,,,,,,Health costs and benefits
+4,Process,Flowchart Shapes,1,,,,,,,Emotional costs and benefits
+5,Process,Flowchart Shapes,1,,,,,,,Perceived competence
+6,Process,Flowchart Shapes,1,,,,,,,Social influence
+7,Process,Flowchart Shapes,1,,,,,,,Personal goal structure 
+8,Process,Flowchart Shapes,1,,,,,,,Higher order goals
+9,Process,Flowchart Shapes,1,,,,,,,Lower order goals
+12,Process,Flowchart Shapes,1,,,,,,,Target behaviour
+13,Process,Flowchart Shapes,1,,,,,,,Threat appraisal
+14,Process,Flowchart Shapes,1,,,,,,,Environmental charactersitcs
+15,Process,Flowchart Shapes,1,,,,,,,Personal characteristics
+16,Process,Flowchart Shapes,1,,,,,,,Precontemplation
+17,Process,Flowchart Shapes,1,,,,,,,Contemplation
+18,Process,Flowchart Shapes,1,,,,,,,Maintenance
+19,Process,Flowchart Shapes,1,,,,,,,Initial behaviour change
+20,Process,Flowchart Shapes,1,,,,,,,Regulatory processes
+22,Process,Flowchart Shapes,1,,,,,,,Feedback mechansisms
+23,Process,Flowchart Shapes,1,,,,,,,Feedforward mechansisms
+24,Process,Flowchart Shapes,1,,,,,,,Action control processes
+27,Line,,1,,,3,4,Arrow,Arrow,Correlation
+28,Line,,1,,,4,6,Arrow,Arrow,Correlation
+29,Line,,1,,,6,5,Arrow,Arrow,Correlation
+30,Line,,1,,,5,3,Arrow,Arrow,Correlation
+31,Line,,1,,,5,4,Arrow,Arrow,Correlation
+32,Line,,1,,,3,6,Arrow,Arrow,Correlation
+37,Line,,1,,,2,7,None,Arrow,
+38,Line,,1,,,7,2,None,Arrow,Correlation
+44,Line,,1,,,13,9,None,Arrow,
+45,Line,,1,,,14,13,None,Arrow,
+46,Line,,1,,,15,13,None,Arrow,
+47,Line,,1,,,14,2,None,Arrow,
+48,Line,,1,,,15,2,None,Arrow,
+49,Line,,1,,,16,92,None,Arrow,relates through
+50,Line,,1,,,17,86,None,Arrow,relates through
+51,Line,,1,,,17,84,None,Arrow,relates through
+52,Line,,1,,,19,90,None,Arrow,relates through
+53,Line,,1,,,19,88,None,Arrow,relates through
+54,Line,,1,,,18,19,None,Arrow,Transition
+58,Line,,1,,,14,84,None,Arrow,
+59,Line,,1,,,2,84,None,Arrow,
+60,Line,,1,,,2,86,None,Arrow,
+61,Line,,1,,,14,88,None,Arrow,
+62,Line,,1,,,20,90,None,Arrow,
+67,Line,,1,,,20,92,None,Arrow,
+68,Line,,1,,,20,88,None,Arrow,
+69,Line,,1,,,8,7,None,Arrow,Part of
+70,Line,,1,,,9,7,None,Arrow,Part of
+71,Line,,1,,,12,90,None,Arrow,*
+72,Line,,1,,,12,88,None,Arrow,*
+73,Line,,1,,,12,86,None,Arrow,*
+74,Line,,1,,,7,90,None,Arrow,*
+75,Line,,1,,,7,88,None,Arrow,*
+76,Line,,1,,,7,86,None,Arrow,*
+77,Line,,1,,,24,20,None,Arrow,Part of
+78,Line,,1,,,22,20,None,Arrow,Part of
+79,Line,,1,,,23,20,None,Arrow,Part of
+80,Line,,1,,,3,2,None,Arrow,Part of
+81,Line,,1,,,4,2,None,Arrow,Part of
+82,Line,,1,,,6,2,None,Arrow,Part of
+83,Line,,1,,,5,2,None,Arrow,Part of
+84,Terminator,Flowchart Shapes,1,,,,,,,the 'Contemplation' to 'Initial behaviour change' Influences relationship
+85,Line,,1,,,84,19,None,Arrow,relates to
+86,Terminator,Flowchart Shapes,1,,,,,,,the 'Contemplation' to 'Precontemplation' Transitions to relationship
+87,Line,,1,,,86,16,None,Arrow,relates to
+88,Terminator,Flowchart Shapes,1,,,,,,,the 'Initial behaviour change' to 'Maintenance' Influences relationship
+89,Line,,1,,,88,18,None,Arrow,relates to
+90,Terminator,Flowchart Shapes,1,,,,,,,the 'Initial behaviour change' to 'Contemplation' Transitions to relationship
+91,Line,,1,,,90,17,None,Arrow,relates to
+92,Terminator,Flowchart Shapes,1,,,,,,,the 'Precontemplation' to 'Contemplation' Influences relationship
+93,Line,,1,,,92,17,None,Arrow,relates to

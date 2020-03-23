@@ -1,0 +1,91 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,Sources of efficacy expectations
+4,Process,Flowchart Shapes,1,,,,,,,Performance accomplishments / mastery experiences
+5,Process,Flowchart Shapes,1,,,,,,,Vicarious experience
+6,Process,Flowchart Shapes,1,,,,,,,Verbal persuasion
+7,Process,Flowchart Shapes,1,,,,,,,Emotional arousal / physiological states
+8,Process,Flowchart Shapes,1,,,,,,,Modes of treatment
+10,Process,Flowchart Shapes,1,,,,,,,Participant modelling
+11,Process,Flowchart Shapes,1,,,,,,,Performance desensitisation
+12,Process,Flowchart Shapes,1,,,,,,,Performance exposure
+13,Process,Flowchart Shapes,1,,,,,,,Self-instructed performance
+14,Process,Flowchart Shapes,1,,,,,,,Live modelling
+15,Process,Flowchart Shapes,1,,,,,,,Symbolic modelling
+16,Process,Flowchart Shapes,1,,,,,,,Suggestion 
+17,Process,Flowchart Shapes,1,,,,,,,Exhortation
+18,Process,Flowchart Shapes,1,,,,,,,Self-instruction
+19,Process,Flowchart Shapes,1,,,,,,,Interpretative treatments
+20,Process,Flowchart Shapes,1,,,,,,,Attribution
+21,Process,Flowchart Shapes,1,,,,,,,"Relaxation, biofeedback"
+22,Process,Flowchart Shapes,1,,,,,,,Symbolic desensitisation
+23,Process,Flowchart Shapes,1,,,,,,,Symbolic exposure
+24,Process,Flowchart Shapes,1,,,,,,,Self-efficacy
+25,Process,Flowchart Shapes,1,,,,,,,Magnitude
+26,Process,Flowchart Shapes,1,,,,,,,Generality
+27,Process,Flowchart Shapes,1,,,,,,,Strength
+29,Process,Flowchart Shapes,1,,,,,,,Choices of behavioural activities and settings
+30,Process,Flowchart Shapes,1,,,,,,,Outcome expectancies
+31,Process,Flowchart Shapes,1,,,,,,,Behaviour
+32,Process,Flowchart Shapes,1,,,,,,,Effort 
+33,Process,Flowchart Shapes,1,,,,,,,Persistence
+35,Process,Flowchart Shapes,1,,,,,,,Capabilities
+36,Process,Flowchart Shapes,1,,,,,,,Cognitive appraisal of efficacy information
+37,Process,Flowchart Shapes,1,,,,,,,Social circumstances
+38,Process,Flowchart Shapes,1,,,,,,,Situational circumstances
+39,Process,Flowchart Shapes,1,,,,,,,Temporal circumstances
+41,Process,Flowchart Shapes,1,,,,,,,Incentives
+47,Line,,1,,,10,4,None,Arrow,
+48,Line,,1,,,11,4,None,Arrow,
+49,Line,,1,,,12,4,None,Arrow,
+50,Line,,1,,,13,4,None,Arrow,
+51,Line,,1,,,14,5,None,Arrow,
+52,Line,,1,,,15,5,None,Arrow,
+53,Line,,1,,,16,6,None,Arrow,
+54,Line,,1,,,17,6,None,Arrow,
+55,Line,,1,,,18,6,None,Arrow,
+56,Line,,1,,,19,6,None,Arrow,
+57,Line,,1,,,20,7,None,Arrow,
+58,Line,,1,,,21,7,None,Arrow,
+59,Line,,1,,,22,7,None,Arrow,
+60,Line,,1,,,23,7,None,Arrow,
+79,Line,,1,,,2,123,None,Arrow,relates through
+83,Line,,1,,,29,31,None,Arrow,
+84,Line,,1,,,30,125,None,Arrow,relates through
+85,Line,,1,,,24,29,None,Arrow,
+86,Line,,1,,,24,30,None,Arrow,
+87,Line,,1,,,31,24,None,Arrow,
+88,Line,,1,,,36,123,None,Arrow,
+91,Line,,1,,,35,125,None,Arrow,
+92,Line,,1,,,41,125,None,Arrow,
+95,Line,,1,,,31,4,None,Arrow,
+97,Line,,1,,,4,2,None,Arrow,Type of
+98,Line,,1,,,5,2,None,Arrow,Type of
+99,Line,,1,,,6,2,None,Arrow,Type of
+100,Line,,1,,,7,2,None,Arrow,Type of
+101,Line,,1,,,10,8,None,Arrow,Type of
+102,Line,,1,,,11,8,None,Arrow,Type of
+103,Line,,1,,,12,8,None,Arrow,Type of
+104,Line,,1,,,13,8,None,Arrow,Type of
+105,Line,,1,,,14,8,None,Arrow,Type of
+106,Line,,1,,,15,8,None,Arrow,Type of
+107,Line,,1,,,16,8,None,Arrow,Type of
+108,Line,,1,,,17,8,None,Arrow,Type of
+109,Line,,1,,,18,8,None,Arrow,Type of
+110,Line,,1,,,19,8,None,Arrow,Type of
+111,Line,,1,,,20,8,None,Arrow,Type of
+112,Line,,1,,,21,8,None,Arrow,Type of
+113,Line,,1,,,22,8,None,Arrow,Type of
+114,Line,,1,,,23,8,None,Arrow,Type of
+115,Line,,1,,,25,24,None,Arrow,Part of
+116,Line,,1,,,26,24,None,Arrow,Part of
+117,Line,,1,,,27,24,None,Arrow,Part of
+118,Line,,1,,,32,31,None,Arrow,Part of
+119,Line,,1,,,33,31,None,Arrow,Part of
+120,Line,,1,,,37,36,None,Arrow,Part of
+121,Line,,1,,,39,36,None,Arrow,Part of
+122,Line,,1,,,38,36,None,Arrow,Part of
+123,Terminator,Flowchart Shapes,1,,,,,,,the 'Sources of efficacy expectations' to 'Self-efficacy' Influences relationship
+124,Line,,1,,,123,24,None,Arrow,relates to
+125,Terminator,Flowchart Shapes,1,,,,,,,the 'Outcome expectancies' to 'Behaviour' Influences relationship
+126,Line,,1,,,125,31,None,Arrow,relates to
