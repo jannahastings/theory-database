@@ -1,10 +1,12 @@
 # Parse the theories from the CSV files and consolidate information about them
 
 import os
+# os.chdir('/Users/hastingj/Work/Python/TheoryDatabase')
 import csv
 import codecs
 import pandas
 import os.path
+import re
 from whoosh import index
 from whoosh.index import open_dir
 from whoosh.qparser import QueryParser
@@ -12,7 +14,9 @@ from whoosh.qparser import QueryParser
 from whoosh.fields import Schema, TEXT, KEYWORD, ID, STORED
 from whoosh.analysis import StemmingAnalyzer
 
-# os.chdir('/Users/hastingj/Work/Python/TheoryDatabase')
+from ontoutils.lucid_chart import ParseLucidChartCsv
+
+
 
 theory_dir = 'theories'
 
@@ -24,6 +28,8 @@ class Theory:
         self.number = number
         self.name = name
         self.constructs = {}
+        self.constructs_by_name = {}
+        self.reified_rels = {}
         self.triples = []
     def getNumConstructs(self):
         return(len(self.constructs.keys()))
@@ -53,20 +59,22 @@ class Relation:
     THROUGH = 14
     TO = 15
 
+# TODO implement a proper dictionary of variants of names for labels in lucid_wrapper
+
     def getRelTypeForLabelString(label):
-        if label == "influences" or label == "" or label == "+/-" or label == 'Bi-directional influence':
+        if label.lower() == "influences" or label == "" or label == "+/-" or label == 'Bi-directional influence':
             return (Relation.INFLUENCES)
-        if label == "positively influences" or label == "+":
+        if label.lower() == "positively influences" or label == "+":
             return (Relation.POS_INFLUENCES)
-        if label == "negatively influences" or label == "-":
+        if label.lower() == "negatively influences" or label == "-":
             return (Relation.NEG_INFLUENCES)
-        if label == "may be influenced by" or label == "?" or label == "+?":
+        if label.lower() == "may be influenced by" or label == "?" or label == "+?" or label == "May influence":
             return (Relation.MAY_INFLUENCE)
-        if label == "is influenced (*) by" or label == "*":
+        if label.lower() == "is influenced (*) by" or label == "*" or label == "Influences (*)":
             return (Relation.INFLUENCE_MULT)
-        if label == "is influenced (sum) by" or label == "Sum":
+        if label.lower() == "is influenced (sum) by" or label == "Sum":
             return (Relation.INFLUENCE_SUM)
-        if label == "correlates with" or label == "Correlation" or label == "Correlations":
+        if label.lower() == "correlates with" or label == "Correlation" or label == "Correlations":
             return (Relation.CORR_WITH)
         if label == "Type of":
             return (Relation.TYPE_OF)
@@ -80,7 +88,7 @@ class Relation:
             return (Relation.HAS_START)
         if label == "Has end":
             return (Relation.HAS_END)
-        if label == "Transition":
+        if label == "Transition" or label == "Transitions to":
             return (Relation.TRANSITION)
         if label == "relates through":
             return (Relation.THROUGH)
@@ -125,11 +133,12 @@ class Relation:
         return (relstr)
 
 class Triple:
-    def __init__(self,const1,rel,const2):
+    def __init__(self,const1,rel,const2,reified_rel=None):
         self.const1 = const1
         self.rel = rel
         self.const2 = const2
         self.relStr = Relation.getStringForRelType(self.rel)
+        self.reified_rel = reified_rel
 
     def __str__(self):
         return(", ".join([self.const1.name,self.relStr,self.const2.name]))
@@ -139,60 +148,73 @@ class Triple:
 
 theories = {}
 theory_names_to_ids = {}
-id_labels = {}
 relations = []
 row_data = []
 rel_types = {}
 ix = None
 
+
 def setup():
     for f in theory_files:
-        with codecs.open(theory_dir+'/'+str(f), mode='r', encoding="utf-8") as csv_file:
-            model_num = str(f).split('.')[0]
-            model_name = str(f).split('.')[1].strip()
-            model_name = model_name.replace(' - FINAL','')
-            model_name = model_name.replace('FINAL','')
-            model_name = model_name.replace(' - RW','')
-            theory_names_to_ids[model_name] = model_num
+        model_num = str(f).split('.')[0]
+        model_name = str(f).split('.')[1].strip()
+        model_name = model_name.replace(' - FINAL','')
+        model_name = model_name.replace('FINAL','')
+        model_name = model_name.replace(' - RW','')
+        theory_names_to_ids[model_name] = model_num
 
-            theory = Theory(model_num,model_name)
-            theories[model_num] = theory
+        theory = Theory(model_num,model_name)
+        theories[model_num] = theory
 
-            csv_reader = csv.DictReader(csv_file)
+        print("About to parse theory: ",model_num,model_name)
+        (entities, relations) = ParseLucidChartCsv.parseCsvEntityData(theory_dir+"/"+f)
 
-            for row in csv_reader:
-                id = row['Id']
-                type = row['Name']
-                label = str(row['Text Area 1']).strip()
-                line_source = row['Line Source']
-                line_dest = row['Line Destination']
+        r_pattern = re.compile("the .+? relationship$")
+        r_search = re.compile("the \'(.+?)\' to \'(.+?)\' (.+?) relationship")
 
-    #            print(f"Model: {model_num}, Object Id: {id}, Drawing type: {type}, Label: {label}, Line source: {line_source}, destination {line_dest}")
+        for e_id in entities:
+            e = entities[e_id]
+            construct = Construct(e_id,e.name)
 
-                if type in ['Process','Text','Rectangle','Terminator']:
-                    construct = Construct(name=label,number=id)
-                    theory.constructs[id] = construct
-                    id_labels[str(model_num)+":"+id]=label
-
-                if type == 'Line':
-                    rel_type = Relation.getRelTypeForLabelString(label)
-                    relations.append(str(model_num)+":"+line_source+":"+line_dest+":"+str(rel_type))
-
-    # Build the triples
-    for rel in relations:
-        [mod_id,src_id,tar_id,type] = rel.split(":")
-        theory = theories[mod_id]
-        if (src_id in theory.constructs):
-            constr1 = theory.constructs[src_id]
-            if (tar_id in theory.constructs):
-                constr2 = theory.constructs[tar_id]
-                triple = Triple(constr1,int(type),constr2)
-                theory.triples.append(triple)
-                #print(str(triple),f"Theory {mod_id}")
+            if re.match(r_pattern, e.name):
+                theory.reified_rels[e.id] = construct
             else:
-                print("Target "+tar_id+"not recognised in theory "+mod_id)
-        else:
-            print("Source "+src_id+"not recognised in theory "+mod_id)
+                theory.constructs[e.id] = construct
+                theory.constructs_by_name[e.name] = construct
+
+        for r in relations:
+            rel_type = Relation.getRelTypeForLabelString(r.relType)
+            if rel_type == Relation.THROUGH:
+                # Find the REIFIED RELATIONAL ENTITY. There should be just one.
+                constr1 = theory.constructs[r.entity1.id]
+                reified_rel = theory.reified_rels[r.entity2.id]
+                target_name = r.entity2.name
+                m = re.search(r_search, target_name)
+                if m:
+                    entity1_name = m.group(1)
+                    entity2_name = m.group(2).strip()
+                    rel_name = m.group(3)
+                    real_rel_type = Relation.getRelTypeForLabelString(rel_name)
+                    if entity2_name in theory.constructs_by_name:
+                        real_entity_2 = theory.constructs_by_name[entity2_name]
+                        triple = Triple(constr1,real_rel_type,real_entity_2,reified_rel)
+                        theory.triples.append(triple)
+                    else:
+                        print("Name",entity2_name,"not found in theory",theory.number)
+                else:
+                    print("Error parsing",target_name)
+            elif rel_type == Relation.TO:
+                pass
+            else:
+                constr1 = theory.constructs[r.entity1.id]
+                type = Relation.getRelTypeForLabelString(r.relType)
+                if r.entity2.id in theory.constructs:
+                    constr2 = theory.constructs[r.entity2.id]
+                elif r.entity2.id in theory.reified_rels:
+                    constr2 = theory.reified_rels[r.entity2.id]
+
+                triple = Triple(constr1,type,constr2)
+                theory.triples.append(triple)
 
     # get a table of counts for theories
 

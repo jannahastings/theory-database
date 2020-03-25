@@ -16,11 +16,23 @@
 
     <h3> Search </h3>
 
-     <p> To search for a construct within a theory, please enter a search term below. <br/>
-    <form action="/search" method="post" name="search">
-        Search term: <input type = "search" name="searchstr"> <input type="submit" value="Search">
+     <p>
+    <form action="/searchTheory" method="post" name="searchTheory">
+        To search for a theory by name, enter a search string:  <input type = "search" name="searchtheory"> <input type="submit" value="Search Theory">
+    </form>
+     </p>
+
+     <p>
+    <form action="/searchConstruct" method="post" name="searchConstruct">
+        To search for a construct within a theory, enter a search string: <input type = "search" name="searchconstruct"> <input type="submit" value="Search Construct">
     </form>
     </p>
+
+     <p>
+    <form action="/searchRelation" method="post" name="searchRelation">
+        To search for a triple by relation type, enter a search string:  <input type = "search" name="searchrelation"> <input type="submit" value="Search Relation">
+    </form>
+     </p>
 
     <h3> Browse theories </h3>
 

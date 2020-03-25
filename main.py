@@ -37,7 +37,7 @@ app = FlaskApp(__name__)
 def display_home():
     num_theories = len(TheoryDatabase.theories)
     num_triples = sum([len(t.triples) for t in TheoryDatabase.theories.values()])
-    num_constructs = len(set(TheoryDatabase.id_labels.values()))
+    num_constructs = len(set([c for t in TheoryDatabase.theories.values() for c in t.constructs_by_name.keys()]))
     return render_template('home.html',
         num_theories=num_theories,num_triples=num_triples, num_constructs=num_constructs, theories = TheoryDatabase.theories.values())
 
