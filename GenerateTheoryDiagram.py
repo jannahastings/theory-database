@@ -34,6 +34,7 @@ for theory_num in theories.keys():
         else:
             node.set_shape('ellipse')
             node.set_fontcolor('black')
+            node.set_fontname('times italic')
             node.set_fillcolor('white')
             node.set_style('rounded, filled')
             node.set_color('grey')
