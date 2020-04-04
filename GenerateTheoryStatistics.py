@@ -2,13 +2,25 @@
 import numpy as np
 import pandas as pd
 import matplotlib
-matplotlib.use('TkAgg')
+#matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 import statistics
 import networkx as nx
 
 theory_names = sorted(theories.keys())
+
+# Average, min and max number of constucts per theory
+constr_lens = [len(t.constructs) for t in theories.values() ]
+print(max(constr_lens) )
+print(min(constr_lens))
+print(statistics.mean(constr_lens))
+
+# Average number of triples
+triple_lens = [len(t.triples) for t in theories.values() ]
+print(statistics.mean(triple_lens) )
+print(min(triple_lens))
+print(max(triple_lens))
 
 
 # Table of constructs vs. number of theories that those constructs appear (are mentioned) in
@@ -34,6 +46,14 @@ fig.subplots_adjust(bottom=0.3)
 plt.show()
 
 plt.close('all')
+
+
+# Extract the theories that don't have behaviour in them
+theories_no_behav = []
+for j,theory in zip(range(len(theory_names)),[theories[t] for t in theory_names]):
+    theory_desc = " ".join([c.name.lower() for c in theory.constructs.values()])
+    if 'behaviour' not in theory_desc:
+        theories_no_behav.append(theory)
 
 
 # Table of relations vs. number of theories that those relations appear in (or perhaps rather, usages across theories)
@@ -84,7 +104,7 @@ df = pd.DataFrame(match_counts, columns=theory_names, index=theory_names)
 # Display a clustered heatmap of 'percentage containment'
 #plt.pcolor(df)
 plt.rcParams["axes.labelsize"] = 10
-b = sns.clustermap(df, cmap='RdYlGn_r',row_cluster=True,yticklabels=True,xticklabels=True)
+b = sns.clustermap(df, cmap='RdYlGn_r',method='average', metric='euclidean',row_cluster=True,yticklabels=True,xticklabels=True)
 plt.show()
 plt.close('all')
 
@@ -104,7 +124,7 @@ plt.xlabel('Number of constructs')
 plt.ylabel('Number of triples')
 
 for i, name in zip(range(len(theory_names)),theory_names):
-    if x[i]>40 or y[i] > 80:
+    if x[i]>37 or y[i] > 80:
         ax.annotate(name, (x[i], y[i]))
 
 plt.show()
