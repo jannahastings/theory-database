@@ -7,15 +7,14 @@
     </head>
     <body style="margin:2em;padding:10px">
 
-    <h1>
-     Theory Database (prototype)
-     </h1>
+    {% include 'header.html' %}
 
-    <div class="alert alert-info" role="alert">
-        <h2>
+    {% include 'information.html' %}
+
+    <h3>
             {{theory.number}}: {{theory.name}}
-        </h2>
-    </div>
+    </h3>
+
 
     <p class="text-center">
         <img src="{{wc_image_file}}"/> <br/>
@@ -41,9 +40,7 @@
 
      <p> </p>
 
-     <div class="alert alert-info" role="alert">
-        <p class="text-center"> <a href="/" class="alert-link">Home</a> | <a href="mailto:j.hastings@ucl.ac.uk" class="alert-link">Contact</a> </p>
-     </div>
+    {% include 'footer.html' %}
     </body>
 </html>
 

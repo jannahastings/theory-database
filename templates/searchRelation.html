@@ -6,14 +6,15 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     </head>
     <body style="margin:2em;padding:10px">
-    <h1>
-     Theory Database (prototype)
-     </h1>
-     <div class="alert alert-info" role="alert">
-        <h2>
-                Search Results
-        </h2>
-     </div>
+
+     {% include 'header.html' %}
+
+     {% include 'information.html' %}
+
+     <h3>
+        Search Results
+     </h3>
+
 
      {% if len_results > 0 %}
 
@@ -43,9 +44,7 @@
 
       <p/>
 
-     <div class="alert alert-info" role="alert">
-        <p class="text-center"> <a href="/">Home</a> | <a href="mailto:j.hastings@ucl.ac.uk">Contact</a> </p>
-     </div>
+     {% include 'footer.html' %}
 
     </body>
 </html>

@@ -7,16 +7,9 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     </head>
     <body style="margin:2em;padding:10px">
-    <h1>
-     Theory Database (prototype)
-     </h1>
-    <div class="alert alert-info" role="alert">
 
-     <p> This is a searchable database of theories of behaviour change that have been formalised according to an <a href="https://osf.io/q25nw/" class="alert-link">Ontology-Based Modelling System</a>. </p>
-
-     <p>For more information, see West, R., Godinho, C. A., Bohlen, L. C., Carey, R. N., Hastings, J., Lefevre, C. E., & Michie, S. (2019). Development of a formal system for representing behaviour-change theories. Nature human behaviour, 3(5), 526. <a href="http://doi.org/10.1038/s41562-019-0561-2" class="alert-link">doi.org/10.1038/s41562-019-0561-2</a>.</p>
-
-    </div>
+    {% include 'header.html' %}
+    {% include 'information.html' %}
 
     <h3> Statistics </h3>
 
@@ -54,9 +47,7 @@
      </ul>
 
      <p/>
-     <div class="alert alert-info" role="alert">
-        <p class="text-center"> <a href="/" class="alert-link">Home</a> | <a href="mailto:j.hastings@ucl.ac.uk" class="alert-link">Contact</a> </p>
-     </div>
+     {% include 'footer.html' %}
     </body>
 </html>
 
