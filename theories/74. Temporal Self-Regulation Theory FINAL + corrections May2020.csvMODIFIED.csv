@@ -8,7 +8,7 @@ Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,So
 7,Process,Flowchart Shapes,1,,,,,,,Value 
 8,Process,Flowchart Shapes,1,,,,,,,Temporal valuations 
 9,Process,Flowchart Shapes,1,,,,,,,Intentions 
-10,Process,Flowchart Shapes,1,,,,,,,Contectedness beliefs 
+10,Process,Flowchart Shapes,1,,,,,,,Connectedness beliefs 
 16,Line,,1,,,8,9,None,Arrow,+
 17,Line,,1,,,10,9,None,Arrow,+
 23,Line,,1,,,9,43,None,Arrow,relates through

@@ -1,0 +1,55 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,Page 1
+2,Process,Flowchart Shapes,1,,,,,,,Sources of control 
+3,Process,Flowchart Shapes,1,,,,,,,Behaviour 
+4,Process,Flowchart Shapes,1,,,,,,,Cues from repertoire of  cognitive and self-directive variables 
+5,Process,Flowchart Shapes,1,,,,,,,Automatic processing 
+6,Process,Flowchart Shapes,1,,,,,,,Controlled processing 
+7,Process,Flowchart Shapes,1,,,,,,,Discrepancy 
+8,Process,Flowchart Shapes,1,,,,,,,External attribution 
+9,Process,Flowchart Shapes,1,,,,,,,Internal attribution 
+10,Process,Flowchart Shapes,1,,,,,,,Attributional processes 
+11,Process,Flowchart Shapes,1,,,,,,,Self-reinforcement 
+12,Process,Flowchart Shapes,1,,,,,,,Self-reinforcement stage 
+13,Process,Flowchart Shapes,1,,,,,,,Standards 
+14,Process,Flowchart Shapes,1,,,,,,,Self-monitoring outcome 
+15,Process,Flowchart Shapes,1,,,,,,,Self-evaluation stage 
+16,Process,Flowchart Shapes,1,,,,,,,Perceptions of control 
+17,Process,Flowchart Shapes,1,,,,,,,Relevance to goals 
+18,Process,Flowchart Shapes,1,,,,,,,Self-monitoring stage 
+19,Process,Flowchart Shapes,1,,,,,,,Self-regulation 
+20,Process,Flowchart Shapes,1,,,,,,,Biological system 
+21,Process,Flowchart Shapes,1,,,,,,,Immediate environment 
+30,Line,,1,,,18,89,None,Arrow,relates through
+36,Line,,1,,,10,11,None,Arrow,+
+39,Line,,1,,,15,87,None,Arrow,relates through
+41,Line,,1,,,7,87,None,Arrow,
+58,Line,,1,,,12,3,None,Arrow,+/-
+59,Line,,1,,,3,18,None,Arrow,
+60,Line,,1,,,16,89,None,Arrow,
+61,Line,,1,,,17,89,None,Arrow,
+66,Line,,1,,,2,18,None,Arrow,
+67,Line,,1,,,14,15,None,Arrow,Part of
+68,Line,,1,,,13,15,None,Arrow,Part of
+69,Line,,1,,,14,7,None,Arrow,*
+70,Line,,1,,,13,7,None,Arrow,*
+71,Line,,1,,,9,10,None,Arrow,Part of
+72,Line,,1,,,8,10,None,Arrow,Part of
+73,Line,,1,,,11,12,None,Arrow,Part of
+74,Line,,1,,,10,12,None,Arrow,Part of
+75,Line,,1,,,18,19,None,Arrow,Part of
+76,Line,,1,,,16,19,None,Arrow,Part of
+77,Line,,1,,,17,19,None,Arrow,Part of
+78,Line,,1,,,15,19,None,Arrow,Part of
+79,Line,,1,,,7,19,None,Arrow,Part of
+80,Line,,1,,,12,19,None,Arrow,Part of
+81,Line,,1,,,19,6,None,Arrow,Part of
+82,Line,,1,,,6,4,None,Arrow,Part of
+83,Line,,1,,,5,4,None,Arrow,Part of
+84,Line,,1,,,4,2,None,Arrow,Part of
+85,Line,,1,,,21,2,None,Arrow,Part of
+86,Line,,1,,,20,2,None,Arrow,Part of
+87,Terminator,Flowchart Shapes,1,,,,,,,the 'Self-evaluation stage ' to 'Self-reinforcement stage ' Transitions to relationship
+88,Line,,1,,,87,12,None,Arrow,relates to
+89,Terminator,Flowchart Shapes,1,,,,,,,the 'Self-monitoring stage ' to 'Self-evaluation stage ' Transitions to relationship
+90,Line,,1,,,89,15,None,Arrow,relates to

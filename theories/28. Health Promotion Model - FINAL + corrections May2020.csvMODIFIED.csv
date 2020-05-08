@@ -29,33 +29,31 @@ Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,So
 51,Line,,1,,,3,10,None,Arrow,+
 52,Line,,1,,,4,11,None,Arrow,
 53,Line,,1,,,4,10,None,Arrow,-
-54,Line,,1,,,5,4,None,Arrow,
-55,Line,,1,,,5,4,None,Arrow,
-56,Line,,1,,,5,4,None,Arrow,+
-57,Line,,1,,,5,11,None,Arrow,
-58,Line,,1,,,10,11,None,Arrow,+
-59,Line,,1,,,5,10,None,Arrow,+
-60,Line,,1,,,9,5,Arrow,Arrow,+
-61,Line,,1,,,6,10,None,Arrow,
-62,Line,,1,,,7,10,None,Arrow,
-64,Line,,1,,,8,10,None,Arrow,-
-65,Line,,1,,,2,9,None,Arrow,
-66,Line,,1,,,9,10,None,Arrow,+
-67,Line,,1,,,9,11,None,Arrow,+/-
-68,Line,,1,,,6,11,None,Arrow,
-69,Line,,1,,,12,2,None,Arrow,Part of
-70,Line,,1,,,14,2,None,Arrow,Part of
-71,Line,,1,,,13,2,None,Arrow,Part of
-72,Line,,1,,,3,19,None,Arrow,Part of
-73,Line,,1,,,4,19,None,Arrow,Part of
-74,Line,,1,,,5,19,None,Arrow,Part of
-75,Line,,1,,,9,19,None,Arrow,Part of
-76,Line,,1,,,6,19,None,Arrow,Part of
-77,Line,,1,,,7,19,None,Arrow,Part of
-78,Line,,1,,,8,19,None,Arrow,Part of
-79,Line,,1,,,16,9,None,Arrow,Type of
-80,Line,,1,,,17,9,None,Arrow,Type of
-81,Line,,1,,,18,9,None,Arrow,Type of
-82,Line,,1,,,22,6,None,Arrow,Type of
-83,Line,,1,,,21,6,None,Arrow,Type of
-84,Line,,1,,,23,6,None,Arrow,Type of
+54,Line,,1,,,5,4,None,Arrow,+
+55,Line,,1,,,5,11,None,Arrow,
+56,Line,,1,,,10,11,None,Arrow,+
+57,Line,,1,,,5,10,None,Arrow,+
+58,Line,,1,,,9,5,Arrow,Arrow,+
+59,Line,,1,,,6,10,None,Arrow,
+60,Line,,1,,,7,10,None,Arrow,
+62,Line,,1,,,8,10,None,Arrow,-
+63,Line,,1,,,2,9,None,Arrow,
+64,Line,,1,,,9,10,None,Arrow,+
+65,Line,,1,,,9,11,None,Arrow,+/-
+66,Line,,1,,,6,11,None,Arrow,
+67,Line,,1,,,12,2,None,Arrow,Part of
+68,Line,,1,,,14,2,None,Arrow,Part of
+69,Line,,1,,,13,2,None,Arrow,Part of
+70,Line,,1,,,3,19,None,Arrow,Part of
+71,Line,,1,,,4,19,None,Arrow,Part of
+72,Line,,1,,,5,19,None,Arrow,Part of
+73,Line,,1,,,9,19,None,Arrow,Part of
+74,Line,,1,,,6,19,None,Arrow,Part of
+75,Line,,1,,,7,19,None,Arrow,Part of
+76,Line,,1,,,8,19,None,Arrow,Part of
+77,Line,,1,,,16,9,None,Arrow,Type of
+78,Line,,1,,,17,9,None,Arrow,Type of
+79,Line,,1,,,18,9,None,Arrow,Type of
+80,Line,,1,,,22,6,None,Arrow,Type of
+81,Line,,1,,,21,6,None,Arrow,Type of
+82,Line,,1,,,23,6,None,Arrow,Type of

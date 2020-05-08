@@ -160,7 +160,10 @@ def setup():
         model_name = str(f).split('.')[1].strip()
         model_name = model_name.replace(' - FINAL','')
         model_name = model_name.replace('FINAL','')
+        model_name = model_name.replace('corrections May2020','')
+        model_name = model_name.replace('+','')
         model_name = model_name.replace(' - RW','')
+        #print(model_name)
         theory_names_to_ids[model_name] = model_num
 
         theory = Theory(model_num,model_name)

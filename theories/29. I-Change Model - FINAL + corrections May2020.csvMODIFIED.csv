@@ -41,58 +41,53 @@ Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,So
 59,Line,,1,,,2,8,None,Arrow,
 63,Line,,1,,,8,13,None,Arrow,
 64,Line,,1,,,2,13,None,Arrow,
-78,Line,,1,,,64,18,None,Arrow,
+78,Line,,1,,,2,18,None,Arrow,
 79,Line,,1,,,18,34,None,Arrow,
 81,Line,,1,,,37,38,None,Arrow,
 82,Line,,1,,,38,37,None,Arrow,Transition
-85,Line,,1,,,39,145,None,Arrow,-
+85,Line,,1,,,39,141,None,Arrow,-
 89,Line,,1,,,21,35,None,Arrow,
 93,Line,,1,,,19,20,Arrow,Arrow,Correlation
 94,Line,,1,,,20,21,Arrow,Arrow,Correlation
 95,Line,,1,,,16,14,Arrow,Arrow,Correlation
 97,Line,,1,,,2,35,None,Arrow,
-99,Line,,1,,,13,147,None,Arrow,relates through
+99,Line,,1,,,13,18,None,Arrow,
 102,Line,,1,,,34,42,None,Arrow,
-104,Line,,1,,,40,145,None,Arrow,+
-107,Line,,1,,,34,145,None,Arrow,relates through
-108,Line,,1,,,8,18,None,Arrow,
-109,Line,,1,,,8,48,None,Arrow,
-110,Line,,1,,,8,49,None,Arrow,
-111,Line,,1,,,8,45,None,Arrow,
-112,Line,,1,,,3,2,None,Arrow,Part of
-113,Line,,1,,,4,2,None,Arrow,Part of
-114,Line,,1,,,5,2,None,Arrow,Part of
-115,Line,,1,,,6,2,None,Arrow,Part of
-116,Line,,1,,,9,8,None,Arrow,Part of
-117,Line,,1,,,10,8,None,Arrow,Part of
-118,Line,,1,,,11,8,None,Arrow,Part of
-119,Line,,1,,,47,8,None,Arrow,Part of
-120,Line,,1,,,14,13,None,Arrow,Part of
-121,Line,,1,,,16,13,None,Arrow,Part of
-122,Line,,1,,,15,13,None,Arrow,Part of
-123,Line,,1,,,46,13,None,Arrow,Part of
-124,Line,,1,,,23,20,None,Arrow,Part of
-125,Line,,1,,,24,20,None,Arrow,Part of
-126,Line,,1,,,25,20,None,Arrow,Part of
-127,Line,,1,,,19,18,None,Arrow,Type of
-128,Line,,1,,,19,147,None,Arrow,Type of
-129,Line,,1,,,20,18,None,Arrow,Type of
-130,Line,,1,,,20,147,None,Arrow,Type of
-131,Line,,1,,,21,18,None,Arrow,Type of
-132,Line,,1,,,21,147,None,Arrow,Type of
-133,Line,,1,,,27,19,None,Arrow,Part of
-134,Line,,1,,,29,21,None,Arrow,Type of
-135,Line,,1,,,30,21,None,Arrow,Type of
-136,Line,,1,,,31,21,None,Arrow,Type of
-137,Line,,1,,,32,21,None,Arrow,Type of
-138,Line,,1,,,37,35,None,Arrow,Part of
-139,Line,,1,,,38,35,None,Arrow,Part of
-140,Line,,1,,,42,40,None,Arrow,Part of
-141,Line,,1,,,43,40,None,Arrow,Part of
-142,Line,,1,,,45,42,None,Arrow,Part of
-143,Line,,1,,,48,42,None,Arrow,Part of
-144,Line,,1,,,49,42,None,Arrow,Part of
-145,Terminator,Flowchart Shapes,1,,,,,,,the 'Motivation / intention state' to 'Behavioural state' Transitions to relationship
-146,Line,,1,,,145,35,None,Arrow,relates to
-147,Terminator,Flowchart Shapes,1,,,,,,,the 'Awareness factors' to 'Motivation factors' Influences relationship
-148,Line,,1,,,147,18,None,Arrow,relates to
+104,Line,,1,,,40,141,None,Arrow,+
+106,Line,,1,,,34,141,None,Arrow,relates through
+107,Line,,1,,,8,18,None,Arrow,
+108,Line,,1,,,8,48,None,Arrow,
+109,Line,,1,,,8,49,None,Arrow,
+110,Line,,1,,,8,45,None,Arrow,
+111,Line,,1,,,3,2,None,Arrow,Part of
+112,Line,,1,,,4,2,None,Arrow,Part of
+113,Line,,1,,,5,2,None,Arrow,Part of
+114,Line,,1,,,6,2,None,Arrow,Part of
+115,Line,,1,,,9,8,None,Arrow,Part of
+116,Line,,1,,,10,8,None,Arrow,Part of
+117,Line,,1,,,11,8,None,Arrow,Part of
+118,Line,,1,,,47,8,None,Arrow,Part of
+119,Line,,1,,,14,13,None,Arrow,Part of
+120,Line,,1,,,16,13,None,Arrow,Part of
+121,Line,,1,,,15,13,None,Arrow,Part of
+122,Line,,1,,,46,13,None,Arrow,Part of
+123,Line,,1,,,23,20,None,Arrow,Part of
+124,Line,,1,,,24,20,None,Arrow,Part of
+125,Line,,1,,,25,20,None,Arrow,Part of
+126,Line,,1,,,19,18,None,Arrow,Type of
+127,Line,,1,,,20,18,None,Arrow,Type of
+128,Line,,1,,,21,18,None,Arrow,Type of
+129,Line,,1,,,27,19,None,Arrow,Part of
+130,Line,,1,,,29,21,None,Arrow,Type of
+131,Line,,1,,,30,21,None,Arrow,Type of
+132,Line,,1,,,31,21,None,Arrow,Type of
+133,Line,,1,,,32,21,None,Arrow,Type of
+134,Line,,1,,,37,35,None,Arrow,Part of
+135,Line,,1,,,38,35,None,Arrow,Part of
+136,Line,,1,,,42,40,None,Arrow,Part of
+137,Line,,1,,,43,40,None,Arrow,Part of
+138,Line,,1,,,45,42,None,Arrow,Part of
+139,Line,,1,,,48,42,None,Arrow,Part of
+140,Line,,1,,,49,42,None,Arrow,Part of
+141,Terminator,Flowchart Shapes,1,,,,,,,the 'Motivation / intention state' to 'Behavioural state' Transitions to relationship
+142,Line,,1,,,141,35,None,Arrow,relates to

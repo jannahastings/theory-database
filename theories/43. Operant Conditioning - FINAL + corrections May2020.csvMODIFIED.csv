@@ -57,7 +57,7 @@ Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,So
 83,Line,,1,,,7,3,None,Arrow,Type of
 84,Line,,1,,,5,3,None,Arrow,Type of
 85,Line,,1,,,4,3,None,Arrow,Type of
-86,Terminator,Flowchart Shapes,1,,,,,,,the 'Neutral stimuli' to 'Conditioned reinforcer' Influences relationship
+86,Terminator,Flowchart Shapes,1,,,,,,,the 'Neutral stimuli' to 'Conditioned reinforcer' Transitions to relationship
 87,Line,,1,,,86,12,None,Arrow,relates to
-88,Terminator,Flowchart Shapes,1,,,,,,,the 'Conditioned reinforcer' to 'Generalised reinforcer' Influences relationship
+88,Terminator,Flowchart Shapes,1,,,,,,,the 'Conditioned reinforcer' to 'Generalised reinforcer' Transitions to relationship
 89,Line,,1,,,88,13,None,Arrow,relates to

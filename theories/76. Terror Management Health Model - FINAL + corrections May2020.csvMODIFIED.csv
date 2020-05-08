@@ -8,7 +8,7 @@ Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,So
 7,Process,Flowchart Shapes,1,,,,,,,Threat-avoidance outcomes
 9,Process,Flowchart Shapes,1,,,,,,,Health behaviour-oriented outcomes 
 10,Process,Flowchart Shapes,1,,,,,,,Relevance of behaviour for meaning and self-esteem
-11,Process,Flowchart Shapes,1,,,,,,,Health-defeating Outcomes
+11,Process,Flowchart Shapes,1,,,,,,,Health-defeating outcomes
 12,Process,Flowchart Shapes,1,,,,,,,Health-facilitating outcomes
 13,Process,Flowchart Shapes,1,,,,,,,Relevance of behaviour for threat of creatureliness
 14,Process,Flowchart Shapes,1,,,,,,,Avoidance of body-oriented health behaviour
@@ -29,7 +29,7 @@ Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,So
 32,Line,,1,,,31,7,None,Arrow,relates to
 33,Terminator,Flowchart Shapes,1,,,,,,,the 'Conscious' to 'Health behaviour-oriented outcomes ' Influences relationship
 34,Line,,1,,,33,9,None,Arrow,relates to
-35,Terminator,Flowchart Shapes,1,,,,,,,the 'Unconscious' to 'Health-defeating Outcomes' Influences relationship
+35,Terminator,Flowchart Shapes,1,,,,,,,the 'Unconscious' to 'Health-defeating outcomes' Influences relationship
 36,Line,,1,,,35,11,None,Arrow,relates to
 37,Terminator,Flowchart Shapes,1,,,,,,,the 'Unconscious' to 'Health-facilitating outcomes' Influences relationship
 38,Line,,1,,,37,12,None,Arrow,relates to
