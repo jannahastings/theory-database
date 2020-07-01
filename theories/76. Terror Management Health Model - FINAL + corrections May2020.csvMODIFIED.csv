@@ -27,7 +27,7 @@ Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,So
 30,Line,,1,,,4,3,None,Arrow,Type of
 31,Terminator,Flowchart Shapes,1,,,,,,,the 'Conscious' to 'Threat-avoidance outcomes' Influences relationship
 32,Line,,1,,,31,7,None,Arrow,relates to
-33,Terminator,Flowchart Shapes,1,,,,,,,the 'Conscious' to 'Health behaviour-oriented outcomes ' Influences relationship
+33,Terminator,Flowchart Shapes,1,,,,,,,the 'Conscious' to 'Health behaviour-oriented outcomes' Influences relationship
 34,Line,,1,,,33,9,None,Arrow,relates to
 35,Terminator,Flowchart Shapes,1,,,,,,,the 'Unconscious' to 'Health-defeating outcomes' Influences relationship
 36,Line,,1,,,35,11,None,Arrow,relates to

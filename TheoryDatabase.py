@@ -72,7 +72,7 @@ class Relation:
             return (Relation.MAY_INFLUENCE)
         if label.lower() == "is influenced (*) by" or label == "*" or label == "Influences (*)":
             return (Relation.INFLUENCE_MULT)
-        if label.lower() == "is influenced (sum) by" or label == "Sum":
+        if label.lower() == "is influenced (+) by" or label.lower() == "is influenced (sum) by" or label == "Sum":
             return (Relation.INFLUENCE_SUM)
         if label.lower() == "correlates with" or label == "Correlation" or label == "Correlations":
             return (Relation.CORR_WITH)
@@ -109,7 +109,7 @@ class Relation:
         if reltype==Relation.INFLUENCE_MULT:
             relstr = "Influences (*)"
         if reltype==Relation.INFLUENCE_SUM:
-            relstr = "Influences (sum)"
+            relstr = "Influences (+)"
         if reltype==Relation.CORR_WITH:
             relstr = "Correlates with"
         if reltype==Relation.TYPE_OF:
@@ -163,6 +163,7 @@ def setup():
         model_name = model_name.replace('corrections May2020','')
         model_name = model_name.replace('+','')
         model_name = model_name.replace(' - RW','')
+        model_name = model_name.strip()
         #print(model_name)
         theory_names_to_ids[model_name] = model_num
 

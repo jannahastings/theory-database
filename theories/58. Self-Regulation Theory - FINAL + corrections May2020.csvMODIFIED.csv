@@ -49,7 +49,7 @@ Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,So
 84,Line,,1,,,4,2,None,Arrow,Part of
 85,Line,,1,,,21,2,None,Arrow,Part of
 86,Line,,1,,,20,2,None,Arrow,Part of
-87,Terminator,Flowchart Shapes,1,,,,,,,the 'Self-evaluation stage ' to 'Self-reinforcement stage ' Transitions to relationship
+87,Terminator,Flowchart Shapes,1,,,,,,,the 'Self-evaluation stage' to 'Self-reinforcement stage' Transitions to relationship
 88,Line,,1,,,87,12,None,Arrow,relates to
-89,Terminator,Flowchart Shapes,1,,,,,,,the 'Self-monitoring stage ' to 'Self-evaluation stage ' Transitions to relationship
+89,Terminator,Flowchart Shapes,1,,,,,,,the 'Self-monitoring stage' to 'Self-evaluation stage' Transitions to relationship
 90,Line,,1,,,89,15,None,Arrow,relates to

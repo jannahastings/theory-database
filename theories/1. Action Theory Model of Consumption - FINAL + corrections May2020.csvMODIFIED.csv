@@ -98,7 +98,7 @@ Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,So
 141,Line,,1,,,14,25,None,Arrow,Part of
 142,Line,,1,,,33,31,None,Arrow,Part of
 143,Line,,1,,,32,31,None,Arrow,Part of
-144,Terminator,Flowchart Shapes,1,,,,,,,the 'Performance of goal-directed behaviours ' to 'Goal attainment / failure ' Influences relationship
+144,Terminator,Flowchart Shapes,1,,,,,,,the 'Performance of goal-directed behaviours' to 'Goal attainment / failure' Influences relationship
 145,Line,,1,,,144,28,None,Arrow,relates to
 146,Terminator,Flowchart Shapes,1,,,,,,,the 'Implementation intentions' to 'Trying' Positively influences relationship
 147,Line,,1,,,146,23,None,Arrow,relates to

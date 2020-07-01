@@ -27,6 +27,27 @@ print(max(triple_lens))
 
 construct_names = set([c.name.lower() for theory in theories.values() for c in theory.constructs.values() if len(c.name)>4])
 
+#from nltk.stem.snowball import SnowballStemmer
+#stemmer = SnowballStemmer("english")
+
+import nltk
+nltk.download('wordnet')
+
+from nltk.stem import WordNetLemmatizer
+wnl = WordNetLemmatizer()
+
+#stemconstructs = {construct:stemmer.stem(construct) for construct in construct_names}
+
+stemconstructs = {construct:wnl.lemmatize(construct) for construct in construct_names}
+
+print(len(stemconstructs.keys()))
+print(len(set(stemconstructs.values())))
+# 1275
+# 1238  (with lemmatize, 1260)
+
+construct_names = set([stemconstructs[c] for c in construct_names])
+
+
 construct_counts = np.zeros((len(construct_names)))
 for i,c in zip(range(len(construct_names)),construct_names):
     n=0
@@ -39,13 +60,24 @@ for i,c in zip(range(len(construct_names)),construct_names):
 Names = [x for _,x in sorted(zip(construct_counts,construct_names),reverse=True)]
 Counts = [x for x,_ in sorted(zip(construct_counts,construct_names),reverse=True)]
 
+
+FullNamesForStemNames = {}
+for n in Names:
+    for k,v in stemconstructs.items():
+        if v not in FullNamesForStemNames:
+            if v==n:
+                FullNamesForStemNames[v] = k
+
+FullNames = [FullNamesForStemNames[n] for n in Names[0:25]]
+
 fig,ax = plt.subplots()
-ax.bar(Names[0:25],Counts[0:25])
+ax.bar(FullNames,Counts[0:25])
 plt.xticks(rotation=90)
 fig.subplots_adjust(bottom=0.3)
 plt.show()
 
 plt.close('all')
+
 
 
 # Extract the theories that don't have behaviour in them
@@ -77,6 +109,10 @@ for i,r in zip(range(len(relation_names)),relation_names):
 Names = [x for _,x in sorted(zip(relation_counts_across,relation_names),reverse=True)]
 Counts = [x for x,_ in sorted(zip(relation_counts_across,relation_names),reverse=True)]
 
+Names = [x for _,x in sorted(zip(relation_counts,relation_names),reverse=True)]
+Counts = [x for x,_ in sorted(zip(relation_counts,relation_names),reverse=True)]
+
+
 fig,ax = plt.subplots()
 ax.bar(Names,Counts)
 plt.xticks(rotation=90)
@@ -93,18 +129,20 @@ for i,theory1 in zip(range(len(theory_names)),[theories[t] for t in theory_names
         theory_desc = " ".join([c.name.lower() for c in theory2.constructs.values()])
         n=0
         for construct in theory1.constructs.values():
-            if construct.name.lower() in theory_desc:
+            if wnl.lemmatize(construct.name.lower()) in theory_desc:
                 n=n+1
         match_counts[i,j]= (n*100)/len(theory1.constructs)
 
 
 df = pd.DataFrame(match_counts, columns=theory_names, index=theory_names)
 
+# cmap = 'RdYlGn_r'
+
 
 # Display a clustered heatmap of 'percentage containment'
 #plt.pcolor(df)
 plt.rcParams["axes.labelsize"] = 10
-b = sns.clustermap(df, cmap='RdYlGn_r',method='average', metric='euclidean',row_cluster=True,yticklabels=True,xticklabels=True)
+b = sns.clustermap(df, cmap='vlag',method='average', metric='euclidean',row_cluster=True,yticklabels=True,xticklabels=True)
 plt.show()
 plt.close('all')
 

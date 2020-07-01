@@ -28,5 +28,5 @@ Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,So
 40,Line,,1,,,8,2,None,Arrow,Part of
 41,Line,,1,,,10,2,None,Arrow,Part of
 42,Line,,1,,,9,2,None,Arrow,Part of
-43,Terminator,Flowchart Shapes,1,,,,,,,the 'Intentions ' to 'Observed behaviour ' Positively influences relationship
+43,Terminator,Flowchart Shapes,1,,,,,,,the 'Intentions' to 'Observed behaviour' Positively influences relationship
 44,Line,,1,,,43,4,None,Arrow,relates to
