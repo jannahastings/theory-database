@@ -31,10 +31,16 @@ class Theory:
         self.constructs_by_name = {}
         self.reified_rels = {}
         self.triples = []
+        self.taken_from = []
+        self.supplemented_by = []
     def getNumConstructs(self):
         return(len(self.constructs.keys()))
     def getNumTriples(self):
         return(len(self.triples))
+    def getNumber(self):
+        return(int(self.number))
+    def getCountReferences(self):
+        return ( len(self.taken_from) + len(self.supplemented_by) )
 
 class Construct:
     def __init__(self,number,name):
@@ -243,11 +249,31 @@ def setup():
             if rel_type not in rel_types:
                 rel_types[rel_type] = []
             rel_types[rel_type].append(t)
-
 #table = pandas.DataFrame([ (Relation.getStringForRelType(rid), len(relations[rid])) for rid in relations])
 #table.columns = ["Relation","Count"]
 #table.to_csv("relation-counts.csv")
 
+# load theory references.
+    with open('references/OBMS References.csv','r') as csvrefsfile:
+        reader = csv.reader(csvrefsfile)
+
+        header = next(reader)
+        for row in reader:
+            #print(row)
+            theory_name = row[0]
+            if len(theory_name) > 0: # ignore blank lines
+                theory_num = theory_name.split(":")[0]
+                if theory_num not in theories.keys():
+                    print("Could not find theory for ",theory_num," from ",theory_name)
+                theory = theories[theory_num]
+                for i in [1,2,3]:
+                    taken_from = row[i]
+                    if taken_from is not None and len(taken_from)>0:
+                        theory.taken_from.append(taken_from)
+                for i in [4,5]:
+                    supplemented_by = row[i]
+                    if supplemented_by is not None and len(supplemented_by)>0:
+                        theory.supplemented_by.append(supplemented_by)
 
 
 def rebuildIndex(index_dir):

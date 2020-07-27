@@ -15,6 +15,7 @@
 # [START gae_python37_app]
 from flask import Flask, render_template,request,url_for
 import TheoryDatabase
+from TheoryDatabase import Theory
 
 
 class FlaskApp(Flask):
@@ -39,7 +40,7 @@ def display_home():
     num_triples = sum([len(t.triples) for t in TheoryDatabase.theories.values()])
     num_constructs = len(set([c for t in TheoryDatabase.theories.values() for c in t.constructs_by_name.keys()]))
     return render_template('home.html',
-        num_theories=num_theories,num_triples=num_triples, num_constructs=num_constructs, theories = TheoryDatabase.theories.values())
+        num_theories=num_theories,num_triples=num_triples, num_constructs=num_constructs, theories = sorted(TheoryDatabase.theories.values(),key=Theory.getNumber))
 
 
 @app.route("/theory/name=<theory_name>",methods=['GET', 'POST'])
