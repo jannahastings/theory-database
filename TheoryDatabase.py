@@ -16,6 +16,7 @@ from whoosh.analysis import StemmingAnalyzer
 
 from ontoutils.lucid_chart import ParseLucidChartCsv
 
+exec(open('definitions/ParseDefinitions.py').read())
 
 
 theory_dir = 'theories'
@@ -46,6 +47,7 @@ class Construct:
     def __init__(self,number,name):
         self.number = number
         self.name = name
+        self.definition = None
 
 class Relation:
     INFLUENCES = 0
@@ -274,6 +276,9 @@ def setup():
                     supplemented_by = row[i]
                     if supplemented_by is not None and len(supplemented_by)>0:
                         theory.supplemented_by.append(supplemented_by)
+
+# parse theory construct definitions
+    parseTheoryDefinitions("definitions/Final Constructs (Across Theory Mapping).xlsx")
 
 
 def rebuildIndex(index_dir):
