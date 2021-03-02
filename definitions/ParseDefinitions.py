@@ -8,7 +8,7 @@ import difflib
 def parseTheoryDefinitions(definition_file):
     wb = openpyxl.load_workbook(definition_file, data_only=True)
     sheet = wb['Sheet1']
-    for row in sheet.iter_rows(min_row=2, min_col=0, max_row=1230, max_col=10):
+    for row in sheet.iter_rows(min_row=2, min_col=0, max_row=1466, max_col=10):
         theory_num = row[0].value
         if str(theory_num) not in theories.keys():
             print("Unknown theory num",theory_num)
