@@ -56,19 +56,10 @@
                 <div class="input-group">
                     <span class="input-group-addon">
                         <input type="checkbox" id={{item.number}} name="theory"><a href="/theory/{{item.number}}">{{item.number}}: {{item.name}} </a><br/>
-                    </span>
-                    <!-- <span class="input-group-addon">
-                        <label for={{item.name}}>-></label>
-                    </span>
-                    </span>
-                        <a href="/theory/{{item.number}}">{{item.number}}: {{item.name}} </a> -->
-                    
+                    </span>                    
                 </div>
             </div>
         </div>
-        
-
-        <!-- <li> <a href="/theory/{{item.number}}">{{item.number}}: {{item.name}} </a> </li> -->
     {% endfor %}     
     </div>
      <p/>
@@ -78,6 +69,7 @@
 
 <script type="text/javascript">
     function showTheoryConsistency() {
+        var data = new FormData();
         var checkboxes = document.getElementsByName('theory');
         var selected = [];
         for (var i=0; i<checkboxes.length; i++) {
@@ -85,22 +77,23 @@
                 selected.push(checkboxes[i].id);
             }
         }
+        data.append('theories', selected);
         console.log(selected);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                $("#show-merged-theories").removeAttr('hidden');
-                //uncheck all checkboxes:
-                for (var i=0; i<checkboxes.length; i++) {
-                    checkboxes[i].checked = false;
-                }//todo: not working..?
-                // document.getElementById("theoryConsistency").innerHTML = this.responseText;
+                // $("#show-theory_consistency").prop('hidden', true); //not working?
+                //uncheck all checkboxes?:
+                // for (var i=0; i<checkboxes.length; i++) {
+                //     checkboxes[i].checked = false;
+                // }
             }
         };
-        xhttp.open("GET", "/theoryConsistency?theories=" + selected, true);
-        xhttp.send();
+        xhttp.open("POST", "{{url_for('show_theory_consistency')}}");
+        xhttp.send(data);
     }
     function showMergedTheories() {
+        var data = new FormData();
         var checkboxes = document.getElementsByName('theory');
         var selected = [];
         for (var i=0; i<checkboxes.length; i++) {
@@ -108,19 +101,20 @@
                 selected.push(checkboxes[i].id);
             }
         }
+        data.append('theories', selected);
         console.log(selected);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                $("#show-merged-theories").removeAttr('hidden');
-                for (var i=0; i<checkboxes.length; i++) {
-                    checkboxes[i].checked = false;
-                } //todo: not working..?
-                // document.getElementById("theoryConsistency").innerHTML = this.responseText;
+                // $("#show-merged-theories").prop('hidden', true); //not working?
+                //uncheck all checkboxes?:
+                // for (var i=0; i<checkboxes.length; i++) {
+                //     checkboxes[i].checked = false;
+                // } 
             }
         };
-        xhttp.open("GET", "/theoryConsistency?theories=" + selected, true);
-        xhttp.send();
+        xhttp.open("POST", "{{url_for('show_merged_theories')}}");
+        xhttp.send(data);
     }
     $(document).ready(function(){
         $("input[type=checkbox]").click(function(){

@@ -106,6 +106,19 @@ def searchRelationResult(string=None):
         len_results = len(results)
         return render_template('searchRelation.html',string=string,results=results,len_results=len_results)
 
+@app.route("/show_theory_consistency", methods=['GET', 'POST'])
+def show_theory_consistency():
+    if request.method == 'POST':
+        theories = request.form.getlist('theories')
+        print("GOT THEORIES for consistency: ",theories)
+        return("success")
+
+@app.route("/show_merged_theories", methods=['GET', 'POST'])
+def show_merged_theories():
+    if request.method == 'POST':
+        theories = request.form.getlist('theories')
+        print("GOT THEORIES for merged: ",theories)
+        return("success")
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
