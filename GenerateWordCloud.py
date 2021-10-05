@@ -5,7 +5,8 @@
 #from os import path
 #from PIL import Image
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
-
+import TheoryDatabase
+from TheoryDatabase import Theory, theories, Relation
 import matplotlib.pyplot as plt
 #% matplotlib inline
 

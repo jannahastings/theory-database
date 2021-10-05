@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import statistics
 import networkx as nx
+import TheoryDatabase
+from TheoryDatabase import Theory, theories, Relation
 
 theory_names = sorted(theories.keys())
 

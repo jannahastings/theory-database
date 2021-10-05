@@ -2,8 +2,10 @@
 
 import networkx as nx
 import matplotlib
-#matplotlib.use('TkAgg')
+# matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
+import TheoryDatabase
+from TheoryDatabase import Theory, theories, Relation
 
 def wrap_if_needed(string_val):
     if ":" in string_val:

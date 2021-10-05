@@ -13,7 +13,7 @@ from whoosh.qparser import QueryParser
 
 from whoosh.fields import Schema, TEXT, KEYWORD, ID, STORED
 from whoosh.analysis import StemmingAnalyzer
-
+import ontoutils
 from ontoutils.lucid_chart import ParseLucidChartCsv
 
 exec(open('definitions/ParseDefinitions.py').read())
@@ -374,3 +374,5 @@ def searchForRelation(relation,index_dir):
                 returned_values[relation_name][theory_name]=[]
             returned_values[relation_name][theory_name].append(" ".join([const_1,relation_name,const_2]))
         return (returned_values)
+
+# setup()

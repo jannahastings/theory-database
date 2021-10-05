@@ -1,7 +1,9 @@
 ## Searchable database index
 
-
 import TheoryDatabase
+from TheoryDatabase import Theory
+import os
+
 
 index_dir = "static/index"
 
