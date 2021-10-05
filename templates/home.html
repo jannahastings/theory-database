@@ -41,14 +41,104 @@
     <h3> Browse theories </h3>
 
      <p> To view the content of a theory, you can select a theory from the list: </p>
-     <ul>
+     <div class="container">
+        <div class="row">
+            <div class="col-md-12 bg-light text-right">
+     <button id="show-theory-consistency" class="btn btn-outline-success" onclick="showTheoryConsistency()" hidden="true">Show Theory Consistency</button>
+     <button id="show-merged-theories" class="btn btn-outline-danger" onclick="showMergedTheories()" hidden="true">Show Merged Theories</button>
+            </div>
+        </div>
+    </div>
+     <div class="container">     
     {% for item in theories %}
-        <li> <a href="/theory/{{item.number}}">{{item.number}}: {{item.name}} </a> </li>
-    {% endfor %}
-     </ul>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="checkbox" id={{item.number}} name="theory"><a href="/theory/{{item.number}}">{{item.number}}: {{item.name}} </a><br/>
+                    </span>
+                    <!-- <span class="input-group-addon">
+                        <label for={{item.name}}>-></label>
+                    </span>
+                    </span>
+                        <a href="/theory/{{item.number}}">{{item.number}}: {{item.name}} </a> -->
+                    
+                </div>
+            </div>
+        </div>
+        
 
+        <!-- <li> <a href="/theory/{{item.number}}">{{item.number}}: {{item.name}} </a> </li> -->
+    {% endfor %}     
+    </div>
      <p/>
      {% include 'footer.html' %}
     </body>
 </html>
 
+<script type="text/javascript">
+    function showTheoryConsistency() {
+        var checkboxes = document.getElementsByName('theory');
+        var selected = [];
+        for (var i=0; i<checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selected.push(checkboxes[i].id);
+            }
+        }
+        console.log(selected);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                $("#show-merged-theories").removeAttr('hidden');
+                //uncheck all checkboxes:
+                for (var i=0; i<checkboxes.length; i++) {
+                    checkboxes[i].checked = false;
+                }//todo: not working..?
+                // document.getElementById("theoryConsistency").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/theoryConsistency?theories=" + selected, true);
+        xhttp.send();
+    }
+    function showMergedTheories() {
+        var checkboxes = document.getElementsByName('theory');
+        var selected = [];
+        for (var i=0; i<checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selected.push(checkboxes[i].id);
+            }
+        }
+        console.log(selected);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                $("#show-merged-theories").removeAttr('hidden');
+                for (var i=0; i<checkboxes.length; i++) {
+                    checkboxes[i].checked = false;
+                } //todo: not working..?
+                // document.getElementById("theoryConsistency").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/theoryConsistency?theories=" + selected, true);
+        xhttp.send();
+    }
+    $(document).ready(function(){
+        $("input[type=checkbox]").click(function(){
+            var id = $(this).attr('id');
+            var name = $(this).attr('name');
+            var checked = $(this).is(':checked');
+            if(checked){
+                $("#show-theory-consistency").removeAttr('hidden');
+                $("#show-merged-theories").removeAttr('hidden');
+            }
+            // if(checked){
+            //     $("#"+id).parent().append("<span class='input-group-addon'><label for="+id+">-></label></span>");
+            //     $("#"+id).parent().append("<span class='input-group-addon'><a href='/theory/"+name+"'>"+name+"</a></span>");
+            // }
+            // else{
+            //     $("#"+id).parent().find("label").remove();
+            //     $("#"+id).parent().find("a").remove();
+            // }
+        });
+    });
+</script>
