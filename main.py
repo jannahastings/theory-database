@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # [START gae_python37_app]
-from flask import Flask, render_template,request,url_for
+from flask import Flask, render_template,request,url_for, redirect
 import TheoryDatabase
 from TheoryDatabase import Theory
 
@@ -111,6 +111,7 @@ def show_theory_consistency():
     if request.method == 'POST':
         theories = request.form.getlist('theories')
         print("GOT THEORIES for consistency: ",theories)
+        # return redirect('theoryConsistency.html')
         return("success")
 
 @app.route("/show_merged_theories", methods=['GET', 'POST'])
@@ -118,8 +119,17 @@ def show_merged_theories():
     if request.method == 'POST':
         theories = request.form.getlist('theories')
         print("GOT THEORIES for merged: ",theories)
+        # return redirect('mergedTheories.html')
         return("success")
 
+@app.route("/theoryConsistency", methods = ['GET', 'POST'])
+def theoryConsistency():
+    return render_template('theoryConsistency.html')
+        
+@app.route("/mergedTheories", methods = ['GET', 'POST'])
+def mergedTheories():
+    return render_template('mergedTheories.html')
+       
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
     # Engine, a webserver process such as Gunicorn will serve the app. This

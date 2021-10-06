@@ -69,6 +69,7 @@
 
 <script type="text/javascript">
     function showTheoryConsistency() {
+
         var data = new FormData();
         var checkboxes = document.getElementsByName('theory');
         var selected = [];
@@ -82,6 +83,9 @@
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+                //navigate to theoryConsistency.html
+                window.open("/theoryConsistency", "_blank");
+                // window.location.href = "/theoryConsistency";
                 // $("#show-theory_consistency").prop('hidden', true); //not working?
                 //uncheck all checkboxes?:
                 // for (var i=0; i<checkboxes.length; i++) {
@@ -106,6 +110,8 @@
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+                window.open("/mergedTheories", '_blank');
+                // window.location.href = "/mergedTheories";
                 // $("#show-merged-theories").prop('hidden', true); //not working?
                 //uncheck all checkboxes?:
                 // for (var i=0; i<checkboxes.length; i++) {
