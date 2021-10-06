@@ -13,7 +13,8 @@
 # limitations under the License.
 
 # [START gae_python37_app]
-from flask import Flask, render_template,request,url_for, redirect
+from config import *
+from flask import Flask, render_template,request,url_for, redirect, session
 import TheoryDatabase
 from TheoryDatabase import Theory
 
@@ -33,6 +34,7 @@ class FlaskApp(Flask):
 # called `app` in `main.py`.
 app = FlaskApp(__name__)
 
+app.secret_key=SECRET_KEY
 
 @app.route('/')
 def display_home():
@@ -110,7 +112,8 @@ def searchRelationResult(string=None):
 def show_theory_consistency():
     if request.method == 'POST':
         theories = request.form.getlist('theories')
-        print("GOT THEORIES for consistency: ",theories)
+        # print("GOT THEORIES for consistency: ",theories)
+        session['theories'] = theories
         # return redirect('theoryConsistency.html')
         return("success")
 
@@ -118,17 +121,28 @@ def show_theory_consistency():
 def show_merged_theories():
     if request.method == 'POST':
         theories = request.form.getlist('theories')
-        print("GOT THEORIES for merged: ",theories)
+        # print("GOT THEORIES for merged: ",theories)
+        session['theories'] = theories
         # return redirect('mergedTheories.html')
         return("success")
 
-@app.route("/theoryConsistency", methods = ['GET', 'POST'])
+@app.route("/theoryConsistency")
 def theoryConsistency():
-    return render_template('theoryConsistency.html')
+    if 'theories' in session:
+        theories = session['theories']
+        print("GOT THEORIES: ",theories)
+        session.pop('theories', None)
+        return render_template('theoryConsistency.html',theories=theories)
+    # return render_template('theoryConsistency.html')
         
-@app.route("/mergedTheories", methods = ['GET', 'POST'])
+@app.route("/mergedTheories")
 def mergedTheories():
-    return render_template('mergedTheories.html')
+    if 'theories' in session:
+        theories = session['theories']
+        print("GOT THEORIES: ",theories)
+        session.pop('theories', None)
+        return render_template('mergedTheories.html',theories=theories)
+    # return render_template('mergedTheories.html')
        
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
