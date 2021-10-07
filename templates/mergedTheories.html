@@ -157,7 +157,7 @@
             // let search = "role";
             // let dotStr = dot.replace(search, "\"" + search + "\", color=red"); //test works
 
-            // console.log("got dot: ", dotStr);
+            console.log("got dot: ", dotStr);
 
             // Asynchronous call to layout
             hpccWasm.graphviz.layout(dotStr, "svg", "dot").then(svg => {
@@ -222,6 +222,7 @@
         {% else %}
         // push default to dots array 8 times - todo: think this is not necessary now?
         var default_dot = `{{ dotStr | safe}}`
+        console.log("default_dot: ", default_dot);
         for (var i = 0; i < 8; i++) {
             dots.push(default_dot);
         }

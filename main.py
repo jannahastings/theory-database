@@ -49,7 +49,7 @@ def wrap_if_needed(string_val):
         return( f'"{string_val}"')
     return(string_val)
 
-def get_theory_visualisation(theory_list):
+def get_theory_visualisation_multi(theory_list):
     for theory_num in theories.keys():
         if theory_num in theory_list:
             theory = theories[theory_num]
@@ -87,6 +87,48 @@ def get_theory_visualisation(theory_list):
 
             png_path = "test/"+theory_num+".png"
             pdot.write_png(png_path)
+    return pdot
+
+def get_theory_visualisation(theory_one):
+    # pdot = ""
+    # for theory_num in theories.keys():
+    #     if theory_num == theory_one:
+    print("got theory_one", theory_one)
+    theory = theories[theory_one]
+    G=nx.DiGraph()
+
+    for triple in theory.triples:
+        if triple.reified_rel is None:
+            G.add_node(wrap_if_needed(triple.const1.name))
+            G.add_node(wrap_if_needed(triple.const2.name))
+            G.add_edge(wrap_if_needed(triple.const1.name),wrap_if_needed(triple.const2.name),label=triple.relStr)
+        else:
+            G.add_node(wrap_if_needed(triple.const1.name))
+            G.add_node(wrap_if_needed(triple.const2.name))
+            G.add_node(triple.reified_rel.name,label=triple.relStr)
+            G.add_edge(wrap_if_needed(triple.const1.name),triple.reified_rel.name,label=Relation.getStringForRelType(Relation.THROUGH))
+            G.add_edge(triple.reified_rel.name,wrap_if_needed(triple.const2.name),label=Relation.getStringForRelType(Relation.TO))
+
+    pdot = nx.drawing.nx_pydot.to_pydot(G)
+
+    for i, node in enumerate(pdot.get_nodes()):
+        node_name = str(node).replace("\"","").replace(";","")
+        if node_name in theory.constructs_by_name.keys():
+            node.set_shape('box')
+            node.set_fontcolor('black')
+            node.set_fillcolor('white')
+            node.set_style('rounded, filled')
+            node.set_color('black')
+        else:
+            node.set_shape('ellipse')
+            node.set_fontcolor('black')
+            node.set_fontname('times italic')
+            node.set_fillcolor('white')
+            node.set_style('rounded, filled')
+            node.set_color('grey')
+
+    # png_path = "test/"+theory_num+".png"
+    # pdot.write_png(png_path)
     return pdot
 
 @app.route('/')
@@ -175,7 +217,7 @@ def show_theory_consistency():
 def show_merged_theories():
     if request.method == 'POST':
         theories = request.form.get('theories')
-        get_theory_visualisation(theories)
+        
         # print("GOT THEORIES for merged: ",theories)
         session['theories'] = theories
         return redirect('/mergedTheories')
@@ -193,10 +235,21 @@ def theoryConsistency():
 @app.route("/mergedTheories")
 def mergedTheories():
     if 'theories' in session:
+        dotstr_list = []
         theories = session['theories']
         print("GOT THEORIES: ",theories)
+        theories_list = theories.split(',')
+        for theory in theories_list:
+            theory = theory.strip('"').strip().strip('"').strip('[').strip(']').replace('"','')
+            print("LOOKING AT THEORY", theory)
+            result = get_theory_visualisation_multi(theory).to_string()
+            dotstr_list.append(result)
+
+        result = get_theory_visualisation_multi(theories).to_string()
+        # dotstr_list.append(result)
+        # print("RESULT: ", result)
         session.pop('theories', None)
-        return render_template('mergedTheories.html',theories=theories)
+        return render_template('mergedTheories.html',theories=theories, dotStr=result, dotstr_list=dotstr_list)
     # return render_template('mergedTheories.html')
        
 if __name__ == '__main__':
