@@ -13,6 +13,7 @@
 # limitations under the License.
 
 # [START gae_python37_app]
+import json
 from config import *
 from flask import Flask, render_template,request,url_for, redirect, session
 import TheoryDatabase
@@ -111,20 +112,20 @@ def searchRelationResult(string=None):
 @app.route("/show_theory_consistency", methods=['GET', 'POST'])
 def show_theory_consistency():
     if request.method == 'POST':
-        theories = request.form.getlist('theories')
+        theories = request.form.get('theories')
         # print("GOT THEORIES for consistency: ",theories)
         session['theories'] = theories
-        # return redirect('theoryConsistency.html')
-        return("success")
+        return redirect('/theoryConsistency')
+        # return("success")
 
 @app.route("/show_merged_theories", methods=['GET', 'POST'])
 def show_merged_theories():
     if request.method == 'POST':
-        theories = request.form.getlist('theories')
+        theories = request.form.get('theories')
         # print("GOT THEORIES for merged: ",theories)
         session['theories'] = theories
-        # return redirect('mergedTheories.html')
-        return("success")
+        return redirect('/mergedTheories')
+        # return("success")
 
 @app.route("/theoryConsistency")
 def theoryConsistency():
@@ -148,5 +149,5 @@ if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
     # Engine, a webserver process such as Gunicorn will serve the app. This
     # can be configured by adding an `entrypoint` to app.yaml.
-    app.run(host='127.0.0.1', port=8080, debug=True)
+    app.run(host='127.0.0.1', port=3000, debug=True)
 # [END gae_python37_app]

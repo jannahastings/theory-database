@@ -1,133 +1,145 @@
 <html>
-    <head>
-        <!-- <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/base-min.css"/> -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        <title>Theory Database (Prototype)</title>
-    </head>
-    <body style="margin:2em;padding:10px">
+
+<head>
+    <!-- <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/base-min.css"/> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <title>Theory Database (Prototype)</title>
+</head>
+
+<body style="margin:2em;padding:10px">
 
     {% include 'header.html' %}
     {% include 'information.html' %}
 
     <h3> Statistics </h3>
 
-    <p> Number of theories: {{num_theories}} <br/>
-    <p> Number of unique constructs: {{num_constructs}} <br/>
+    <p> Number of theories: {{num_theories}} <br />
+    <p> Number of unique constructs: {{num_constructs}} <br />
     <p> Number of triples: {{num_triples}} </p>
 
     <h3> Search </h3>
 
-     <p>
+    <p>
     <form action="/searchTheory" method="post" name="searchTheory">
-        To search for a theory by name, enter a search string:  <input type = "search" name="searchtheory"> <input type="submit" value="Search Theory">
-    </form>
-     </p>
-
-     <p>
-    <form action="/searchConstruct" method="post" name="searchConstruct">
-        To search for a construct within a theory, enter a search string: <input type = "search" name="searchconstruct"> <input type="submit" value="Search Construct">
+        To search for a theory by name, enter a search string: <input type="search" name="searchtheory"> <input
+            type="submit" value="Search Theory">
     </form>
     </p>
 
-     <p>
-    <form action="/searchRelation" method="post" name="searchRelation">
-        To search for a triple by relation type, enter a search string:  <input type = "search" name="searchrelation"> <input type="submit" value="Search Relation">
+    <p>
+    <form action="/searchConstruct" method="post" name="searchConstruct">
+        To search for a construct within a theory, enter a search string: <input type="search" name="searchconstruct">
+        <input type="submit" value="Search Construct">
     </form>
-     </p>
+    </p>
+
+    <p>
+    <form action="/searchRelation" method="post" name="searchRelation">
+        To search for a triple by relation type, enter a search string: <input type="search" name="searchrelation">
+        <input type="submit" value="Search Relation">
+    </form>
+    </p>
 
     <h3> Browse theories </h3>
 
-     <p> To view the content of a theory, you can select a theory from the list: </p>
-     <div class="container">
+    <p> To view the content of a theory, you can select a theory from the list: </p>
+    <div class="container">
         <div class="row">
             <div class="col-md-12 bg-light text-right">
-     <button id="show-theory-consistency" class="btn btn-outline-success" onclick="showTheoryConsistency()" hidden="true">Show Theory Consistency</button>
-     <button id="show-merged-theories" class="btn btn-outline-danger" onclick="showMergedTheories()" hidden="true">Show Merged Theories</button>
+                <button id="show-theory-consistency" class="btn btn-outline-success" onclick="showTheoryConsistency()"
+                    hidden="true">Show Theory Consistency</button>
+                <button id="show-merged-theories" class="btn btn-outline-danger" onclick="showMergedTheories()"
+                    hidden="true">Show Merged Theories</button>
             </div>
         </div>
     </div>
-     <div class="container">     
-    {% for item in theories %}
+    <div class="container">
+        {% for item in theories %}
         <div class="row">
             <div class="col-md-12">
                 <div class="input-group">
                     <span class="input-group-addon">
-                        <input type="checkbox" id={{item.number}} name="theory"><a href="/theory/{{item.number}}">{{item.number}}: {{item.name}} </a><br/>
-                    </span>                    
+                        <input type="checkbox" id={{item.number}} name="theory"><a
+                            href="/theory/{{item.number}}">{{item.number}}: {{item.name}} </a><br />
+                    </span>
                 </div>
             </div>
         </div>
-    {% endfor %}     
+        {% endfor %}
     </div>
-     <p/>
-     {% include 'footer.html' %}
-    </body>
+    <p />
+    {% include 'footer.html' %}
+</body>
+
 </html>
 
 <script type="text/javascript">
     function showTheoryConsistency() {
-
-        var data = new FormData();
         var checkboxes = document.getElementsByName('theory');
         var selected = [];
-        for (var i=0; i<checkboxes.length; i++) {
+        for (var i = 0; i < checkboxes.length; i++) {
             if (checkboxes[i].checked) {
                 selected.push(checkboxes[i].id);
             }
         }
-        data.append('theories', selected);
         console.log(selected);
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                //navigate to theoryConsistency.html
-                window.open("/theoryConsistency", "_blank");
-                // window.location.href = "/theoryConsistency";
-                // $("#show-theory_consistency").prop('hidden', true); //not working?
-                //uncheck all checkboxes?:
-                // for (var i=0; i<checkboxes.length; i++) {
-                //     checkboxes[i].checked = false;
-                // }
-            }
-        };
-        xhttp.open("POST", "{{url_for('show_theory_consistency')}}");
-        xhttp.send(data);
+        //send selected theories to server with formdata
+        window.open('', 'VisualisationWindow');
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "{{url_for('show_theory_consistency')}}");
+        form.setAttribute("target", 'VisualisationWindow');
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = "theories";
+        input.value = JSON.stringify(selected);
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
     }
+    
     function showMergedTheories() {
-        var data = new FormData();
         var checkboxes = document.getElementsByName('theory');
         var selected = [];
-        for (var i=0; i<checkboxes.length; i++) {
+        for (var i = 0; i < checkboxes.length; i++) {
             if (checkboxes[i].checked) {
                 selected.push(checkboxes[i].id);
             }
         }
-        data.append('theories', selected);
         console.log(selected);
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                window.open("/mergedTheories", '_blank');
-                // window.location.href = "/mergedTheories";
-                // $("#show-merged-theories").prop('hidden', true); //not working?
-                //uncheck all checkboxes?:
-                // for (var i=0; i<checkboxes.length; i++) {
-                //     checkboxes[i].checked = false;
-                // } 
-            }
-        };
-        xhttp.open("POST", "{{url_for('show_merged_theories')}}");
-        xhttp.send(data);
+        //send selected theories to server with formdata
+        window.open('', 'VisualisationWindow');
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "{{url_for('show_merged_theories')}}");
+        form.setAttribute("target", 'VisualisationWindow');
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = "theories";
+        input.value = JSON.stringify(selected);
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
     }
-    $(document).ready(function(){
-        $("input[type=checkbox]").click(function(){
+
+    $(document).ready(function () {
+        $("input[type=checkbox]").click(function () {
             var id = $(this).attr('id');
             var name = $(this).attr('name');
             var checked = $(this).is(':checked');
-            if(checked){
+            if (checked) {
                 $("#show-theory-consistency").removeAttr('hidden');
                 $("#show-merged-theories").removeAttr('hidden');
             }
