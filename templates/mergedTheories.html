@@ -9,8 +9,400 @@
         <h1>Merged Theories</h1>
     </head>
     <body style="margin:2em;padding:10px">
-<h4>Got theories</h4>
-    {{theories|safe}}
+
 </body>
 
 </html>
+
+
+
+{% block content %}
+
+<style>
+    body {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    #wrapper {
+        position: relative;
+        border: 0px;
+        width: 1920px;
+        height: 1080px;
+        top: 80px;
+        left: 0px;
+    }
+
+    #buttonWrapper {
+        position: fixed;
+        width: 30px;
+        top: 160px;
+        left: 40px;
+    }
+
+    #downloadWrapper {
+        position: fixed;
+        width: 500px;
+        top: 170px;
+        left: 100px;
+    }
+
+
+    /* #dropdownMenuButton {
+        position: fixed;
+        width: 260px;
+        top: 160px;
+        left: 300px
+    } */
+</style>
+
+<!-- <h1>VISUALISATIONS</h1> -->
+
+<!-- <div id="wrapper">
+        <div style="position: absolute; left: 10px; top: 10px; width:200px; height:100px; background-color: yellow;">
+            <label class="font-weight-bold" for="submitText">Search in visualisation:</label>
+        </div>
+        <div
+            style="position: absolute; z-index: 1; left: 50px; top: 20px; width:100px; height:20px; background-color: green;">
+            <form id="submitText">
+                <input type="text" id="inputText" name="inputText">
+                <button type="submit" id="inputBtn" name="input" value="search"
+                    class="btn btn-outline-success fas fa-search" onclick="return submitForm(this)">Search
+                </button>
+            </form>
+        </div>
+    </div> -->
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="col-8">
+                <h2 id="s-name"> VISUALISATIONS: {{theories | safe}} </h2>
+            </div class="col-4">
+
+            {% if dotstr_list %}
+            <span class="float-right">
+                <div class="dropdown">
+                    <!-- <input type="button" id="dropdownMenuButton" class="btn btn-outline-dark" value="Filter by curation status"> -->
+                    <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter by curation status
+                    </button>
+                    <ul id="dropdown-menu1" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" role="button" value="0" href="#">All</a></li>
+                        <li><a class="dropdown-item" role="button" value="1" href="#">External</a></li>
+                        <li><a class="dropdown-item" role="button" value="2" href="#">Proposed</a></li>
+                        <li><a class="dropdown-item" role="button" value="3" href="#">To Be Discussed</a></li>
+                        <li><a class="dropdown-item" role="button" value="4" href="#">In Discussion</a></li>
+                        <li><a class="dropdown-item" role="button" value="5" href="#">Discussed</a></li>
+                        <li><a class="dropdown-item" role="button" value="6" href="#">Published</a></li>
+                        <!-- <li><a class="dropdown-item" role="button" value="7" href="#">Obsolete</a></li> -->
+                    </ul>
+                </div>
+                <label class="font-weight-bold" for="submitText">Search in visualisation:</label>
+                <form id="submitText">
+                    <input type="text" id="input-text" name="inputT" value=""></input>
+                    <!-- why is this not editable? -->
+                    <button type="submit" id="inputBtn" name="input" value="search"
+                        class="btn btn-outline-success fas fa-search">Search
+                    </button>
+                </form>
+            </span>
+
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!--<p>{{dotStr}}</p> -->
+
+<div onmousedown="return false;">
+    <!-- todo: move all styles inline, or at least remove redundancies -->
+    <div id="wrapper">
+        <canvas id="myCanvas" width="1920" height="1080"></canvas>
+        <div id="buttonWrapper">
+            <button id="plus" class="btn btn-outline-dark btn-sm"><i class="fas fa-plus"></i></button>
+            <button id="minus" class="btn btn-outline-dark btn-sm"><i class="fas fa-minus"></i></button>
+        </div>
+        <div id="downloadWrapper">
+            <input type="button" id="download" class="btn btn-outline-dark" value="Download Visualisation">
+            <p id="filterMessage"></p>
+        </div>
+
+    </div>
+</div>
+<!-- WASM GRAPHVIZ -->
+<script src="https://cdn.jsdelivr.net/npm/@hpcc-js/wasm@1.7.1/dist/index.min.js"></script>
+<script>
+    var hpccWasm = window["@hpcc-js/wasm"];
+</script>
+
+<script>
+
+
+    var loaded = false;
+    var img1 = new Image();
+
+    //zoom canvas code from https://stackoverflow.com/questions/3420975/html5-canvas-zooming
+    function draw(scale, translatePos, dot) {
+        // console.log("drawing: " + dot);
+        var canvas = document.getElementById("myCanvas");
+        var context = canvas.getContext("2d");
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (!loaded) {
+            var dotStr = dot;
+            //moved below test to button.. todo: remove
+            // let search = "role";
+            // let dotStr = dot.replace(search, "\"" + search + "\", color=red"); //test works
+
+            // console.log("got dot: ", dotStr);
+
+            // Asynchronous call to layout
+            hpccWasm.graphviz.layout(dotStr, "svg", "dot").then(svg => {
+                var data = svg;
+                var DOMURL = window.URL || window.webkitURL || window;
+
+                var svg = new Blob([data], { type: 'image/svg+xml' });
+                var url = DOMURL.createObjectURL(svg);
+                img1.onload = function () {
+                    //resize canvas if image is larger than screen
+                    //or resize canvas to size of screen if image is smaller.. 
+                    if (this.naturalWidth > window.screen.availWidth && this.naturalHeight > window.screen.availHeight) {
+                        canvas.width = this.naturalWidth;
+                        canvas.height = this.naturalHeight;
+                    } else {
+                        if (this.naturalWidth > window.screen.availWidth) {
+                            canvas.width = this.naturalWidth;
+                        } else if (this.naturalHeight > window.screen.availHeight) {
+                            canvas.height = this.naturalHeight;
+                        } else {
+                            canvas.width = window.screen.availWidth;
+                            canvas.height = window.screen.availHeight;
+                        }
+                    }
+                    context.drawImage(img1, 0, 0, img1.width, img1.height, translatePos.x, translatePos.y, img1.width * scale, img1.height * scale);
+                    // DOMURL.revokeObjectURL(url); //no we need url for updates to canvas
+
+                }
+                img1.src = url;
+                loaded = true;
+
+
+            });
+        } else {
+            context.drawImage(img1, 0, 0, img1.width, img1.height, translatePos.x, translatePos.y, img1.width * scale, img1.height * scale);
+        }
+    }
+
+    window.onload = function () {
+        var current_dot = 0;
+        var dots = [];
+        {% if dotstr_list %}
+        var all_dot = `{{ dotstr_list[0] | safe }}`;
+        var external_dot = `{{ dotstr_list[1] | safe }}`;
+        var proposed_dot = `{{ dotstr_list[2] | safe }}`;
+        var to_be_discussed_dot = `{{ dotstr_list[3] | safe }}`;
+        var in_discussion_dot = `{{ dotstr_list[4] | safe }}`;
+        var discussed_dot = `{{ dotstr_list[5] | safe }}`;
+        var published_dot = `{{ dotstr_list[6] | safe }}`;
+        var obsolete_dot = `{{ dotstr_list[7] | safe }}`;
+
+        //add all dotstr_list to dots array 
+        dots.push(all_dot);
+        dots.push(external_dot);
+        dots.push(proposed_dot);
+        dots.push(to_be_discussed_dot);
+        dots.push(in_discussion_dot);
+        dots.push(discussed_dot);
+        dots.push(published_dot);
+        dots.push(obsolete_dot);
+
+        {% else %}
+        // push default to dots array 8 times - todo: think this is not necessary now?
+        var default_dot = `{{ dotStr | safe}}`
+        for (var i = 0; i < 8; i++) {
+            dots.push(default_dot);
+        }
+
+        {% endif %}
+        var canvas = document.getElementById("myCanvas");
+
+        var translatePos = {
+            x: 0,
+            y: 0
+        };
+
+        var scale = 1.0;
+        var scaleMultiplier = 0.8;
+        var startDragOffset = {};
+        var mouseDown = false;
+
+        // add button event listeners
+        document.getElementById("plus").addEventListener("click", function () {
+            scale /= scaleMultiplier;
+            draw(scale, translatePos, dots[current_dot]);
+        }, false);
+
+        document.getElementById("minus").addEventListener("click", function () {
+            scale *= scaleMultiplier;
+            draw(scale, translatePos, dots[current_dot]);
+        }, false);
+
+
+
+        // add event listeners to handle screen drag
+        canvas.addEventListener("mousedown", function (evt) {
+            mouseDown = true;
+            startDragOffset.x = evt.clientX - translatePos.x;
+            startDragOffset.y = evt.clientY - translatePos.y;
+        });
+
+        canvas.addEventListener("mouseup", function (evt) {
+            mouseDown = false;
+        });
+
+        canvas.addEventListener("mouseover", function (evt) {
+            mouseDown = false;
+        });
+
+        canvas.addEventListener("mouseout", function (evt) {
+            mouseDown = false;
+        });
+
+        canvas.addEventListener("mousemove", function (evt) {
+            if (mouseDown) {
+                translatePos.x = evt.clientX - startDragOffset.x;
+                translatePos.y = evt.clientY - startDragOffset.y;
+                draw(scale, translatePos, dots[current_dot]);
+            }
+        });
+
+        draw(scale, translatePos, dots[current_dot]);
+
+        document.getElementById("download").addEventListener("click", function () {
+            // console.log("download clicked");
+            var dotStr2 = dots[current_dot];
+
+            // Asynchronous call to layout
+            hpccWasm.graphviz.layout(dotStr2, "svg", "dot").then(svg2 => {
+                var data2 = svg2;
+                var DOMURL2 = window.URL || window.webkitURL || window;
+
+                var svg2 = new Blob([data2], { type: 'image/svg+xml' });
+                var url2 = DOMURL2.createObjectURL(svg2);
+                let saveImage = (img_name) => {
+                    let a = document.createElement('a');
+                    a.href = url2;
+                    // a.href = pic.toDataURL("image/png"); //todo: should we convert to png image? needs work..
+                    // a.download = img_name; //this saves as .xlsx in chrome
+                    //change to .svg:
+                    a.download = img_name.slice(0, -5) + ".svg";
+                    document.body.appendChild(a);
+                    a.click();
+                }
+                saveImage("{{ sheet }}");
+                DOMURL.revokeObjectURL(url2);
+            });
+        });
+
+        {% if dotstr_list %}
+
+        $(".dropdown-menu").on("click", "li", function (event) {
+            var linkText = $(event.target).text(); // Get the link text - works
+            var linkVal = $(event.target).attr("value"); // Get the link value 
+            loaded = false;
+            current_dot = linkVal;
+            //reset position:
+            translatePos = {
+                x: 0,
+                y: 0
+            };
+            draw(scale, translatePos, dots[current_dot]);
+            if (dots[current_dot].replace(/\s/g, '').includes("{}")) {
+                $("#filterMessage").text("No Data");
+                $("#filterMessage").css("font-weight", "Bold");
+            } else {
+                $("#filterMessage").text("Filtered by: \"" + linkText + "\"");
+                $("#filterMessage").css("font-weight", "Bold");
+            }
+        });
+        // adapted from an answer here: https://stackoverflow.com/questions/14867835/get-substring-between-two-characters-using-javascript
+        function replace_substrings_between(str, startDelimiter, endDelimiter, searchStr) {
+            var contents = [];
+            var startDelimiterLength = startDelimiter.length;
+            var endDelimiterLength = endDelimiter.length;
+            var startFrom = contentStart = contentEnd = 0;
+
+            while (false !== (contentStart = strpos(str, startDelimiter, startFrom))) {
+                contentStart += startDelimiterLength;
+                contentEnd = strpos(str, endDelimiter, contentStart);
+                if (false === contentEnd) {
+                    break;
+                }
+                var replacement = str.substr(contentStart, contentEnd - contentStart);
+                if (replacement.includes("label")) {
+                    if (replacement.toLowerCase().includes(searchStr.toLowerCase())) {
+                        replacement = replacement + ", style=filled,color=red";
+                        str = replaceBetween(str, contentStart, contentEnd, replacement);
+                    }
+                }
+                startFrom = contentEnd + endDelimiterLength;
+                // console.log("contentStart: " + contentStart + ", contentEnd: " + contentEnd);
+            }
+
+            return str;
+        }
+
+        function replaceBetween(origin, startIndex, endIndex, insertion) {
+            return origin.substring(0, startIndex) + insertion + origin.substring(endIndex);
+        }
+        // https://stackoverflow.com/a/3978237/1066234
+        function strpos(haystack, needle, offset) {
+            var i = (haystack + '').indexOf(needle, (offset || 0));
+            return i === -1 ? false : i;
+        }
+
+        // // handle search-button click:
+        document.getElementById("inputBtn").addEventListener("click", function () {
+            event.preventDefault();
+            // console.log("search button clicked");
+            // alert("search button clicked");
+            var inputTextVal = $('#input-text');
+            //replace inputTextVal " " with newline:
+            var inputTextVal2 = inputTextVal.val().replace(/ /g, "\n");
+
+            console.log("got input-text: " + inputTextVal2);
+            const context = canvas.getContext('2d');
+
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            var dot = dots[current_dot];
+            var dot_new = replace_substrings_between(dot, "[", "]", inputTextVal2);
+            // console.log("dot_new is: " + dot_new);            
+            
+            //draw the new dot:
+            loaded = false; //allow update
+            if(inputTextVal.val().trim() == "" || inputTextVal.val() == null || inputTextVal.val() == undefined){
+                draw(scale, translatePos, dot);
+            } else {
+                draw(scale, translatePos, dot_new);
+            }
+        });
+
+        {% else %}
+        {% if filter %}
+        $("#filterMessage").text("Filtered by: \"" + {{ filter | safe}} + "\"");
+    $("#filterMessage").css("font-weight", "Bold");
+    {% endif %}
+
+    {% endif %}
+    
+}
+
+</script>
+{% endblock %}
+
+{%block javascript%}
+
+{% endblock %}
