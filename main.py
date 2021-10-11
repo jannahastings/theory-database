@@ -23,7 +23,7 @@ import networkx as nx
 import matplotlib
 # matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
-
+import pprint as pp
 
 
 class FlaskApp(Flask):
@@ -49,6 +49,37 @@ def wrap_if_needed(string_val):
         return( f'"{string_val}"')
     return(string_val)
 
+def testCommonIDs():
+    test_data = [
+            {
+            "Theory_ID": "2", 
+            "Construct": "Dispositions", 
+            "Ontology_ID": "BCIO_05002"
+            }, 
+            {
+            "Theory_ID": "14", 
+            "Construct": "Cognitive factors (intrapersonal) / cognitive arm of the model", 
+            "Ontology_ID": "BCIO_05002"
+            }
+        ]
+    G=nx.DiGraph()
+    edge_list = []
+    for data in test_data:
+        theory_num = data["Theory_ID"]
+        construct_name = data["Construct"]
+        ontology_id = data["Ontology_ID"]
+        G.add_node(construct_name)
+        edge_list.append(G)
+        G.add_edge(construct_name,ontology_id) 
+    
+
+    pdot = nx.drawing.nx_pydot.to_pydot(G)
+    return pdot
+
+
+    
+    
+
 def get_theory_visualisation_merged(theory_list):
     for theory_num in theories.keys():
         if theory_num in theory_list:
@@ -57,6 +88,10 @@ def get_theory_visualisation_merged(theory_list):
             G=nx.DiGraph()
 
             for triple in theory.triples:
+                # pp.pprint(triple.const1.name)
+                # pp.pprint(triple.const2.name)
+                # # pp.pprint(triple.const3.name)
+                # pp.pprint(triple.relStr)
                 if triple.reified_rel is None:
                     G.add_node(wrap_if_needed(triple.const1.name))
                     G.add_node(wrap_if_needed(triple.const2.name))
@@ -195,7 +230,8 @@ def mergedTheories():
     if 'theories' in session:
         theories = session['theories']
         print("GOT THEORIES: ",theories)
-        result = get_theory_visualisation_merged(theories).to_string()
+        # result = get_theory_visualisation_merged(theories).to_string()
+        result = testCommonIDs()
         session.pop('theories', None)
         return render_template('mergedTheories.html',theories=theories, dotStr=result)
     # return render_template('mergedTheories.html')
