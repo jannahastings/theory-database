@@ -3,7 +3,8 @@
 <head>
     <!-- <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/base-min.css"/> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+        crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
@@ -13,6 +14,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" 
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" 
+        crossorigin="anonymous">
     <title>Merged Theories</title>
     <h1>Merged Theories</h1>
 </head>
@@ -44,7 +48,7 @@
 
     #buttonWrapper {
         position: fixed;
-        width: 30px;
+        width: 50px;
         top: 160px;
         left: 40px;
     }
@@ -67,8 +71,8 @@
 
 <!-- <h1>VISUALISATIONS</h1> -->
 
-<!-- <div id="wrapper">
-        <div style="position: absolute; left: 10px; top: 10px; width:200px; height:100px; background-color: yellow;">
+<!-- <div id="wrapper"> -->
+    <!--<div style="position: absolute; left: 10px; top: 10px; width:200px; height:100px; background-color: yellow;">
             <label class="font-weight-bold" for="submitText">Search in visualisation:</label>
         </div>
         <div
@@ -82,34 +86,33 @@
         </div>
     </div> -->
 
-<div class="container-fluid">
-    <div class="row">
+    <div class="container-fluid">
+        <div class="row">
 
-        <div class="col-md-12">
-            <div class="col-8">
-                <h2 id="s-name"> VISUALISATIONS: {{theories | safe}} </h2>
-            </div class="col-4">
+            <div class="col-md-12">
+                <div class="col-8">
+                    <h2 id="s-name"> VISUALISATIONS: {{theories | safe}} </h2>
+                </div class="col-4">
+            </div>
         </div>
     </div>
-</div>
 
-<!--<p>{{dotStr}}</p> -->
+    <!--<p>{{dotStr}}</p> -->
 
-<div onmousedown="return false;">
-    <!-- todo: move all styles inline, or at least remove redundancies -->
-    <div id="wrapper">
-        <canvas id="myCanvas" width="1920" height="1080"></canvas>
-        <div id="buttonWrapper">
-            <button id="plus" class="btn btn-outline-dark btn-sm"><i class="fas fa-plus"></i></button>
-            <button id="minus" class="btn btn-outline-dark btn-sm"><i class="fas fa-minus"></i></button>
+    <div onmousedown="return false;">
+        <!-- todo: move all styles inline, or at least remove redundancies -->
+        <div id="wrapper">
+            <canvas id="myCanvas" width="1920" height="1080"></canvas>
+            <div id="buttonWrapper">
+                <button id="plus" class="btn btn-outline-dark btn-sm"><i class="fas fa-plus"></i></button>
+                <button id="minus" class="btn btn-outline-dark btn-sm"><i class="fas fa-minus"></i></button>
+            </div>
+            <div id="downloadWrapper">
+                <input type="button" id="download" class="btn btn-outline-dark" value="Download Visualisation">
+                <p id="filterMessage"></p>
+            </div>
         </div>
-        <div id="downloadWrapper">
-            <input type="button" id="download" class="btn btn-outline-dark" value="Download Visualisation">
-            <p id="filterMessage"></p>
-        </div>
-
     </div>
-</div>
 <!-- WASM GRAPHVIZ -->
 <script src="https://cdn.jsdelivr.net/npm/@hpcc-js/wasm@1.7.1/dist/index.min.js"></script>
 <script>
