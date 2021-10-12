@@ -80,13 +80,18 @@ def testCommonIDs():
     callgraph = pydot.Dot(graph_type='digraph',fontname="Verdana")
     #
     # Use pydot.Cluster to render boundary around subgraph
-    cluster_foo=pydot.Cluster('foo',label='foo')
+    cluster_foo=pydot.Cluster('foo',label=test_data[0]['Ontology_ID'])
     #
     # pydot.Node(name,attrib=''')
     # Assign unique name to each node, but labels can be arbitrary
-    cluster_foo.add_node(pydot.Node('foo_method_1',label='method_1'))
-    cluster_foo.add_node(pydot.Node('foo_method_2',label='method_2'))
-    cluster_foo.add_node(pydot.Node('foo_method_3',label='method_3'))
+    # cluster_foo.add_node(pydot.Node('foo_method_1',label=test_data[0]['Construct']))
+    # cluster_foo.add_node(pydot.Node('foo_method_2',label=test_data[1]['Construct']))
+    # cluster_foo.add_node(pydot.Node('foo_method_3',label=test_data[2]['Construct']))
+    for data in test_data:
+        theory_num = data["Theory_ID"]
+        construct_name = data["Construct"]
+        ontology_id = data["Ontology_ID"]
+        cluster_foo.add_node(pydot.Node(theory_num, label=construct_name))
 
     #
     # in order to get node in parent graph to point to
@@ -94,41 +99,42 @@ def testCommonIDs():
     # calling Subgraph.add_parent() doesn't seem to do anything.
     callgraph.add_subgraph(cluster_foo)
 
-    cluster_bar=pydot.Cluster('bar')
-    cluster_bar.add_node(pydot.Node('bar_method_a'))
-    cluster_bar.add_node(pydot.Node('bar_method_b'))
-    cluster_bar.add_node(pydot.Node('bar_method_c'))
-    callgraph.add_subgraph(cluster_bar)
+    # cluster_bar=pydot.Cluster('bar')
+    # cluster_bar.add_node(pydot.Node('bar_method_a'))
+    # cluster_bar.add_node(pydot.Node('bar_method_b'))
+    # cluster_bar.add_node(pydot.Node('bar_method_c'))
+    # cluster_bar.add_node(pydot.Node('bar_method_d'))
+    # callgraph.add_subgraph(cluster_bar)
 
-    cluster_baz=pydot.Cluster('baz')
-    cluster_baz.add_node(pydot.Node('baz_method_1'))
-    cluster_baz.add_node(pydot.Node('baz_method_b'))
-    cluster_baz.add_node(pydot.Node('baz_method_3'))
-    cluster_baz.add_node(pydot.Node('baz_method_c'))
-    callgraph.add_subgraph(cluster_baz)
+    # cluster_baz=pydot.Cluster('baz')
+    # cluster_baz.add_node(pydot.Node('baz_method_1'))
+    # cluster_baz.add_node(pydot.Node('baz_method_b'))
+    # cluster_baz.add_node(pydot.Node('baz_method_3'))
+    # cluster_baz.add_node(pydot.Node('baz_method_c'))
+    # callgraph.add_subgraph(cluster_baz)
 
     # create edge between two main nodes:
     # when creating edges, don't need to
     # predefine the nodes
     #
-    callgraph.add_edge(pydot.Edge("main","sub"))
+    # callgraph.add_edge(pydot.Edge("main","sub"))
 
-    #
-    # create edge to subgraph
-    callgraph.add_edge(pydot.Edge("main","bar_method_a"))
+    # #
+    # # create edge to subgraph
+    # callgraph.add_edge(pydot.Edge("main","bar_method_a"))
 
-    callgraph.add_edge(pydot.Edge("bar_method_a","bar_method_c"))
-    callgraph.add_edge(pydot.Edge("bar_method_a","foo_method_2"))
+    # callgraph.add_edge(pydot.Edge("bar_method_a","bar_method_c"))
+    # callgraph.add_edge(pydot.Edge("bar_method_a","foo_method_2"))
 
-    callgraph.add_edge(pydot.Edge("foo_method_2","baz_method_3"))
+    # callgraph.add_edge(pydot.Edge("foo_method_2","baz_method_3"))
 
-    callgraph.add_edge(pydot.Edge("bar_method_b","foo_method_1"))
-    callgraph.add_edge(pydot.Edge("bar_method_b","foo_method_2"))
-    callgraph.add_edge(pydot.Edge("baz_method_b","baz_method_1"))
+    # callgraph.add_edge(pydot.Edge("bar_method_b","foo_method_1"))
+    # callgraph.add_edge(pydot.Edge("bar_method_b","foo_method_2"))
+    # callgraph.add_edge(pydot.Edge("baz_method_b","baz_method_1"))
 
-    callgraph.add_edge(pydot.Edge("foo_method_2","foo_method_3"))
-    callgraph.add_edge(pydot.Edge("bar_method_c","baz_method_c"))
-    callgraph.add_edge(pydot.Edge("bar_method_b","baz_method_b"))
+    # callgraph.add_edge(pydot.Edge("foo_method_2","foo_method_3"))
+    # callgraph.add_edge(pydot.Edge("bar_method_c","baz_method_c"))
+    # callgraph.add_edge(pydot.Edge("bar_method_b","baz_method_b"))
     
     #
     # output:
@@ -147,15 +153,17 @@ def testCommonIDs():
     # node_list = []
     # edge_list = []
     # id_list = []
-    
+    # cluster_zed=pydot.Cluster('zed')
     # for data in test_data:
     #     theory_num = data["Theory_ID"]
     #     construct_name = data["Construct"]
     #     ontology_id = data["Ontology_ID"]
-    #     G.add_node(construct_name)
-    #     node_list.append(construct_name)
-    #     G.add_edge(construct_name,ontology_id) 
-    #     edge_list.append(G)
+    #     cluster_zed.add_node(construct_name)
+    #     # node_list.append(construct_name)
+    #     callgraph.add_edge(pydot.Edge(construct_name, ontology_id))
+    # callgraph.add_subgraph(cluster_zed)
+        # G.add_edge(construct_name,ontology_id) 
+        # edge_list.append(G)
     #     # if F is not None:
     #     #     L = nx.subgraph(G, F)
     #     #     F = G
