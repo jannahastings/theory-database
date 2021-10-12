@@ -20,6 +20,8 @@ import TheoryDatabase
 from TheoryDatabase import Theory, theories, Relation
 
 import networkx as nx
+import pydot 
+from PIL import Image
 import matplotlib
 # matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
@@ -60,21 +62,186 @@ def testCommonIDs():
             "Theory_ID": "14", 
             "Construct": "Cognitive factors (intrapersonal) / cognitive arm of the model", 
             "Ontology_ID": "BCIO_05002"
+            }, 
+            {
+            "Theory_ID": "20", 
+            "Construct": "asdf", 
+            "Ontology_ID": "BCIO_05002"
+            }, 
+            {
+            "Theory_ID": "140", 
+            "Construct": "cognitive arm of the model", 
+            "Ontology_ID": "BCIO_05003"
             }
+            
         ]
-    G=nx.DiGraph()
-    edge_list = []
-    for data in test_data:
-        theory_num = data["Theory_ID"]
-        construct_name = data["Construct"]
-        ontology_id = data["Ontology_ID"]
-        G.add_node(construct_name)
-        edge_list.append(G)
-        G.add_edge(construct_name,ontology_id) 
     
+    #new pydot version: 
+    callgraph = pydot.Dot(graph_type='digraph',fontname="Verdana")
+    #
+    # Use pydot.Cluster to render boundary around subgraph
+    cluster_foo=pydot.Cluster('foo',label='foo')
+    #
+    # pydot.Node(name,attrib=''')
+    # Assign unique name to each node, but labels can be arbitrary
+    cluster_foo.add_node(pydot.Node('foo_method_1',label='method_1'))
+    cluster_foo.add_node(pydot.Node('foo_method_2',label='method_2'))
+    cluster_foo.add_node(pydot.Node('foo_method_3',label='method_3'))
 
-    pdot = nx.drawing.nx_pydot.to_pydot(G)
-    return pdot
+    #
+    # in order to get node in parent graph to point to
+    # subgraph, need to use Graph.add_subgraph()
+    # calling Subgraph.add_parent() doesn't seem to do anything.
+    callgraph.add_subgraph(cluster_foo)
+
+    cluster_bar=pydot.Cluster('bar')
+    cluster_bar.add_node(pydot.Node('bar_method_a'))
+    cluster_bar.add_node(pydot.Node('bar_method_b'))
+    cluster_bar.add_node(pydot.Node('bar_method_c'))
+    callgraph.add_subgraph(cluster_bar)
+
+    cluster_baz=pydot.Cluster('baz')
+    cluster_baz.add_node(pydot.Node('baz_method_1'))
+    cluster_baz.add_node(pydot.Node('baz_method_b'))
+    cluster_baz.add_node(pydot.Node('baz_method_3'))
+    cluster_baz.add_node(pydot.Node('baz_method_c'))
+    callgraph.add_subgraph(cluster_baz)
+
+    # create edge between two main nodes:
+    # when creating edges, don't need to
+    # predefine the nodes
+    #
+    callgraph.add_edge(pydot.Edge("main","sub"))
+
+    #
+    # create edge to subgraph
+    callgraph.add_edge(pydot.Edge("main","bar_method_a"))
+
+    callgraph.add_edge(pydot.Edge("bar_method_a","bar_method_c"))
+    callgraph.add_edge(pydot.Edge("bar_method_a","foo_method_2"))
+
+    callgraph.add_edge(pydot.Edge("foo_method_2","baz_method_3"))
+
+    callgraph.add_edge(pydot.Edge("bar_method_b","foo_method_1"))
+    callgraph.add_edge(pydot.Edge("bar_method_b","foo_method_2"))
+    callgraph.add_edge(pydot.Edge("baz_method_b","baz_method_1"))
+
+    callgraph.add_edge(pydot.Edge("foo_method_2","foo_method_3"))
+    callgraph.add_edge(pydot.Edge("bar_method_c","baz_method_c"))
+    callgraph.add_edge(pydot.Edge("bar_method_b","baz_method_b"))
+    
+    #
+    # output:
+    # write dot file, then render as png
+    # callgraph.write_raw('example_cluster2.dot')
+    # print("wrote example_cluster2.dot")
+
+    # callgraph.write_png('example_cluster2.png')
+    # print("wrote example_cluster2.png")
+
+    # im=Image.open('example_cluster2.png')
+    # im.show()
+    # G=nx.DiGraph()
+    # F = None
+    # H=nx.DiGraph()
+    # node_list = []
+    # edge_list = []
+    # id_list = []
+    
+    # for data in test_data:
+    #     theory_num = data["Theory_ID"]
+    #     construct_name = data["Construct"]
+    #     ontology_id = data["Ontology_ID"]
+    #     G.add_node(construct_name)
+    #     node_list.append(construct_name)
+    #     G.add_edge(construct_name,ontology_id) 
+    #     edge_list.append(G)
+    #     # if F is not None:
+    #     #     L = nx.subgraph(G, F)
+    #     #     F = G
+    #     # else: 
+    #     #     F = G
+    #     #     L = nx.subgraph(G, F)
+
+
+    # # Create a subgraph SG based on a (possibly multigraph) G
+    # ################################################################
+    # SG = G.__class__()
+    # SG.add_nodes_from((n, G.nodes[n]) for n in node_list)
+    # if SG.is_multigraph():
+    #     SG.add_edges_from((n, nbr, key, d)
+    #         for n, nbrs in G.adj.items() if n in node_list
+    #         for nbr, keydict in nbrs.items() if nbr in node_list
+    #         for key, d in keydict.items())
+    # else:
+    #     SG.add_edges_from((n, nbr, d)
+    #         for n, nbrs in G.adj.items() if n in node_list
+    #         for nbr, d in nbrs.items() if nbr in node_list)
+    # SG.graph.update(G.graph)
+    # ################################################################
+
+
+    # S = nx.subgraph(G, node_list)
+    # print("node_list is: ", node_list)
+    # print("edge_list is: ", edge_list)
+    # T = G.subgraph(G)
+    # print("T is: ", T)
+    # # G.subgraph(edge_list)
+    # for data in test_data2:
+    #     theory_num = data["Theory_ID"]
+    #     construct_name = data["Construct"]
+    #     ontology_id = data["Ontology_ID"]
+    #     H.add_node(construct_name)
+    #     node_list.append(construct_name)
+    #     H.add_edge(construct_name,ontology_id) 
+    #     edge_list.append(G)
+    # I = nx.subgraph(H, node_list)
+
+    # F = nx.subgraph(G, H)
+    # pdot = nx.drawing.nx_pydot.to_pydot(G)
+    # pdot2 = nx.drawing.nx_pydot.to_pydot(T)
+    # pdot3 = nx.drawing.nx_pydot.to_pydot(G)
+    
+    # for i, node in enumerate(pdot.get_nodes()):
+    #             node_name = str(node).replace("\"","").replace(";","")
+                
+    #             node.set_shape('box')
+    #             node.set_fontcolor('black')
+    #             node.set_fillcolor('white')
+    #             node.set_style('rounded, filled')
+    #             node.set_color('black')         
+    
+    # pdot4 = """    digraph {
+    # subgraph cluster0 {
+    # node [style=filled,color=white];
+    # style=filled;
+    # color=lightgrey; 
+    
+    # a0 -> a1 -> a2 -> a3;
+    # label = "process #1";
+    # }
+    # subgraph cluster1 {
+    # node [style=filled];
+    # b0 -> b1 -> b2 -> b3;
+    # label = "process #2";
+    # color=blue
+    # }
+    # start -> a0;
+    # start -> b0;
+    # a1 -> b3;
+    # b2 -> a3;
+    # a3 -> a0;
+    # a3 -> end;
+    # b3 -> end;
+    # start [shape=Mdiamond];
+    # end [shape=Msquare];
+    # }
+    # """
+    # print(pdot)
+
+    # pdot = nx.drawing.nx_pydot.to_pydot(G)
+    # return pdot
+    return callgraph
 
 
     
