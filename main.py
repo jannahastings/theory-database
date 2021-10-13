@@ -26,7 +26,7 @@ import matplotlib
 # matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import pprint as pp
-
+from itertools import chain
 
 class FlaskApp(Flask):
     def __init__(self, *args, **kwargs):
@@ -51,6 +51,35 @@ def wrap_if_needed(string_val):
         return( f'"{string_val}"')
     return(string_val)
 
+class add_subnodes():
+    def __init__(self, all_data):
+        self.all_data = all_data
+        self.all_ids = [ sub['Ontology_ID'] for sub in all_data ]
+        self.unique_ids = list(set(sub for sub in self.all_ids))        
+
+    def get_unique_IDs(self):
+        return self.unique_ids
+
+    def build(self):
+        self.cluster_list = []
+        self.cluster_output = []
+        num = 0
+        for s in self.unique_ids:
+            self.cluster_list.append(pydot.Cluster(s,label=s))
+            
+            for data in self.all_data:
+                theory_num = data["Theory_ID"]
+                construct_name = data["Construct"]
+                ontology_id = data["Ontology_ID"]
+                if(ontology_id == s):
+                    self.cluster_list[num].add_node(pydot.Node(theory_num, label=construct_name))
+            self.cluster_output.append(self.cluster_list[num])
+            num = num+1
+        return self.cluster_output
+            
+        
+
+
 def testCommonIDs():
     test_data = [
             {
@@ -72,32 +101,55 @@ def testCommonIDs():
             "Theory_ID": "140", 
             "Construct": "cognitive arm of the model", 
             "Ontology_ID": "BCIO_05003"
+            },
+            {
+            "Theory_ID": "320", 
+            "Construct": "abcd", 
+            "Ontology_ID": "BCIO_05011"
+            }, 
+            {
+            "Theory_ID": "130", 
+            "Construct": "efgh", 
+            "Ontology_ID": "BCIO_05011"
             }
             
         ]
-    
+   
     #new pydot version: 
     callgraph = pydot.Dot(graph_type='digraph',fontname="Verdana")
-    #
+    sn = add_subnodes(test_data) #add_subnodes class creates boxes around same 'Ontology_ID'
+    sn_list = sn.build()
+    sn_unique = sn.get_unique_IDs()
+    print("got unique ID's: ", sn_unique)
+    # print(a)
+    for sub in sn_list:
+        callgraph.add_subgraph(sub)
+        print(sub)
+
+    # callgraph.add_subgraph(s)
     # Use pydot.Cluster to render boundary around subgraph
-    cluster_foo=pydot.Cluster('foo',label=test_data[0]['Ontology_ID'])
+    #todo: build these from unique Ontology_ID test_data values - https://www.geeksforgeeks.org/python-get-unique-values-from-list-of-dictionary/
+    # cluster_foo=pydot.Cluster('foo',label=test_data[0]['Ontology_ID'])
+
     #
     # pydot.Node(name,attrib=''')
     # Assign unique name to each node, but labels can be arbitrary
     # cluster_foo.add_node(pydot.Node('foo_method_1',label=test_data[0]['Construct']))
     # cluster_foo.add_node(pydot.Node('foo_method_2',label=test_data[1]['Construct']))
     # cluster_foo.add_node(pydot.Node('foo_method_3',label=test_data[2]['Construct']))
-    for data in test_data:
-        theory_num = data["Theory_ID"]
-        construct_name = data["Construct"]
-        ontology_id = data["Ontology_ID"]
-        cluster_foo.add_node(pydot.Node(theory_num, label=construct_name))
+    
+    #todo: filter test_data by combining compatible ontology_id into subgraph on unique ID
+    # for data in test_data:
+    #     theory_num = data["Theory_ID"]
+    #     construct_name = data["Construct"]
+    #     ontology_id = data["Ontology_ID"]
+    #     cluster_foo.add_node(pydot.Node(theory_num, label=construct_name))
 
     #
     # in order to get node in parent graph to point to
     # subgraph, need to use Graph.add_subgraph()
     # calling Subgraph.add_parent() doesn't seem to do anything.
-    callgraph.add_subgraph(cluster_foo)
+    # callgraph.add_subgraph(cluster_foo)
 
     # cluster_bar=pydot.Cluster('bar')
     # cluster_bar.add_node(pydot.Node('bar_method_a'))
@@ -136,119 +188,7 @@ def testCommonIDs():
     # callgraph.add_edge(pydot.Edge("bar_method_c","baz_method_c"))
     # callgraph.add_edge(pydot.Edge("bar_method_b","baz_method_b"))
     
-    #
-    # output:
-    # write dot file, then render as png
-    # callgraph.write_raw('example_cluster2.dot')
-    # print("wrote example_cluster2.dot")
-
-    # callgraph.write_png('example_cluster2.png')
-    # print("wrote example_cluster2.png")
-
-    # im=Image.open('example_cluster2.png')
-    # im.show()
-    # G=nx.DiGraph()
-    # F = None
-    # H=nx.DiGraph()
-    # node_list = []
-    # edge_list = []
-    # id_list = []
-    # cluster_zed=pydot.Cluster('zed')
-    # for data in test_data:
-    #     theory_num = data["Theory_ID"]
-    #     construct_name = data["Construct"]
-    #     ontology_id = data["Ontology_ID"]
-    #     cluster_zed.add_node(construct_name)
-    #     # node_list.append(construct_name)
-    #     callgraph.add_edge(pydot.Edge(construct_name, ontology_id))
-    # callgraph.add_subgraph(cluster_zed)
-        # G.add_edge(construct_name,ontology_id) 
-        # edge_list.append(G)
-    #     # if F is not None:
-    #     #     L = nx.subgraph(G, F)
-    #     #     F = G
-    #     # else: 
-    #     #     F = G
-    #     #     L = nx.subgraph(G, F)
-
-
-    # # Create a subgraph SG based on a (possibly multigraph) G
-    # ################################################################
-    # SG = G.__class__()
-    # SG.add_nodes_from((n, G.nodes[n]) for n in node_list)
-    # if SG.is_multigraph():
-    #     SG.add_edges_from((n, nbr, key, d)
-    #         for n, nbrs in G.adj.items() if n in node_list
-    #         for nbr, keydict in nbrs.items() if nbr in node_list
-    #         for key, d in keydict.items())
-    # else:
-    #     SG.add_edges_from((n, nbr, d)
-    #         for n, nbrs in G.adj.items() if n in node_list
-    #         for nbr, d in nbrs.items() if nbr in node_list)
-    # SG.graph.update(G.graph)
-    # ################################################################
-
-
-    # S = nx.subgraph(G, node_list)
-    # print("node_list is: ", node_list)
-    # print("edge_list is: ", edge_list)
-    # T = G.subgraph(G)
-    # print("T is: ", T)
-    # # G.subgraph(edge_list)
-    # for data in test_data2:
-    #     theory_num = data["Theory_ID"]
-    #     construct_name = data["Construct"]
-    #     ontology_id = data["Ontology_ID"]
-    #     H.add_node(construct_name)
-    #     node_list.append(construct_name)
-    #     H.add_edge(construct_name,ontology_id) 
-    #     edge_list.append(G)
-    # I = nx.subgraph(H, node_list)
-
-    # F = nx.subgraph(G, H)
-    # pdot = nx.drawing.nx_pydot.to_pydot(G)
-    # pdot2 = nx.drawing.nx_pydot.to_pydot(T)
-    # pdot3 = nx.drawing.nx_pydot.to_pydot(G)
     
-    # for i, node in enumerate(pdot.get_nodes()):
-    #             node_name = str(node).replace("\"","").replace(";","")
-                
-    #             node.set_shape('box')
-    #             node.set_fontcolor('black')
-    #             node.set_fillcolor('white')
-    #             node.set_style('rounded, filled')
-    #             node.set_color('black')         
-    
-    # pdot4 = """    digraph {
-    # subgraph cluster0 {
-    # node [style=filled,color=white];
-    # style=filled;
-    # color=lightgrey; 
-    
-    # a0 -> a1 -> a2 -> a3;
-    # label = "process #1";
-    # }
-    # subgraph cluster1 {
-    # node [style=filled];
-    # b0 -> b1 -> b2 -> b3;
-    # label = "process #2";
-    # color=blue
-    # }
-    # start -> a0;
-    # start -> b0;
-    # a1 -> b3;
-    # b2 -> a3;
-    # a3 -> a0;
-    # a3 -> end;
-    # b3 -> end;
-    # start [shape=Mdiamond];
-    # end [shape=Msquare];
-    # }
-    # """
-    # print(pdot)
-
-    # pdot = nx.drawing.nx_pydot.to_pydot(G)
-    # return pdot
     return callgraph
 
 
