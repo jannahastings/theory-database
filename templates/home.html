@@ -138,11 +138,15 @@
         $("input[type=checkbox]").click(function () {
             var id = $(this).attr('id');
             var name = $(this).attr('name');
-            var checked = $(this).is(':checked');
-            if (checked) {
-                $("#show-theory-consistency").removeAttr('hidden');
-                $("#show-merged-theories").removeAttr('hidden');
-            }
+            var checked = $(this).is(':checked'); //not needed anymore..                         
+                if(document.querySelectorAll('input[type="checkbox"]:checked').length > 1){
+                    $("#show-theory-consistency").attr('hidden', false);
+                    $("#show-merged-theories").attr('hidden', false);
+                } else{
+                    console.log("should be hidden...");
+                    $("#show-theory-consistency").attr('hidden', true);
+                    $("#show-merged-theories").attr('hidden', true);
+                }          
         });
     });
 </script>
