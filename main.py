@@ -257,11 +257,12 @@ def testCommonIDs():
     
 
 def get_theory_visualisation_merged(theory_list):
+    G=nx.DiGraph()
     for theory_num in theories.keys():
         if theory_num in theory_list:
             theory = theories[theory_num]
             print("looking at theory: ", theory_num)
-            G=nx.DiGraph()
+            # G=nx.DiGraph()
 
             for triple in theory.triples:
                 # pp.pprint(triple.const1.name)
@@ -300,6 +301,7 @@ def get_theory_visualisation_merged(theory_list):
             #testing only:
             # png_path = "test/"+theory_num+".png"
             # pdot.write_png(png_path)
+    # print(pdot)
     return pdot
 
 @app.route('/')
@@ -406,8 +408,8 @@ def mergedTheories():
     if 'theories' in session:
         theories = session['theories']
         print("GOT THEORIES: ",theories)
-        # result = get_theory_visualisation_merged(theories).to_string()
-        result = testCommonIDs()
+        result = get_theory_visualisation_merged(theories).to_string()
+        # result = testCommonIDs()
         session.pop('theories', None)
         return render_template('mergedTheories.html',theories=theories, dotStr=result)
     # return render_template('mergedTheories.html')
