@@ -64,6 +64,7 @@ class add_subnodes():
         self.cluster_list = []
         self.cluster_output = []
         num = 0
+        
         for s in self.unique_ids:
             self.cluster_list.append(pydot.Cluster(s,label=s))
             
@@ -73,6 +74,9 @@ class add_subnodes():
                 ontology_id = data["Ontology_ID"]
                 if(ontology_id == s):
                     self.cluster_list[num].add_node(pydot.Node(theory_num, label=construct_name))
+            #todo: below is a hack but example of how to use invisible edges for layout..
+            if(num > 0):
+                self.cluster_list[num].add_edge(pydot.Edge(self.all_data[0]["Theory_ID"], self.all_data[num-1]["Theory_ID"], color="white"))
             self.cluster_output.append(self.cluster_list[num])
             num = num+1
         return self.cluster_output
@@ -83,43 +87,95 @@ class add_subnodes():
 def testCommonIDs():
     test_data = [
             {
+            "Theory_ID": "1", 
+            "Construct": "a", 
+            "Ontology_ID": "BCIO_1"
+            }, 
+            {
             "Theory_ID": "2", 
-            "Construct": "Dispositions", 
-            "Ontology_ID": "BCIO_05002"
+            "Construct": "b", 
+            "Ontology_ID": "BCIO_1"
+            }, 
+            {
+            "Theory_ID": "3", 
+            "Construct": "c", 
+            "Ontology_ID": "BCIO_1"
+            }, 
+            {
+            "Theory_ID": "4", 
+            "Construct": "d", 
+            "Ontology_ID": "BCIO_2"
+            }, 
+            {
+            "Theory_ID": "5", 
+            "Construct": "e", 
+            "Ontology_ID": "BCIO_2"
+            }, 
+            {
+            "Theory_ID": "6", 
+            "Construct": "f", 
+            "Ontology_ID": "BCIO_3"
+            }, 
+            {
+            "Theory_ID": "7", 
+            "Construct": "g", 
+            "Ontology_ID": "BCIO_3"
+            }, 
+            {
+            "Theory_ID": "8", 
+            "Construct": "h", 
+            "Ontology_ID": "BCIO_3"
+            }, 
+            {
+            "Theory_ID": "9", 
+            "Construct": "i", 
+            "Ontology_ID": "BCIO_4"
+            }, 
+            {
+            "Theory_ID": "10", 
+            "Construct": "j", 
+            "Ontology_ID": "BCIO_4"
+            }, 
+            {
+            "Theory_ID": "11", 
+            "Construct": "k", 
+            "Ontology_ID": "BCIO_4"
+            }, 
+            {
+            "Theory_ID": "12", 
+            "Construct": "l", 
+            "Ontology_ID": "BCIO_5"
+            }, 
+            {
+            "Theory_ID": "13", 
+            "Construct": "m", 
+            "Ontology_ID": "BCIO_7"
             }, 
             {
             "Theory_ID": "14", 
-            "Construct": "Cognitive factors (intrapersonal) / cognitive arm of the model", 
-            "Ontology_ID": "BCIO_05002"
+            "Construct": "n", 
+            "Ontology_ID": "BCIO_7"
             }, 
             {
-            "Theory_ID": "20", 
-            "Construct": "asdf", 
-            "Ontology_ID": "BCIO_05002"
+            "Theory_ID": "15", 
+            "Construct": "o", 
+            "Ontology_ID": "BCIO_6"
             }, 
             {
-            "Theory_ID": "140", 
-            "Construct": "cognitive arm of the model", 
-            "Ontology_ID": "BCIO_05003"
-            },
-            {
-            "Theory_ID": "320", 
-            "Construct": "abcd", 
-            "Ontology_ID": "BCIO_05011"
+            "Theory_ID": "16", 
+            "Construct": "p", 
+            "Ontology_ID": "BCIO_6"
             }, 
-            {
-            "Theory_ID": "130", 
-            "Construct": "efgh", 
-            "Ontology_ID": "BCIO_05011"
-            }
+            
+
             
         ]
    
     #new pydot version: 
-    callgraph = pydot.Dot(graph_type='digraph',fontname="Verdana")
+    callgraph = pydot.Dot(graph_type='digraph',fontname="Verdana", compound='true')
     sn = add_subnodes(test_data) #add_subnodes class creates boxes around same 'Ontology_ID'
-    sn_list = sn.build()
-    sn_unique = sn.get_unique_IDs()
+    sn_list = sn.build() #build returns the dot graph
+    sn_unique = sn.get_unique_IDs() #not important, just for testing
     print("got unique ID's: ", sn_unique)
     # print(a)
     for sub in sn_list:
@@ -188,7 +244,12 @@ def testCommonIDs():
     # callgraph.add_edge(pydot.Edge("bar_method_c","baz_method_c"))
     # callgraph.add_edge(pydot.Edge("bar_method_b","baz_method_b"))
     
-    
+    #layout: https://www.graphviz.org/pdf/dotguide.pdf
+    # callgraph.set_graph_defaults(rankdir='LR', center='True')
+    callgraph.set_graph_defaults(compound='True')
+    # callgraph.set_graph_defaults(ratio="fill",ranksep='equally', compound='true', rankdir='LR', center='True')
+    # my_networkx_graph = nx.drawing.nx_pydot.from_pydot(callgraph)
+
     return callgraph
 
 
