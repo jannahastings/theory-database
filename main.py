@@ -266,54 +266,54 @@ def get_theory_visualisation_merged_boxes(theory_list):
             "Ontology_ID": "BCIO_050002"
             }           
         ]
-   
+    all_ids = [ sub['Ontology_ID'] for sub in test_data ]
+    unique_ids = list(set(sub for sub in all_ids)) 
+    cluster_list = []
+    num = 0
     callgraph = pydot.Dot(graph_type='digraph',fontname="Verdana", compound='true')
-    # G=nx.DiGraph()
+    
+    for s in unique_ids:
+        cluster_list.append(pydot.Cluster(s,label=s))
+
     for theory_num in theories.keys():
         if theory_num in theory_list:
             theory = theories[theory_num]
             print("looking at theory: ", theory_num)
-            # G=nx.DiGraph()
+            
+            for triple in theory.triples:                
+                list_of_all_values = [value for elem in test_data for value in elem.values()]                
 
-            for triple in theory.triples:
-                # pp.pprint(triple.const1.name)
-                # pp.pprint(triple.const2.name)
-                # # pp.pprint(triple.const3.name)
-                # pp.pprint(triple.relStr)
-                
-
-
-                if triple.reified_rel is None:
-                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
-                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
-                    callgraph.add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),wrap_if_needed(triple.const2.name),label=triple.relStr))
-                    # G.add_node(wrap_if_needed(triple.const1.name))
-                    # G.add_node(wrap_if_needed(triple.const2.name))
-                    # G.add_edge(wrap_if_needed(triple.const1.name),wrap_if_needed(triple.const2.name),label=triple.relStr)
-                else:
-                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
-                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
-                    callgraph.add_node(pydot.Node(triple.reified_rel.name,label=triple.relStr))
-                    callgraph.add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),triple.reified_rel.name,label=Relation.getStringForRelType(Relation.THROUGH)))
-                    callgraph.add_edge(pydot.Edge(triple.reified_rel.name,wrap_if_needed(triple.const2.name),label=Relation.getStringForRelType(Relation.TO)))
-                    # G.add_node(wrap_if_needed(triple.const1.name))
-                    # G.add_node(wrap_if_needed(triple.const2.name))
-                    # G.add_node(triple.reified_rel.name,label=triple.relStr)
-                    # G.add_edge(wrap_if_needed(triple.const1.name),triple.reified_rel.name,label=Relation.getStringForRelType(Relation.THROUGH))
-                    # G.add_edge(triple.reified_rel.name,wrap_if_needed(triple.const2.name),label=Relation.getStringForRelType(Relation.TO))
+                if triple.const1.name in list_of_all_values or triple.const2.name in list_of_all_values:
+                    if triple.reified_rel is None:
+                        cluster_list[num].add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
+                        cluster_list[num].add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
+                        cluster_list[num].add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),wrap_if_needed(triple.const2.name),label=triple.relStr))
+                    else:
+                        cluster_list[num].add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
+                        cluster_list[num].add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
+                        cluster_list[num].add_node(pydot.Node(triple.reified_rel.name,label=triple.relStr))
+                        cluster_list[num].add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),triple.reified_rel.name,label=Relation.getStringForRelType(Relation.THROUGH)))
+                        cluster_list[num].add_edge(pydot.Edge(triple.reified_rel.name,wrap_if_needed(triple.const2.name),label=Relation.getStringForRelType(Relation.TO)))
+                    
+                else:                
+                    if triple.reified_rel is None:
+                        callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
+                        callgraph.add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
+                        callgraph.add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),wrap_if_needed(triple.const2.name),label=triple.relStr))
+                    else:
+                        callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
+                        callgraph.add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
+                        callgraph.add_node(pydot.Node(triple.reified_rel.name,label=triple.relStr))
+                        callgraph.add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),triple.reified_rel.name,label=Relation.getStringForRelType(Relation.THROUGH)))
+                        callgraph.add_edge(pydot.Edge(triple.reified_rel.name,wrap_if_needed(triple.const2.name),label=Relation.getStringForRelType(Relation.TO)))
+            
+            for sub in cluster_list: #testing only, adding all subgraphs - need check for none
+                callgraph.add_subgraph(sub)
+                print(sub)
             pdot = callgraph
-            # pdot = nx.drawing.nx_pydot.to_pydot(G)
 
-            for i, node in enumerate(pdot.get_nodes()):
+            for i, node in enumerate(pdot.get_nodes()):                
                 node_name = str(node).replace("\"","").replace(";","")
-                # print("node_name: ", node_name)
-                #todo: check if triple.const1.name or triple.const2.name are in the list:
-                for data in test_data:
-                    theory_num_test = data["Theory_ID"]
-                    construct_name = data["Construct"]
-                    ontology_id = data["Ontology_ID"]
-                    if node_name == construct_name:
-                        print("node name in data: ", node_name)
                     
                 if node_name in theory.constructs_by_name.keys():
                     node.set_shape('box')
@@ -328,16 +328,8 @@ def get_theory_visualisation_merged_boxes(theory_list):
                     node.set_fillcolor('white')
                     node.set_style('rounded, filled')
                     node.set_color('grey')
-    sn = add_subnodes(test_data) #add_subnodes class creates boxes around same 'Ontology_ID'
-    sn_list = sn.build() #build returns the dot graph
-    for sub in sn_list:
-        pdot.add_subgraph(sub)
-        print(sub)
+
     pdot.set_graph_defaults(compound='True')
-            #testing only:
-            # png_path = "test/"+theory_num+".png"
-            # pdot.write_png(png_path)
-    # print(pdot)
     return pdot    
     
 
