@@ -253,7 +253,92 @@ def testCommonIDs():
     return callgraph
 
 
-    
+def get_theory_visualisation_merged_boxes(theory_list):
+    test_data = [
+            {
+            "Theory_ID": "2", 
+            "Construct": "Dispositions", 
+            "Ontology_ID": "BCIO_050002"
+            }, 
+            {
+            "Theory_ID": "14", 
+            "Construct": "Cognitive factors (intrapersonal) / cognitive arm of the model", 
+            "Ontology_ID": "BCIO_050002"
+            }           
+        ]
+   
+    callgraph = pydot.Dot(graph_type='digraph',fontname="Verdana", compound='true')
+    # G=nx.DiGraph()
+    for theory_num in theories.keys():
+        if theory_num in theory_list:
+            theory = theories[theory_num]
+            print("looking at theory: ", theory_num)
+            # G=nx.DiGraph()
+
+            for triple in theory.triples:
+                # pp.pprint(triple.const1.name)
+                # pp.pprint(triple.const2.name)
+                # # pp.pprint(triple.const3.name)
+                # pp.pprint(triple.relStr)
+                
+
+
+                if triple.reified_rel is None:
+                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
+                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
+                    callgraph.add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),wrap_if_needed(triple.const2.name),label=triple.relStr))
+                    # G.add_node(wrap_if_needed(triple.const1.name))
+                    # G.add_node(wrap_if_needed(triple.const2.name))
+                    # G.add_edge(wrap_if_needed(triple.const1.name),wrap_if_needed(triple.const2.name),label=triple.relStr)
+                else:
+                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
+                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
+                    callgraph.add_node(pydot.Node(triple.reified_rel.name,label=triple.relStr))
+                    callgraph.add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),triple.reified_rel.name,label=Relation.getStringForRelType(Relation.THROUGH)))
+                    callgraph.add_edge(pydot.Edge(triple.reified_rel.name,wrap_if_needed(triple.const2.name),label=Relation.getStringForRelType(Relation.TO)))
+                    # G.add_node(wrap_if_needed(triple.const1.name))
+                    # G.add_node(wrap_if_needed(triple.const2.name))
+                    # G.add_node(triple.reified_rel.name,label=triple.relStr)
+                    # G.add_edge(wrap_if_needed(triple.const1.name),triple.reified_rel.name,label=Relation.getStringForRelType(Relation.THROUGH))
+                    # G.add_edge(triple.reified_rel.name,wrap_if_needed(triple.const2.name),label=Relation.getStringForRelType(Relation.TO))
+            pdot = callgraph
+            # pdot = nx.drawing.nx_pydot.to_pydot(G)
+
+            for i, node in enumerate(pdot.get_nodes()):
+                node_name = str(node).replace("\"","").replace(";","")
+                # print("node_name: ", node_name)
+                #todo: check if triple.const1.name or triple.const2.name are in the list:
+                for data in test_data:
+                    theory_num_test = data["Theory_ID"]
+                    construct_name = data["Construct"]
+                    ontology_id = data["Ontology_ID"]
+                    if node_name == construct_name:
+                        print("node name in data: ", node_name)
+                    
+                if node_name in theory.constructs_by_name.keys():
+                    node.set_shape('box')
+                    node.set_fontcolor('black')
+                    node.set_fillcolor('white')
+                    node.set_style('rounded, filled')
+                    node.set_color('black')
+                else:
+                    node.set_shape('ellipse')
+                    node.set_fontcolor('black')
+                    node.set_fontname('times italic')
+                    node.set_fillcolor('white')
+                    node.set_style('rounded, filled')
+                    node.set_color('grey')
+    sn = add_subnodes(test_data) #add_subnodes class creates boxes around same 'Ontology_ID'
+    sn_list = sn.build() #build returns the dot graph
+    for sub in sn_list:
+        pdot.add_subgraph(sub)
+        print(sub)
+    pdot.set_graph_defaults(compound='True')
+            #testing only:
+            # png_path = "test/"+theory_num+".png"
+            # pdot.write_png(png_path)
+    # print(pdot)
+    return pdot    
     
 
 def get_theory_visualisation_merged(theory_list):
@@ -408,7 +493,8 @@ def mergedTheories():
     if 'theories' in session:
         theories = session['theories']
         print("GOT THEORIES: ",theories)
-        result = get_theory_visualisation_merged(theories).to_string()
+        result = get_theory_visualisation_merged_boxes(theories).to_string()
+        # result = get_theory_visualisation_merged(theories).to_string()
         # result = testCommonIDs()
         session.pop('theories', None)
         return render_template('mergedTheories.html',theories=theories, dotStr=result)
