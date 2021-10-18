@@ -259,17 +259,19 @@ def get_theory_visualisation_merged_boxes(theory_list):
             {
             "Theory_ID": "2", 
             "Construct": "Dispositions", 
+            "Label":"personal disposition",
             "Ontology_ID": "BCIO_050002"
             }, 
             {
             "Theory_ID": "14", 
             "Construct": "Cognitive factors (intrapersonal) / cognitive arm of the model", 
+            "Label":"personal disposition",
             "Ontology_ID": "BCIO_050002"
             }           
         ]
     list_of_all_values = [value for elem in test_data for value in elem.values()]
     print("got list_of_all_values", list_of_all_values)
-    all_ids = [ sub['Ontology_ID'] for sub in test_data ]
+    all_ids = [ (sub['Label'] + " (" + sub['Ontology_ID'] + ")") for sub in test_data ]
     unique_ids = list(set(sub for sub in all_ids)) 
     cluster_list = []
     num = 0 #for multiple
