@@ -254,6 +254,7 @@ def testCommonIDs():
 
 
 def get_theory_visualisation_merged_boxes(theory_list):
+    # test_data = []
     test_data = [
             {
             "Theory_ID": "2", 
@@ -266,6 +267,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
             "Ontology_ID": "BCIO_050002"
             }           
         ]
+    list_of_all_values = [value for elem in test_data for value in elem.values()]
     all_ids = [ sub['Ontology_ID'] for sub in test_data ]
     unique_ids = list(set(sub for sub in all_ids)) 
     cluster_list = []
@@ -281,31 +283,33 @@ def get_theory_visualisation_merged_boxes(theory_list):
             print("looking at theory: ", theory_num)
             
             for triple in theory.triples:                
-                list_of_all_values = [value for elem in test_data for value in elem.values()]                
+                # list_of_all_values = [value for elem in test_data for value in elem.values()]                
 
                 if triple.const1.name in list_of_all_values or triple.const2.name in list_of_all_values:
-                    if triple.reified_rel is None:
-                        cluster_list[num].add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
-                        cluster_list[num].add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
-                        cluster_list[num].add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),wrap_if_needed(triple.const2.name),label=triple.relStr))
-                    else:
-                        cluster_list[num].add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
-                        cluster_list[num].add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
-                        cluster_list[num].add_node(pydot.Node(triple.reified_rel.name,label=triple.relStr))
-                        cluster_list[num].add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),triple.reified_rel.name,label=Relation.getStringForRelType(Relation.THROUGH)))
-                        cluster_list[num].add_edge(pydot.Edge(triple.reified_rel.name,wrap_if_needed(triple.const2.name),label=Relation.getStringForRelType(Relation.TO)))
+                    cluster_list[num].add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
+                    cluster_list[num].add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
+                    # if triple.reified_rel is None:
+                    #     cluster_list[num].add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
+                    #     cluster_list[num].add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
+                    #     # cluster_list[num].add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),wrap_if_needed(triple.const2.name),label=triple.relStr))
+                    # else:
+                    #     cluster_list[num].add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
+                    #     cluster_list[num].add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
+                        # cluster_list[num].add_node(pydot.Node(triple.reified_rel.name,label=triple.relStr))
+                        # cluster_list[num].add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),triple.reified_rel.name,label=Relation.getStringForRelType(Relation.THROUGH)))
+                        # cluster_list[num].add_edge(pydot.Edge(triple.reified_rel.name,wrap_if_needed(triple.const2.name),label=Relation.getStringForRelType(Relation.TO)))
                     
-                else:                
-                    if triple.reified_rel is None:
-                        callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
-                        callgraph.add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
-                        callgraph.add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),wrap_if_needed(triple.const2.name),label=triple.relStr))
-                    else:
-                        callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
-                        callgraph.add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
-                        callgraph.add_node(pydot.Node(triple.reified_rel.name,label=triple.relStr))
-                        callgraph.add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),triple.reified_rel.name,label=Relation.getStringForRelType(Relation.THROUGH)))
-                        callgraph.add_edge(pydot.Edge(triple.reified_rel.name,wrap_if_needed(triple.const2.name),label=Relation.getStringForRelType(Relation.TO)))
+                # else:                
+                if triple.reified_rel is None:
+                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
+                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
+                    callgraph.add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),wrap_if_needed(triple.const2.name),label=triple.relStr))
+                else:
+                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
+                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
+                    callgraph.add_node(pydot.Node(triple.reified_rel.name,label=triple.relStr))
+                    callgraph.add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),triple.reified_rel.name,label=Relation.getStringForRelType(Relation.THROUGH)))
+                    callgraph.add_edge(pydot.Edge(triple.reified_rel.name,wrap_if_needed(triple.const2.name),label=Relation.getStringForRelType(Relation.TO)))
             
             for sub in cluster_list: #testing only, adding all subgraphs - need check for none
                 callgraph.add_subgraph(sub)
