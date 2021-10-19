@@ -53,7 +53,9 @@ def wrap_if_needed(string_val):
 
 def get_theory_visualisation_merged_boxes(theory_list):
     # print("theory_list is: ", theory_list)
-    test_data = [
+
+    # plug in data here: 
+    combined_data = [
             {
             "Theory_ID": "1", 
             "Construct": "Drug consumption", 
@@ -109,10 +111,11 @@ def get_theory_visualisation_merged_boxes(theory_list):
             "Ontology_ID": "BCIO_0511111"
             }           
         ]
+        
     clustered_list_of_all_values = {}
     # print("got list_of_all_values", list_of_all_values)
 
-    all_ids_base = [ (sub['Ontology_ID']) for sub in test_data ]
+    all_ids_base = [ (sub['Ontology_ID']) for sub in combined_data ]
     unique_ids_base = list(set(sub for sub in all_ids_base)) 
 
     # lots of attributes for pydot here: https://github.com/pydot/pydot/blob/90936e75462c7b0e4bb16d97c1ae7efdf04e895c/src/pydot/core.py
@@ -120,7 +123,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
     
     
     for s in unique_ids_base:
-        for d in test_data:
+        for d in combined_data:
             # print("checking: ", d["Construct"])
             if d["Ontology_ID"] == s:
                 s_label = d["Label"] + " (" + d["Ontology_ID"] + ")"
