@@ -55,6 +55,30 @@ def get_theory_visualisation_merged_boxes(theory_list):
     # print("theory_list is: ", theory_list)
     test_data = [
             {
+            "Theory_ID": "1", 
+            "Construct": "Drug consumption", 
+            "Label":"test3",
+            "Ontology_ID": "BCIO_053"
+            }, 
+            {
+            "Theory_ID": "1", 
+            "Construct": "Environmental cues", 
+            "Label":"test3",
+            "Ontology_ID": "BCIO_053"
+            },
+            {
+            "Theory_ID": "2", 
+            "Construct": "Work events", 
+            "Label":"test2",
+            "Ontology_ID": "BCIO_0522222"
+            }, 
+            {
+            "Theory_ID": "14", 
+            "Construct": "Affective reactions", 
+            "Label":"test2",
+            "Ontology_ID": "BCIO_0522222"
+            },
+            {
             "Theory_ID": "2", 
             "Construct": "Dispositions", 
             "Label":"personal disposition",
@@ -93,6 +117,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
 
     callgraph = pydot.Dot(graph_type='digraph',fontname="Verdana")
     
+    
     for s in unique_ids_base:
         for d in test_data:
             # print("checking: ", d["Construct"])
@@ -112,6 +137,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
             # print("looking at theory: ", theory_num)
             
             for triple in theory.triples: 
+                #todo: can a node be added to two clusters? Is this a thing? 
                 #add cluster nodes:
                 for ID in unique_ids_base:  
                     #check in alldata: 
