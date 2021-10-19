@@ -115,7 +115,8 @@ def get_theory_visualisation_merged_boxes(theory_list):
     all_ids_base = [ (sub['Ontology_ID']) for sub in test_data ]
     unique_ids_base = list(set(sub for sub in all_ids_base)) 
 
-    callgraph = pydot.Dot(graph_type='digraph',fontname="Verdana")
+    # lots of attributes for pydot here: https://github.com/pydot/pydot/blob/90936e75462c7b0e4bb16d97c1ae7efdf04e895c/src/pydot/core.py
+    callgraph = pydot.Dot(graph_type='digraph',fontname="Verdana", fontcolor="red")
     
     
     for s in unique_ids_base:
@@ -129,7 +130,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
                     clustered_list_of_all_values[s] = {}
                     clustered_list_of_all_values[s]["alldata"] = []
                     clustered_list_of_all_values[s]["alldata"].append(d)
-        clustered_list_of_all_values[s]["cluster"] = pydot.Cluster(s,label=s_label, color='red')
+        clustered_list_of_all_values[s]["cluster"] = pydot.Cluster(s,label=s_label, color='red', fillcolor='red')
                 
     for theory_num in theories.keys():        
         if theory_num in theory_list: 
