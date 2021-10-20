@@ -129,20 +129,20 @@ def get_theory_visualisation_merged_boxes(theory_list):
         if str(sub["Theory_ID"]) in theory_list: #not found???
             # print("got sub: ", sub["Theory_ID"])
             # print("should add ", sub["Ontology_ID"])
-            all_ids_base.append(sub["Ontology_ID"].strip()) #todo: error?
+            all_ids_base.append(sub["Ontology_ID"].strip()) 
     # all_ids_base = [ (sub['Ontology_ID']) for sub in combined_data ]
     # print("all_ids_base: ", all_ids_base) # working
     unique_ids_base = list(set(sub for sub in all_ids_base)) 
     # print("unique ids base: ", unique_ids_base) # working
     # lots of attributes for pydot here: https://github.com/pydot/pydot/blob/90936e75462c7b0e4bb16d97c1ae7efdf04e895c/src/pydot/core.py
-    callgraph = pydot.Dot(graph_type='digraph',fontname="Verdana", fontcolor="red")
+    callgraph = pydot.Dot(graph_type='digraph',fontname="Verdana", fontcolor="green")
     
     
     for s in unique_ids_base:
         for d in combined_data:
             # s_label = d["Label"] + " (" + d["Ontology_ID"] + ")"
             # print("checking: ", d["Construct"])
-            print(str(d["Theory_ID"]), " should be in ", theory_list)
+            print(str(d["Theory_ID"]), " is it in ", theory_list) #theory_list is strings only
             if str(d["Theory_ID"]) in theory_list:
                 print("got d")
                 if d["Ontology_ID"] == s:
@@ -155,7 +155,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
                         clustered_list_of_all_values[s]["alldata"] = []
                         clustered_list_of_all_values[s]["alldata"].append(d)
         try: 
-            clustered_list_of_all_values[s]["cluster"] = pydot.Cluster(s,label=s_label, color='red', fillcolor='red')
+            clustered_list_of_all_values[s]["cluster"] = pydot.Cluster(s,label=s_label, color='green', fillcolor='green')
         except: 
             pass
     print("clustered list: ", clustered_list_of_all_values)
@@ -320,8 +320,6 @@ def mergedTheories():
         theories = theories.replace("[", "").replace("]", "")
         theory_list = theories.split(",")
         result = get_theory_visualisation_merged_boxes(theory_list)
-        # result = get_theory_visualisation_merged(theories).to_string()
-        # result = testCommonIDs()
         session.pop('theories', None)
         return render_template('mergedTheories.html',theories=theories, dotStr=result)
     # return render_template('mergedTheories.html')
