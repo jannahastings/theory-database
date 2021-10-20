@@ -135,7 +135,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
     unique_ids_base = list(set(sub for sub in all_ids_base)) 
     # print("unique ids base: ", unique_ids_base) # working
     # lots of attributes for pydot here: https://github.com/pydot/pydot/blob/90936e75462c7b0e4bb16d97c1ae7efdf04e895c/src/pydot/core.py
-    callgraph = pydot.Dot(graph_type='digraph',fontname="Verdana", fontcolor="green")
+    callgraph = pydot.Dot(graph_type='digraph',fontname="Verdana", fontcolor="green", fontsize="12")
     
     
     for s in unique_ids_base:
@@ -147,7 +147,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
                 print("got d")
                 if d["Ontology_ID"] == s:
                     print("got a match", s)
-                    s_label = d["Label"] + " (" + d["Ontology_ID"] + ")"
+                    s_label = "         " + d["Label"] + " (" + d["Ontology_ID"] + ")" + "         "
                     try:
                         clustered_list_of_all_values[s]["alldata"].append(d)
                     except:
