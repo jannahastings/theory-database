@@ -39,7 +39,7 @@ def parseConstructs(constructs_file):
                         "Theory_ID": theory_num, 
                         "Construct": construct_defn, 
                         "Label": ontology_label,
-                        "Ontology_ID": ontology_id
+                        "Ontology_ID": ontology_id.replace(":","_")
                         }
                 combined_data.append(theory_dict)
             
@@ -49,18 +49,18 @@ def parseConstructs(constructs_file):
                     "Theory_ID": theory_num, 
                     "Construct": construct_defn, 
                     "Label": alt_ontology_label,
-                    "Ontology_ID": alt_ontology_id
+                    "Ontology_ID": alt_ontology_id.replace(":","_")
                     }
                 combined_data.append(alt_theory_dict)
 
             if not(alt_ontology_id2 == None or alt_ontology_label2 == None):
-                alt_theory_dict = {
+                alt_theory_dict2 = {
                     "Theory_ID": theory_num, 
                     "Construct": construct_defn, 
                     "Label": alt_ontology_label2,
-                    "Ontology_ID": alt_ontology_id2
+                    "Ontology_ID": alt_ontology_id2.replace(":","_")
                     }
-                combined_data.append(alt_theory_dict)
+                combined_data.append(alt_theory_dict2)
 
     # print(combined_data)
     return(combined_data)

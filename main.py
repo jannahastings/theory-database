@@ -58,62 +58,62 @@ def get_theory_visualisation_merged_boxes(theory_list):
     # print("theory_list is: ", theory_list)
 
     # plug in data here: 
-    combined_data = [
-            {
-            "Theory_ID": "1", 
-            "Construct": "Drug consumption", 
-            "Label":"test3",
-            "Ontology_ID": "BCIO_053"
-            }, 
-            {
-            "Theory_ID": "1", 
-            "Construct": "Environmental cues", 
-            "Label":"test3",
-            "Ontology_ID": "BCIO_053"
-            },
-            {
-            "Theory_ID": "2", 
-            "Construct": "Work events", 
-            "Label":"test2",
-            "Ontology_ID": "BCIO_0522222"
-            }, 
-            {
-            "Theory_ID": "14", 
-            "Construct": "Affective reactions", 
-            "Label":"test2",
-            "Ontology_ID": "BCIO_0522222"
-            },
-            {
-            "Theory_ID": "2", 
-            "Construct": "Dispositions", 
-            "Label":"personal disposition",
-            "Ontology_ID": "BCIO_050002"
-            }, 
-            {
-            "Theory_ID": "14", 
-            "Construct": "Cognitive factors (intrapersonal) / cognitive arm of the model", 
-            "Label":"personal disposition",
-            "Ontology_ID": "BCIO_050002"
-            },
-            {
-            "Theory_ID": "14", 
-            "Construct": "Attitudes", 
-            "Label":"test1",
-            "Ontology_ID": "BCIO_0511111"
-            }, 
-            {
-            "Theory_ID": "14", 
-            "Construct": "Beliefs and knowledge", 
-            "Label":"test1",
-            "Ontology_ID": "BCIO_0511111"
-            },
-            {
-            "Theory_ID": "2", 
-            "Construct": "Internal incentive", 
-            "Label":"test1",
-            "Ontology_ID": "BCIO_0511111"
-            }           
-        ]
+    # combined_data = [
+    #         {
+    #         "Theory_ID": "1", 
+    #         "Construct": "Drug consumption", 
+    #         "Label":"test3",
+    #         "Ontology_ID": "BCIO_053"
+    #         }, 
+    #         {
+    #         "Theory_ID": "1", 
+    #         "Construct": "Environmental cues", 
+    #         "Label":"test3",
+    #         "Ontology_ID": "BCIO_053"
+    #         },
+    #         {
+    #         "Theory_ID": "2", 
+    #         "Construct": "Work events", 
+    #         "Label":"test2",
+    #         "Ontology_ID": "BCIO_0522222"
+    #         }, 
+    #         {
+    #         "Theory_ID": "14", 
+    #         "Construct": "Affective reactions", 
+    #         "Label":"test2",
+    #         "Ontology_ID": "BCIO_0522222"
+    #         },
+    #         {
+    #         "Theory_ID": "2", 
+    #         "Construct": "Dispositions", 
+    #         "Label":"personal disposition",
+    #         "Ontology_ID": "BCIO_050002"
+    #         }, 
+    #         {
+    #         "Theory_ID": "14", 
+    #         "Construct": "Cognitive factors (intrapersonal) / cognitive arm of the model", 
+    #         "Label":"personal disposition",
+    #         "Ontology_ID": "BCIO_050002"
+    #         },
+    #         {
+    #         "Theory_ID": "14", 
+    #         "Construct": "Attitudes", 
+    #         "Label":"test1",
+    #         "Ontology_ID": "BCIO_0511111"
+    #         }, 
+    #         {
+    #         "Theory_ID": "14", 
+    #         "Construct": "Beliefs and knowledge", 
+    #         "Label":"test1",
+    #         "Ontology_ID": "BCIO_0511111"
+    #         },
+    #         {
+    #         "Theory_ID": "2", 
+    #         "Construct": "Internal incentive", 
+    #         "Label":"test1",
+    #         "Ontology_ID": "BCIO_0511111"
+    #         }           
+    #     ]
     # print(combined_data)
         
     clustered_list_of_all_values = {}
@@ -125,15 +125,15 @@ def get_theory_visualisation_merged_boxes(theory_list):
     for sub in combined_data:
         # print(sub["Theory_ID"])
         # comp_id = sub["Theory_ID"].strip()
-        # print(theory_list_ints)
-        if sub["Theory_ID"].strip() in theory_list:
-            print("got sub: ", sub["Theory_ID"].strip())
+        # print(theory_list)
+        if str(sub["Theory_ID"]) in theory_list: #not found???
+            # print("got sub: ", sub["Theory_ID"])
             # print("should add ", sub["Ontology_ID"])
             all_ids_base.append(sub["Ontology_ID"].strip()) #todo: error?
     # all_ids_base = [ (sub['Ontology_ID']) for sub in combined_data ]
-    print("all_ids_base: ", all_ids_base)
+    # print("all_ids_base: ", all_ids_base) # working
     unique_ids_base = list(set(sub for sub in all_ids_base)) 
-    print("unique ids base: ", unique_ids_base)
+    # print("unique ids base: ", unique_ids_base) # working
     # lots of attributes for pydot here: https://github.com/pydot/pydot/blob/90936e75462c7b0e4bb16d97c1ae7efdf04e895c/src/pydot/core.py
     callgraph = pydot.Dot(graph_type='digraph',fontname="Verdana", fontcolor="red")
     
@@ -142,10 +142,11 @@ def get_theory_visualisation_merged_boxes(theory_list):
         for d in combined_data:
             # s_label = d["Label"] + " (" + d["Ontology_ID"] + ")"
             # print("checking: ", d["Construct"])
-            if d["Theory_ID"] in theory_list:
-                # print("got d")
+            print(str(d["Theory_ID"]), " should be in ", theory_list)
+            if str(d["Theory_ID"]) in theory_list:
+                print("got d")
                 if d["Ontology_ID"] == s:
-                    # print("got a match", s)
+                    print("got a match", s)
                     s_label = d["Label"] + " (" + d["Ontology_ID"] + ")"
                     try:
                         clustered_list_of_all_values[s]["alldata"].append(d)
@@ -171,15 +172,17 @@ def get_theory_visualisation_merged_boxes(theory_list):
                     #check in alldata: 
                     try:
                         for i in clustered_list_of_all_values[ID]["alldata"]:
+                            # print("checking i")
                             if triple.const1.name in i['Construct']:
-                                # print("adding to cluster", triple.const1.name)
+                                print("adding to cluster", triple.const1.name)
                                 clustered_list_of_all_values[ID]["cluster"].add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
                         for i in clustered_list_of_all_values[ID]["alldata"]:
                             if triple.const2.name in i['Construct']:
-                                # print("adding to cluster", triple.const2.name)
+                                print("adding to cluster", triple.const2.name)
                                 clustered_list_of_all_values[ID]["cluster"].add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
-                    except:
+                    except Exception as error:
                         pass
+                        # print(error)
                 # add normal graph nodes and edges:     
                 if triple.reified_rel is None:
                     callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
@@ -194,8 +197,15 @@ def get_theory_visualisation_merged_boxes(theory_list):
     
     # add all subgraphs:
     for ID in unique_ids_base:  
-        sub = clustered_list_of_all_values[ID]["cluster"]
-        callgraph.add_subgraph(sub)
+    # for ID in clustered_list_of_all_values:
+        try: 
+            sub = clustered_list_of_all_values[ID]["cluster"]
+            callgraph.add_subgraph(sub)
+            print("added subgraph!", ID)
+        except KeyError:
+            pass #here is a problem
+            # print(ID)
+
     
     callgraph.set_graph_defaults(compound='True')
     # print(callgraph)
