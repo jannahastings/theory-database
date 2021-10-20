@@ -13,6 +13,7 @@
 # limitations under the License.
 
 # [START gae_python37_app]
+from ast import parse
 import json
 from config import *
 from flask import Flask, render_template,request,url_for, redirect, session
@@ -28,6 +29,7 @@ import matplotlib.pyplot as plt
 import pprint as pp
 from itertools import chain
 
+from constructs.parse_constructs import parseConstructs
 class FlaskApp(Flask):
     def __init__(self, *args, **kwargs):
         super(FlaskApp, self).__init__(*args, **kwargs)
@@ -45,6 +47,7 @@ app = FlaskApp(__name__)
 
 app.secret_key=SECRET_KEY
 
+combined_data = parseConstructs("/home/tom/Documents/PROGRAMMING/Python/theory-database/constructs/ConstructsOntologyMappingTemplate-JH.xlsx")
 
 def wrap_if_needed(string_val):
     if ":" in string_val:
@@ -111,30 +114,51 @@ def get_theory_visualisation_merged_boxes(theory_list):
             "Ontology_ID": "BCIO_0511111"
             }           
         ]
+    # print(combined_data)
         
     clustered_list_of_all_values = {}
     # print("got list_of_all_values", list_of_all_values)
 
-    all_ids_base = [ (sub['Ontology_ID']) for sub in combined_data ]
+    #todo: all_ids_base is blank...
+    all_ids_base = []
+    # theory_list_ints = map(int, theory_list)
+    for sub in combined_data:
+        # print(sub["Theory_ID"])
+        # comp_id = sub["Theory_ID"].strip()
+        # print(theory_list_ints)
+        if sub["Theory_ID"].strip() in theory_list:
+            print("got sub: ", sub["Theory_ID"].strip())
+            # print("should add ", sub["Ontology_ID"])
+            all_ids_base.append(sub["Ontology_ID"].strip()) #todo: error?
+    # all_ids_base = [ (sub['Ontology_ID']) for sub in combined_data ]
+    print("all_ids_base: ", all_ids_base)
     unique_ids_base = list(set(sub for sub in all_ids_base)) 
-
+    print("unique ids base: ", unique_ids_base)
     # lots of attributes for pydot here: https://github.com/pydot/pydot/blob/90936e75462c7b0e4bb16d97c1ae7efdf04e895c/src/pydot/core.py
     callgraph = pydot.Dot(graph_type='digraph',fontname="Verdana", fontcolor="red")
     
     
     for s in unique_ids_base:
         for d in combined_data:
+            # s_label = d["Label"] + " (" + d["Ontology_ID"] + ")"
             # print("checking: ", d["Construct"])
-            if d["Ontology_ID"] == s:
-                s_label = d["Label"] + " (" + d["Ontology_ID"] + ")"
-                try:
-                    clustered_list_of_all_values[s]["alldata"].append(d)
-                except:
-                    clustered_list_of_all_values[s] = {}
-                    clustered_list_of_all_values[s]["alldata"] = []
-                    clustered_list_of_all_values[s]["alldata"].append(d)
-        clustered_list_of_all_values[s]["cluster"] = pydot.Cluster(s,label=s_label, color='red', fillcolor='red')
-                
+            if d["Theory_ID"] in theory_list:
+                # print("got d")
+                if d["Ontology_ID"] == s:
+                    # print("got a match", s)
+                    s_label = d["Label"] + " (" + d["Ontology_ID"] + ")"
+                    try:
+                        clustered_list_of_all_values[s]["alldata"].append(d)
+                    except:
+                        clustered_list_of_all_values[s] = {}
+                        clustered_list_of_all_values[s]["alldata"] = []
+                        clustered_list_of_all_values[s]["alldata"].append(d)
+        try: 
+            clustered_list_of_all_values[s]["cluster"] = pydot.Cluster(s,label=s_label, color='red', fillcolor='red')
+        except: 
+            pass
+    print("clustered list: ", clustered_list_of_all_values)
+
     for theory_num in theories.keys():        
         if theory_num in theory_list: 
             theory = theories[theory_num]
@@ -145,13 +169,17 @@ def get_theory_visualisation_merged_boxes(theory_list):
                 #add cluster nodes:
                 for ID in unique_ids_base:  
                     #check in alldata: 
-                    for i in clustered_list_of_all_values[ID]["alldata"]:
-                        if triple.const1.name in i['Construct']:
-                            clustered_list_of_all_values[ID]["cluster"].add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
-                    for i in clustered_list_of_all_values[ID]["alldata"]:
-                        if triple.const2.name in i['Construct']:
-                            clustered_list_of_all_values[ID]["cluster"].add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
-                
+                    try:
+                        for i in clustered_list_of_all_values[ID]["alldata"]:
+                            if triple.const1.name in i['Construct']:
+                                # print("adding to cluster", triple.const1.name)
+                                clustered_list_of_all_values[ID]["cluster"].add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
+                        for i in clustered_list_of_all_values[ID]["alldata"]:
+                            if triple.const2.name in i['Construct']:
+                                # print("adding to cluster", triple.const2.name)
+                                clustered_list_of_all_values[ID]["cluster"].add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
+                    except:
+                        pass
                 # add normal graph nodes and edges:     
                 if triple.reified_rel is None:
                     callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
@@ -170,7 +198,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
         callgraph.add_subgraph(sub)
     
     callgraph.set_graph_defaults(compound='True')
-        
+    # print(callgraph)
     return callgraph    
     
 
