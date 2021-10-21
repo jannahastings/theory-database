@@ -1,20 +1,4 @@
- 
-import os
-#os.chdir('/Users/hastingj/Work/Python/TheoryDatabase/definitions')
-import openpyxl
-import difflib
-
-### Parse constructs
-"""
-combined_data = [
-                    {
-                    "Theory_ID": "1", 
-                    "Construct": "Drug consumption", 
-                    "Label":"test3",
-                    "Ontology_ID": "BCIO_053"
-                    },
-                ]
-"""
+ import openpyxl
 
 combined_data = []
 
@@ -43,7 +27,7 @@ def parseConstructs(constructs_file):
                         }
                 combined_data.append(theory_dict)
             
-            #additional ids? 
+            #additional ids
             if not(alt_ontology_id == None or alt_ontology_label == None):
                 alt_theory_dict = {
                     "Theory_ID": theory_num, 
@@ -67,20 +51,4 @@ def parseConstructs(constructs_file):
 
 
 
-        # if str(theory_num) not in theories.keys():
-        #     print("Unknown theory num",theory_num)
-        # else:
-        #     theory_name = row[1].value
-        #     construct_label = row[2].value.strip().replace("(constraints)","").lower().capitalize()
-        #     construct_def = row[3].value
-        #     if construct_def and construct_def.strip():
-        #         if construct_label not in theories[str(theory_num)].constructs_by_name.keys():
-        #             theory_constructs = theories[str(theory_num)].constructs_by_name.keys()
-        #             similarities = [difflib.SequenceMatcher(None, c,construct_label).ratio() for c in theory_constructs]
-        #             zipped_lists = zip(similarities,theory_constructs)
-        #             sorted_zipped_lists = sorted(zipped_lists, reverse=True)
-        #             construct_label = sorted_zipped_lists[0][1]
-        #         theories[str(theory_num)].constructs_by_name[construct_label].definition = construct_def
-
-
-# parseConstructs("ConstructsOntologyMappingTemplate-JH.xlsx")
+        
