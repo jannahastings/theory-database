@@ -30,6 +30,10 @@ import pprint as pp
 from itertools import chain
 import os
 
+import pandas as pd
+import json
+import plotly
+import plotly.express as px
 
 from constructs.parse_constructs import parseConstructs
 class FlaskApp(Flask):
@@ -244,7 +248,15 @@ def theoryConsistency():
         theories = session['theories']
         print("GOT THEORIES: ",theories)
         session.pop('theories', None)
-        return render_template('theoryConsistency.html',theories=theories)
+
+        df = pd.DataFrame({
+      'Fruit': ['Apples', 'Oranges', 'Bananas', 'Apples', 'Oranges', 'Bananas'],
+      'Amount': [4, 1, 2, 2, 4, 5],
+      'City': ['SF', 'SF', 'SF', 'Montreal', 'Montreal', 'Montreal']
+   })
+        fig = px.bar(df, x='Fruit', y='Amount', color='City',    barmode='group')
+        graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+        return render_template('theoryConsistency.html',theories=theories, graphJSON=graphJSON)
     # return render_template('theoryConsistency.html')
         
 @app.route("/mergedTheories")
