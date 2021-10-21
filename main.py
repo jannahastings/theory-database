@@ -28,6 +28,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 import pprint as pp
 from itertools import chain
+import os
+
 
 from constructs.parse_constructs import parseConstructs
 class FlaskApp(Flask):
@@ -47,7 +49,11 @@ app = FlaskApp(__name__)
 
 app.secret_key=SECRET_KEY
 
-combined_data = parseConstructs("/home/tom/Documents/PROGRAMMING/Python/theory-database/constructs/ConstructsOntologyMappingTemplate-JH.xlsx")
+data_path = 'constructs/ConstructsOntologyMappingTemplate-JH.xlsx'
+combined_data_path = os.path.join(os.path.dirname(__file__), data_path)
+
+combined_data = parseConstructs(combined_data_path)
+# combined_data = parseConstructs("/home/tom/Documents/PROGRAMMING/Python/theory-database/constructs/ConstructsOntologyMappingTemplate-JH.xlsx")
 
 def wrap_if_needed(string_val):
     if ":" in string_val:
