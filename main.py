@@ -83,8 +83,9 @@ def get_theory_visualisation_merged_boxes(theory_list):
             if str(d["Theory_ID"]) in theory_list:
                 # print("got d")
                 if d["Ontology_ID"] == s:
+                    fixed_id = d["Ontology_ID"].replace("_",":")
                     # print("got a match", s)
-                    s_label = "         " + d["Label"] + " (" + d["Ontology_ID"] + ")" + "         "
+                    s_label = "         " + d["Label"] + " (" + fixed_id + ")" + "         "
                     try:
                         clustered_list_of_all_values[s]["alldata"].append(d)
                     except:
