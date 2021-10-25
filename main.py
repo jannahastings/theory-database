@@ -31,9 +31,14 @@ from itertools import chain
 import os
 
 import pandas as pd
+import numpy as np
+
 import json
 import plotly
+from plotly.subplots import make_subplots
+import plotly.graph_objs as go
 import plotly.express as px
+
 
 from constructs.parse_constructs import parseConstructs
 class FlaskApp(Flask):
@@ -249,12 +254,47 @@ def theoryConsistency():
         print("GOT THEORIES: ",theories)
         session.pop('theories', None)
 
-        df = pd.DataFrame({
-      'Fruit': ['Apples', 'Oranges', 'Bananas', 'Apples', 'Oranges', 'Bananas'],
-      'Amount': [4, 1, 2, 2, 4, 5],
-      'City': ['SF', 'SF', 'SF', 'Montreal', 'Montreal', 'Montreal']
-   })
-        fig = px.bar(df, x='Fruit', y='Amount', color='City',    barmode='group')
+        #single graph example:
+#         df = pd.DataFrame({
+#       'Fruit': ['Apples', 'Oranges', 'Bananas', 'Apples', 'Oranges', 'Bananas'],
+#       'Amount': [4, 1, 2, 2, 4, 5],
+#       'City': ['SF', 'SF', 'SF', 'Montreal', 'Montreal', 'Montreal']
+#    })
+#         fig = px.bar(df, x='Fruit', y='Amount', color='City', barmode='group')
+
+        #multiple subplots example: 
+       # data
+        np.random.seed(123)
+        frame_rows = 50
+        n_plots = 36
+        frame_columns = ['V_'+str(e) for e in list(range(n_plots+1))]
+        df = pd.DataFrame(np.random.uniform(-10,10,size=(frame_rows, len(frame_columns))),
+                        index=pd.date_range('1/1/2020', periods=frame_rows),
+                            columns=frame_columns)
+        df=df.cumsum()+100
+        df.iloc[0]=100
+
+        # plotly setup
+        plot_rows=6
+        plot_cols=6
+        fig = make_subplots(rows=plot_rows, cols=plot_cols)
+
+        # add traces
+        x = 0
+        for i in range(1, plot_rows + 1):
+            for j in range(1, plot_cols + 1):
+                #print(str(i)+ ', ' + str(j))
+                fig.add_trace(go.Bar(x=df.index, y=df[df.columns[x]].values,
+                                        name = df.columns[x]
+                                       ),
+                            row=i,
+                            col=j)
+
+                x=x+1
+
+        # Format and show fig
+        fig.update_layout(height=1200, width=1200)
+
         graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
         return render_template('theoryConsistency.html',theories=theories, graphJSON=graphJSON)
     # return render_template('theoryConsistency.html')
