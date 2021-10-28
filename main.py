@@ -85,7 +85,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
                 if d["Ontology_ID"] == s:
                     fixed_id = d["Ontology_ID"].replace("_",":")
                     # print("got a match", s)
-                    s_label = "         " + d["Label"] + " (" + fixed_id + ")" + "         "
+                    s_label = "         " + d["Label"] + " (" + fixed_id + ")" + "         " #spacing is important!
                     try:
                         clustered_list_of_all_values[s]["alldata"].append(d)
                     except:
@@ -97,9 +97,10 @@ def get_theory_visualisation_merged_boxes(theory_list):
         except: 
             pass
     # print("clustered list: ", clustered_list_of_all_values)
-
+    complete_theory_node_name_dict = {}
     for theory_num in theories.keys():        
         if theory_num in theory_list: 
+            complete_theory_node_name_dict[theory_num] = []
             theory = theories[theory_num]
             # print("looking at theory: ", theory_num)
             
@@ -112,10 +113,12 @@ def get_theory_visualisation_merged_boxes(theory_list):
                             # print("checking i")
                             if triple.const1.name in i['Construct']:
                                 # print("adding to cluster", triple.const1.name)
+                                complete_theory_node_name_dict[theory_num].append(triple.const1.name)
                                 clustered_list_of_all_values[ID]["cluster"].add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
                         for i in clustered_list_of_all_values[ID]["alldata"]:
                             if triple.const2.name in i['Construct']:
                                 # print("adding to cluster", triple.const2.name)
+                                complete_theory_node_name_dict[theory_num].append(triple.const2.name)
                                 clustered_list_of_all_values[ID]["cluster"].add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
                     except Exception as error:
                         pass
@@ -155,11 +158,23 @@ def get_theory_visualisation_merged_boxes(theory_list):
                 
                 
                 
-            if len(snode_names_list) > 1: #only for clusters with more than one node - todo: should be also only between two theories
+            if len(snode_names_list) > 1: #only for clusters with more than one node
+                #check for cross-theory boxes here because I can't go back 
+                # print("compare with: ", complete_theory_node_name_dict)
+                some = False # going to be true if we find name in any theory
+                more = False # going to be true if name in more than one theory. 
+                for name in snode_names_list:
+                    for listA in complete_theory_node_name_dict: # per theory check - don't add if nodes not present across theories
+                        if name in complete_theory_node_name_dict[listA]:
+                            if some == True: # already found this name before, so:
+                                more = True
+                            some = True
+                            # print("got a match: ", name)
                 print("got length: ", len(snode_names_list))
-                callgraph.add_subgraph(sub)
-                if ID == "BCIO_006059": #todo: test case with two nodes but only one showing up
-                    print("got here", snode_names_list)
+                if more:
+                    callgraph.add_subgraph(sub)
+                # if ID == "BCIO_006059": #todo: test case with two nodes but only one showing up
+                #     print("got here", snode_names_list)
             # callgraph.add_subgraph(sub)
             # print("added subgraph!", ID)
         except KeyError:
