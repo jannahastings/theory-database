@@ -98,8 +98,15 @@ def get_theory_visualisation_merged_boxes(theory_list):
             pass
     # print("clustered list: ", clustered_list_of_all_values)
     complete_theory_node_name_dict = {}
-    for theory_num in theories.keys():        
+    colour_list = ["red", "cyan", "purple", "yellow"] # won't be yellow
+    k = 0
+    for theory_num in theories.keys():     
+        
         if theory_num in theory_list: 
+            #todo: generate colour according to theory_num here
+            node_colour = colour_list[k]
+            k=k+1
+            print(k)
             complete_theory_node_name_dict[theory_num] = []
             theory = theories[theory_num]
             # print("looking at theory: ", theory_num)
@@ -114,24 +121,24 @@ def get_theory_visualisation_merged_boxes(theory_list):
                             if triple.const1.name in i['Construct']:
                                 # print("adding to cluster", triple.const1.name)
                                 complete_theory_node_name_dict[theory_num].append(triple.const1.name)
-                                clustered_list_of_all_values[ID]["cluster"].add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
+                                clustered_list_of_all_values[ID]["cluster"].add_node(pydot.Node(wrap_if_needed(triple.const1.name), color=node_colour))
                         for i in clustered_list_of_all_values[ID]["alldata"]:
                             if triple.const2.name in i['Construct']:
                                 # print("adding to cluster", triple.const2.name)
                                 complete_theory_node_name_dict[theory_num].append(triple.const2.name)
-                                clustered_list_of_all_values[ID]["cluster"].add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
+                                clustered_list_of_all_values[ID]["cluster"].add_node(pydot.Node(wrap_if_needed(triple.const2.name), color=node_colour))
                     except Exception as error:
                         pass
                         # print(error)
                 # add normal graph nodes and edges:     
                 if triple.reified_rel is None:
-                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
-                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
+                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name), color=node_colour))
+                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const2.name), color=node_colour))
                     callgraph.add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),wrap_if_needed(triple.const2.name),label=triple.relStr))
                 else:
-                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
-                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
-                    callgraph.add_node(pydot.Node(triple.reified_rel.name,label=triple.relStr))
+                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name), color=node_colour))
+                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const2.name), color=node_colour))
+                    callgraph.add_node(pydot.Node(triple.reified_rel.name,label=triple.relStr, color=node_colour))
                     callgraph.add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),triple.reified_rel.name,label=Relation.getStringForRelType(Relation.THROUGH)))
                     callgraph.add_edge(pydot.Edge(triple.reified_rel.name,wrap_if_needed(triple.const2.name),label=Relation.getStringForRelType(Relation.TO)))
     
@@ -173,7 +180,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
                 print("got length: ", len(snode_names_list))
                 if more:
                     callgraph.add_subgraph(sub)
-                # if ID == "BCIO_006059": #todo: test case with two nodes but only one showing up
+                # if ID == "BCIO_006117": #todo: test case with two nodes but only one showing up
                 #     print("got here", snode_names_list)
             # callgraph.add_subgraph(sub)
             # print("added subgraph!", ID)
