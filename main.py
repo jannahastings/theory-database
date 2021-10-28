@@ -111,11 +111,11 @@ def get_theory_visualisation_merged_boxes(theory_list):
                         for i in clustered_list_of_all_values[ID]["alldata"]:
                             # print("checking i")
                             if triple.const1.name in i['Construct']:
-                                print("adding to cluster", triple.const1.name)
+                                # print("adding to cluster", triple.const1.name)
                                 clustered_list_of_all_values[ID]["cluster"].add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
                         for i in clustered_list_of_all_values[ID]["alldata"]:
                             if triple.const2.name in i['Construct']:
-                                print("adding to cluster", triple.const2.name)
+                                # print("adding to cluster", triple.const2.name)
                                 clustered_list_of_all_values[ID]["cluster"].add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
                     except Exception as error:
                         pass
@@ -136,8 +136,32 @@ def get_theory_visualisation_merged_boxes(theory_list):
     for ID in unique_ids_base:  
         try: 
             sub = clustered_list_of_all_values[ID]["cluster"]
-            callgraph.add_subgraph(sub)
-            print("added subgraph!", ID)
+            # if ID == "BCIO_006059":
+            #     snodes_list = sub.get_nodes()
+            #     snode_names_list = []
+            #     for snode in snodes_list:
+            #         snode_names_list.append(snode.get_name())
+            #     for node in list(set(snode_names_list)):
+            #         print("WHY? ",snode.get_name())
+            snodes_list = sub.get_nodes()
+            snode_names_list = []
+            for snode in snodes_list:
+                snode_names_list.append(snode.get_name())
+            snode_names_list = list(set(snode_names_list)) 
+            # for node in snode_names_list:
+                # print("got node: ", node, ", ", len(snode_names_list))
+            # for node in list(set(snode_names_list)):
+            #     print(ID, " : ", node, ", ", len(list(set(snode_names_list))))
+                
+                
+                
+            if len(snode_names_list) > 1: #only for clusters with more than one node - todo: should be also only between two theories
+                print("got length: ", len(snode_names_list))
+                callgraph.add_subgraph(sub)
+                if ID == "BCIO_006059": #todo: test case with two nodes but only one showing up
+                    print("got here", snode_names_list)
+            # callgraph.add_subgraph(sub)
+            # print("added subgraph!", ID)
         except KeyError:
             pass 
             # print(ID)
@@ -256,6 +280,7 @@ def mergedTheories():
         theories = theories.replace("[", "").replace("]", "")
         theory_list = theories.split(",")
         result = get_theory_visualisation_merged_boxes(theory_list)
+        # print("result is: ", result)
         session.pop('theories', None)
         return render_template('mergedTheories.html',theories=theories, dotStr=result)
     # return render_template('mergedTheories.html')
