@@ -139,7 +139,7 @@
             var id = $(this).attr('id');
             var name = $(this).attr('name');
             var checked = $(this).is(':checked'); //not needed anymore..                         
-                if(document.querySelectorAll('input[type="checkbox"]:checked').length > 1){
+                if(document.querySelectorAll('input[type="checkbox"]:checked').length > 1 && document.querySelectorAll('input[type="checkbox"]:checked').length < 4){
                     $("#show-theory-consistency").attr('hidden', false);
                     $("#show-merged-theories").attr('hidden', false);
                 } else{
