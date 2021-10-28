@@ -100,9 +100,11 @@ def get_theory_visualisation_merged_boxes(theory_list):
     complete_theory_node_name_dict = {}
     colour_list = ["red", "cyan", "purple", "yellow"] # won't be yellow
     k = 0
+    theory_name_colour_dict = {}
     for theory_num in theories.keys():     
-        
         if theory_num in theory_list: 
+            theory_name_colour_dict[theories[theory_num].name] = colour_list[k] #todo: need colour here also
+            # print("theory_name_colour_dict is: ", theory_name_colour_dict)
             #todo: generate colour according to theory_num here
             node_colour = colour_list[k]
             k=k+1
@@ -191,7 +193,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
     
     callgraph.set_graph_defaults(compound='True')
     # print(callgraph)
-    return callgraph    
+    return callgraph, theory_name_colour_dict   
     
 
 @app.route('/')
@@ -301,10 +303,15 @@ def mergedTheories():
         theories = theories.replace("\"", "")
         theories = theories.replace("[", "").replace("]", "")
         theory_list = theories.split(",")
-        result = get_theory_visualisation_merged_boxes(theory_list)
+        result, theory_name_colour_dict = get_theory_visualisation_merged_boxes(theory_list)
+        print(theory_name_colour_dict)
         # print("result is: ", result)
         session.pop('theories', None)
-        return render_template('mergedTheories.html',theories=theories, dotStr=result)
+        colourKey = ""
+        for item in theory_name_colour_dict:
+            colourKey += item + '= ' + theory_name_colour_dict[item] + ', '
+        colourKey=colourKey[:-2] #remove last ,
+        return render_template('mergedTheories.html',theories=theories, dotStr=result, colourKey=colourKey) #todo: colour_dict to json?
     # return render_template('mergedTheories.html')
        
 if __name__ == '__main__':
