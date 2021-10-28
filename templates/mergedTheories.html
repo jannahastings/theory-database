@@ -91,7 +91,7 @@
 
             <div class="col-md-12">
                 <div class="col-12">
-                    <h2 id="s-name"> KEY: {{colourKey | safe}} </h2>
+                    <h2 id="s-name"></h2>
                 </div class="col-12">
             </div>
         </div>
@@ -267,6 +267,16 @@
                 DOMURL.revokeObjectURL(url2);
             });
         });
+        //change key text colour:
+        keyColours = ["red", "cyan", "purple"];
+        var key = [];
+        var keyText = "{{colourKey | safe}}";
+        key = keyText.split(",");
+        console.log(key);
+        for (var i = 0; i < key.length; i++){
+            $("#s-name").append("<span style='color:" + keyColours[i] + ";'>" + key[i] + "</span");
+        }
+        
 
     }
 

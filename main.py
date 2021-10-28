@@ -174,7 +174,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
                 more = False # going to be true if name in more than one theory. 
                 for name in snode_names_list:
                     for listA in complete_theory_node_name_dict: # per theory check - don't add if nodes not present across theories
-                        if name in complete_theory_node_name_dict[listA]:
+                        if name in list(set(complete_theory_node_name_dict[listA])):
                             if some == True: # already found this name before, so:
                                 more = True
                             some = True
@@ -182,7 +182,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
                 print("got length: ", len(snode_names_list))
                 if more:
                     callgraph.add_subgraph(sub)
-                # if ID == "BCIO_006117": #todo: test case with two nodes but only one showing up
+                # if ID == "BCIO_006032": #todo: test case with two nodes but only one showing up
                 #     print("got here", snode_names_list)
             # callgraph.add_subgraph(sub)
             # print("added subgraph!", ID)
@@ -309,7 +309,8 @@ def mergedTheories():
         session.pop('theories', None)
         colourKey = ""
         for item in theory_name_colour_dict:
-            colourKey += item + '= ' + theory_name_colour_dict[item] + ', '
+            colourKey += item + ", "
+            # colourKey += item + ': ' + theory_name_colour_dict[item] + ', '
         colourKey=colourKey[:-2] #remove last ,
         return render_template('mergedTheories.html',theories=theories, dotStr=result, colourKey=colourKey) #todo: colour_dict to json?
     # return render_template('mergedTheories.html')
