@@ -256,6 +256,16 @@ def searchRelationResult(string=None):
         len_results = len(results)
         return render_template('searchRelation.html',string=string,results=results,len_results=len_results)
 
+@app.route("/show_view_annotations", methods=['GET', 'POST'])
+def show_view_annotations():
+    if request.method == 'POST':
+        theories = request.form.get('theories')
+        # get_theory_visualisation(theories)
+        # print("GOT THEORIES for consistency: ",theories)
+        session['theories'] = theories
+        return redirect('/viewAnnotations')
+        # return("success")
+
 @app.route("/show_theory_consistency", methods=['GET', 'POST'])
 def show_theory_consistency():
     if request.method == 'POST':
@@ -273,6 +283,14 @@ def show_merged_theories():
         # print("GOT THEORIES for merged: ",theories)
         session['theories'] = theories
         return redirect('/mergedTheories')
+
+@app.route("/viewAnnotations")
+def viewAnnotations():
+    if 'theories' in session:
+        theories = session['theories']
+        print("GOT THEORIES: ",theories)
+        session.pop('theories', None)
+        return render_template('viewAnnotations.html',theories=theories)
 
 @app.route("/theoryConsistency")
 def theoryConsistency():
