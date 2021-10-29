@@ -148,28 +148,14 @@ def get_theory_visualisation_merged_boxes(theory_list):
     for ID in unique_ids_base:  
         try: 
             sub = clustered_list_of_all_values[ID]["cluster"]
-            # if ID == "BCIO_006059":
-            #     snodes_list = sub.get_nodes()
-            #     snode_names_list = []
-            #     for snode in snodes_list:
-            #         snode_names_list.append(snode.get_name())
-            #     for node in list(set(snode_names_list)):
-            #         print("WHY? ",snode.get_name())
             snodes_list = sub.get_nodes()
             snode_names_list = []
             for snode in snodes_list:
                 snode_names_list.append(snode.get_name())
-            snode_names_list = list(set(snode_names_list)) 
-            # for node in snode_names_list:
-                # print("got node: ", node, ", ", len(snode_names_list))
-            # for node in list(set(snode_names_list)):
-            #     print(ID, " : ", node, ", ", len(list(set(snode_names_list))))
-                
-                
+            snode_names_list = list(set(snode_names_list))                
                 
             if len(snode_names_list) > 1: #only for clusters with more than one node
                 #check for cross-theory boxes here because I can't go back 
-                # print("compare with: ", complete_theory_node_name_dict)
                 some = False # going to be true if we find name in any theory
                 more = False # going to be true if name in more than one theory. 
                 for name in snode_names_list:
@@ -182,8 +168,10 @@ def get_theory_visualisation_merged_boxes(theory_list):
                 print("got length: ", len(snode_names_list))
                 if more:
                     callgraph.add_subgraph(sub)
-                # if ID == "BCIO_006032": #todo: test case with two nodes but only one showing up
-                #     print("got here", snode_names_list)
+                if ID == "BCIO_006032": #todo: test case with two nodes but only one showing up
+                    print("got here", snode_names_list)
+                if ID == "BCIO_006117": #todo: test case with two nodes but only one showing up
+                    print("got here", snode_names_list)
             # callgraph.add_subgraph(sub)
             # print("added subgraph!", ID)
         except KeyError:
