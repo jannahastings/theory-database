@@ -29,7 +29,8 @@ import matplotlib.pyplot as plt
 import pprint as pp
 from itertools import chain
 import os
-
+import py2cytoscape as cy
+from py2cytoscape import util
 
 from constructs.parse_constructs import parseConstructs
 class FlaskApp(Flask):
@@ -289,8 +290,18 @@ def viewAnnotations():
     if 'theories' in session:
         theories = session['theories']
         print("GOT THEORIES: ",theories)
+        theories = theories.replace("\"", "")
+        theories = theories.replace("[", "").replace("]", "")
+        theory_list = theories.split(",")
+        result, theory_name_colour_dict = get_theory_visualisation_merged_boxes(theory_list)
+        g = nx.drawing.nx_pydot.from_pydot(result)
+        print(g)
+        # print(theory_name_colour_dict)
+        cyjs = json.dumps(util.from_networkx(g))
+        # cyjs = util.from_networkx(g)
+        print(cyjs)
         session.pop('theories', None)
-        return render_template('viewAnnotations.html',theories=theories)
+        return render_template('viewAnnotations.html',theories=theories, cyjs=cyjs)
 
 @app.route("/theoryConsistency")
 def theoryConsistency():

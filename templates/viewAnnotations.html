@@ -1,16 +1,143 @@
 <html>
-    <head>
-        <!-- <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/base-min.css"/> -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        <title> Annotations</title>
-        <h1>Annotations</h1>
-    </head>
-    <body style="margin:2em;padding:10px">
-<h4>Got theories</h4>
+
+<head>
+    <!-- <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/base-min.css"/> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.20.0/cytoscape.min.js"
+        integrity="sha512-cjmYAonfXK+azDmWqvnqq8xmygHRHqVI7S0zuRxQnvcYVeoakwthRX6pPKoXfG1oIjDvMUtteRV9PhQjJwKWxQ=="
+        crossorigin="anonymous"></script>
+    <title> Annotations</title>
+    <h1>Annotations</h1>
+</head>
+
+<body style="margin:2em;padding:10px">
+    <h4>Got theories</h4>
     {{theories|safe}}
-</body>
+
+    <div id="cy"></div>
 
 </html>
+<style>
+    #cy {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+</style>
+
+<script type="text/javascript">
+    //on window load:
+    $(document).ready(function(){
+        // var theoriesA = "{{ theories| safe}}";
+        //     var cy = cytoscape({
+        //         container: document.getElementById('cy'), // container to render in
+        //         elements: {
+        //             nodes: [],
+        //             edges: []
+        //         },
+
+        // });
+        //    cy.add("{{cyjs | safe}}");
+        //    console.log(cy);
+        // var cyto = {{cyjs}};
+        // var cyto = "{{cyjs}}"
+        // var cyto = {{cyjs | safe}};
+        // var cyto = "{{cyjs | safe}}";
+        var cyto = JSON.parse({{cyjs | safe}});
+    //    var cyto = JSON.parse("{{cyjs | safe}}");
+        // print("got cyto: " + cyto);
+console.log("got cyto", cyto);
+        var cy = cytoscape({
+
+        container: document.getElementById('cy'), // container to render in
+
+        
+        elements: cyto,
+        // "data": {"name": "G", "graph": {"fontname": "Verdana", "fontcolor": "green", "fontsize": "12"}}, 
+        // "elements": {"nodes": [{"data": {"color": "red", "id": "Somatic marker processes", "name": "Somatic marker processes"}}, 
+        // {"data": {"color": "red", "id": "Anticipated emotions", "name": "Anticipated emotions"}}]},
+        // elements: [ // list of graph elements to start with
+        //     { // node a
+        //         data: { id: 'a very long label here' }
+        //     },
+        //     { // node b
+        //         data: { id: 'b' }
+        //     },
+        //     { // edge ab
+        //         data: { id: 'ab', source: 'a very long label here', target: 'b' }
+        //     }
+        // ],
+
+        style: [ // the stylesheet for the graph
+            {
+                selector: 'node',
+                style: {
+                    'width': '150',
+                    'height': '30',
+                    'shape': 'rectangle',
+                    'background-color': 'data(color)',
+                    'label': 'data(id)',
+                    //label inside node:
+                    'text-halign': 'center',
+                    'text-valign': 'center',
+                }
+            },
+
+            {
+                selector: 'edge',
+                style: {
+                    'width': 3,
+                    'line-color': '#ccc',
+                    'target-arrow-color': '#ccc',
+                    'target-arrow-shape': 'triangle',
+                    'curve-style': 'bezier'
+                }
+            }
+        ],
+
+        layout: {
+            name: 'grid',
+            rows: 1
+        }
+
+        });
+
+        console.log("loaded");
+        // cyto = JSON.parse({{cyjs|safe}});
+        // try {
+        //     // cyto = JSON.parse({{cyjs|safe}});
+        //     cyto = {{cyjs | safe}}; 
+        // } catch (error) {
+        //     console.log('Error parsing JSON:', error, data);
+        //     cyto = {};
+        // }
+        // // cyto = JSON.parse({{ cyjs | safe}});
+        // // cyto = {{cyjs | safe}};
+        // // cy.add(cyto);
+        // console.log(cyto)
+        // cy.add(
+
+        // )
+        // for (var i = 0; i < theoriesA.length; i++ ) {
+        //     console.log("theory: " + theoriesA[i]);
+        //     cy.add({
+        //         data: {
+        //             id: theoriesA[i]
+        //         }
+        //     });
+        // }
+    });
+
+</script>
