@@ -362,7 +362,7 @@ def mergedTheories():
         theory_list = theories.split(",")
         result, theory_name_colour_dict = get_theory_visualisation_merged_boxes(
             theory_list)
-        print(theory_name_colour_dict)
+        # print(theory_name_colour_dict)
         # print("result is: ", result)
         session.pop('theories', None)
         colourKey = ""
@@ -370,8 +370,21 @@ def mergedTheories():
             colourKey += item + ", "
             # colourKey += item + ': ' + theory_name_colour_dict[item] + ', '
         colourKey = colourKey[:-2]  # remove last ,
+        #test with cy:
+        # result, theory_name_colour_dict = get_theory_visualisation_merged_boxes(
+        #     theory_list)
+        g = nx.drawing.nx_pydot.from_pydot(result)
+        print(g)
+        # print(theory_name_colour_dict)
+        # cyjs = json.dumps(util.from_networkx(g))
+        cyjs = util.from_networkx(g)
+        print(cyjs)
+        nodes = cyjs['elements']
+        # print("nodes: ", nodes)
+        #cytoscape:
+        return render_template('viewAnnotations.html', theories=theories, cyjs=nodes, colourKey=colourKey)
         # todo: colour_dict to json?
-        return render_template('mergedTheories.html', theories=theories, dotStr=result, colourKey=colourKey)
+        # return render_template('mergedTheories.html', theories=theories, dotStr=result, colourKey=colourKey)
     # return render_template('mergedTheories.html')
 
 
