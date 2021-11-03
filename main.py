@@ -114,10 +114,9 @@ def get_theory_visualisation_merged_boxes(theory_list):
     theory_name_colour_dict = {}
     for theory_num in theories.keys():
         if theory_num in theory_list:
-            # todo: need colour here also
             theory_name_colour_dict[theories[theory_num].name] = colour_list[k]
             # print("theory_name_colour_dict is: ", theory_name_colour_dict)
-            # todo: generate colour according to theory_num here
+            # generate colour according to theory_num here
             node_colour = colour_list[k]
             mix_colour = "blue"
             k = k+1
@@ -141,7 +140,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
                                 # print("adding to cluster", triple.const1.name)
                                 complete_theory_node_name_dict[theory_num].append(
                                     triple.const1.name)
-                                subcallgraph.add_node(
+                                callgraph.add_node(
                                     pydot.Node(wrap_if_needed(triple.const1.name), color=node_colour))
                                 clustered_list_of_all_values[ID]["cluster"].add_node(
                                     pydot.Node(wrap_if_needed(triple.const1.name), color=node_colour))
@@ -150,7 +149,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
                                 # print("adding to cluster", triple.const2.name)
                                 complete_theory_node_name_dict[theory_num].append(
                                     triple.const2.name)
-                                subcallgraph.add_node(
+                                callgraph.add_node(
                                     pydot.Node(wrap_if_needed(triple.const2.name), color=node_colour))
                                 clustered_list_of_all_values[ID]["cluster"].add_node(
                                     pydot.Node(wrap_if_needed(triple.const2.name), color=node_colour))
@@ -163,8 +162,8 @@ def get_theory_visualisation_merged_boxes(theory_list):
                         triple.const1.name), color=node_colour))
                     callgraph.add_node(pydot.Node(wrap_if_needed(
                         triple.const2.name), color=node_colour))
-                    subcallgraph.add_edge(pydot.Edge(wrap_if_needed(
-                        triple.const1.name), wrap_if_needed(triple.const2.name), label=triple.relStr))
+                    # subcallgraph.add_edge(pydot.Edge(wrap_if_needed(
+                    #     triple.const1.name), wrap_if_needed(triple.const2.name), label=triple.relStr))
                     callgraph.add_edge(pydot.Edge(wrap_if_needed(
                         triple.const1.name), wrap_if_needed(triple.const2.name), label=triple.relStr))
                 else:
@@ -174,10 +173,10 @@ def get_theory_visualisation_merged_boxes(theory_list):
                         triple.const2.name), color=node_colour))
                     callgraph.add_node(pydot.Node(
                         triple.reified_rel.name, label=triple.relStr, color=node_colour))
-                    subcallgraph.add_edge(pydot.Edge(wrap_if_needed(
-                        triple.const1.name), triple.reified_rel.name, label=Relation.getStringForRelType(Relation.THROUGH)))
-                    subcallgraph.add_edge(pydot.Edge(triple.reified_rel.name, wrap_if_needed(
-                        triple.const2.name), label=Relation.getStringForRelType(Relation.TO)))
+                    # subcallgraph.add_edge(pydot.Edge(wrap_if_needed(
+                    #     triple.const1.name), triple.reified_rel.name, label=Relation.getStringForRelType(Relation.THROUGH)))
+                    # subcallgraph.add_edge(pydot.Edge(triple.reified_rel.name, wrap_if_needed(
+                    #     triple.const2.name), label=Relation.getStringForRelType(Relation.TO)))
                     callgraph.add_edge(pydot.Edge(wrap_if_needed(
                         triple.const1.name), triple.reified_rel.name, label=Relation.getStringForRelType(Relation.THROUGH)))
                     callgraph.add_edge(pydot.Edge(triple.reified_rel.name, wrap_if_needed(
@@ -208,8 +207,8 @@ def get_theory_visualisation_merged_boxes(theory_list):
                             # print("got a match: ", name)
                 print("got length: ", len(snode_names_list))
                 if more:
-                    subcallgraph.add_subgraph(sub) #doesn't show up in cyto
-                    # callgraph.add_subgraph(sub)
+                    # subcallgraph.add_subgraph(sub) #doesn't show up in cyto
+                    callgraph.add_subgraph(sub) #doesn't show up in cyto
                 # if ID == "BCIO_006032":  # todo: test case with two nodes but only one showing up
                 #     print("got here", snode_names_list)
                 # if ID == "BCIO_006117":  # todo: test case with two nodes but only one showing up
@@ -384,7 +383,18 @@ def mergedTheories():
         result, theory_name_colour_dict = get_theory_visualisation_merged_boxes(
             theory_list)
         # print(theory_name_colour_dict)
-        print("result is: ", result)
+        # print("result is: ", result)
+
+        slist = result.get_subgraph_list()
+        # print("slist is: ", slist)
+        # for sg in slist:
+        #     print("sg: ", sg.get_name())
+        #     # print("nodes: ", sg.get_nodes())
+        #     for sn in sg.get_nodes():
+        #         print("sn: ", sn.get_name())
+
+        
+
         session.pop('theories', None)
         colourKey = ""
         for item in theory_name_colour_dict:
@@ -395,12 +405,26 @@ def mergedTheories():
         # result, theory_name_colour_dict = get_theory_visualisation_merged_boxes(
         #     theory_list)
         g = nx.drawing.nx_pydot.from_pydot(result)
+
         # print(g)
         # print(theory_name_colour_dict)
         # cyjs = json.dumps(util.from_networkx(g))
         cyjs = util.from_networkx(g)
         print(cyjs)
         nodes = cyjs['elements']
+        for n in nodes['nodes']:
+            # print(n['data']['id'])
+            # check for subgraph matches:
+            for sg in slist:
+                for sn in sg.get_nodes():
+                    if(n['data']['id'] == sn.get_name()):
+                        parentLabel = sg.get_label()
+                        nodes['nodes'].append({'data': {'color': 'yellow', 'id': parentLabel, 'name': parentLabel}})
+                        # print("got a match: ", sn.get_name())
+                        #only if n['data'] doesn't contain 'parent'
+                        if 'parent' not in n['data']:
+                            n['data']['parent'] =  parentLabel #todo: did it work?
+            # print("n: ", n.get('data'))
         # print("nodes: ", nodes)
         #cytoscape:
         return render_template('viewAnnotations.html', theories=theories, cyjs=nodes, colourKey=colourKey)

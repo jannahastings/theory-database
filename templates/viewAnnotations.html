@@ -97,6 +97,7 @@
                 selector: 'node',
                 style: {
                     // 'width': '200',
+                    //todo: width and height 'label' deprecated. see https://stackoverflow.com/questions/68399821/cytoscape-js-warning-the-style-value-of-label-is-deprecated-for-width-whe
                     'width': 'label',
                     'height': 'label',
                     'shape': 'ellipse',
@@ -116,6 +117,16 @@
                     'target-arrow-color': '#000',
                     'target-arrow-shape': 'triangle',
                     'curve-style': 'bezier'
+                }
+            },
+            // test parent styling
+            {
+            selector: 'parent',
+                style: {
+                    'border-color': 'data(parentColor)',
+                    'line-color': 'black',
+                    'target-arrow-color': 'black',
+                    'source-arrow-color': 'black'
                 }
             }
         ],
@@ -366,6 +377,14 @@
         });
 
         console.log("loaded");
+        cycy = cy.filter(function(element, i){
+                if( element.isNode() && element.data('color') == 'cyan'){
+                    console.log(element.data('label'));
+                    return(element.data('label'));
+                }
+            });
+        // cycy = cy.nodes('[background-color == "cyan"]');
+        console.log("cycy: " + cycy);
         // cy.add(cyto);
         // cyto = JSON.parse({{cyjs|safe}});
         // try {
