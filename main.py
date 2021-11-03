@@ -109,7 +109,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
             pass
     # print("clustered list: ", clustered_list_of_all_values)
     complete_theory_node_name_dict = {}
-    colour_list = ["orange", "green", "cyan", "yellow", "red", "purple"]  # won't be yellow
+    colour_list = ["orange", "yellow", "cyan", "red", "green", "purple"]  
     k = 0
     theory_name_colour_dict = {}
     for theory_num in theories.keys():
@@ -198,17 +198,18 @@ def get_theory_visualisation_merged_boxes(theory_list):
                 # going to be true if name in more than one theory.
                 more = False
                 for name in snode_names_list:
-                    # per theory check - don't add if nodes not present across theories
+                    # per theory check - don't add if nodes not present across theories #todo: not working?
                     for listA in complete_theory_node_name_dict:
                         if name in list(set(complete_theory_node_name_dict[listA])):
                             if some == True:  # already found this name before, so:
                                 more = True
                             some = True
-                            # print("got a match: ", name)
+                            print("got a match: ", name)
                 print("got length: ", len(snode_names_list))
                 if more:
                     # subcallgraph.add_subgraph(sub) #doesn't show up in cyto
                     callgraph.add_subgraph(sub) #doesn't show up in cyto
+                    print("adding subgraph: ", sub)
                 # if ID == "BCIO_006032":  # todo: test case with two nodes but only one showing up
                 #     print("got here", snode_names_list)
                 # if ID == "BCIO_006117":  # todo: test case with two nodes but only one showing up
@@ -410,16 +411,17 @@ def mergedTheories():
         # print(theory_name_colour_dict)
         # cyjs = json.dumps(util.from_networkx(g))
         cyjs = util.from_networkx(g)
-        print(cyjs)
+        # print(cyjs)
         nodes = cyjs['elements']
         for n in nodes['nodes']:
             # print(n['data']['id'])
             # check for subgraph matches:
-            for sg in slist:
+            for sg in slist: #slist is list of subgraphs
                 for sn in sg.get_nodes():
-                    if(n['data']['id'] == sn.get_name()):
+                    # print("sn is: ", sn.get_name().replace(" ", "").replace("\"", ""))
+                    if(n['data']['id'].replace(" ", "").replace("\"", "") == sn.get_name().replace(" ", "").replace("\"", "")): # is this not finding spaces?
                         parentLabel = sg.get_label()
-                        nodes['nodes'].append({'data': {'color': 'yellow', 'id': parentLabel, 'name': parentLabel}})
+                        nodes['nodes'].append({'data': {'color': 'white', 'id': parentLabel, 'name': parentLabel}})
                         # print("got a match: ", sn.get_name())
                         #only if n['data'] doesn't contain 'parent'
                         if 'parent' not in n['data']:
