@@ -267,10 +267,10 @@
             // - "draft" only applies spectral layout 
             // - "default" improves the quality with incremental layout (fast cooling rate)
             // - "proof" improves the quality with incremental layout (slow cooling rate) 
-            quality: "default",
+            quality: "proof",
             // Use random node positions at beginning of layout
             // if this is set to false, then quality option must be "proof"
-            randomize: true, 
+            randomize: false, 
             // Whether or not to animate the layout
             animate: true, 
             // Duration of animation in ms, if enabled
@@ -304,17 +304,17 @@
             /* incremental layout options */
             
             // Node repulsion (non overlapping) multiplier
-            nodeRepulsion: node => 4500,
+            nodeRepulsion: node => 45000,
             // Ideal edge (non nested) length
             idealEdgeLength: edge => 50,
             // Divisor to compute edge forces
-            edgeElasticity: edge => 0.45,
+            edgeElasticity: edge => 0.15,
             // Nesting factor (multiplier) to compute ideal edge length for nested edges
             nestingFactor: 0.6,
             // Maximum number of iterations to perform - this is a suggested value and might be adjusted by the algorithm as required
             numIter: 2500,
             // For enabling tiling
-            tile: false,  
+            tile: true,  
             // Represents the amount of the vertical space to put between the zero degree members during the tiling operation(can also be a function)
             tilingPaddingVertical: 10,
             // Represents the amount of the horizontal space to put between the zero degree members during the tiling operation(can also be a function)
@@ -349,6 +349,15 @@
 
         }
 
+        });
+        cy.$('#cy').lock(); //this not working
+
+        var collection = cy.collection();
+        cy.nodes().on('click', function(e){
+        var clickedNode = e.target;
+
+        collection = collection.union(clickedNode);
+        console.log(collection);
         });
 
         console.log("loaded");

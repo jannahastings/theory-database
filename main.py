@@ -81,6 +81,8 @@ def get_theory_visualisation_merged_boxes(theory_list):
     # lots of attributes for pydot here: https://github.com/pydot/pydot/blob/90936e75462c7b0e4bb16d97c1ae7efdf04e895c/src/pydot/core.py
     callgraph = pydot.Dot(graph_type='digraph',
                           fontname="Verdana", fontcolor="green", fontsize="12")
+    subcallgraph = pydot.Dot(graph_type='digraph',
+                          fontname="Verdana", fontcolor="green", fontsize="12")
 
     for s in unique_ids_base:
         for d in combined_data:
@@ -107,7 +109,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
             pass
     # print("clustered list: ", clustered_list_of_all_values)
     complete_theory_node_name_dict = {}
-    colour_list = ["red", "cyan", "purple", "yellow"]  # won't be yellow
+    colour_list = ["orange", "green", "cyan", "yellow", "red", "purple"]  # won't be yellow
     k = 0
     theory_name_colour_dict = {}
     for theory_num in theories.keys():
@@ -117,6 +119,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
             # print("theory_name_colour_dict is: ", theory_name_colour_dict)
             # todo: generate colour according to theory_num here
             node_colour = colour_list[k]
+            mix_colour = "blue"
             k = k+1
             print(k)
             complete_theory_node_name_dict[theory_num] = []
@@ -131,9 +134,15 @@ def get_theory_visualisation_merged_boxes(theory_list):
                         for i in clustered_list_of_all_values[ID]["alldata"]:
                             # print("checking i")
                             if triple.const1.name in i['Construct']:
+                                # node_colour = colour_list[k]
+                                # k=k+1
+                                # if k > 5:
+                                #     k=0
                                 # print("adding to cluster", triple.const1.name)
                                 complete_theory_node_name_dict[theory_num].append(
                                     triple.const1.name)
+                                subcallgraph.add_node(
+                                    pydot.Node(wrap_if_needed(triple.const1.name), color=node_colour))
                                 clustered_list_of_all_values[ID]["cluster"].add_node(
                                     pydot.Node(wrap_if_needed(triple.const1.name), color=node_colour))
                         for i in clustered_list_of_all_values[ID]["alldata"]:
@@ -141,6 +150,8 @@ def get_theory_visualisation_merged_boxes(theory_list):
                                 # print("adding to cluster", triple.const2.name)
                                 complete_theory_node_name_dict[theory_num].append(
                                     triple.const2.name)
+                                subcallgraph.add_node(
+                                    pydot.Node(wrap_if_needed(triple.const2.name), color=node_colour))
                                 clustered_list_of_all_values[ID]["cluster"].add_node(
                                     pydot.Node(wrap_if_needed(triple.const2.name), color=node_colour))
                     except Exception as error:
@@ -152,6 +163,8 @@ def get_theory_visualisation_merged_boxes(theory_list):
                         triple.const1.name), color=node_colour))
                     callgraph.add_node(pydot.Node(wrap_if_needed(
                         triple.const2.name), color=node_colour))
+                    subcallgraph.add_edge(pydot.Edge(wrap_if_needed(
+                        triple.const1.name), wrap_if_needed(triple.const2.name), label=triple.relStr))
                     callgraph.add_edge(pydot.Edge(wrap_if_needed(
                         triple.const1.name), wrap_if_needed(triple.const2.name), label=triple.relStr))
                 else:
@@ -161,6 +174,10 @@ def get_theory_visualisation_merged_boxes(theory_list):
                         triple.const2.name), color=node_colour))
                     callgraph.add_node(pydot.Node(
                         triple.reified_rel.name, label=triple.relStr, color=node_colour))
+                    subcallgraph.add_edge(pydot.Edge(wrap_if_needed(
+                        triple.const1.name), triple.reified_rel.name, label=Relation.getStringForRelType(Relation.THROUGH)))
+                    subcallgraph.add_edge(pydot.Edge(triple.reified_rel.name, wrap_if_needed(
+                        triple.const2.name), label=Relation.getStringForRelType(Relation.TO)))
                     callgraph.add_edge(pydot.Edge(wrap_if_needed(
                         triple.const1.name), triple.reified_rel.name, label=Relation.getStringForRelType(Relation.THROUGH)))
                     callgraph.add_edge(pydot.Edge(triple.reified_rel.name, wrap_if_needed(
@@ -191,11 +208,12 @@ def get_theory_visualisation_merged_boxes(theory_list):
                             # print("got a match: ", name)
                 print("got length: ", len(snode_names_list))
                 if more:
-                    callgraph.add_subgraph(sub)
-                if ID == "BCIO_006032":  # todo: test case with two nodes but only one showing up
-                    print("got here", snode_names_list)
-                if ID == "BCIO_006117":  # todo: test case with two nodes but only one showing up
-                    print("got here", snode_names_list)
+                    subcallgraph.add_subgraph(sub) #doesn't show up in cyto
+                    # callgraph.add_subgraph(sub)
+                # if ID == "BCIO_006032":  # todo: test case with two nodes but only one showing up
+                #     print("got here", snode_names_list)
+                # if ID == "BCIO_006117":  # todo: test case with two nodes but only one showing up
+                #     print("got here", snode_names_list)
             # callgraph.add_subgraph(sub)
             # print("added subgraph!", ID)
         except KeyError:
@@ -205,6 +223,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
     callgraph.set_graph_defaults(compound='True')
     # print(callgraph)
     return callgraph, theory_name_colour_dict
+    # return subcallgraph, theory_name_colour_dict
 
 
 @app.route('/')
@@ -325,13 +344,15 @@ def viewAnnotations():
         result, theory_name_colour_dict = get_theory_visualisation_merged_boxes(
             theory_list)
         g = nx.drawing.nx_pydot.from_pydot(result)
-        print(g)
+        # print("G:")
+        # print(g)
         # print(theory_name_colour_dict)
         # cyjs = json.dumps(util.from_networkx(g))
         cyjs = util.from_networkx(g)
         # print(cyjs)
         nodes = cyjs['elements']
-        # print("nodes: ", nodes)
+        print("NODES:")
+        print("nodes: ", nodes)
         data = {'data': {'name': 'G', 'graph': {'fontname': 'Verdana', 'fontcolor': 'green', 'fontsize': '12'}}, 'elements': {'nodes': [{'data': {'color': 'red', 'id': 'Work environment features', 'name': 'Work environment features'}}, {'data': {'color': 'red', 'id': 'Work events', 'name': 'Work events'}}, {'data': {'color': 'red', 'id': 'Affective reactions', 'name': 'Affective reactions'}}, {'data': {'label': 'Influences', 'color': 'red', 'id': "the 'Work events' to 'Affective reactions' Influences relationship", 'name': "the 'Work events' to 'Affective reactions' Influences relationship"}}, {'data': {'color': 'red', 'id': 'Work attitudes', 'name': 'Work attitudes'}}, {'data': {'color': 'red', 'id': 'Judgement-driven behaviours', 'name': 'Judgement-driven behaviours'}}, {'data': {'color': 'red', 'id': 'Affect-driven behaviours', 'name': 'Affect-driven behaviours'}}, {'data': {'color': 'red', 'id': 'Dispositions', 'name': 'Dispositions'}}], 'edges': [{'data': {'label': 'Influences', 'source': 'Work environment features', 'target': 'Work events', 'interaction': '0'}}, {
             'data': {'label': 'Influences', 'source': 'Work environment features', 'target': 'Work attitudes', 'interaction': '0'}}, {'data': {'label': 'Relates through', 'source': 'Work events', 'target': "the 'Work events' to 'Affective reactions' Influences relationship", 'interaction': '0'}}, {'data': {'label': 'Influences', 'source': 'Affective reactions', 'target': 'Work attitudes', 'interaction': '0'}}, {'data': {'label': 'Influences', 'source': 'Affective reactions', 'target': 'Affect-driven behaviours', 'interaction': '0'}}, {'data': {'label': 'To', 'source': "the 'Work events' to 'Affective reactions' Influences relationship", 'target': 'Affective reactions', 'interaction': '0'}}, {'data': {'label': 'Influences', 'source': 'Work attitudes', 'target': 'Judgement-driven behaviours', 'interaction': '0'}}, {'data': {'label': 'Influences', 'source': 'Dispositions', 'target': "the 'Work events' to 'Affective reactions' Influences relationship", 'interaction': '0'}}, {'data': {'label': 'Influences', 'source': 'Dispositions', 'target': 'Affective reactions', 'interaction': '0'}}]}}
 
@@ -363,7 +384,7 @@ def mergedTheories():
         result, theory_name_colour_dict = get_theory_visualisation_merged_boxes(
             theory_list)
         # print(theory_name_colour_dict)
-        # print("result is: ", result)
+        print("result is: ", result)
         session.pop('theories', None)
         colourKey = ""
         for item in theory_name_colour_dict:
@@ -374,7 +395,7 @@ def mergedTheories():
         # result, theory_name_colour_dict = get_theory_visualisation_merged_boxes(
         #     theory_list)
         g = nx.drawing.nx_pydot.from_pydot(result)
-        print(g)
+        # print(g)
         # print(theory_name_colour_dict)
         # cyjs = json.dumps(util.from_networkx(g))
         cyjs = util.from_networkx(g)
