@@ -429,9 +429,9 @@ def mergedTheories():
             # print("n: ", n.get('data'))
         # print("nodes: ", nodes)
         #cytoscape:
-        return render_template('viewAnnotations.html', theories=theories, cyjs=nodes, colourKey=colourKey)
+        # return render_template('viewAnnotations.html', theories=theories, cyjs=nodes, colourKey=colourKey)
         # todo: colour_dict to json?
-        # return render_template('mergedTheories.html', theories=theories, dotStr=result, colourKey=colourKey)
+        return render_template('mergedTheories.html', theories=theories, cyjs=nodes, colourKey=colourKey)
     # return render_template('mergedTheories.html')
 
 

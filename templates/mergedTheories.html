@@ -3,8 +3,7 @@
 <head>
     <!-- <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/base-min.css"/> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
-        crossorigin="anonymous">
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
@@ -14,265 +13,52 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" 
-        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" 
-        crossorigin="anonymous">
-    <title>Merged Theories</title>
-    <h1>Merged Theories</h1>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.20.0/cytoscape.min.js"
+        integrity="sha512-cjmYAonfXK+azDmWqvnqq8xmygHRHqVI7S0zuRxQnvcYVeoakwthRX6pPKoXfG1oIjDvMUtteRV9PhQjJwKWxQ=="
+        crossorigin="anonymous"></script> -->
+        <!-- using modified version of cytoscape locally here: -->
+        <script src="{{url_for('static', filename='cytoscape.min.js')}}"></script> 
+        
+        <!-- fcose layout test: -->
+        <script src="https://unpkg.com/layout-base/layout-base.js"></script>
+        <script src="https://unpkg.com/cose-base/cose-base.js"></script>
+        <script src="https://unpkg.com/cytoscape-fcose/cytoscape-fcose.js"></script>
+       
+    <title> Annotations</title>
+    <h1>Annotations</h1>
 </head>
 
 <body style="margin:2em;padding:10px">
-
-</body>
-
-</html>
-
-
-
-{% block content %}
-
-<style>
-    body {
-        margin: 0px;
-        padding: 0px;
-    }
-
-    #wrapper {
-        position: relative;
-        border: 0px;
-        width: 1920px;
-        height: 1080px;
-        top: 80px;
-        left: 0px;
-    }
-
-    #buttonWrapper {
-        position: fixed;
-        width: 50px;
-        top: 160px;
-        left: 40px;
-    }
-
-    #downloadWrapper {
-        position: fixed;
-        width: 500px;
-        top: 170px;
-        left: 100px;
-    }
-
-
-    /* #dropdownMenuButton {
-        position: fixed;
-        width: 260px;
-        top: 160px;
-        left: 300px
-    } */
-    /* .fixed {
-    position: fixed;
-    top:0; left:0;
-    width: 100%; } */
-</style>
-
-<!-- <h1>VISUALISATIONS</h1> -->
-
-<!-- <div id="wrapper"> -->
-    <!--<div style="position: absolute; left: 10px; top: 10px; width:200px; height:100px; background-color: yellow;">
-            <label class="font-weight-bold" for="submitText">Search in visualisation:</label>
-        </div>
-        <div
-            style="position: absolute; z-index: 1; left: 50px; top: 20px; width:100px; height:20px; background-color: green;">
-            <form id="submitText">
-                <input type="text" id="inputText" name="inputText">
-                <button type="submit" id="inputBtn" name="input" value="search"
-                    class="btn btn-outline-success fas fa-search" onclick="return submitForm(this)">Search
-                </button>
-            </form>
-        </div>
-    </div> -->
-
     <div class="container-fluid">
         <div class="row">
 
             <div class="col-md-12">
                 <div class="col-12">
-                    <h2 id="s-name" class="fixed"></h2>
+                    <h4 id="s-name" class="fixed"></h4>
                 </div class="col-12">
             </div>
         </div>
     </div>
 
-    <!--<p>{{dotStr}}</p> -->
-
-    <div onmousedown="return false;">
-        <!-- todo: move all styles inline, or at least remove redundancies -->
-        <div id="wrapper">
-            <canvas id="myCanvas" width="1920" height="1080"></canvas>
-            <div id="buttonWrapper">
-                <button id="plus" class="btn btn-outline-dark btn-sm"><i class="fas fa-plus"></i></button>
-                <button id="minus" class="btn btn-outline-dark btn-sm"><i class="fas fa-minus"></i></button>
-            </div>
-            <div id="downloadWrapper">
-                <input type="button" id="download" class="btn btn-outline-dark" value="Download Visualisation">
-                <p id="filterMessage"></p>
-            </div>
-        </div>
-    </div>
-<!-- WASM GRAPHVIZ -->
-<script src="https://cdn.jsdelivr.net/npm/@hpcc-js/wasm@1.7.1/dist/index.min.js"></script>
-<script>
-    var hpccWasm = window["@hpcc-js/wasm"];
-</script>
-
-<script>
+    <div id="cy"></div>
 
 
-    var loaded = false;
-    var img1 = new Image();
-
-    //zoom canvas code from https://stackoverflow.com/questions/3420975/html5-canvas-zooming
-    function draw(scale, translatePos, dot) {
-        // console.log("drawing: " + dot);
-        var canvas = document.getElementById("myCanvas");
-        var context = canvas.getContext("2d");
-        context.clearRect(0, 0, canvas.width, canvas.height);
-
-        if (!loaded) {
-            var dotStr = dot;
-            //moved below test to button.. todo: remove
-            // let search = "role";
-            // let dotStr = dot.replace(search, "\"" + search + "\", color=red"); //test works
-
-            console.log("got dot: ", dotStr);
-
-            // Asynchronous call to layout
-            hpccWasm.graphviz.layout(dotStr, "svg", "dot").then(svg => {
-                var data = svg;
-                var DOMURL = window.URL || window.webkitURL || window;
-
-                var svg = new Blob([data], { type: 'image/svg+xml' });
-                var url = DOMURL.createObjectURL(svg);
-                img1.onload = function () {
-                    //resize canvas if image is larger than screen
-                    //or resize canvas to size of screen if image is smaller.. 
-                    if (this.naturalWidth > window.screen.availWidth && this.naturalHeight > window.screen.availHeight) {
-                        canvas.width = this.naturalWidth;
-                        canvas.height = this.naturalHeight;
-                    } else {
-                        if (this.naturalWidth > window.screen.availWidth) {
-                            canvas.width = this.naturalWidth;
-                        } else if (this.naturalHeight > window.screen.availHeight) {
-                            canvas.height = this.naturalHeight;
-                        } else {
-                            canvas.width = window.screen.availWidth;
-                            canvas.height = window.screen.availHeight;
-                        }
-                    }
-                    context.drawImage(img1, 0, 0, img1.width, img1.height, translatePos.x, translatePos.y, img1.width * scale, img1.height * scale);
-                    // DOMURL.revokeObjectURL(url); //no we need url for updates to canvas
-
-                }
-                img1.src = url;
-                loaded = true;
-
-
-            });
-        } else {
-            context.drawImage(img1, 0, 0, img1.width, img1.height, translatePos.x, translatePos.y, img1.width * scale, img1.height * scale);
-        }
+<style>
+    #cy {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
     }
+</style>
 
-    window.onload = function () {
-        var current_dot = 0;
-        var dots = [];
-
-        // push default to dots array 8 times - todo: think this is not necessary now?
-        var default_dot = `{{ dotStr | safe}}`
-        console.log("default_dot: ", default_dot);
-        for (var i = 0; i < 8; i++) {
-            dots.push(default_dot);
-        }
-
-        var canvas = document.getElementById("myCanvas");
-
-        var translatePos = {
-            x: 0,
-            y: 0
-        };
-
-        var scale = 1.0;
-        var scaleMultiplier = 0.8;
-        var startDragOffset = {};
-        var mouseDown = false;
-
-        // add button event listeners
-        document.getElementById("plus").addEventListener("click", function () {
-            scale /= scaleMultiplier;
-            draw(scale, translatePos, dots[current_dot]);
-        }, false);
-
-        document.getElementById("minus").addEventListener("click", function () {
-            scale *= scaleMultiplier;
-            draw(scale, translatePos, dots[current_dot]);
-        }, false);
-
-
-
-        // add event listeners to handle screen drag
-        canvas.addEventListener("mousedown", function (evt) {
-            mouseDown = true;
-            startDragOffset.x = evt.clientX - translatePos.x;
-            startDragOffset.y = evt.clientY - translatePos.y;
-        });
-
-        canvas.addEventListener("mouseup", function (evt) {
-            mouseDown = false;
-        });
-
-        canvas.addEventListener("mouseover", function (evt) {
-            mouseDown = false;
-        });
-
-        canvas.addEventListener("mouseout", function (evt) {
-            mouseDown = false;
-        });
-
-        canvas.addEventListener("mousemove", function (evt) {
-            if (mouseDown) {
-                translatePos.x = evt.clientX - startDragOffset.x;
-                translatePos.y = evt.clientY - startDragOffset.y;
-                draw(scale, translatePos, dots[current_dot]);
-            }
-        });
-
-        draw(scale, translatePos, dots[current_dot]);
-
-        document.getElementById("download").addEventListener("click", function () {
-            // console.log("download clicked");
-            var dotStr2 = dots[current_dot];
-
-            // Asynchronous call to layout
-            hpccWasm.graphviz.layout(dotStr2, "svg", "dot").then(svg2 => {
-                var data2 = svg2;
-                var DOMURL2 = window.URL || window.webkitURL || window;
-
-                var svg2 = new Blob([data2], { type: 'image/svg+xml' });
-                var url2 = DOMURL2.createObjectURL(svg2);
-                let saveImage = (img_name) => {
-                    let a = document.createElement('a');
-                    a.href = url2;
-                    // a.href = pic.toDataURL("image/png"); //todo: should we convert to png image? needs work..
-                    // a.download = img_name; //this saves as .xlsx in chrome
-                    //change to .svg:
-                    a.download = img_name.slice(0, -5) + ".svg";
-                    document.body.appendChild(a);
-                    a.click();
-                }
-                saveImage("{{ sheet }}");
-                DOMURL.revokeObjectURL(url2);
-            });
-        });
+<script type="text/javascript">
+    //on window load:
+    $(document).ready(function(){
+        //text colours:
         //change key text colour:
-        keyColours = ["red", "cyan", "purple"];
+        keyColours = ["orange", "yellow", "cyan", "red", "green", "purple"];
         var key = [];
         var keyText = "{{colourKey | safe}}";
         key = keyText.split(",");
@@ -280,13 +66,171 @@
         for (var i = 0; i < key.length; i++){
             $("#s-name").append("<span style='color:" + keyColours[i] + ";'>" + key[i] + "</span");
         }
-        
+        cyto = {{cyjs | tojson | safe}};
 
-    }
+        console.log("got cyto", cyto);
+
+        var cy = cytoscape({
+
+        container: document.getElementById('cy'), // container to render in
+
+        elements: cyto,
+       
+
+        style: [ // the stylesheet for the graph
+            {
+                selector: 'node',
+                style: {
+                    // 'compound-sizing-wrt-labels': 'exclude',
+                    // 'width': '200',
+                    //todo: width and height 'label' deprecated. see https://stackoverflow.com/questions/68399821/cytoscape-js-warning-the-style-value-of-label-is-deprecated-for-width-whe
+                    'width': 'label',
+                    'height': 'label',
+                    'shape': 'round-rectangle',
+                    'background-color': 'data(color)',
+                    'label': 'data(id)',
+                    //text wrapping:
+                    'text-wrap': 'wrap',
+                    'text-max-width':'200px',
+                    // 'line-style': 'dashed', //not working
+                    //label inside node:
+                    'text-halign': 'center',
+                    'text-valign': 'center',
+                }
+            },
+
+            {
+                selector: 'edge',
+                style: {
+                    'width': 1,
+                    'line-color': '#000',
+                    'line-style': 'dotted',
+                    'label':'data(label)',
+                    'color': 'grey', //text colour!
+                    'target-arrow-color': '#000',
+                    'target-arrow-shape': 'triangle',
+                    'curve-style': 'bezier'
+                }
+            },
+            // test parent styling
+            {
+            selector: 'parent',
+                style: {
+                    'border-color': 'data(parentColor)',
+                    'line-color': 'black',
+                    
+                    'target-arrow-color': 'black',
+                    'source-arrow-color': 'black'
+                }
+            }
+        ],
+
+        layout: {
+            
+
+            name: 'fcose',
+            // 'draft', 'default' or 'proof' 
+            // - "draft" only applies spectral layout 
+            // - "default" improves the quality with incremental layout (fast cooling rate)
+            // - "proof" improves the quality with incremental layout (slow cooling rate) 
+            quality: "proof",
+            // Use random node positions at beginning of layout
+            // if this is set to false, then quality option must be "proof"
+            randomize: false, 
+            // Whether or not to animate the layout
+            animate: true, 
+            // Duration of animation in ms, if enabled
+            animationDuration: 1000, 
+            // Easing of animation, if enabled
+            animationEasing: undefined, 
+            // Fit the viewport to the repositioned nodes
+            fit: true, 
+            // Padding around layout
+            padding: 30,
+            // Whether to include labels in node dimensions. Valid in "proof" quality
+            nodeDimensionsIncludeLabels: true,
+            // Whether or not simple nodes (non-compound nodes) are of uniform dimensions
+            uniformNodeDimensions: false,
+            // Whether to pack disconnected components - cytoscape-layout-utilities extension should be registered and initialized
+            packComponents: true,
+            // Layout step - all, transformed, enforced, cose - for debug purpose only
+            step: "all",
+            
+            /* spectral layout options */
+            
+            // False for random, true for greedy sampling
+            samplingType: true,
+            // Sample size to construct distance matrix
+            sampleSize: 25,
+            // Separation amount between nodes
+            nodeSeparation: 75,
+            // Power iteration tolerance
+            piTol: 0.0000001,
+            
+            /* incremental layout options */
+            
+            // Node repulsion (non overlapping) multiplier
+            nodeRepulsion: node => 45000,
+            // Ideal edge (non nested) length
+            idealEdgeLength: edge => 50,
+            // Divisor to compute edge forces
+            edgeElasticity: edge => 0.15,
+            // Nesting factor (multiplier) to compute ideal edge length for nested edges
+            nestingFactor: 0.6,
+            // Maximum number of iterations to perform - this is a suggested value and might be adjusted by the algorithm as required
+            numIter: 2500,
+            // For enabling tiling
+            tile: true,  
+            // Represents the amount of the vertical space to put between the zero degree members during the tiling operation(can also be a function)
+            tilingPaddingVertical: 10,
+            // Represents the amount of the horizontal space to put between the zero degree members during the tiling operation(can also be a function)
+            tilingPaddingHorizontal: 10,
+            // Gravity force (constant)
+            gravity: 0.25,
+            // Gravity range (constant) for compounds
+            gravityRangeCompound: 1.5,
+            // Gravity force (constant) for compounds
+            gravityCompound: 1.0,
+            // Gravity range (constant)
+            gravityRange: 3.8, 
+            // Initial cooling factor for incremental layout  
+            initialEnergyOnIncremental: 0.3,
+
+            /* constraint options */
+
+            // Fix desired nodes to predefined positions
+            // [{nodeId: 'n1', position: {x: 100, y: 200}}, {...}]
+            fixedNodeConstraint: undefined,
+            // Align desired nodes in vertical/horizontal direction
+            // {vertical: [['n1', 'n2'], [...]], horizontal: [['n2', 'n4'], [...]]}
+            alignmentConstraint: undefined,
+            // Place two nodes relatively in vertical/horizontal direction
+            // [{top: 'n1', bottom: 'n2', gap: 100}, {left: 'n3', right: 'n4', gap: 75}, {...}]
+            relativePlacementConstraint: undefined,
+
+            /* layout event callbacks */
+            ready: () => {}, // on layoutready
+            stop: () => {} // on layoutstop
+        }
+
+        });
+
+        console.log("loaded");
+        
+            cy.filter(function(element, i){
+                console.log(i);
+                if( element.isNode() && element.isParent()){
+                    console.log("got a parent");
+                    // element.style('line-style','dashed'); //not working at all..
+                    element.style('color', 'blue');
+                    // element.style('background-color','blue'); //works
+                    console.log(element.data('label'));
+                    return(element.data('label'));
+                }
+            });
+            
+    });
 
 </script>
-{% endblock %}
 
-{%block javascript%}
-
-{% endblock %}
+</html>
