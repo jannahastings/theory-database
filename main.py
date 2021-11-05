@@ -425,9 +425,12 @@ def mergedTheories():
                         # print("got a match: ", sn.get_name())
                         #only if n['data'] doesn't contain 'parent'
                         if 'parent' not in n['data']:
-                            n['data']['parent'] =  parentLabel #todo: did it work?
+                            n['data']['parent'] = []
+                            n['data']['parent'].append( parentLabel )
+                        else:
+                            n['data']['parent'].append( parentLabel )
             # print("n: ", n.get('data'))
-        # print("nodes: ", nodes)
+        print("nodes: ", nodes)
         #cytoscape:
         return render_template('viewAnnotations.html', theories=theories, cyjs=nodes, colourKey=colourKey)
         # todo: colour_dict to json?
