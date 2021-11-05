@@ -29,8 +29,16 @@
 </head>
 
 <body style="margin:2em;padding:10px">
-    <h4>Got theories</h4>
-    {{theories|safe}}
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="col-12">
+                    <h4 id="s-name" class="fixed"></h4>
+                </div class="col-12">
+            </div>
+        </div>
+    </div>
 
     <div id="cy"></div>
 
@@ -48,7 +56,16 @@
 <script type="text/javascript">
     //on window load:
     $(document).ready(function(){
-        
+        //text colours:
+        //change key text colour:
+        keyColours = ["orange", "yellow", "cyan", "red", "green", "purple"];
+        var key = [];
+        var keyText = "{{colourKey | safe}}";
+        key = keyText.split(",");
+        console.log(key);
+        for (var i = 0; i < key.length; i++){
+            $("#s-name").append("<span style='color:" + keyColours[i] + ";'>" + key[i] + "</span");
+        }
         cyto = {{cyjs | tojson | safe}};
 
         console.log("got cyto", cyto);
