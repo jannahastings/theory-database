@@ -198,7 +198,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
                 # going to be true if name in more than one theory.
                 more = False
                 for name in snode_names_list:
-                    # per theory check - don't add if nodes not present across theories #todo: not working?
+                    # per theory check - don't add if nodes not present across theories #todo: not working, adding within theories..
                     for listA in complete_theory_node_name_dict:
                         if name in list(set(complete_theory_node_name_dict[listA])):
                             if some == True:  # already found this name before, so:
@@ -208,12 +208,9 @@ def get_theory_visualisation_merged_boxes(theory_list):
                 print("got length: ", len(snode_names_list))
                 if more:
                     # subcallgraph.add_subgraph(sub) #doesn't show up in cyto
-                    callgraph.add_subgraph(sub) #doesn't show up in cyto
-                    print("adding subgraph: ", sub)
-                # if ID == "BCIO_006032":  # todo: test case with two nodes but only one showing up
-                #     print("got here", snode_names_list)
-                # if ID == "BCIO_006117":  # todo: test case with two nodes but only one showing up
-                #     print("got here", snode_names_list)
+                    callgraph.add_subgraph(sub) 
+                    # print("adding subgraph: ", sub)
+                
             # callgraph.add_subgraph(sub)
             # print("added subgraph!", ID)
         except KeyError:
@@ -430,7 +427,7 @@ def mergedTheories():
                         else:
                             n['data']['parent'].append( parentLabel )
             # print("n: ", n.get('data'))
-        print("nodes: ", nodes)
+        # print("nodes: ", nodes)
         #cytoscape:
         return render_template('viewAnnotations.html', theories=theories, cyjs=nodes, colourKey=colourKey)
         # todo: colour_dict to json?
