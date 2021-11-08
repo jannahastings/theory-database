@@ -120,7 +120,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
             node_colour = colour_list[k]
             mix_colour = "blue"
             k = k+1
-            print(k)
+            # print(k)
             complete_theory_node_name_dict[theory_num] = []
             theory = theories[theory_num]
             # print("looking at theory: ", theory_num)
@@ -200,12 +200,26 @@ def get_theory_visualisation_merged_boxes(theory_list):
                 for name in snode_names_list:
                     # per theory check - don't add if nodes not present across theories #todo: not working, adding within theories..
                     for listA in complete_theory_node_name_dict:
+                        currentTheory = None
+                        oldTheory = None
                         if name in list(set(complete_theory_node_name_dict[listA])):
                             if some == True:  # already found this name before, so:
                                 more = True
-                            some = True
-                            print("got a match: ", name)
-                print("got length: ", len(snode_names_list))
+                            # some=True
+                            # print("adding one from theory: ", clustered_list_of_all_values[ID]['alldata'][0])
+                            # currentTheory = None
+                            # oldTheory = None
+                            for data_containing_theory in clustered_list_of_all_values[ID]['alldata']:
+                                print("Theory: ", data_containing_theory['Theory_ID'], " Name: ", name)
+                                currentTheory = data_containing_theory['Theory_ID']
+                                if currentTheory != oldTheory and oldTheory != None:
+                                    some = True
+                                oldTheory = currentTheory
+
+                            
+                            
+                            # print("got a match: ", name)
+                # print("got length: ", len(snode_names_list))
                 if more:
                     # subcallgraph.add_subgraph(sub) #doesn't show up in cyto
                     callgraph.add_subgraph(sub) 
