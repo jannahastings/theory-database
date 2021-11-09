@@ -309,7 +309,8 @@ def viewAnnotations():
             colourKey += item + ", "
         colourKey = colourKey[:-2]  # remove last ,
         return render_template('viewAnnotations.html', theories=theories, cyjs=nodes, colourKey=colourKey)
-
+        #NetworkX: 
+        # return render_template('mergedTheoriesNetworkX.html', theories=theories, dotStr=result, colourKey=colourKey)
 
 @app.route("/theoryConsistency")
 def theoryConsistency():
