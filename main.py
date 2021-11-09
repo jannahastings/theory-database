@@ -81,9 +81,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
     # lots of attributes for pydot here: https://github.com/pydot/pydot/blob/90936e75462c7b0e4bb16d97c1ae7efdf04e895c/src/pydot/core.py
     callgraph = pydot.Dot(graph_type='digraph',
                           fontname="Verdana", fontcolor="green", fontsize="12")
-    subcallgraph = pydot.Dot(graph_type='digraph',
-                          fontname="Verdana", fontcolor="green", fontsize="12")
-
+    
     for s in unique_ids_base:
         for d in combined_data:
             # print("checking: ", d["Construct"])
@@ -118,7 +116,6 @@ def get_theory_visualisation_merged_boxes(theory_list):
             # print("theory_name_colour_dict is: ", theory_name_colour_dict)
             # generate colour according to theory_num here
             node_colour = colour_list[k]
-            mix_colour = "blue"
             k = k+1
             # print(k)
             complete_theory_node_name_dict[theory_num] = []
@@ -139,58 +136,51 @@ def get_theory_visualisation_merged_boxes(theory_list):
                                 #     k=0
                                 # print("adding to cluster", triple.const1.name)
                                 complete_theory_node_name_dict[theory_num].append(
-                                    triple.const1.name)
+                                    str(theory_num) + wrap_if_needed(triple.const1.name))
                                 callgraph.add_node(
-                                    pydot.Node(wrap_if_needed(triple.const1.name), color=node_colour))
+                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
                                 clustered_list_of_all_values[ID]["cluster"].add_node(
-                                    pydot.Node(wrap_if_needed(triple.const1.name), color=node_colour))
+                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
                         for i in clustered_list_of_all_values[ID]["alldata"]:
                             if triple.const2.name in i['Construct']:
                                 # print("adding to cluster", triple.const2.name)
                                 complete_theory_node_name_dict[theory_num].append(
-                                    triple.const2.name)
+                                    str(theory_num) + wrap_if_needed(triple.const2.name))
                                 callgraph.add_node(
-                                    pydot.Node(wrap_if_needed(triple.const2.name), color=node_colour))
+                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
                                 clustered_list_of_all_values[ID]["cluster"].add_node(
-                                    pydot.Node(wrap_if_needed(triple.const2.name), color=node_colour))
+                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
                     except Exception as error:
                         pass
                         # print(error)
                 # add normal graph nodes and edges:
                 if triple.reified_rel is None:
-                    callgraph.add_node(pydot.Node(wrap_if_needed(
-                        triple.const1.name), color=node_colour))
-                    callgraph.add_node(pydot.Node(wrap_if_needed(
-                        triple.const2.name), color=node_colour))
+                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
+                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
                     # subcallgraph.add_edge(pydot.Edge(wrap_if_needed(
                     #     triple.const1.name), wrap_if_needed(triple.const2.name), label=triple.relStr))
-                    callgraph.add_edge(pydot.Edge(wrap_if_needed(
-                        triple.const1.name), wrap_if_needed(triple.const2.name), label=triple.relStr))
+                    callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name), str(theory_num) + wrap_if_needed(triple.const2.name), label=triple.relStr))
                 else:
-                    callgraph.add_node(pydot.Node(wrap_if_needed(
-                        triple.const1.name), color=node_colour))
-                    callgraph.add_node(pydot.Node(wrap_if_needed(
-                        triple.const2.name), color=node_colour))
-                    callgraph.add_node(pydot.Node(
-                        triple.reified_rel.name, label=triple.relStr, color=node_colour))
+                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
+                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label =  wrap_if_needed(triple.const2.name), color=node_colour))
+                    callgraph.add_node(pydot.Node(str(theory_num) + triple.reified_rel.name, label=triple.relStr, color=node_colour))
                     # subcallgraph.add_edge(pydot.Edge(wrap_if_needed(
                     #     triple.const1.name), triple.reified_rel.name, label=Relation.getStringForRelType(Relation.THROUGH)))
                     # subcallgraph.add_edge(pydot.Edge(triple.reified_rel.name, wrap_if_needed(
                     #     triple.const2.name), label=Relation.getStringForRelType(Relation.TO)))
-                    callgraph.add_edge(pydot.Edge(wrap_if_needed(
-                        triple.const1.name), triple.reified_rel.name, label=Relation.getStringForRelType(Relation.THROUGH)))
-                    callgraph.add_edge(pydot.Edge(triple.reified_rel.name, wrap_if_needed(
-                        triple.const2.name), label=Relation.getStringForRelType(Relation.TO)))
+                    callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name), str(theory_num) + triple.reified_rel.name, label=Relation.getStringForRelType(Relation.THROUGH)))
+                    callgraph.add_edge(pydot.Edge(str(theory_num) + triple.reified_rel.name, str(theory_num) + wrap_if_needed(triple.const2.name), label=Relation.getStringForRelType(Relation.TO)))
 
-    # add all subgraphs:
+    # add all subgraphs: todo: this is incorrect, not eliminating clusters in same theory
     for ID in unique_ids_base:
         try:
             sub = clustered_list_of_all_values[ID]["cluster"]
             snodes_list = sub.get_nodes()
             snode_names_list = []
             for snode in snodes_list:
-                snode_names_list.append(snode.get_name())
+                snode_names_list.append(snode.get_name().replace("\"", ""))
             snode_names_list = list(set(snode_names_list))
+            print("snode_names_list: ", snode_names_list)
 
             if len(snode_names_list) > 1:  # only for clusters with more than one node
                 # check for cross-theory boxes here because I can't go back
@@ -432,7 +422,7 @@ def mergedTheories():
                     # print("sn is: ", sn.get_name().replace(" ", "").replace("\"", ""))
                     if(n['data']['id'].replace(" ", "").replace("\"", "") == sn.get_name().replace(" ", "").replace("\"", "")): # is this not finding spaces?
                         parentLabel = sg.get_label()
-                        nodes['nodes'].append({'data': {'color': 'white', 'id': parentLabel, 'name': parentLabel}})
+                        nodes['nodes'].append({'data': {'color': 'white', 'id': parentLabel, 'name': parentLabel, 'label': parentLabel}})
                         # print("got a match: ", sn.get_name())
                         #only if n['data'] doesn't contain 'parent'
                         if 'parent' not in n['data']:
