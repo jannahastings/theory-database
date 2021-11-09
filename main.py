@@ -66,31 +66,22 @@ def wrap_if_needed(string_val):
 
 
 def get_theory_visualisation_merged_boxes(theory_list):
-    # print("theory_list is: ", theory_list)
-    # print("using combined_data: ", combined_data)
     clustered_list_of_all_values = {}
     all_ids_base = []
     for sub in combined_data:
-        # print(sub["Theory_ID"])
         if str(sub["Theory_ID"]) in theory_list:
-            # print("got sub: ", sub["Theory_ID"])
             all_ids_base.append(sub["Ontology_ID"].strip())
-    # print("all_ids_base: ", all_ids_base) # working
     unique_ids_base = list(set(sub for sub in all_ids_base))
-    # print("unique ids base: ", unique_ids_base) # working
     # lots of attributes for pydot here: https://github.com/pydot/pydot/blob/90936e75462c7b0e4bb16d97c1ae7efdf04e895c/src/pydot/core.py
     callgraph = pydot.Dot(graph_type='digraph',
                           fontname="Verdana", fontcolor="green", fontsize="12")
     
     for s in unique_ids_base:
         for d in combined_data:
-            # print("checking: ", d["Construct"])
-            # print(str(d["Theory_ID"]), " is it in ", theory_list) #theory_list is strings only
             if str(d["Theory_ID"]) in theory_list:
                 # print("got d")
                 if d["Ontology_ID"] == s:
                     fixed_id = d["Ontology_ID"].replace("_", ":")
-                    # print("got a match", s)
                     # spacing is important!
                     s_label = "         " + d["Label"] + \
                         " (" + fixed_id + ")" + "         "
@@ -106,7 +97,6 @@ def get_theory_visualisation_merged_boxes(theory_list):
         except:
             pass
 
-    # print("clustered list: ", clustered_list_of_all_values)
     complete_theory_node_name_dict = {}
     colour_list = ["orange", "yellow", "cyan", "red", "green", "purple"]  
     k = 0
@@ -114,14 +104,11 @@ def get_theory_visualisation_merged_boxes(theory_list):
     for theory_num in theories.keys():
         if theory_num in theory_list:
             theory_name_colour_dict[theories[theory_num].name] = colour_list[k]
-            # print("theory_name_colour_dict is: ", theory_name_colour_dict)
             # generate colour according to theory_num here
             node_colour = colour_list[k]
             k = k+1
-            # print(k)
             complete_theory_node_name_dict[theory_num] = []
             theory = theories[theory_num]
-            # print("looking at theory: ", theory_num)
 
             for triple in theory.triples:
                 # add cluster nodes:
@@ -129,9 +116,6 @@ def get_theory_visualisation_merged_boxes(theory_list):
                     # check in alldata:
                     try:
                         for i in clustered_list_of_all_values[ID]["alldata"]:
-                            # print("checking i")
-                            print("checking ", triple.const1.name.upper())
-                            print("in ", i['Construct'])
                             if triple.const1.name.upper() in i['Construct']:
                                 complete_theory_node_name_dict[theory_num].append(
                                     str(theory_num) + wrap_if_needed(triple.const1.name))
@@ -140,9 +124,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
                                 clustered_list_of_all_values[ID]["cluster"].add_node(
                                     pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
                         for i in clustered_list_of_all_values[ID]["alldata"]:
-                            # print("checking i")
                             if triple.const2.name.upper() in i['Construct']:
-                                # print("adding to cluster", triple.const2.name)
                                 complete_theory_node_name_dict[theory_num].append(
                                     str(theory_num) + wrap_if_needed(triple.const2.name))
                                 callgraph.add_node(
@@ -156,94 +138,60 @@ def get_theory_visualisation_merged_boxes(theory_list):
                 if triple.reified_rel is None:
                     callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
                     callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
-                    # subcallgraph.add_edge(pydot.Edge(wrap_if_needed(
-                    #     triple.const1.name), wrap_if_needed(triple.const2.name), label=triple.relStr))
                     callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name), str(theory_num) + wrap_if_needed(triple.const2.name), label=triple.relStr))
                 else:
                     callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
                     callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label =  wrap_if_needed(triple.const2.name), color=node_colour))
                     callgraph.add_node(pydot.Node(str(theory_num) + triple.reified_rel.name, label=triple.relStr, color=node_colour))
-                    # subcallgraph.add_edge(pydot.Edge(wrap_if_needed(
-                    #     triple.const1.name), triple.reified_rel.name, label=Relation.getStringForRelType(Relation.THROUGH)))
-                    # subcallgraph.add_edge(pydot.Edge(triple.reified_rel.name, wrap_if_needed(
-                    #     triple.const2.name), label=Relation.getStringForRelType(Relation.TO)))
                     callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name), str(theory_num) + triple.reified_rel.name, label=Relation.getStringForRelType(Relation.THROUGH)))
                     callgraph.add_edge(pydot.Edge(str(theory_num) + triple.reified_rel.name, str(theory_num) + wrap_if_needed(triple.const2.name), label=Relation.getStringForRelType(Relation.TO)))
 
-    # add all subgraphs: todo: this is incorrect, not eliminating clusters in same theory
+    # add all subgraphs: 
     for ID in unique_ids_base:
         try:
             multi_theory = False
-            all_data_in_cluster = clustered_list_of_all_values[ID]['alldata']
-            
+            all_data_in_cluster = clustered_list_of_all_values[ID]['alldata']            
             thelist = [thelist['Theory_ID'] for thelist in all_data_in_cluster if 'Theory_ID' in thelist]
             theset = set(thelist)
-            print("all_data: ", theset, ", ", all_data_in_cluster)
-
             sub = clustered_list_of_all_values[ID]["cluster"]
             if(len(theset) > 1):
                 multi_theory = True
-
-            snodes_list = sub.get_nodes()
-            # print("snodes_list is: ", snodes_list)
+            snodes_list = sub.get_nodes()            
             snode_names_list = []
             for snode in snodes_list:
-                print("snode.name: ", snode.get_name())
                 snode_names_list.append(snode.get_name().replace("\"", ""))
             snode_names_list = list(set(snode_names_list))
-            print("snode_names_list: ", snode_names_list)
 
             if len(snode_names_list) > 1:  # only for clusters with more than one node
                 #checking theories
-                # theories_set = list(set(snode_names_list[:1]))
-                # print("theories_set: ", theories_set)
                 # check for cross-theory boxes here because I can't go back
                 some = False  # going to be true if we find name in any theory
                 # going to be true if name in more than one theory.
                 more = False
                 for name in snode_names_list:
-                    print("looking at: ", name)
-                    # per theory check - don't add if nodes not present across theories #todo: not working, adding within theories..
+                    # per theory check - don't add if nodes not present across theories 
                     for listA in complete_theory_node_name_dict:
                         currentTheory = None
                         oldTheory = None
                         if name in list(set(complete_theory_node_name_dict[listA])):
                             if some == True:  # already found this name before, so:
-                                more = True
-                                print("MORE")
-                            # some=True
-                            # print("adding one from theory: ", clustered_list_of_all_values[ID]['alldata'][0])
-                            # currentTheory = None
-                            # oldTheory = None
+                                more = True                                
+                            # some=True                            
                             for data_containing_theory in clustered_list_of_all_values[ID]['alldata']:
-                                # print("Theory: ", data_containing_theory['Theory_ID'], " Name: ", name)
-                                # print("Theory: ", name[:1], " Name: ", name)
-                                # currentTheory = name[:1]
                                 currentTheory = data_containing_theory['Theory_ID']
                                 if currentTheory != oldTheory and oldTheory != None:
                                     some = True
-                                    print("SOME")
-                                oldTheory = currentTheory
-
-                            
-                            
-                            # print("got a match: ", name)
-                # print("got length: ", len(snode_names_list))
+                                oldTheory = currentTheory                           
+        
                 if more and multi_theory:
-                    # subcallgraph.add_subgraph(sub) #doesn't show up in cyto
                     callgraph.add_subgraph(sub) 
-                    # print("adding subgraph: ", sub)
-                
-            # callgraph.add_subgraph(sub)
-            # print("added subgraph!", ID)
+    
         except KeyError:
             pass
-            # print(ID)
-
-    callgraph.set_graph_defaults(compound='True')
-    # print(callgraph)
+            
+    callgraph.set_graph_defaults(compound='True')   
     return callgraph, theory_name_colour_dict
-    # return subcallgraph, theory_name_colour_dict
+    
 
 
 @app.route('/')
@@ -265,8 +213,6 @@ def displayTheory(theory_number=None, theory_name=None):
     if theory_name is not None:
         theory_num = TheoryDatabase.theory_names_to_ids[theory_name]
         theory = TheoryDatabase.theories[theory_num]
-
-    #print('GOT THEORY: ',theory.name,theory.number)
     net_image_file = url_for('static', filename=theory.number+".png")
     wc_image_file = url_for('static', filename=theory.number+"-wc.png")
     return render_template('theory.html', theory=theory, net_image_file=net_image_file, wc_image_file=wc_image_file)
@@ -277,7 +223,6 @@ def displayTheory(theory_number=None, theory_name=None):
 def searchConstructResult(string=None):
     if request.method == 'POST':
         searchstr = request.form['searchconstruct']
-        #print("GOT SEARCH STRING: ",searchstr)
         index_dir = "static/index/"
         results = TheoryDatabase.searchForConstruct(searchstr, index_dir)
         len_results = len(results)
@@ -310,7 +255,6 @@ def searchTheoryResult(string=None):
 def searchRelationResult(string=None):
     if request.method == 'POST':
         searchstr = request.form['searchrelation']
-        #print("GOT SEARCH STRING: ",searchstr)
         index_dir = "static/index/"
         results = TheoryDatabase.searchForRelation(searchstr, index_dir)
         len_results = len(results)
@@ -326,29 +270,23 @@ def searchRelationResult(string=None):
 def show_view_annotations():
     if request.method == 'POST':
         theories = request.form.get('theories')
-        # get_theory_visualisation(theories)
-        # print("GOT THEORIES for consistency: ",theories)
         session['theories'] = theories
         return redirect('/viewAnnotations')
-        # return("success")
 
 
 @app.route("/show_theory_consistency", methods=['GET', 'POST'])
 def show_theory_consistency():
     if request.method == 'POST':
         theories = request.form.get('theories')
-        # get_theory_visualisation(theories)
-        # print("GOT THEORIES for consistency: ",theories)
         session['theories'] = theories
         return redirect('/theoryConsistency')
-        # return("success")
+       
 
 
 @app.route("/show_merged_theories", methods=['GET', 'POST'])
 def show_merged_theories():
     if request.method == 'POST':
         theories = request.form.get('theories')
-        # print("GOT THEORIES for merged: ",theories)
         session['theories'] = theories
         return redirect('/mergedTheories')
 
@@ -357,31 +295,18 @@ def show_merged_theories():
 def viewAnnotations():
     if 'theories' in session:
         theories = session['theories']
-        print("GOT THEORIES: ", theories)
         theories = theories.replace("\"", "")
         theories = theories.replace("[", "").replace("]", "")
         theory_list = theories.split(",")
         result, theory_name_colour_dict = get_theory_visualisation_merged_boxes(
             theory_list)
         g = nx.drawing.nx_pydot.from_pydot(result)
-        # print("G:")
-        # print(g)
-        # print(theory_name_colour_dict)
-        # cyjs = json.dumps(util.from_networkx(g))
         cyjs = util.from_networkx(g)
-        # print(cyjs)
         nodes = cyjs['elements']
-        print("NODES:")
-        print("nodes: ", nodes)
-       
-        # cyjs = cyjs['data']
-        # nodes = cyjs['elements']['nodes']
-        # print(cyjs)
         session.pop('theories', None)
         colourKey = ""
         for item in theory_name_colour_dict:
             colourKey += item + ", "
-            # colourKey += item + ': ' + theory_name_colour_dict[item] + ', '
         colourKey = colourKey[:-2]  # remove last ,
         return render_template('viewAnnotations.html', theories=theories, cyjs=nodes, colourKey=colourKey)
 
@@ -400,61 +325,36 @@ def theoryConsistency():
 def mergedTheories():
     if 'theories' in session:
         theories = session['theories']
-        print("GOT THEORIES: ", theories)
+        # print("GOT THEORIES: ", theories)
         theories = theories.replace("\"", "")
         theories = theories.replace("[", "").replace("]", "")
         theory_list = theories.split(",")
         result, theory_name_colour_dict = get_theory_visualisation_merged_boxes(
             theory_list)
-        # print(theory_name_colour_dict)
-        # print("result is: ", result)
 
-        slist = result.get_subgraph_list()
-        # print("slist is: ", slist)
-        # for sg in slist:
-        #     print("sg: ", sg.get_name())
-        #     # print("nodes: ", sg.get_nodes())
-        #     for sn in sg.get_nodes():
-        #         print("sn: ", sn.get_name())
-
-        
+        slist = result.get_subgraph_list()        
 
         session.pop('theories', None)
         colourKey = ""
         for item in theory_name_colour_dict:
             colourKey += item + ", "
-            # colourKey += item + ': ' + theory_name_colour_dict[item] + ', '
         colourKey = colourKey[:-2]  # remove last ,
-        #test with cy:
-        # result, theory_name_colour_dict = get_theory_visualisation_merged_boxes(
-        #     theory_list)
         g = nx.drawing.nx_pydot.from_pydot(result)
-
-        # print(g)
-        # print(theory_name_colour_dict)
-        # cyjs = json.dumps(util.from_networkx(g))
         cyjs = util.from_networkx(g)
-        # print(cyjs)
         nodes = cyjs['elements']
         for n in nodes['nodes']:
-            # print(n['data']['id'])
             # check for subgraph matches:
             for sg in slist: #slist is list of subgraphs
                 for sn in sg.get_nodes():
-                    # print("sn: ", sn)
-                    # print("sn is: ", sn.get_name().replace(" ", "").replace("\"", ""))
                     if(n['data']['id'].replace(" ", "").replace("\"", "").lower() == sn.get_name().replace(" ", "").replace("\"", "").lower()): # is this not finding spaces?
                         parentLabel = sg.get_label()
                         nodes['nodes'].append({'data': {'color': 'white', 'id': parentLabel, 'name': parentLabel, 'label': parentLabel}})
-                        # print("got a match: ", sn.get_name())
                         #only if n['data'] doesn't contain 'parent'
                         if 'parent' not in n['data']:
                             n['data']['parent'] = []
                             n['data']['parent'].append( parentLabel )
                         else:
                             n['data']['parent'].append( parentLabel )
-            # print("n: ", n.get('data'))
-        # print("nodes: ", nodes)
         #cytoscape:
         return render_template('mergedTheories.html', theories=theories, cyjs=nodes, colourKey=colourKey)
 

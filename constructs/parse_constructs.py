@@ -18,7 +18,6 @@ def parseConstructs(constructs_file):
 
         if not(theory_num == None or construct_defn == None):
             if not(ontology_id == None or ontology_label == None):
-                # print("looking at theory_num", theory_num)
                 theory_dict = {
                         "Theory_ID": theory_num, 
                         "Construct": construct_defn.upper(), 
