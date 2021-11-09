@@ -373,14 +373,17 @@ def viewAnnotations():
         nodes = cyjs['elements']
         print("NODES:")
         print("nodes: ", nodes)
-        data = {'data': {'name': 'G', 'graph': {'fontname': 'Verdana', 'fontcolor': 'green', 'fontsize': '12'}}, 'elements': {'nodes': [{'data': {'color': 'red', 'id': 'Work environment features', 'name': 'Work environment features'}}, {'data': {'color': 'red', 'id': 'Work events', 'name': 'Work events'}}, {'data': {'color': 'red', 'id': 'Affective reactions', 'name': 'Affective reactions'}}, {'data': {'label': 'Influences', 'color': 'red', 'id': "the 'Work events' to 'Affective reactions' Influences relationship", 'name': "the 'Work events' to 'Affective reactions' Influences relationship"}}, {'data': {'color': 'red', 'id': 'Work attitudes', 'name': 'Work attitudes'}}, {'data': {'color': 'red', 'id': 'Judgement-driven behaviours', 'name': 'Judgement-driven behaviours'}}, {'data': {'color': 'red', 'id': 'Affect-driven behaviours', 'name': 'Affect-driven behaviours'}}, {'data': {'color': 'red', 'id': 'Dispositions', 'name': 'Dispositions'}}], 'edges': [{'data': {'label': 'Influences', 'source': 'Work environment features', 'target': 'Work events', 'interaction': '0'}}, {
-            'data': {'label': 'Influences', 'source': 'Work environment features', 'target': 'Work attitudes', 'interaction': '0'}}, {'data': {'label': 'Relates through', 'source': 'Work events', 'target': "the 'Work events' to 'Affective reactions' Influences relationship", 'interaction': '0'}}, {'data': {'label': 'Influences', 'source': 'Affective reactions', 'target': 'Work attitudes', 'interaction': '0'}}, {'data': {'label': 'Influences', 'source': 'Affective reactions', 'target': 'Affect-driven behaviours', 'interaction': '0'}}, {'data': {'label': 'To', 'source': "the 'Work events' to 'Affective reactions' Influences relationship", 'target': 'Affective reactions', 'interaction': '0'}}, {'data': {'label': 'Influences', 'source': 'Work attitudes', 'target': 'Judgement-driven behaviours', 'interaction': '0'}}, {'data': {'label': 'Influences', 'source': 'Dispositions', 'target': "the 'Work events' to 'Affective reactions' Influences relationship", 'interaction': '0'}}, {'data': {'label': 'Influences', 'source': 'Dispositions', 'target': 'Affective reactions', 'interaction': '0'}}]}}
-
+       
         # cyjs = cyjs['data']
         # nodes = cyjs['elements']['nodes']
         # print(cyjs)
         session.pop('theories', None)
-        return render_template('viewAnnotations.html', theories=theories, cyjs=nodes)
+        colourKey = ""
+        for item in theory_name_colour_dict:
+            colourKey += item + ", "
+            # colourKey += item + ': ' + theory_name_colour_dict[item] + ', '
+        colourKey = colourKey[:-2]  # remove last ,
+        return render_template('viewAnnotations.html', theories=theories, cyjs=nodes, colourKey=colourKey)
 
 
 @app.route("/theoryConsistency")
@@ -453,7 +456,6 @@ def mergedTheories():
             # print("n: ", n.get('data'))
         # print("nodes: ", nodes)
         #cytoscape:
-        # todo: colour_dict to json?
         return render_template('mergedTheories.html', theories=theories, cyjs=nodes, colourKey=colourKey)
 
         #NetworkX: 

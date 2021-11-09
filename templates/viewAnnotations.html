@@ -29,8 +29,8 @@
 </head>
 
 <body style="margin:2em;padding:10px">
-    <h4>Got theories</h4>
-    {{theories|safe}}
+    <h4>Theory: {{theories|safe}}. {{colourKey|safe}}</h4>
+    
 
     <div id="cy"></div>
 
@@ -71,7 +71,7 @@
                     'height': 'label',
                     'shape': 'round-rectangle',
                     'background-color': 'data(color)',
-                    'label': 'data(id)',
+                    'label': 'data(label)',
                     //text wrapping:
                     'text-wrap': 'wrap', 
                     'text-max-width':'200px',
