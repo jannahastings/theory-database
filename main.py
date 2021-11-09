@@ -102,9 +102,10 @@ def get_theory_visualisation_merged_boxes(theory_list):
                         clustered_list_of_all_values[s]["alldata"].append(d)
         try:
             clustered_list_of_all_values[s]["cluster"] = pydot.Cluster(
-                s, label=s_label, color='green', fillcolor='green')
+                s.upper(), label=s_label, color='green', fillcolor='green')
         except:
             pass
+
     # print("clustered list: ", clustered_list_of_all_values)
     complete_theory_node_name_dict = {}
     colour_list = ["orange", "yellow", "cyan", "red", "green", "purple"]  
@@ -129,12 +130,9 @@ def get_theory_visualisation_merged_boxes(theory_list):
                     try:
                         for i in clustered_list_of_all_values[ID]["alldata"]:
                             # print("checking i")
-                            if triple.const1.name in i['Construct']:
-                                # node_colour = colour_list[k]
-                                # k=k+1
-                                # if k > 5:
-                                #     k=0
-                                # print("adding to cluster", triple.const1.name)
+                            print("checking ", triple.const1.name.upper())
+                            print("in ", i['Construct'])
+                            if triple.const1.name.upper() in i['Construct']:
                                 complete_theory_node_name_dict[theory_num].append(
                                     str(theory_num) + wrap_if_needed(triple.const1.name))
                                 callgraph.add_node(
@@ -142,7 +140,8 @@ def get_theory_visualisation_merged_boxes(theory_list):
                                 clustered_list_of_all_values[ID]["cluster"].add_node(
                                     pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
                         for i in clustered_list_of_all_values[ID]["alldata"]:
-                            if triple.const2.name in i['Construct']:
+                            # print("checking i")
+                            if triple.const2.name.upper() in i['Construct']:
                                 # print("adding to cluster", triple.const2.name)
                                 complete_theory_node_name_dict[theory_num].append(
                                     str(theory_num) + wrap_if_needed(triple.const2.name))
@@ -174,20 +173,36 @@ def get_theory_visualisation_merged_boxes(theory_list):
     # add all subgraphs: todo: this is incorrect, not eliminating clusters in same theory
     for ID in unique_ids_base:
         try:
+            multi_theory = False
+            all_data_in_cluster = clustered_list_of_all_values[ID]['alldata']
+            
+            thelist = [thelist['Theory_ID'] for thelist in all_data_in_cluster if 'Theory_ID' in thelist]
+            theset = set(thelist)
+            print("all_data: ", theset, ", ", all_data_in_cluster)
+
             sub = clustered_list_of_all_values[ID]["cluster"]
+            if(len(theset) > 1):
+                multi_theory = True
+
             snodes_list = sub.get_nodes()
+            # print("snodes_list is: ", snodes_list)
             snode_names_list = []
             for snode in snodes_list:
+                print("snode.name: ", snode.get_name())
                 snode_names_list.append(snode.get_name().replace("\"", ""))
             snode_names_list = list(set(snode_names_list))
             print("snode_names_list: ", snode_names_list)
 
             if len(snode_names_list) > 1:  # only for clusters with more than one node
+                #checking theories
+                # theories_set = list(set(snode_names_list[:1]))
+                # print("theories_set: ", theories_set)
                 # check for cross-theory boxes here because I can't go back
                 some = False  # going to be true if we find name in any theory
                 # going to be true if name in more than one theory.
                 more = False
                 for name in snode_names_list:
+                    print("looking at: ", name)
                     # per theory check - don't add if nodes not present across theories #todo: not working, adding within theories..
                     for listA in complete_theory_node_name_dict:
                         currentTheory = None
@@ -195,22 +210,26 @@ def get_theory_visualisation_merged_boxes(theory_list):
                         if name in list(set(complete_theory_node_name_dict[listA])):
                             if some == True:  # already found this name before, so:
                                 more = True
+                                print("MORE")
                             # some=True
                             # print("adding one from theory: ", clustered_list_of_all_values[ID]['alldata'][0])
                             # currentTheory = None
                             # oldTheory = None
                             for data_containing_theory in clustered_list_of_all_values[ID]['alldata']:
-                                print("Theory: ", data_containing_theory['Theory_ID'], " Name: ", name)
+                                # print("Theory: ", data_containing_theory['Theory_ID'], " Name: ", name)
+                                # print("Theory: ", name[:1], " Name: ", name)
+                                # currentTheory = name[:1]
                                 currentTheory = data_containing_theory['Theory_ID']
                                 if currentTheory != oldTheory and oldTheory != None:
                                     some = True
+                                    print("SOME")
                                 oldTheory = currentTheory
 
                             
                             
                             # print("got a match: ", name)
                 # print("got length: ", len(snode_names_list))
-                if more:
+                if more and multi_theory:
                     # subcallgraph.add_subgraph(sub) #doesn't show up in cyto
                     callgraph.add_subgraph(sub) 
                     # print("adding subgraph: ", sub)
@@ -419,8 +438,9 @@ def mergedTheories():
             # check for subgraph matches:
             for sg in slist: #slist is list of subgraphs
                 for sn in sg.get_nodes():
+                    # print("sn: ", sn)
                     # print("sn is: ", sn.get_name().replace(" ", "").replace("\"", ""))
-                    if(n['data']['id'].replace(" ", "").replace("\"", "") == sn.get_name().replace(" ", "").replace("\"", "")): # is this not finding spaces?
+                    if(n['data']['id'].replace(" ", "").replace("\"", "").lower() == sn.get_name().replace(" ", "").replace("\"", "").lower()): # is this not finding spaces?
                         parentLabel = sg.get_label()
                         nodes['nodes'].append({'data': {'color': 'white', 'id': parentLabel, 'name': parentLabel, 'label': parentLabel}})
                         # print("got a match: ", sn.get_name())
@@ -433,9 +453,11 @@ def mergedTheories():
             # print("n: ", n.get('data'))
         # print("nodes: ", nodes)
         #cytoscape:
-        # return render_template('viewAnnotations.html', theories=theories, cyjs=nodes, colourKey=colourKey)
         # todo: colour_dict to json?
         return render_template('mergedTheories.html', theories=theories, cyjs=nodes, colourKey=colourKey)
+
+        #NetworkX: 
+        # return render_template('mergedTheoriesNetworkX.html', theories=theories, dotStr=result, colourKey=colourKey)
     # return render_template('mergedTheories.html')
 
 
