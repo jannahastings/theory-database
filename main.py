@@ -208,14 +208,24 @@ def display_home():
 @app.route("/theory/name=<theory_name>", methods=['GET', 'POST'])
 @app.route("/theory/<theory_number>", methods=['GET', 'POST'])
 def displayTheory(theory_number=None, theory_name=None):
+    print("theory/")
     if theory_number is not None:
         theory = TheoryDatabase.theories[theory_number]
     if theory_name is not None:
         theory_num = TheoryDatabase.theory_names_to_ids[theory_name]
         theory = TheoryDatabase.theories[theory_num]
+
+    #get theory ids and labels here:
+    ids_labels = {}   
+    for sub in combined_data:        
+        if str(sub["Theory_ID"]) == theory_number:
+            ids_labels[sub['Label']] = sub["Ontology_ID"].strip()            
+    print("got ids_labels: ", ids_labels)   
+    
     net_image_file = url_for('static', filename=theory.number+".png")
     wc_image_file = url_for('static', filename=theory.number+"-wc.png")
-    return render_template('theory.html', theory=theory, net_image_file=net_image_file, wc_image_file=wc_image_file)
+    
+    return render_template('theory.html', theory=theory, net_image_file=net_image_file, wc_image_file=wc_image_file, ids_labels=ids_labels)
 
 
 @app.route("/searchConstruct", methods=['GET', 'POST'])
