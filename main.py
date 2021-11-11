@@ -208,20 +208,57 @@ def display_home():
 @app.route("/theory/name=<theory_name>", methods=['GET', 'POST'])
 @app.route("/theory/<theory_number>", methods=['GET', 'POST'])
 def displayTheory(theory_number=None, theory_name=None):
-    print("theory/")
+    # print("theory/")
     if theory_number is not None:
         theory = TheoryDatabase.theories[theory_number]
     if theory_name is not None:
         theory_num = TheoryDatabase.theory_names_to_ids[theory_name]
         theory = TheoryDatabase.theories[theory_num]
-
+    
     #get theory ids and labels here:
     ids_labels = {}   
-    for sub in combined_data:        
-        if str(sub["Theory_ID"]) == theory_number:
-            ids_labels[sub['Label']] = sub["Ontology_ID"].strip()            
-    print("got ids_labels: ", ids_labels)   
+    # for sub in combined_data:        
+    #     if str(sub["Theory_ID"]) == theory_number:
+    #         print("theory_number: ", theory_number, ",LABEL: ", sub['Label'], ", ID: ", sub["Ontology_ID"].strip())
+    #         ids_labels[sub['Label']] = sub["Ontology_ID"].strip()            
+    # print("got ids_labels: ", ids_labels)   
     
+    #trying to match IDs to theories:
+    clustered_list_of_all_values = {}
+    all_ids_base = []
+    # d["Ontology_ID"]
+    for sub in combined_data:
+        if str(sub["Theory_ID"]) == theory_number:
+            all_ids_base.append(sub["Ontology_ID"].strip())
+    unique_ids_base = list(set(sub for sub in all_ids_base))
+    for s in unique_ids_base:
+        for d in combined_data:
+            # if str(d["Theory_ID"]) == theory_number:
+            # print("got d")
+            if d["Ontology_ID"] == s:
+                try:
+                    clustered_list_of_all_values[s]["alldata"].append(d)
+                except:
+                    clustered_list_of_all_values[s] = {}
+                    clustered_list_of_all_values[s]["alldata"] = []
+                    clustered_list_of_all_values[s]["alldata"].append(d)
+    for triple in theory.triples:
+        # add cluster nodes:
+        for ID in unique_ids_base: 
+            # check in alldata:
+            try: 
+                for i in clustered_list_of_all_values[ID]["alldata"]:
+                    if triple.const1.name.upper() in i['Construct']:
+                        # print(i)
+                        print("got one: ", wrap_if_needed(triple.const1.name), ", ", ID, i['Label'], i["Theory_ID"])
+                for i in clustered_list_of_all_values[ID]["alldata"]:
+                    if triple.const2.name.upper() in i['Construct']:
+                        print("got two: ", wrap_if_needed(triple.const2.name), ", ", ID, i['Label'], i["Theory_ID"])
+
+
+            except: 
+                pass
+
     net_image_file = url_for('static', filename=theory.number+".png")
     wc_image_file = url_for('static', filename=theory.number+"-wc.png")
     
