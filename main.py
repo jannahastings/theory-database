@@ -64,7 +64,14 @@ def wrap_if_needed(string_val):
         return(f'"{string_val}"')
     return(string_val)
 
-
+def id_from_construct(const_str):
+    ID = ""
+    for sub in combined_data:
+        # print(str(sub["Construct"]).strip().upper() , ", and ", str(const_str).strip().upper(), ", ID: ", sub["Ontology_ID"].strip())
+        if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
+            ID = sub["Ontology_ID"].strip()    
+    return ID
+    
 def get_theory_visualisation_merged_boxes(theory_list):
     clustered_list_of_all_values = {}
     all_ids_base = []
@@ -230,7 +237,9 @@ def displayTheory(theory_number=None, theory_name=None):
     for sub in combined_data:
         if str(sub["Theory_ID"]) == theory_number:
             all_ids_base.append(sub["Ontology_ID"].strip())
+    # print("all_ids_base is: ", all_ids_base)
     unique_ids_base = list(set(sub for sub in all_ids_base))
+    # print("unique_ids_base is: ", unique_ids_base)
     for s in unique_ids_base:
         for d in combined_data:
             # if str(d["Theory_ID"]) == theory_number:
@@ -242,22 +251,26 @@ def displayTheory(theory_number=None, theory_name=None):
                     clustered_list_of_all_values[s] = {}
                     clustered_list_of_all_values[s]["alldata"] = []
                     clustered_list_of_all_values[s]["alldata"].append(d)
-    for triple in theory.triples:
-        # add cluster nodes:
-        for ID in unique_ids_base: 
+    for construct in theory.constructs_by_name:
+        print("got construct: ", construct)
+        print("got ID for construct: ", id_from_construct(construct)) #not working          
+    # for triple in theory.triples:
+    #     # add cluster nodes:
+    #     for ID in unique_ids_base: 
+            # print("checking ID:", ID)
             # check in alldata:
-            try: 
-                for i in clustered_list_of_all_values[ID]["alldata"]:
-                    if triple.const1.name.upper() in i['Construct']:
-                        # print(i)
-                        print("got one: ", wrap_if_needed(triple.const1.name), ", ", ID, i['Label'], i["Theory_ID"])
-                for i in clustered_list_of_all_values[ID]["alldata"]:
-                    if triple.const2.name.upper() in i['Construct']:
-                        print("got two: ", wrap_if_needed(triple.const2.name), ", ", ID, i['Label'], i["Theory_ID"])
+            # try: 
+            #     for i in clustered_list_of_all_values[ID]["alldata"]:
+            #         if triple.const1.name.upper() in i['Construct']:
+            #             # print(i)
+            #             print("got one: ", wrap_if_needed(triple.const1.name), ", ", ID, i['Label'], i["Theory_ID"])
+            #     for i in clustered_list_of_all_values[ID]["alldata"]:
+            #         if triple.const2.name.upper() in i['Construct']:
+            #             print("got two: ", wrap_if_needed(triple.const2.name), ", ", ID, i['Label'], i["Theory_ID"])
 
 
-            except: 
-                pass
+            # except: 
+            #     pass
 
     net_image_file = url_for('static', filename=theory.number+".png")
     wc_image_file = url_for('static', filename=theory.number+"-wc.png")
