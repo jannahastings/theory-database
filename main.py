@@ -71,6 +71,14 @@ def id_from_construct(const_str):
         if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
             ID = sub["Ontology_ID"].strip()    
     return ID
+
+def label_from_construct(const_str):
+    label = ""
+    for sub in combined_data:
+        # print(str(sub["Construct"]).strip().upper() , ", and ", str(const_str).strip().upper(), ", ID: ", sub["Ontology_ID"].strip())
+        if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
+            label = sub["Label"].strip()    
+    return label
     
 def get_theory_visualisation_merged_boxes(theory_list):
     clustered_list_of_all_values = {}
@@ -231,32 +239,48 @@ def displayTheory(theory_number=None, theory_name=None):
     # print("got ids_labels: ", ids_labels)   
     
     #trying to match IDs to theories:
-    clustered_list_of_all_values = {}
-    all_ids_base = []
-    # d["Ontology_ID"]
-    for sub in combined_data:
-        if str(sub["Theory_ID"]) == theory_number:
-            all_ids_base.append(sub["Ontology_ID"].strip())
-    # print("all_ids_base is: ", all_ids_base)
-    unique_ids_base = list(set(sub for sub in all_ids_base))
-    # print("unique_ids_base is: ", unique_ids_base)
-    for s in unique_ids_base:
-        for d in combined_data:
-            # if str(d["Theory_ID"]) == theory_number:
-            # print("got d")
-            if d["Ontology_ID"] == s:
-                try:
-                    clustered_list_of_all_values[s]["alldata"].append(d)
-                except:
-                    clustered_list_of_all_values[s] = {}
-                    clustered_list_of_all_values[s]["alldata"] = []
-                    clustered_list_of_all_values[s]["alldata"].append(d)
-    for construct in theory.constructs_by_name:
-        print("got construct: ", construct)
-        print("got ID for construct: ", id_from_construct(construct)) #not working          
-    # for triple in theory.triples:
-    #     # add cluster nodes:
-    #     for ID in unique_ids_base: 
+    # clustered_list_of_all_values = {}
+    # all_ids_base = []
+    # # d["Ontology_ID"]
+    # for sub in combined_data:
+    #     if str(sub["Theory_ID"]) == theory_number:
+    #         all_ids_base.append(sub["Ontology_ID"].strip())
+    # # print("all_ids_base is: ", all_ids_base)
+    # unique_ids_base = list(set(sub for sub in all_ids_base))
+    # # print("unique_ids_base is: ", unique_ids_base)
+    # for s in unique_ids_base:
+    #     for d in combined_data:
+    #         # if str(d["Theory_ID"]) == theory_number:
+    #         # print("got d")
+    #         if d["Ontology_ID"] == s:
+    #             try:
+    #                 clustered_list_of_all_values[s]["alldata"].append(d)
+    #             except:
+    #                 clustered_list_of_all_values[s] = {}
+    #                 clustered_list_of_all_values[s]["alldata"] = []
+    #                 clustered_list_of_all_values[s]["alldata"].append(d)
+    # for construct in theory.constructs_by_name:
+    #     print("got construct: ", construct)
+    #     print("got ID for construct: ", id_from_construct(construct)) #not working   
+
+    #todo: build a list of strings - all constructs with definitions, ID, Label, theory, other constructs       
+    theory_constructs = []
+    for triple in theory.triples:
+        if triple.const1.name != None: 
+            linea = (wrap_if_needed(triple.const1.name) or "") + " (" + (triple.const1.definition or "") + ") " + (id_from_construct(triple.const1.name) or "") + ", " + (label_from_construct(triple.const1.name) or "")
+            if linea not in theory_constructs:
+                theory_constructs.append(linea)
+            # print("got one: ", linea)
+            # print("got one: ", wrap_if_needed(triple.const1.name), ", ", triple.const1.definition, ", ", id_from_construct(triple.const1.name), ", ", label_from_construct(triple.const1.name))
+        if triple.const2.name != None: 
+            linea = (wrap_if_needed(triple.const2.name) or "") + " (" + (triple.const2.definition or "") + ") " + (id_from_construct(triple.const2.name) or "") + ", " + (label_from_construct(triple.const2.name) or "")
+            if linea not in theory_constructs:
+                theory_constructs.append(linea)
+            # print("got two: ", wrap_if_needed(triple.const2.name), ", ", triple.const2.definition, ", ", id_from_construct(triple.const2.name), ", ", label_from_construct(triple.const2.name))
+    print(theory_constructs)
+        # add cluster nodes:
+        # for ID in all_ids_base:
+        # for ID in unique_ids_base: 
             # print("checking ID:", ID)
             # check in alldata:
             # try: 
@@ -275,7 +299,7 @@ def displayTheory(theory_number=None, theory_name=None):
     net_image_file = url_for('static', filename=theory.number+".png")
     wc_image_file = url_for('static', filename=theory.number+"-wc.png")
     
-    return render_template('theory.html', theory=theory, net_image_file=net_image_file, wc_image_file=wc_image_file, ids_labels=ids_labels)
+    return render_template('theory.html', theory=theory, net_image_file=net_image_file, wc_image_file=wc_image_file, theory_constructs=theory_constructs)
 
 
 @app.route("/searchConstruct", methods=['GET', 'POST'])

@@ -44,18 +44,9 @@
     <h3> Theory constructs </h3>
     <p>
     <ul>
-    {% for item in theory.constructs_by_name %}
+    {% for item in theory_constructs %}
     <li>
         {{item}}
-        {% for trip in theory.triples %}
-        {% if item == trip.const1.name or item == trip.const2.name %}
-        <br>
-        {{trip.const1.name}}:{{trip.const1.definition}}
-        <br>
-        {{trip.const2.name}}:{{trip.const2.definition}}
-        {% endif %}
-        {% endfor %}
-
     </li>
     {% endfor %}
     </ul>
