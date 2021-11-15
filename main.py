@@ -56,7 +56,6 @@ data_path = 'constructs/ConstructsOntologyMappingTemplate-JH.xlsx'
 combined_data_path = os.path.join(os.path.dirname(__file__), data_path)
 
 combined_data = parseConstructs(combined_data_path)
-# combined_data = parseConstructs("/home/tom/Documents/PROGRAMMING/Python/theory-database/constructs/ConstructsOntologyMappingTemplate-JH.xlsx")
 
 
 def wrap_if_needed(string_val):
@@ -67,7 +66,6 @@ def wrap_if_needed(string_val):
 def id_from_construct(const_str):
     ID = ""
     for sub in combined_data:
-        # print(str(sub["Construct"]).strip().upper() , ", and ", str(const_str).strip().upper(), ", ID: ", sub["Ontology_ID"].strip())
         if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
             ID = sub["Ontology_ID"].strip()    
     return ID
@@ -75,7 +73,6 @@ def id_from_construct(const_str):
 def label_from_construct(const_str):
     label = ""
     for sub in combined_data:
-        # print(str(sub["Construct"]).strip().upper() , ", and ", str(const_str).strip().upper(), ", ID: ", sub["Ontology_ID"].strip())
         if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
             label = sub["Label"].strip()    
     return label
@@ -223,7 +220,6 @@ def display_home():
 @app.route("/theory/name=<theory_name>", methods=['GET', 'POST'])
 @app.route("/theory/<theory_number>", methods=['GET', 'POST'])
 def displayTheory(theory_number=None, theory_name=None):
-    # print("theory/")
     if theory_number is not None:
         theory = TheoryDatabase.theories[theory_number]
     if theory_name is not None:
@@ -231,39 +227,7 @@ def displayTheory(theory_number=None, theory_name=None):
         theory = TheoryDatabase.theories[theory_num]
     
     #get theory ids and labels here:
-    ids_labels = {}   
-    # for sub in combined_data:        
-    #     if str(sub["Theory_ID"]) == theory_number:
-    #         print("theory_number: ", theory_number, ",LABEL: ", sub['Label'], ", ID: ", sub["Ontology_ID"].strip())
-    #         ids_labels[sub['Label']] = sub["Ontology_ID"].strip()            
-    # print("got ids_labels: ", ids_labels)   
-    
-    #trying to match IDs to theories:
-    # clustered_list_of_all_values = {}
-    # all_ids_base = []
-    # # d["Ontology_ID"]
-    # for sub in combined_data:
-    #     if str(sub["Theory_ID"]) == theory_number:
-    #         all_ids_base.append(sub["Ontology_ID"].strip())
-    # # print("all_ids_base is: ", all_ids_base)
-    # unique_ids_base = list(set(sub for sub in all_ids_base))
-    # # print("unique_ids_base is: ", unique_ids_base)
-    # for s in unique_ids_base:
-    #     for d in combined_data:
-    #         # if str(d["Theory_ID"]) == theory_number:
-    #         # print("got d")
-    #         if d["Ontology_ID"] == s:
-    #             try:
-    #                 clustered_list_of_all_values[s]["alldata"].append(d)
-    #             except:
-    #                 clustered_list_of_all_values[s] = {}
-    #                 clustered_list_of_all_values[s]["alldata"] = []
-    #                 clustered_list_of_all_values[s]["alldata"].append(d)
-    # for construct in theory.constructs_by_name:
-    #     print("got construct: ", construct)
-    #     print("got ID for construct: ", id_from_construct(construct)) #not working   
-
-    #todo: build a list of strings - all constructs with definitions, ID, Label, theory, other constructs       
+    ids_labels = {}        
     theory_constructs = []
     for triple in theory.triples:
         if triple.const1.name != None: 
@@ -272,45 +236,28 @@ def displayTheory(theory_number=None, theory_name=None):
             line_list.append(triple.const1.definition or "")
             line_list.append(id_from_construct(triple.const1.name) or "")
             line_list.append(label_from_construct(triple.const1.name) or "")
-            line_list.append(label_from_construct(triple.const1.name) or "")
-            # linea = (wrap_if_needed(triple.const1.name) or "") + " (" + (triple.const1.definition or "") + ") " + (id_from_construct(triple.const1.name) or "") + ", " + (label_from_construct(triple.const1.name) or "")
             if line_list not in theory_constructs:
                 theory_constructs.append(line_list)
-            # if linea not in theory_constructs:
-                # theory_constructs.append(linea)
-            # print("got one: ", linea)
-            # print("got one: ", wrap_if_needed(triple.const1.name), ", ", triple.const1.definition, ", ", id_from_construct(triple.const1.name), ", ", label_from_construct(triple.const1.name))
+            
         if triple.const2.name != None: 
             line_list = []
             line_list.append(wrap_if_needed(triple.const2.name) or "")
             line_list.append(triple.const2.definition or "")
             line_list.append(id_from_construct(triple.const2.name) or "")
             line_list.append(label_from_construct(triple.const2.name) or "")
-            line_list.append(label_from_construct(triple.const2.name) or "")
             if line_list not in theory_constructs:
                 theory_constructs.append(line_list)
-            # linea = (wrap_if_needed(triple.const2.name) or "") + " (" + (triple.const2.definition or "") + ") " + (id_from_construct(triple.const2.name) or "") + ", " + (label_from_construct(triple.const2.name) or "")
-            # if linea not in theory_constructs:
-            #     theory_constructs.append(linea)
-            # print("got two: ", wrap_if_needed(triple.const2.name), ", ", triple.const2.definition, ", ", id_from_construct(triple.const2.name), ", ", label_from_construct(triple.const2.name))
+        # if triple.reified_rel != None: # is this relevant? 
+        #     line_list = []
+        #     line_list.append(wrap_if_needed(triple.reified_rel.name) or "")
+        #     line_list.append(triple.relStr or "") #todo: not sure about this one..
+        #     line_list.append(id_from_construct(triple.reified_rel.name) or "")
+        #     line_list.append(label_from_construct(triple.reified_rel.name) or "")
+        #     if line_list not in theory_constructs:
+        #         theory_constructs.append(line_list)
+            
     print(theory_constructs)
-        # add cluster nodes:
-        # for ID in all_ids_base:
-        # for ID in unique_ids_base: 
-            # print("checking ID:", ID)
-            # check in alldata:
-            # try: 
-            #     for i in clustered_list_of_all_values[ID]["alldata"]:
-            #         if triple.const1.name.upper() in i['Construct']:
-            #             # print(i)
-            #             print("got one: ", wrap_if_needed(triple.const1.name), ", ", ID, i['Label'], i["Theory_ID"])
-            #     for i in clustered_list_of_all_values[ID]["alldata"]:
-            #         if triple.const2.name.upper() in i['Construct']:
-            #             print("got two: ", wrap_if_needed(triple.const2.name), ", ", ID, i['Label'], i["Theory_ID"])
-
-
-            # except: 
-            #     pass
+        
 
     net_image_file = url_for('static', filename=theory.number+".png")
     wc_image_file = url_for('static', filename=theory.number+"-wc.png")
