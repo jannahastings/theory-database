@@ -76,7 +76,15 @@ def label_from_construct(const_str):
         if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
             label = sub["Label"].strip()    
     return label
-    
+
+def theory_from_construct(const_str):
+    print(const_str)
+    theory_num = ""
+    for sub in combined_data:
+        if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
+            theory_num = sub["Theory_ID"]  
+    return theory_num
+
 def get_theory_visualisation_merged_boxes(theory_list):
     clustered_list_of_all_values = {}
     all_ids_base = []
@@ -235,7 +243,10 @@ def displayTheory(theory_number=None, theory_name=None):
             line_list.append(wrap_if_needed(triple.const1.name) or "")
             line_list.append(triple.const1.definition or "")
             line_list.append(id_from_construct(triple.const1.name) or "")
-            line_list.append(label_from_construct(triple.const1.name) or "")
+            line_list.append(label_from_construct(triple.const1.name) or "") 
+            if (theory_from_construct(triple.const1.name) != None) or (str(theory_from_construct(triple.const1.name) or "") != ""):
+                print("theory: " + str(theory_from_construct(triple.const2.name) or ""))
+                line_list.append(str(theory_from_construct(triple.const1.name) or ""))
             if line_list not in theory_constructs:
                 theory_constructs.append(line_list)
             
@@ -245,6 +256,9 @@ def displayTheory(theory_number=None, theory_name=None):
             line_list.append(triple.const2.definition or "")
             line_list.append(id_from_construct(triple.const2.name) or "")
             line_list.append(label_from_construct(triple.const2.name) or "")
+            if (theory_from_construct(triple.const2.name) != None) or (str(theory_from_construct(triple.const1.name) or "") != ""):
+                print("theory: " + str(theory_from_construct(triple.const2.name) or ""))
+                line_list.append(str(theory_from_construct(triple.const2.name) or ""))
             if line_list not in theory_constructs:
                 theory_constructs.append(line_list)
         # if triple.reified_rel != None: # is this relevant? 
@@ -256,7 +270,7 @@ def displayTheory(theory_number=None, theory_name=None):
         #     if line_list not in theory_constructs:
         #         theory_constructs.append(line_list)
             
-    print(theory_constructs)
+    # print(theory_constructs)
         
 
     net_image_file = url_for('static', filename=theory.number+".png")
