@@ -267,15 +267,31 @@ def displayTheory(theory_number=None, theory_name=None):
     theory_constructs = []
     for triple in theory.triples:
         if triple.const1.name != None: 
-            linea = (wrap_if_needed(triple.const1.name) or "") + " (" + (triple.const1.definition or "") + ") " + (id_from_construct(triple.const1.name) or "") + ", " + (label_from_construct(triple.const1.name) or "")
-            if linea not in theory_constructs:
-                theory_constructs.append(linea)
+            line_list = []
+            line_list.append(wrap_if_needed(triple.const1.name) or "")
+            line_list.append(triple.const1.definition or "")
+            line_list.append(id_from_construct(triple.const1.name) or "")
+            line_list.append(label_from_construct(triple.const1.name) or "")
+            line_list.append(label_from_construct(triple.const1.name) or "")
+            # linea = (wrap_if_needed(triple.const1.name) or "") + " (" + (triple.const1.definition or "") + ") " + (id_from_construct(triple.const1.name) or "") + ", " + (label_from_construct(triple.const1.name) or "")
+            if line_list not in theory_constructs:
+                theory_constructs.append(line_list)
+            # if linea not in theory_constructs:
+                # theory_constructs.append(linea)
             # print("got one: ", linea)
             # print("got one: ", wrap_if_needed(triple.const1.name), ", ", triple.const1.definition, ", ", id_from_construct(triple.const1.name), ", ", label_from_construct(triple.const1.name))
         if triple.const2.name != None: 
-            linea = (wrap_if_needed(triple.const2.name) or "") + " (" + (triple.const2.definition or "") + ") " + (id_from_construct(triple.const2.name) or "") + ", " + (label_from_construct(triple.const2.name) or "")
-            if linea not in theory_constructs:
-                theory_constructs.append(linea)
+            line_list = []
+            line_list.append(wrap_if_needed(triple.const2.name) or "")
+            line_list.append(triple.const2.definition or "")
+            line_list.append(id_from_construct(triple.const2.name) or "")
+            line_list.append(label_from_construct(triple.const2.name) or "")
+            line_list.append(label_from_construct(triple.const2.name) or "")
+            if line_list not in theory_constructs:
+                theory_constructs.append(line_list)
+            # linea = (wrap_if_needed(triple.const2.name) or "") + " (" + (triple.const2.definition or "") + ") " + (id_from_construct(triple.const2.name) or "") + ", " + (label_from_construct(triple.const2.name) or "")
+            # if linea not in theory_constructs:
+            #     theory_constructs.append(linea)
             # print("got two: ", wrap_if_needed(triple.const2.name), ", ", triple.const2.definition, ", ", id_from_construct(triple.const2.name), ", ", label_from_construct(triple.const2.name))
     print(theory_constructs)
         # add cluster nodes:
