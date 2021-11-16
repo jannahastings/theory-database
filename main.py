@@ -236,14 +236,11 @@ def displayTheory(theory_number=None, theory_name=None):
         theory_num = TheoryDatabase.theory_names_to_ids[theory_name]
         theory = TheoryDatabase.theories[theory_num]
     
-    #get theory ids and labels here:
-    ids_labels = {}        
+    #get theory ids and labels here:    
     theory_constructs = []
     for triple in theory.triples:
         check_for_rel = triple.const1.name.split()
-        if str(check_for_rel[0]).lower() == "the":
-            pass
-        elif str(check_for_rel[-1]).lower() == "relationship":
+        if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
             pass
         elif triple.const1.name != None and triple.const1.name != "": 
             line_list = []
@@ -264,9 +261,7 @@ def displayTheory(theory_number=None, theory_name=None):
             if line_list not in theory_constructs:
                 theory_constructs.append(line_list)
         check_for_rel = triple.const2.name.split()
-        if str(check_for_rel[0]).lower() == "the":
-            pass
-        elif str(check_for_rel[-1]).lower() == "relationship":
+        if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
             pass
         elif triple.const2.name != None and triple.const1.name != "": 
             line_list = []
