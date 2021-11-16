@@ -258,7 +258,7 @@ def displayTheory(theory_number=None, theory_name=None):
                     line_list.append(theory_display_name)
                 except:
                     pass
-            if line_list not in theory_constructs:
+            if line_list[0] not in (item for sublist in theory_constructs for item in sublist):
                 theory_constructs.append(line_list)
         check_for_rel = triple.const2.name.split()
         if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
@@ -280,7 +280,9 @@ def displayTheory(theory_number=None, theory_name=None):
                     line_list.append(theory_display_name)
                 except:
                     pass
-            if line_list not in theory_constructs:
+            print("line list 0 is: ", line_list[0])
+            print("theory_constructs is: ", theory_constructs)
+            if line_list[0] not in (item for sublist in theory_constructs for item in sublist):
                 theory_constructs.append(line_list)
 
     net_image_file = url_for('static', filename=theory.number+".png")
