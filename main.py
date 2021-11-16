@@ -67,7 +67,7 @@ def id_from_construct(const_str):
     ID = ""
     for sub in combined_data:
         if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
-            ID = sub["Ontology_ID"].strip()    
+            ID = sub["Ontology_ID"].strip().replace("_", ":")  
     return ID
 
 def label_from_construct(const_str):
@@ -80,10 +80,12 @@ def label_from_construct(const_str):
 def theory_from_construct(const_str):
     print(const_str)
     theory_num = ""
+    theory_link = ""
     for sub in combined_data:
         if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
             theory_num = sub["Theory_ID"]  
-    return theory_num
+            theory_link = url_for("displayTheory", theory_number=theory_num)
+    return theory_link
 
 def get_theory_visualisation_merged_boxes(theory_list):
     clustered_list_of_all_values = {}
@@ -244,7 +246,7 @@ def displayTheory(theory_number=None, theory_name=None):
             line_list.append(triple.const1.definition or "")
             line_list.append(id_from_construct(triple.const1.name) or "")
             line_list.append(label_from_construct(triple.const1.name) or "") 
-            if (theory_from_construct(triple.const1.name) != None) or (str(theory_from_construct(triple.const1.name) or "") != ""):
+            if (theory_from_construct(triple.const1.name) != None) or (str(theory_from_construct(triple.const1.name) or "") != ""): #todo: not working
                 print("theory: " + str(theory_from_construct(triple.const2.name) or ""))
                 line_list.append(str(theory_from_construct(triple.const1.name) or ""))
             if line_list not in theory_constructs:
@@ -256,7 +258,7 @@ def displayTheory(theory_number=None, theory_name=None):
             line_list.append(triple.const2.definition or "")
             line_list.append(id_from_construct(triple.const2.name) or "")
             line_list.append(label_from_construct(triple.const2.name) or "")
-            if (theory_from_construct(triple.const2.name) != None) or (str(theory_from_construct(triple.const1.name) or "") != ""):
+            if (theory_from_construct(triple.const2.name) != None) or (str(theory_from_construct(triple.const1.name) or "") != ""): #todo: not working
                 print("theory: " + str(theory_from_construct(triple.const2.name) or ""))
                 line_list.append(str(theory_from_construct(triple.const2.name) or ""))
             if line_list not in theory_constructs:
