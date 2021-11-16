@@ -240,7 +240,12 @@ def displayTheory(theory_number=None, theory_name=None):
     ids_labels = {}        
     theory_constructs = []
     for triple in theory.triples:
-        if triple.const1.name != None and triple.const1.name != "": 
+        check_for_rel = triple.const1.name.split()
+        if str(check_for_rel[0]).lower() == "the":
+            pass
+        elif str(check_for_rel[-1]).lower() == "relationship":
+            pass
+        elif triple.const1.name != None and triple.const1.name != "": 
             line_list = []
             line_list.append(wrap_if_needed(triple.const1.name) or "")
             line_list.append(triple.const1.definition or "")
@@ -252,14 +257,18 @@ def displayTheory(theory_number=None, theory_name=None):
                 line_list.append(str(theory_from_construct(triple.const1.name) or ""))
                 theory_display_name = str(theory_from_construct(triple.const1.name)).split("/")
                 try:
-                    theory_display_name = " Theory: " + str(theory_display_name[2])
+                    theory_display_name = " " + str(theory_display_name[2])
                     line_list.append(theory_display_name)
                 except:
                     pass
             if line_list not in theory_constructs:
                 theory_constructs.append(line_list)
-            
-        if triple.const2.name != None and triple.const1.name != "": 
+        check_for_rel = triple.const2.name.split()
+        if str(check_for_rel[0]).lower() == "the":
+            pass
+        elif str(check_for_rel[-1]).lower() == "relationship":
+            pass
+        elif triple.const2.name != None and triple.const1.name != "": 
             line_list = []
             line_list.append(wrap_if_needed(triple.const2.name) or "")
             line_list.append(triple.const2.definition or "")
@@ -272,23 +281,12 @@ def displayTheory(theory_number=None, theory_name=None):
                 theory_display_name = str(theory_from_construct(triple.const2.name)).split("/")
                 print("theory_display_name: ", theory_display_name)
                 try:
-                    theory_display_name = " Theory: " + str(theory_display_name[2])
+                    theory_display_name = " " + str(theory_display_name[2])
                     line_list.append(theory_display_name)
                 except:
                     pass
             if line_list not in theory_constructs:
                 theory_constructs.append(line_list)
-        # if triple.reified_rel != None: # is this relevant? 
-        #     line_list = []
-        #     line_list.append(wrap_if_needed(triple.reified_rel.name) or "")
-        #     line_list.append(triple.relStr or "") #todo: not sure about this one..
-        #     line_list.append(id_from_construct(triple.reified_rel.name) or "")
-        #     line_list.append(label_from_construct(triple.reified_rel.name) or "")
-        #     if line_list not in theory_constructs:
-        #         theory_constructs.append(line_list)
-            
-    # print(theory_constructs)
-        
 
     net_image_file = url_for('static', filename=theory.number+".png")
     wc_image_file = url_for('static', filename=theory.number+"-wc.png")
