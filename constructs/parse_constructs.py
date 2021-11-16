@@ -22,6 +22,8 @@ def parseConstructs(constructs_file):
                         "Theory_ID": theory_num, 
                         "Construct": construct_defn.upper(), 
                         "Label": ontology_label.upper(),
+                        "Construct_L": construct_defn, 
+                        "Label_L": ontology_label,
                         "Ontology_ID": ontology_id.replace(":","_")
                         }
                 combined_data.append(theory_dict)
@@ -32,6 +34,8 @@ def parseConstructs(constructs_file):
                     "Theory_ID": theory_num, 
                     "Construct": construct_defn.upper(), 
                     "Label": alt_ontology_label.upper(),
+                    "Construct_L": construct_defn, 
+                    "Label_L": alt_ontology_label,
                     "Ontology_ID": alt_ontology_id.replace(":","_")
                     }
                 combined_data.append(alt_theory_dict)
@@ -41,6 +45,8 @@ def parseConstructs(constructs_file):
                     "Theory_ID": theory_num, 
                     "Construct": construct_defn.upper(), 
                     "Label": alt_ontology_label2.upper(),
+                    "Construct_L": construct_defn,
+                    "Label_L": alt_ontology_label2,
                     "Ontology_ID": alt_ontology_id2.replace(":","_")
                     }
                 combined_data.append(alt_theory_dict2)

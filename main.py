@@ -74,7 +74,7 @@ def label_from_construct(const_str):
     label = ""
     for sub in combined_data:
         if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
-            label = sub["Label"].strip()    
+            label = sub["Label_L"].strip()    
     return label
 
 def theory_from_construct(const_str):
@@ -240,27 +240,42 @@ def displayTheory(theory_number=None, theory_name=None):
     ids_labels = {}        
     theory_constructs = []
     for triple in theory.triples:
-        if triple.const1.name != None: 
+        if triple.const1.name != None and triple.const1.name != "": 
             line_list = []
             line_list.append(wrap_if_needed(triple.const1.name) or "")
             line_list.append(triple.const1.definition or "")
             line_list.append(id_from_construct(triple.const1.name) or "")
             line_list.append(label_from_construct(triple.const1.name) or "") 
-            if (theory_from_construct(triple.const1.name) != None) or (str(theory_from_construct(triple.const1.name) or "") != ""): #todo: not working
-                print("theory: " + str(theory_from_construct(triple.const2.name) or ""))
+            if (str(theory_from_construct(triple.const1.name)) == None) or (str(theory_from_construct(triple.const1.name) or "") == ""): #todo: not working
+                print("theory none or blank: " + str(theory_from_construct(triple.const1.name) or ""))
+            else:
                 line_list.append(str(theory_from_construct(triple.const1.name) or ""))
+                theory_display_name = str(theory_from_construct(triple.const1.name)).split("/")
+                try:
+                    theory_display_name = " Theory: " + str(theory_display_name[2])
+                    line_list.append(theory_display_name)
+                except:
+                    pass
             if line_list not in theory_constructs:
                 theory_constructs.append(line_list)
             
-        if triple.const2.name != None: 
+        if triple.const2.name != None and triple.const1.name != "": 
             line_list = []
             line_list.append(wrap_if_needed(triple.const2.name) or "")
             line_list.append(triple.const2.definition or "")
             line_list.append(id_from_construct(triple.const2.name) or "")
             line_list.append(label_from_construct(triple.const2.name) or "")
-            if (theory_from_construct(triple.const2.name) != None) or (str(theory_from_construct(triple.const1.name) or "") != ""): #todo: not working
-                print("theory: " + str(theory_from_construct(triple.const2.name) or ""))
+            if (str(theory_from_construct(triple.const2.name)) == None) or (str(theory_from_construct(triple.const1.name) or "") == ""): #todo: not working
+                print("theory none or blank: " + str(theory_from_construct(triple.const2.name) or ""))
+            else:
                 line_list.append(str(theory_from_construct(triple.const2.name) or ""))
+                theory_display_name = str(theory_from_construct(triple.const2.name)).split("/")
+                print("theory_display_name: ", theory_display_name)
+                try:
+                    theory_display_name = " Theory: " + str(theory_display_name[2])
+                    line_list.append(theory_display_name)
+                except:
+                    pass
             if line_list not in theory_constructs:
                 theory_constructs.append(line_list)
         # if triple.reified_rel != None: # is this relevant? 
