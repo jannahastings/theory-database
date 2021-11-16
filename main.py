@@ -78,7 +78,7 @@ def label_from_construct(const_str):
     return label
 
 def theory_from_construct(const_str):
-    print(const_str)
+    # print(const_str)
     theory_num = ""
     theory_link = ""
     for sub in combined_data:
@@ -249,7 +249,7 @@ def displayTheory(theory_number=None, theory_name=None):
             line_list.append(id_from_construct(triple.const1.name) or "")
             line_list.append(label_from_construct(triple.const1.name) or "") 
             if (str(theory_from_construct(triple.const1.name)) == None) or (str(theory_from_construct(triple.const1.name) or "") == ""): #todo: not working
-                print("theory none or blank: " + str(theory_from_construct(triple.const1.name) or ""))
+                pass
             else:
                 line_list.append(str(theory_from_construct(triple.const1.name) or ""))
                 theory_display_name = str(theory_from_construct(triple.const1.name)).split("/")
@@ -270,18 +270,15 @@ def displayTheory(theory_number=None, theory_name=None):
             line_list.append(id_from_construct(triple.const2.name) or "")
             line_list.append(label_from_construct(triple.const2.name) or "")
             if (str(theory_from_construct(triple.const2.name)) == None) or (str(theory_from_construct(triple.const1.name) or "") == ""): #todo: not working
-                print("theory none or blank: " + str(theory_from_construct(triple.const2.name) or ""))
+                pass
             else:
                 line_list.append(str(theory_from_construct(triple.const2.name) or ""))
                 theory_display_name = str(theory_from_construct(triple.const2.name)).split("/")
-                print("theory_display_name: ", theory_display_name)
                 try:
                     theory_display_name = " " + str(theory_display_name[2])
                     line_list.append(theory_display_name)
                 except:
                     pass
-            print("line list 0 is: ", line_list[0])
-            print("theory_constructs is: ", theory_constructs)
             if line_list[0] not in (item for sublist in theory_constructs for item in sublist):
                 theory_constructs.append(line_list)
 
