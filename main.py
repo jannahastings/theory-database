@@ -63,29 +63,70 @@ def wrap_if_needed(string_val):
         return(f'"{string_val}"')
     return(string_val)
 
-def id_from_construct(const_str):
-    ID = ""
+def from_construct_mixed(const_str):    
+    ids_labels_links_mixed = []  
+    theory_num = ""    
     for sub in combined_data:
         if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
-            ID = sub["Ontology_ID"].strip().replace("_", ":")  
-    return ID
+            theory_num = sub["Theory_ID"]
 
-def label_from_construct(const_str):
-    label = ""
+            theory_display_name = str(url_for("displayTheory", theory_number=theory_num)).split("/")
+            try:
+                theory_display_name = " " + str(theory_display_name[2])
+            except:
+                pass
+            ids_labels_links_mixed.append(sub["Ontology_ID"].strip().replace("_", ":") + " (" + sub["Label_L"].strip() + ") " or "")
+            ids_labels_links_mixed.append(theory_display_name or "")
+    return ids_labels_links_mixed
+
+
+def from_construct(const_str): #todo: delete this
+    ids_labels_links = {}
+
+    IDs = []
     for sub in combined_data:
         if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
-            label = sub["Label_L"].strip()    
-    return label
+            IDs.append(sub["Ontology_ID"].strip().replace("_", ":")) 
+    ids_labels_links["IDs"] = IDs
 
-def theory_from_construct(const_str):
-    # print(const_str)
+    labels = []
+    for sub in combined_data:
+        if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
+            labels.append(sub["Label_L"].strip())
+    ids_labels_links["labels"] = labels
+
     theory_num = ""
-    theory_link = ""
+    theory_links = []
     for sub in combined_data:
         if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
             theory_num = sub["Theory_ID"]  
-            theory_link = url_for("displayTheory", theory_number=theory_num)
-    return theory_link
+            theory_links.append(url_for("displayTheory", theory_number=theory_num))
+    ids_labels_links["theory_links"] = theory_links
+    return ids_labels_links
+
+def id_from_construct(const_str): #todo: delete this
+    IDs = []
+    for sub in combined_data:
+        if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
+            IDs.append(sub["Ontology_ID"].strip().replace("_", ":")) 
+    return IDs
+
+def label_from_construct(const_str): #todo: delete this
+    labels = []
+    for sub in combined_data:
+        if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
+            labels.append(sub["Label_L"].strip())   
+    return labels
+
+def theory_from_construct(const_str): #todo: delete this
+    # print(const_str)
+    theory_num = ""
+    theory_links = []
+    for sub in combined_data:
+        if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
+            theory_num = sub["Theory_ID"]  
+            theory_links.append(url_for("displayTheory", theory_number=theory_num))
+    return theory_links
 
 def get_theory_visualisation_merged_boxes(theory_list):
     clustered_list_of_all_values = {}
@@ -246,41 +287,55 @@ def displayTheory(theory_number=None, theory_name=None):
             line_list = []
             line_list.append(wrap_if_needed(triple.const1.name) or "")
             line_list.append(triple.const1.definition or "")
-            line_list.append(id_from_construct(triple.const1.name) or "")
-            line_list.append(label_from_construct(triple.const1.name) or "") 
-            if (str(theory_from_construct(triple.const1.name)) == None) or (str(theory_from_construct(triple.const1.name) or "") == ""): #todo: not working
-                pass
-            else:
-                line_list.append(str(theory_from_construct(triple.const1.name) or ""))
-                theory_display_name = str(theory_from_construct(triple.const1.name)).split("/")
-                try:
-                    theory_display_name = " " + str(theory_display_name[2])
-                    line_list.append(theory_display_name)
-                except:
-                    pass
+            #annotations:
+            annotations_for_const = from_construct_mixed(triple.const1.name)
+            for sub in annotations_for_const:
+                line_list.append(sub or "")
+
+            # line_list.append(id_from_construct(triple.const1.name) or "")
+            # line_list.append(label_from_construct(triple.const1.name) or "")
+            # if (str(theory_from_construct(triple.const1.name)) == None) or (str(theory_from_construct(triple.const1.name) or "") == ""): #todo: not working
+            #     pass
+            # else:
+            #     line_list.append(str(theory_from_construct(triple.const1.name) or ""))
+            #     theory_display_name = str(theory_from_construct(triple.const1.name)).split("/")
+            #     try:
+            #         theory_display_name = " " + str(theory_display_name[2])
+            #         line_list.append(theory_display_name)
+            #     except:
+            #         pass
+
             if line_list[0] not in (item for sublist in theory_constructs for item in sublist):
                 theory_constructs.append(line_list)
+            
+
         check_for_rel = triple.const2.name.split()
         if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
             pass
-        elif triple.const2.name != None and triple.const1.name != "": 
+        elif triple.const2.name != None and triple.const2.name != "": 
             line_list = []
             line_list.append(wrap_if_needed(triple.const2.name) or "")
             line_list.append(triple.const2.definition or "")
-            line_list.append(id_from_construct(triple.const2.name) or "")
-            line_list.append(label_from_construct(triple.const2.name) or "")
-            if (str(theory_from_construct(triple.const2.name)) == None) or (str(theory_from_construct(triple.const1.name) or "") == ""): #todo: not working
-                pass
-            else:
-                line_list.append(str(theory_from_construct(triple.const2.name) or ""))
-                theory_display_name = str(theory_from_construct(triple.const2.name)).split("/")
-                try:
-                    theory_display_name = " " + str(theory_display_name[2])
-                    line_list.append(theory_display_name)
-                except:
-                    pass
+            #annotations:
+            annotations_for_const = from_construct_mixed(triple.const1.name)
+            for sub in annotations_for_const:
+                line_list.append(sub[0] or "")
+                line_list.append(sub[1] or "")
+            # line_list.append(id_from_construct(triple.const2.name) or "")
+            # line_list.append(label_from_construct(triple.const2.name) or "")
+            # if (str(theory_from_construct(triple.const2.name)) == None) or (str(theory_from_construct(triple.const2.name) or "") == ""): #todo: not working
+            #     pass
+            # else:
+            #     line_list.append(str(theory_from_construct(triple.const2.name) or ""))
+            #     theory_display_name = str(theory_from_construct(triple.const2.name)).split("/")
+            #     try:
+            #         theory_display_name = " " + str(theory_display_name[2])
+            #         line_list.append(theory_display_name)
+            #     except:
+            #         pass
             if line_list[0] not in (item for sublist in theory_constructs for item in sublist):
                 theory_constructs.append(line_list)
+            
 
     net_image_file = url_for('static', filename=theory.number+".png")
     wc_image_file = url_for('static', filename=theory.number+"-wc.png")
