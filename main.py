@@ -56,7 +56,7 @@ data_path = 'constructs/ConstructsOntologyMappingTemplate-JH.xlsx'
 combined_data_path = os.path.join(os.path.dirname(__file__), data_path)
 
 combined_data = parseConstructs(combined_data_path)
-
+print(combined_data)
 
 def wrap_if_needed(string_val):
     if ":" in string_val:
@@ -234,32 +234,34 @@ def displayTheory(theory_number=None, theory_name=None):
         check_for_rel = triple.const1.name.split()
         if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
             pass
-        elif triple.const1.name != None and triple.const1.name != "": 
-            line_list = []
-            line_list.append(wrap_if_needed(triple.const1.name) or "")
-            line_list.append(triple.const1.definition or "")
-            #annotations:
-            annotations_for_const = from_construct_mixed(triple.const1.name)
-            for sub in annotations_for_const:
-                line_list.append(sub or "")
-                
-            if line_list[0] not in (item for sublist in theory_constructs for item in sublist):
-                theory_constructs.append(line_list)            
+        else:
+            if triple.const1.name != None and triple.const1.name.strip() != "": 
+                line_list = []
+                line_list.append(wrap_if_needed(triple.const1.name) or "")
+                line_list.append(triple.const1.definition or "")
+                #annotations:
+                annotations_for_const = from_construct_mixed(triple.const1.name)
+                for sub in annotations_for_const:
+                    line_list.append(sub or "")
+                    
+                if line_list[0] not in (item for sublist in theory_constructs for item in sublist):
+                    theory_constructs.append(line_list)            
 
         check_for_rel = triple.const2.name.split()
         if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
             pass
-        elif triple.const2.name != None and triple.const2.name != "": 
-            line_list = []
-            line_list.append(wrap_if_needed(triple.const2.name) or "")
-            line_list.append(triple.const2.definition or "")
-            #annotations:
-            annotations_for_const = from_construct_mixed(triple.const1.name)
-            for sub in annotations_for_const:
-                line_list.append(sub or "")
-                
-            if line_list[0] not in (item for sublist in theory_constructs for item in sublist):
-                theory_constructs.append(line_list)
+        else:
+            if triple.const2.name != None and triple.const2.name.strip() != "": 
+                line_list = []
+                line_list.append(wrap_if_needed(triple.const2.name) or "")
+                line_list.append(triple.const2.definition or "")
+                #annotations:
+                annotations_for_const = from_construct_mixed(triple.const2.name)
+                for sub in annotations_for_const:
+                    line_list.append(sub or "")
+                    
+                if line_list[0] not in (item for sublist in theory_constructs for item in sublist):
+                    theory_constructs.append(line_list)
             
 
     net_image_file = url_for('static', filename=theory.number+".png")
