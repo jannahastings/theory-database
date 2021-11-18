@@ -83,20 +83,25 @@
                 style: {
                     // 'compound-sizing-wrt-labels': 'exclude',
                     // 'width': '200',
-                    //todo: width and height 'label' deprecated. see https://stackoverflow.com/questions/68399821/cytoscape-js-warning-the-style-value-of-label-is-deprecated-for-width-whe
-                    'width': 'label',
-                    // 'width': (node) => { return node.data('name').length * 7 },
-                    'height': 'label',
-                    'shape': 'round-rectangle',
-                    'background-color': 'data(color)',
-                    'label': 'data(label)',
                     //text wrapping:
                     'text-wrap': 'wrap',
-                    'text-max-width':'400px', //400 may be the miminum for this to work correctly all the time..? 
+                    'text-max-width':'200px', 
                     // 'line-style': 'dashed', //not working
                     //label inside node:
                     'text-halign': 'center',
                     'text-valign': 'center',
+                     
+                    //todo: width and height 'label' deprecated. see https://stackoverflow.com/questions/68399821/cytoscape-js-warning-the-style-value-of-label-is-deprecated-for-width-whe
+                    'width': 'label',
+                    // 'width': (node) => { return node.data('name').length * 7 },
+                    'height': (node) => { return node.data('name').length + 6},
+                    // height': 'label',
+                    'shape': 'round-rectangle',
+                    'background-color': 'data(color)',
+                    'label': 'data(label)',
+                    
+                    
+                    
                 }
             },
 
