@@ -30,7 +30,7 @@ def parseConstructs(constructs_file):
             
             #additional ids
             if not(alt_ontology_id == None or alt_ontology_label == None):
-                print("alt_ontology_label:", alt_ontology_label)
+                # print("alt_ontology_label:", alt_ontology_label)
                 alt_theory_dict = {
                     "Theory_ID": theory_num, 
                     "Construct": construct_defn.upper(), 

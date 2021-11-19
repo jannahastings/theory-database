@@ -56,27 +56,52 @@ data_path = 'constructs/ConstructsOntologyMappingTemplate-JH.xlsx'
 combined_data_path = os.path.join(os.path.dirname(__file__), data_path)
 
 combined_data = parseConstructs(combined_data_path)
-print(combined_data)
+# print(combined_data)
 
 def wrap_if_needed(string_val):
     if ":" in string_val:
         return(f'"{string_val}"')
     return(string_val)
 
-def from_construct_mixed(const_str):    
+def from_construct_mixed(const_str, current_theory_num):    
     ids_labels_links_mixed = []  
-    theory_num = ""    
+    theory_num = current_theory_num    #todo: use thoery_num from current theory
+    # print("theory_num = ", theory_num)
+    check_annotation_ids = []
     for sub in combined_data:
         if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
-            theory_num = sub["Theory_ID"]
-
-            theory_display_name = str(url_for("displayTheory", theory_number=theory_num)).split("/")
-            try:
-                theory_display_name = " " + str(theory_display_name[2])
-            except:
-                pass
-            ids_labels_links_mixed.append(sub["Ontology_ID"].strip().replace("_", ":") + " (" + sub["Label_L"].strip() + ") " or "")
-            ids_labels_links_mixed.append(theory_display_name or "")
+            # theory_num = sub["Theory_ID"] #todo: just check current_theory_num first
+            if str(sub["Theory_ID"]) == str(current_theory_num):
+                # print("got one")
+                theory_display_name = str(url_for("displayTheory", theory_number=theory_num)).split("/")
+                try:
+                    theory_display_name = " " + str(theory_display_name[2])
+                except:
+                    pass
+                ids_labels_links_mixed.append(sub["Ontology_ID"].strip().replace("_", ":") + " (" + sub["Label_L"].strip() + ") " or "")
+                ids_labels_links_mixed.append(theory_display_name or "")
+                check_annotation_ids.append(sub["Ontology_ID"])
+    #check for annotations in other theories
+    print("annotations: ", list(set(check_annotation_ids)))
+    for sub in combined_data:
+        if str(sub["Theory_ID"]) != str(current_theory_num):
+            # print(len(check_annotation_ids))
+            for annotation_id in list(set(check_annotation_ids)):
+                if str(sub["Ontology_ID"]) == str(annotation_id):
+                    # print("match for: " + const_str + " in " + str(sub["Theory_ID"]) + " - " + str(sub["Ontology_ID"]))
+                    #check for duplicates here: 
+                    if(str(sub["Theory_ID"]) not in ids_labels_links_mixed):
+                        ids_labels_links_mixed.append(str(sub["Theory_ID"]))
+                # theory_num = sub["Theory_ID"]
+                # theory_display_name = str(url_for("displayTheory", theory_number=theory_num)).split("/")
+                # try:
+                #     theory_display_name = " " + str(theory_display_name[2])
+                # except:
+                #     pass
+                
+                # ids_labels_links_mixed.append(sub["Ontology_ID"].strip().replace("_", ":") + " (" + sub["Label_L"].strip() + ") " or "")
+                # ids_labels_links_mixed.append(theory_display_name or "")
+        
     return ids_labels_links_mixed
 
 def get_theory_visualisation_merged_boxes(theory_list):
@@ -224,6 +249,7 @@ def display_home():
 def displayTheory(theory_number=None, theory_name=None):
     if theory_number is not None:
         theory = TheoryDatabase.theories[theory_number]
+        theory_num = theory_number
     if theory_name is not None:
         theory_num = TheoryDatabase.theory_names_to_ids[theory_name]
         theory = TheoryDatabase.theories[theory_num]
@@ -240,7 +266,7 @@ def displayTheory(theory_number=None, theory_name=None):
                 line_list.append(wrap_if_needed(triple.const1.name) or "")
                 line_list.append(triple.const1.definition or "")
                 #annotations:
-                annotations_for_const = from_construct_mixed(triple.const1.name)
+                annotations_for_const = from_construct_mixed(triple.const1.name, theory_num)
                 for sub in annotations_for_const:
                     line_list.append(sub or "")
                     
@@ -256,7 +282,7 @@ def displayTheory(theory_number=None, theory_name=None):
                 line_list.append(wrap_if_needed(triple.const2.name) or "")
                 line_list.append(triple.const2.definition or "")
                 #annotations:
-                annotations_for_const = from_construct_mixed(triple.const2.name)
+                annotations_for_const = from_construct_mixed(triple.const2.name, theory_num)
                 for sub in annotations_for_const:
                     line_list.append(sub or "")
                     

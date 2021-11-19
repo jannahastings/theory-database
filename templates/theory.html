@@ -46,7 +46,7 @@
     <ul>
     {% for item in theory_constructs %}
     <li>
-        <b>{{item[0]}}</b> <i>{{item[1]}}</i> {{ "[" if item[2] else "" }} {{item[2]}} <a href="{{item[3]}}#constructs">{{item[3]}}</a> {{ ", " if item[4] else "" }} {{item[4]}} <a href="{{item[5]}}#constructs">{{item[5]}}</a> {{ ", " if item[6] else "" }} {{item[6]}} <a href="{{item[7]}}#constructs">{{item[7]}}</a>{{ "]" if item[2] else "" }}
+        <b>{{item[0]}}</b> <i>{{item[1]}}</i> <!--{{ "[" if item[2] else "" }}--> {{item[2 : None]}}  <!--<a href="{{item[3]}}#constructs">{{item[3]}}</a> {{ ", " if item[4] else "" }} {{item[4]}} <a href="{{item[5]}}#constructs">{{item[5]}}</a> {{ ", " if item[6] else "" }} {{item[6]}} <a href="{{item[7]}}#constructs">{{item[7]}}</a>{{ "]" if item[2] else "" }}-->
     </li>
     {% endfor %}
     </ul>
