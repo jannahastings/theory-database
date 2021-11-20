@@ -90,7 +90,7 @@ def from_construct_mixed(const_str, current_theory_num):
                 ids_labels_links_mixed.append(theory_display_name or "")
                 check_annotation_ids.append(sub["Ontology_ID"])
     #check for annotations in other theories
-    print("annotations: ", list(set(check_annotation_ids)))
+    # print("annotations: ", list(set(check_annotation_ids)))
     for sub in combined_data:
         if str(sub["Theory_ID"]) != str(current_theory_num):
             # print(len(check_annotation_ids))
