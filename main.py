@@ -63,6 +63,14 @@ def wrap_if_needed(string_val):
         return(f'"{string_val}"')
     return(string_val)
 
+def get_theory_num_from_construct(const_str):
+    theory = ""
+    for sub in combined_data:
+        if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
+            # theory_num = sub["Theory_ID"] #todo: just check current_theory_num first
+            theory = str(sub["Theory_ID"])
+    return theory
+
 def from_construct_mixed(const_str, current_theory_num):    
     ids_labels_links_mixed = []  
     theory_num = current_theory_num    #todo: use thoery_num from current theory
@@ -287,8 +295,7 @@ def displayTheory(theory_number=None, theory_name=None):
                     line_list.append(sub or "")
                     
                 if line_list[0] not in (item for sublist in theory_constructs for item in sublist):
-                    theory_constructs.append(line_list)
-            
+                    theory_constructs.append(line_list)            
 
     net_image_file = url_for('static', filename=theory.number+".png")
     wc_image_file = url_for('static', filename=theory.number+"-wc.png")
