@@ -50,9 +50,9 @@
         <i>{{item[1]}}</i>
         {{ "[" if item[2] else "" }}
         {% for i in item %}
-        {% if loop.index > 2 %}
-        {% if i|int(-1) != -1 %} <a href="{{i}}#constructs">{{i}}</a> {% else %} {{i if loop.index == 3 else ", "+i}} {% endif %}
-        {% endif %}
+            {% if loop.index > 2 %}
+                {% if i|int(-1) != -1 %} <a href="{{i}}#constructs">{{i}}</a> {% else %} {{i if loop.index == 3 else ", "+i}} {% endif %}
+            {% endif %}
         {% endfor %}
         {{ "]" if item[2] else "" }}
     </li>
@@ -63,7 +63,6 @@
     <h3> Theory illustration </h3>
 
      <p> <img src="{{net_image_file}}"/> </p>
-
 
      <p> </p>
 
