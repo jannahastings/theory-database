@@ -182,13 +182,13 @@ def get_theory_visualisation_merged_boxes(theory_list):
                     # check in alldata:
                     try:
                         for i in clustered_list_of_all_values[ID]["alldata"]:
-                            if triple.const1.name.upper() in i['Construct'] and i['Label'] == triple.const1.label:
+                            if triple.const1.name.upper() in i['Construct'] and i['type'] == "main":
                                 
                                 callgraph.add_node(
                                     pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
                                 
                         for i in clustered_list_of_all_values[ID]["alldata"]:
-                            if triple.const2.name.upper() in i['Construct'] and i['Label'] == triple.const2.label:
+                            if triple.const2.name.upper() in i['Construct'] and i['type'] == "main":
                                 
                                 callgraph.add_node(
                                     pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
@@ -272,6 +272,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
                                 oldTheory = currentTheory                           
         
                 if more and multi_theory:
+                    print("should add subgraph", sub)
                     callgraph.add_subgraph(sub) 
     
         except KeyError:
