@@ -32,6 +32,15 @@ import os
 import py2cytoscape as cy
 from py2cytoscape import util
 
+import pandas as pd
+import numpy as np
+
+import json
+import plotly
+from plotly.subplots import make_subplots
+import plotly.graph_objs as go
+import plotly.express as px
+
 from constructs.parse_constructs import parseConstructs
 
 
@@ -61,6 +70,110 @@ def wrap_if_needed(string_val):
     if ":" in string_val:
         return(f'"{string_val}"')
     return(string_val)
+
+def get_theory_consistency_stats(theory_list):
+    # print("theory_list is: ", theory_list)
+    # print("using combined_data: ", combined_data)
+    clustered_list_of_all_values = {}
+    all_ids_base = []
+    all_ids_base_lens =  [[] for i in range(len(theory_list))]
+    x_base = 0
+    old_sub = 1
+    for sub in combined_data:
+        # print(sub["Theory_ID"])
+        if str(sub["Theory_ID"]) in theory_list: 
+            if sub["Theory_ID"] > old_sub:
+                old_sub = sub["Theory_ID"]
+                x_base = x_base + 1
+            print("got sub: ", sub["Theory_ID"])
+            num = int(sub["Theory_ID"])
+            #num - 1 below incorrect
+            all_ids_base_lens[x_base].append(sub["Ontology_ID"].strip())
+            all_ids_base.append(sub["Ontology_ID"].strip()) 
+        # x_base += 1
+        # print("x_base: ", x_base)   
+    print("all_ids_base_lens: ", all_ids_base_lens)
+    all_ids_base_nums = [len(x) for x in all_ids_base_lens]
+    return all_ids_base_nums
+    # return all_ids_base
+
+    # print("all_ids_base len: ", all_ids_base) # working
+    unique_ids_base = list(set(sub for sub in all_ids_base)) 
+    # print("unique ids base: ", unique_ids_base) # working
+    # lots of attributes for pydot here: https://github.com/pydot/pydot/blob/90936e75462c7b0e4bb16d97c1ae7efdf04e895c/src/pydot/core.py
+    callgraph = pydot.Dot(graph_type='digraph',fontname="Verdana", fontcolor="green", fontsize="12")
+        
+    for s in unique_ids_base:
+        for d in combined_data:
+            # print("checking: ", d["Construct"])
+            # print(str(d["Theory_ID"]), " is it in ", theory_list) #theory_list is strings only
+            if str(d["Theory_ID"]) in theory_list:
+                # print("got d")
+                if d["Ontology_ID"] == s:
+                    fixed_id = d["Ontology_ID"].replace("_",":")
+                    # print("got a match", s)
+                    s_label = "         " + d["Label"] + " (" + fixed_id + ")" + "         "
+                    try:
+                        clustered_list_of_all_values[s]["alldata"].append(d)
+                    except:
+                        clustered_list_of_all_values[s] = {}
+                        clustered_list_of_all_values[s]["alldata"] = []
+                        clustered_list_of_all_values[s]["alldata"].append(d)
+        try: 
+            clustered_list_of_all_values[s]["cluster"] = pydot.Cluster(s,label=s_label, color='green', fillcolor='green')
+        except: 
+            pass
+    # print("clustered list: ", clustered_list_of_all_values)
+
+    for theory_num in theories.keys():        
+        if theory_num in theory_list: 
+            theory = theories[theory_num]
+            # print("looking at theory: ", theory_num)
+            
+            for triple in theory.triples: 
+                #add cluster nodes:
+                for ID in unique_ids_base:  
+                    #check in alldata: 
+                    try:
+                        for i in clustered_list_of_all_values[ID]["alldata"]:
+                            # print("checking i")
+                            if triple.const1.name in i['Construct']:
+                                # print("adding to cluster", triple.const1.name)
+                                clustered_list_of_all_values[ID]["cluster"].add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
+                        for i in clustered_list_of_all_values[ID]["alldata"]:
+                            if triple.const2.name in i['Construct']:
+                                # print("adding to cluster", triple.const2.name)
+                                clustered_list_of_all_values[ID]["cluster"].add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
+                    except Exception as error:
+                        pass
+                        # print(error)
+                # add normal graph nodes and edges:     
+                if triple.reified_rel is None:
+                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
+                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
+                    callgraph.add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),wrap_if_needed(triple.const2.name),label=triple.relStr))
+                else:
+                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
+                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
+                    callgraph.add_node(pydot.Node(triple.reified_rel.name,label=triple.relStr))
+                    callgraph.add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),triple.reified_rel.name,label=Relation.getStringForRelType(Relation.THROUGH)))
+                    callgraph.add_edge(pydot.Edge(triple.reified_rel.name,wrap_if_needed(triple.const2.name),label=Relation.getStringForRelType(Relation.TO)))
+    
+    # add all subgraphs:
+    for ID in unique_ids_base:  
+        try: 
+            sub = clustered_list_of_all_values[ID]["cluster"]
+            callgraph.add_subgraph(sub)
+            # print("added subgraph!", ID)
+        except KeyError:
+            pass 
+            # print(ID)
+
+    
+    callgraph.set_graph_defaults(compound='True')
+    # print(callgraph)
+    return callgraph  
+
 
 def get_theory_num_from_construct(const_str):
     theory = ""
@@ -511,11 +624,80 @@ def viewAnnotations():
 def theoryConsistency():
     if 'theories' in session:
         theories = session['theories']
-        print("GOT THEORIES: ", theories)
+        print("GOT THEORIES: ",theories)
+        print("GOT THEORIES: ",theories)
+        theories = theories.replace("\"", "")
+        theories = theories.replace("[", "").replace("]", "")
+        theory_list = theories.split(",")
+        print("length of theory_list: ", len(theory_list))
         session.pop('theories', None)
-        return render_template('theoryConsistency.html', theories=theories)
-    # return render_template('theoryConsistency.html')
+        num_theories = len(theory_list)
+        num_of_ids = get_theory_consistency_stats(theory_list)
+        print("finally got num_of_ids", num_of_ids)
+        #single graph example:
+#         df = pd.DataFrame({
+#       'Fruit': ['Apples', 'Oranges', 'Bananas', 'Apples', 'Oranges', 'Bananas'],
+#       'Amount': [4, 1, 2, 2, 4, 5],
+#       'City': ['SF', 'SF', 'SF', 'Montreal', 'Montreal', 'Montreal']
+#    })
+#         fig = px.bar(df, x='Fruit', y='Amount', color='City', barmode='group')
 
+        #multiple subplots example from https://stackoverflow.com/questions/58621197/plotly-how-to-create-subplots-from-each-column-in-a-pandas-dataframe: 
+        # np.random.seed(123)
+        # frame_rows = 1
+        # n_plots = 36
+        # # frame_columns = ['V_'+str(e) for e in list(range(n_plots+1))]
+        # #make a dataframe from num_of_ids:
+        
+        # frame_columns = num_of_ids
+        # df_list = []
+        # for i in range(0, len(frame_columns)):
+        #     df = pd.DataFrame({
+        #         str(i): [num_of_ids[i]]
+        #     })
+        #     df_list.append(df)
+        #     # df = pd.DataFrame(i, index =        columns=frame_rows)
+        #     df_list.append(df)
+        # # df = pd.DataFrame(num_of_ids, index=pd.date_range('1/1/2020', periods=frame_columns), columns=frame_rows)
+                            
+        # # df = pd.DataFrame(np.random.uniform(-10,10,size=(frame_rows, len(frame_columns))),
+        # #                 index=pd.date_range('1/1/2020', periods=frame_rows),
+        # # 
+        # #                     columns=frame_columns)
+        # # for i in range(len(frame_columns)):
+        # #     df_list[i].cumsum()+100
+        # #     df_list[i].iloc[0]=100
+
+        # # pp.pprint(df)
+        # # plotly setup
+        # plot_rows=num_theories
+        # plot_cols=1
+        # fig = make_subplots(rows=plot_rows, cols=plot_cols)
+
+        # # add traces
+        # x = 0
+        # for i in range(1, plot_rows-1):
+        #     # for j in range(1, plot_cols + 1):
+        #         #print(str(i)+ ', ' + str(j))
+        #     fig.add_trace(go.Bar(x=df_list[1].index, y=df_list[1][df.columns[0]].values,
+        #                             name = df_list[1].columns[0]
+        #                             ),
+        #                 row=i,
+        #                 col=1)
+
+        #     x=x+1
+
+        # # Format and show fig
+        # fig.update_layout(height=1200, width=1200)
+        plotdata = pd.DataFrame({"num_of_ids": num_of_ids})
+        plotdata.insert(0, 'theory_list', theory_list)
+        pp.pprint(plotdata)
+        plotdata.plot(kind="bar")
+        fig = go.Figure(data=[go.Bar(x=plotdata.theory_list, y=plotdata.num_of_ids)])
+        fig.update_layout(height=1200, width=1200)
+        graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+        return render_template('theoryConsistency.html',theories=theories, graphJSON=graphJSON)
+    # return render_template('theoryConsistency.html')
 
 @app.route("/mergedTheories")
 def mergedTheories():

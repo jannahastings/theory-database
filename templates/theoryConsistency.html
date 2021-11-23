@@ -11,6 +11,13 @@
     <body style="margin:2em;padding:10px">
 <h4>Got theories</h4>
     {{theories|safe}}
+    <div id='chart' class='chart'”></div>
 </body>
+
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<script type='text/javascript'>
+  var graphs = {{graphJSON | safe}};
+  Plotly.plot('chart',graphs,{});
+</script>
 
 </html>
