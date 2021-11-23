@@ -19,6 +19,7 @@ def parseConstructs(constructs_file):
         if not(theory_num == None or construct_defn == None):
             if not(ontology_id == None or ontology_label == None):
                 theory_dict = {
+                        "type": "main",
                         "Theory_ID": theory_num, 
                         "Construct": construct_defn.upper(), 
                         "Label": ontology_label.upper(),
@@ -31,6 +32,7 @@ def parseConstructs(constructs_file):
             #additional ids
             if not(alt_ontology_id == None or alt_ontology_label == None):
                 alt_theory_dict = {
+                    "type": "alt1",
                     "Theory_ID": theory_num, 
                     "Construct": construct_defn.upper(), 
                     "Label": alt_ontology_label.upper(),
@@ -42,6 +44,7 @@ def parseConstructs(constructs_file):
 
             if not(alt_ontology_id2 == None or alt_ontology_label2 == None):
                 alt_theory_dict2 = {
+                    "type": "alt2",
                     "Theory_ID": theory_num, 
                     "Construct": construct_defn.upper(), 
                     "Label": alt_ontology_label2.upper(),

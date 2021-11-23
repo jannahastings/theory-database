@@ -95,84 +95,7 @@ def get_theory_consistency_stats(theory_list):
     print("all_ids_base_lens: ", all_ids_base_lens)
     all_ids_base_nums = [len(x) for x in all_ids_base_lens]
     return all_ids_base_nums
-    # return all_ids_base
-
-    # print("all_ids_base len: ", all_ids_base) # working
-    unique_ids_base = list(set(sub for sub in all_ids_base)) 
-    # print("unique ids base: ", unique_ids_base) # working
-    # lots of attributes for pydot here: https://github.com/pydot/pydot/blob/90936e75462c7b0e4bb16d97c1ae7efdf04e895c/src/pydot/core.py
-    callgraph = pydot.Dot(graph_type='digraph',fontname="Verdana", fontcolor="green", fontsize="12")
-        
-    for s in unique_ids_base:
-        for d in combined_data:
-            # print("checking: ", d["Construct"])
-            # print(str(d["Theory_ID"]), " is it in ", theory_list) #theory_list is strings only
-            if str(d["Theory_ID"]) in theory_list:
-                # print("got d")
-                if d["Ontology_ID"] == s:
-                    fixed_id = d["Ontology_ID"].replace("_",":")
-                    # print("got a match", s)
-                    s_label = "         " + d["Label"] + " (" + fixed_id + ")" + "         "
-                    try:
-                        clustered_list_of_all_values[s]["alldata"].append(d)
-                    except:
-                        clustered_list_of_all_values[s] = {}
-                        clustered_list_of_all_values[s]["alldata"] = []
-                        clustered_list_of_all_values[s]["alldata"].append(d)
-        try: 
-            clustered_list_of_all_values[s]["cluster"] = pydot.Cluster(s,label=s_label, color='green', fillcolor='green')
-        except: 
-            pass
-    # print("clustered list: ", clustered_list_of_all_values)
-
-    for theory_num in theories.keys():        
-        if theory_num in theory_list: 
-            theory = theories[theory_num]
-            # print("looking at theory: ", theory_num)
-            
-            for triple in theory.triples: 
-                #add cluster nodes:
-                for ID in unique_ids_base:  
-                    #check in alldata: 
-                    try:
-                        for i in clustered_list_of_all_values[ID]["alldata"]:
-                            # print("checking i")
-                            if triple.const1.name in i['Construct']:
-                                # print("adding to cluster", triple.const1.name)
-                                clustered_list_of_all_values[ID]["cluster"].add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
-                        for i in clustered_list_of_all_values[ID]["alldata"]:
-                            if triple.const2.name in i['Construct']:
-                                # print("adding to cluster", triple.const2.name)
-                                clustered_list_of_all_values[ID]["cluster"].add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
-                    except Exception as error:
-                        pass
-                        # print(error)
-                # add normal graph nodes and edges:     
-                if triple.reified_rel is None:
-                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
-                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
-                    callgraph.add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),wrap_if_needed(triple.const2.name),label=triple.relStr))
-                else:
-                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const1.name)))
-                    callgraph.add_node(pydot.Node(wrap_if_needed(triple.const2.name)))
-                    callgraph.add_node(pydot.Node(triple.reified_rel.name,label=triple.relStr))
-                    callgraph.add_edge(pydot.Edge(wrap_if_needed(triple.const1.name),triple.reified_rel.name,label=Relation.getStringForRelType(Relation.THROUGH)))
-                    callgraph.add_edge(pydot.Edge(triple.reified_rel.name,wrap_if_needed(triple.const2.name),label=Relation.getStringForRelType(Relation.TO)))
     
-    # add all subgraphs:
-    for ID in unique_ids_base:  
-        try: 
-            sub = clustered_list_of_all_values[ID]["cluster"]
-            callgraph.add_subgraph(sub)
-            # print("added subgraph!", ID)
-        except KeyError:
-            pass 
-            # print(ID)
-
-    
-    callgraph.set_graph_defaults(compound='True')
-    # print(callgraph)
-    return callgraph  
 
 
 def get_theory_num_from_construct(const_str):
@@ -259,25 +182,22 @@ def get_theory_visualisation_merged_boxes(theory_list):
                     # check in alldata:
                     try:
                         for i in clustered_list_of_all_values[ID]["alldata"]:
-                            if triple.const1.name.upper() in i['Construct']:
-                                complete_theory_node_name_dict[theory_num].append(
-                                    str(theory_num) + wrap_if_needed(triple.const1.name))
+                            if triple.const1.name.upper() in i['Construct'] and i['Label'] == triple.const1.label:
+                                
                                 callgraph.add_node(
                                     pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
-                                clustered_list_of_all_values[ID]["cluster"].add_node(
-                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
+                                
                         for i in clustered_list_of_all_values[ID]["alldata"]:
-                            if triple.const2.name.upper() in i['Construct']:
-                                complete_theory_node_name_dict[theory_num].append(
-                                    str(theory_num) + wrap_if_needed(triple.const2.name))
+                            if triple.const2.name.upper() in i['Construct'] and i['Label'] == triple.const2.label:
+                                
                                 callgraph.add_node(
                                     pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
-                                clustered_list_of_all_values[ID]["cluster"].add_node(
-                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
+                                
                     except Exception as error:
                         pass
                         # print(error)
                 # add normal graph nodes and edges:
+
                 if triple.reified_rel is None:
                     callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
                     callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
@@ -289,6 +209,31 @@ def get_theory_visualisation_merged_boxes(theory_list):
                     callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name), str(theory_num) + triple.reified_rel.name, label=Relation.getStringForRelType(Relation.THROUGH)))
                     callgraph.add_edge(pydot.Edge(str(theory_num) + triple.reified_rel.name, str(theory_num) + wrap_if_needed(triple.const2.name), label=Relation.getStringForRelType(Relation.TO)))
 
+            for triple in theory.triples:
+                # add cluster nodes:
+                for ID in unique_ids_base:
+                    # check in alldata:
+                    try:
+                        for i in clustered_list_of_all_values[ID]["alldata"]:
+                            if triple.const1.name.upper() in i['Construct']: # and i['Label'] == triple.const1.label:
+                                complete_theory_node_name_dict[theory_num].append(
+                                    str(theory_num) + wrap_if_needed(triple.const1.name))
+                                
+                                clustered_list_of_all_values[ID]["cluster"].add_node(
+                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
+                        for i in clustered_list_of_all_values[ID]["alldata"]:
+                            if triple.const2.name.upper() in i['Construct']:# and i['Label'] == triple.const2.label:
+                                complete_theory_node_name_dict[theory_num].append(
+                                    str(theory_num) + wrap_if_needed(triple.const2.name))
+                                
+                                clustered_list_of_all_values[ID]["cluster"].add_node(
+                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
+                    except Exception as error:
+                        pass
+                        # print(error)
+                # add normal graph nodes and edges:
+
+                
     # add all subgraphs: 
     for ID in unique_ids_base:
         try:
@@ -336,7 +281,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
     return callgraph, theory_name_colour_dict
     
 def get_annotations_for_graph(theory_list):
-    # clustered_list_of_all_values = {}
+    clustered_list_of_all_values = {}
     all_ids_base = []
     for sub in combined_data:
         if str(sub["Theory_ID"]) in theory_list:
@@ -355,17 +300,17 @@ def get_annotations_for_graph(theory_list):
                     # spacing is important!
                     s_label = "         " + d["Label"] + \
                         " (" + fixed_id + ")" + "         "
-        #             try:
-        #                 clustered_list_of_all_values[s]["alldata"].append(d)
-        #             except:
-        #                 clustered_list_of_all_values[s] = {}
-        #                 clustered_list_of_all_values[s]["alldata"] = []
-        #                 clustered_list_of_all_values[s]["alldata"].append(d)
-        # try:
-        #     clustered_list_of_all_values[s]["cluster"] = pydot.Cluster(
-        #         s.upper(), label=s_label, color='green', fillcolor='green')
-        # except:
-        #     pass
+                    try:
+                        clustered_list_of_all_values[s]["alldata"].append(d)
+                    except:
+                        clustered_list_of_all_values[s] = {}
+                        clustered_list_of_all_values[s]["alldata"] = []
+                        clustered_list_of_all_values[s]["alldata"].append(d)
+        try:
+            clustered_list_of_all_values[s]["cluster"] = pydot.Cluster(
+                s.upper(), label=s_label, color='green', fillcolor='green')
+        except:
+            pass
 
     complete_theory_node_name_dict = {}
     colour_list = ["red", "orange", "cyan", "green", "yellow", "purple"]  
@@ -380,29 +325,31 @@ def get_annotations_for_graph(theory_list):
             complete_theory_node_name_dict[theory_num] = []
             theory = theories[theory_num]
 
+            #todo: are we looking in theory, or just in unique_ids_base ? need to be sure
             for triple in theory.triples:
                 # add cluster nodes:
-                # for ID in unique_ids_base:
+                for ID in unique_ids_base:
+                    
                     # check in alldata:
-                    # try:
-                    #     for i in clustered_list_of_all_values[ID]["alldata"]:
-                    #         if triple.const1.name.upper() in i['Construct']:
-                    #             complete_theory_node_name_dict[theory_num].append(
-                    #                 str(theory_num) + wrap_if_needed(triple.const1.name))
-                    #             callgraph.add_node(
-                    #                 pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
-                    #             clustered_list_of_all_values[ID]["cluster"].add_node(
-                    #                 pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
-                    #     for i in clustered_list_of_all_values[ID]["alldata"]:
-                    #         if triple.const2.name.upper() in i['Construct']:
-                    #             complete_theory_node_name_dict[theory_num].append(
-                    #                 str(theory_num) + wrap_if_needed(triple.const2.name))
-                    #             callgraph.add_node(
-                    #                 pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
-                    #             clustered_list_of_all_values[ID]["cluster"].add_node(
-                    #                 pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
-                    # except Exception as error:
-                    #     pass
+                    try:
+                        for i in clustered_list_of_all_values[ID]["alldata"]:
+                            if triple.const1.name.upper() in i['Construct']:
+                                complete_theory_node_name_dict[theory_num].append(
+                                    str(theory_num) + wrap_if_needed(triple.const1.name))
+                                callgraph.add_node(
+                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
+                                clustered_list_of_all_values[ID]["cluster"].add_node(
+                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
+                        for i in clustered_list_of_all_values[ID]["alldata"]:
+                            if triple.const2.name.upper() in i['Construct']:
+                                complete_theory_node_name_dict[theory_num].append(
+                                    str(theory_num) + wrap_if_needed(triple.const2.name))
+                                callgraph.add_node(
+                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
+                                clustered_list_of_all_values[ID]["cluster"].add_node(
+                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
+                    except Exception as error:
+                        pass
                         # print(error)
                 # add normal graph nodes and edges:
                 if triple.reified_rel is None:
@@ -417,47 +364,48 @@ def get_annotations_for_graph(theory_list):
                     callgraph.add_edge(pydot.Edge(str(theory_num) + triple.reified_rel.name, str(theory_num) + wrap_if_needed(triple.const2.name), label=Relation.getStringForRelType(Relation.TO)))
 
     # add all subgraphs: 
-    # for ID in unique_ids_base:
-    #     try:
-    #         multi_theory = False
-    #         all_data_in_cluster = clustered_list_of_all_values[ID]['alldata']            
-    #         thelist = [thelist['Theory_ID'] for thelist in all_data_in_cluster if 'Theory_ID' in thelist]
-    #         theset = set(thelist)
-    #         sub = clustered_list_of_all_values[ID]["cluster"]
-    #         if(len(theset) > 1):
-    #             multi_theory = True
-    #         snodes_list = sub.get_nodes()            
-    #         snode_names_list = []
-    #         for snode in snodes_list:
-    #             snode_names_list.append(snode.get_name().replace("\"", ""))
-    #         snode_names_list = list(set(snode_names_list))
+    # for annotations view need all annotations added here
+    for ID in unique_ids_base:
+        try:
+            multi_theory = False
+            all_data_in_cluster = clustered_list_of_all_values[ID]['alldata']            
+            thelist = [thelist['Theory_ID'] for thelist in all_data_in_cluster if 'Theory_ID' in thelist]
+            theset = set(thelist)
+            sub = clustered_list_of_all_values[ID]["cluster"]
+            if(len(theset) > 1):
+                multi_theory = True
+            snodes_list = sub.get_nodes()            
+            snode_names_list = []
+            for snode in snodes_list:
+                snode_names_list.append(snode.get_name().replace("\"", ""))
+            snode_names_list = list(set(snode_names_list))
 
-    #         if len(snode_names_list) > 1:  # only for clusters with more than one node
-    #             #checking theories
-    #             # check for cross-theory boxes here because I can't go back
-    #             some = False  # going to be true if we find name in any theory
-    #             # going to be true if name in more than one theory.
-    #             more = False
-    #             for name in snode_names_list:
-    #                 # per theory check - don't add if nodes not present across theories 
-    #                 for listA in complete_theory_node_name_dict:
-    #                     currentTheory = None
-    #                     oldTheory = None
-    #                     if name in list(set(complete_theory_node_name_dict[listA])):
-    #                         if some == True:  # already found this name before, so:
-    #                             more = True                                
-    #                         # some=True                            
-    #                         for data_containing_theory in clustered_list_of_all_values[ID]['alldata']:
-    #                             currentTheory = data_containing_theory['Theory_ID']
-    #                             if currentTheory != oldTheory and oldTheory != None:
-    #                                 some = True
-    #                             oldTheory = currentTheory                           
+            if len(snode_names_list) > 1:  # only for clusters with more than one node
+                #checking theories
+                # check for cross-theory boxes here because I can't go back
+                some = False  # going to be true if we find name in any theory
+                # going to be true if name in more than one theory.
+                more = False
+                for name in snode_names_list:
+                    # per theory check - don't add if nodes not present across theories 
+                    for listA in complete_theory_node_name_dict:
+                        currentTheory = None
+                        oldTheory = None
+                        if name in list(set(complete_theory_node_name_dict[listA])):
+                            if some == True:  # already found this name before, so:
+                                more = True                                
+                            # some=True                            
+                            for data_containing_theory in clustered_list_of_all_values[ID]['alldata']:
+                                currentTheory = data_containing_theory['Theory_ID']
+                                if currentTheory != oldTheory and oldTheory != None:
+                                    some = True
+                                oldTheory = currentTheory                           
         
-    #             if more and multi_theory:
-    #                 callgraph.add_subgraph(sub) 
+                if more and multi_theory:
+                    callgraph.add_subgraph(sub) 
     
-    #     except KeyError:
-    #         pass
+        except KeyError:
+            pass
             
     callgraph.set_graph_defaults(compound='True')   
     return callgraph, theory_name_colour_dict
