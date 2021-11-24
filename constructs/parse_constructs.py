@@ -53,7 +53,7 @@ def parseConstructs(constructs_file):
                     "Ontology_ID": alt_ontology_id2.replace(":","_")
                     }
                 combined_data.append(alt_theory_dict2)
-
+    # print(combined_data)
     return(combined_data)
 
 

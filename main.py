@@ -297,6 +297,8 @@ def get_annotations_for_graph(theory_list):
             if str(d["Theory_ID"]) in theory_list:
                 # print("got d")
                 if d["Ontology_ID"] == s:
+                    # if(d["Ontology_ID"] == "MF_00000006"):
+                    #     print("GOT ONE!")
                     fixed_id = d["Ontology_ID"].replace("_", ":")
                     # spacing is important!
                     s_label = "         " + d["Label"] + \
@@ -327,6 +329,31 @@ def get_annotations_for_graph(theory_list):
             theory = theories[theory_num]
 
             #todo: are we looking in theory, or just in unique_ids_base ? need to be sure
+
+            #trying without theory..
+            for ID in unique_ids_base:
+                print("ID: ", ID)
+                for sub in combined_data:
+                    try: 
+                        # c = clustered_list_of_all_values[ID]["Ontology_ID"]
+                        s = sub['Ontology_ID']
+                        # print("s: ", s)
+                        if(s == ID):
+                            c = clustered_list_of_all_values[ID]['alldata']
+                            print("SC: ", c)
+                            for a in c:
+                                callgraph.add_node(
+                                    pydot.Node(str(theory_num) + wrap_if_needed(a['Label_L']), label = wrap_if_needed(a['Label_L']), color=node_colour))
+                        # print("sub: ", sub['Construct'])
+                        
+                        # if any([True for elem in ID if s in elem.values()]):
+                        #     print("C: ", c, "ID: ", ID)
+                        
+                    except:
+                        pass
+                        # print("exception")
+                    
+
             for triple in theory.triples:
                 # add cluster nodes:
                 for ID in unique_ids_base:
@@ -341,6 +368,8 @@ def get_annotations_for_graph(theory_list):
                                     pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
                                 clustered_list_of_all_values[ID]["cluster"].add_node(
                                     pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
+
+                                    
                         for i in clustered_list_of_all_values[ID]["alldata"]:
                             if triple.const2.name.upper() in i['Construct']:
                                 complete_theory_node_name_dict[theory_num].append(
@@ -350,6 +379,7 @@ def get_annotations_for_graph(theory_list):
                                 clustered_list_of_all_values[ID]["cluster"].add_node(
                                     pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
                     except Exception as error:
+                        # print("exception for ID: ", ID)
                         pass
                         # print(error)
                 # add normal graph nodes and edges:
@@ -404,11 +434,12 @@ def get_annotations_for_graph(theory_list):
         
                 if more and multi_theory:
                     callgraph.add_subgraph(sub) 
-    
+        
         except KeyError:
             pass
             
-    callgraph.set_graph_defaults(compound='True')   
+    callgraph.set_graph_defaults(compound='True')  
+    # print(callgraph) 
     return callgraph, theory_name_colour_dict
 
 @app.route('/')
@@ -446,6 +477,7 @@ def displayTheory(theory_number=None, theory_name=None):
                 #annotations:
                 annotations_for_const = from_construct_mixed(triple.const1.name, theory_num)
                 for sub in annotations_for_const:
+                    print(sub)
                     line_list.append(sub or "")
                     
                 if line_list[0] not in (item for sublist in theory_constructs for item in sublist):
