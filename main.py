@@ -105,6 +105,13 @@ def get_theory_num_from_construct(const_str):
             theory = str(sub["Theory_ID"])
     return theory
 
+def get_ID_from_construct(const_str): #todo: but constructs can appear in multiple theories?
+    ID = ""
+    for sub in combined_data:
+        if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
+            ID = str(sub["Ontology_ID"])
+    return ID
+
 def from_construct_mixed(const_str, current_theory_num):    
     ids_labels_links_mixed = []  
     theory_num = current_theory_num    
@@ -341,9 +348,13 @@ def get_annotations_for_graph(theory_list):
                         if(s == ID):
                             c = clustered_list_of_all_values[ID]['alldata']
                             print("SC: ", c)
+                           
                             for a in c:
+                                print("Construct:", str(theory_num) + a['Construct'])
                                 callgraph.add_node(
-                                    pydot.Node(str(theory_num) + wrap_if_needed(a['Label_L']), label = wrap_if_needed(a['Label_L']), color=node_colour))
+                                    pydot.Node(str(theory_num) + wrap_if_needed(a['Label']), label = wrap_if_needed(a['Label_L']), color=node_colour))
+                                callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(a['Construct_L']), str(theory_num) + wrap_if_needed(a['Label']), label="test"))
+
                         # print("sub: ", sub['Construct'])
                         
                         # if any([True for elem in ID if s in elem.values()]):
