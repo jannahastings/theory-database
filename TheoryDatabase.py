@@ -48,6 +48,7 @@ class Construct:
         self.number = number
         self.name = name
         self.definition = None
+        self.annotations = []
 
 class Relation:
     INFLUENCES = 0
@@ -66,6 +67,7 @@ class Relation:
     TRANSITION = 13
     THROUGH = 14
     TO = 15
+
 
 # TODO implement a proper dictionary of variants of names for labels in lucid_wrapper
 
@@ -151,6 +153,13 @@ class Triple:
     def __str__(self):
         return(", ".join([self.const1.name,self.relStr,self.const2.name]))
 
+class Annotation: 
+    def __init__(self,id,label):
+        self.id = id
+        self.label = label
+    def __str__(self):
+        return(self.label)
+    
 
 ### Program execution:
 
@@ -187,10 +196,16 @@ def setup():
         for e_id in entities:
             e = entities[e_id]
             construct = Construct(e_id,e.name)
+            
+
 
             if re.match(r_pattern, e.name):
                 theory.reified_rels[e.id] = construct
             else:
+                #todo: add and test Annotations: 
+                annotation = Annotation(e_id,e.name)
+                construct.annotations.append(annotation)
+                
                 theory.constructs[e.id] = construct
                 theory.constructs_by_name[e.name] = construct
 

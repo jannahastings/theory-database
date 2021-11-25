@@ -460,6 +460,7 @@ def display_home():
                       for t in TheoryDatabase.theories.values()])
     num_constructs = len(set([c for t in TheoryDatabase.theories.values()
                          for c in t.constructs_by_name.keys()]))
+    #todo: add annotations here
     return render_template('home.html',
                            num_theories=num_theories, num_triples=num_triples, num_constructs=num_constructs, theories=sorted(TheoryDatabase.theories.values(), key=Theory.getNumber))
 
@@ -473,7 +474,10 @@ def displayTheory(theory_number=None, theory_name=None):
     if theory_name is not None:
         theory_num = TheoryDatabase.theory_names_to_ids[theory_name]
         theory = TheoryDatabase.theories[theory_num]
-    
+
+    for ann_list in theory.constructs.values():
+        for ann in ann_list.annotations:
+            print(ann)
     #get theory ids and labels here:    
     theory_constructs = []
     for triple in theory.triples:
@@ -488,7 +492,7 @@ def displayTheory(theory_number=None, theory_name=None):
                 #annotations:
                 annotations_for_const = from_construct_mixed(triple.const1.name, theory_num)
                 for sub in annotations_for_const:
-                    print(sub)
+                    # print(sub)
                     line_list.append(sub or "")
                     
                 if line_list[0] not in (item for sublist in theory_constructs for item in sublist):
