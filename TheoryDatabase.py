@@ -15,9 +15,13 @@ from whoosh.fields import Schema, TEXT, KEYWORD, ID, STORED
 from whoosh.analysis import StemmingAnalyzer
 import ontoutils
 from ontoutils.lucid_chart import ParseLucidChartCsv
-
+import openpyxl
 exec(open('definitions/ParseDefinitions.py').read())
 
+data_path = 'constructs/ConstructsOntologyMappingTemplate-JH.xlsx'
+combined_data_path = os.path.join(os.path.dirname(__file__), data_path)
+wb = openpyxl.load_workbook(combined_data_path, data_only=True)
+sheet = wb['Sheet1']
 
 theory_dir = 'theories'
 
@@ -201,11 +205,25 @@ def setup():
 
             if re.match(r_pattern, e.name):
                 theory.reified_rels[e.id] = construct
-            else:
+            else:                
                 #todo: add and test Annotations: 
-                annotation = Annotation(e_id,e.name)
-                construct.annotations.append(annotation)
-                
+                #todo: function to add annotations to constructs             
+                for row in sheet.iter_rows(min_row=2, min_col=0, max_row=1466, max_col=10):
+                    theory_num_a = row[0].value
+                    construct_defn = row[2].value
+                    ontology_id = row[4].value
+                    ontology_label = row[5].value
+                    alt_ontology_id = row[6].value
+                    alt_ontology_label = row[7].value
+                    alt_ontology_id2 = row[8].value
+                    alt_ontology_label2 = row[9].value
+                #placeholder annotation (just the construct name):
+                    if construct_defn == e.name:
+                        annotation = Annotation(e.id,construct_defn)
+                        construct.annotations.append(annotation)
+                # annotation = Annotation(e_id,e.name)
+                # construct.annotations.append(annotation)
+
                 theory.constructs[e.id] = construct
                 theory.constructs_by_name[e.name] = construct
 
