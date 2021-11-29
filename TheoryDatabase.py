@@ -217,10 +217,20 @@ def setup():
                     alt_ontology_label = row[7].value
                     alt_ontology_id2 = row[8].value
                     alt_ontology_label2 = row[9].value
-                #placeholder annotation (just the construct name):
+                
+                    #todo: add ontology_id to below, make Annotation a dict?
                     if construct_defn == e.name:
                         annotation = Annotation(e.id,construct_defn)
                         construct.annotations.append(annotation)
+                        if alt_ontology_label:                            
+                            annotation1 = Annotation(e.id, alt_ontology_label)
+                            # if alt_ontology_label != (ann.label for ann in construct.annotations): #avoid duplicates - not working
+                            construct.annotations.append(annotation1)
+                        if alt_ontology_label2:    
+                            annotation2 = Annotation(e.id, alt_ontology_label2)  
+                            # if alt_ontology_label2 != (ann.label for ann in construct.annotations): #avoid duplicates  - not working                
+                            construct.annotations.append(annotation2)
+                #placeholder annotation (just the construct name):
                 # annotation = Annotation(e_id,e.name)
                 # construct.annotations.append(annotation)
 
