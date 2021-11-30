@@ -91,14 +91,14 @@
                     'color': 'grey', //text colour!
                     'target-arrow-color': '#000',
                     'target-arrow-shape': 'triangle',
-                    'curve-style': 'bezier'
+                    'curve-style': 'bezier',
+                    
                 }
             },
             
         ],
 
-        layout: {  
-
+        layout: {              
             name: 'fcose',
             // 'draft', 'default' or 'proof' 
             // - "draft" only applies spectral layout 
@@ -167,7 +167,7 @@
             // Initial cooling factor for incremental layout  
             initialEnergyOnIncremental: 0.3,
 
-            /* constraint options */
+            /* constraint options */  
 
             // Fix desired nodes to predefined positions
             // [{nodeId: 'n1', position: {x: 100, y: 200}}, {...}]
@@ -188,17 +188,47 @@
 
         console.log("loaded");
         
-            // cy.filter(function(element, i){
-            //     console.log(i);
-            //     if( element.isNode() && element.isParent()){
-            //         console.log("got a parent");
-            //         // element.style('line-style','dashed'); //not working at all..
-            //         element.style('color', 'blue');
-            //         // element.style('background-color','blue'); //works
-            //         console.log(element.data('label'));
-            //         return(element.data('label'));
-            //     }
-            // });
+            cy.filter(function(element, i){
+                // console.log(i);
+                // if( element.isNode() && element.isParent()){
+                //     console.log("got a parent");
+                //     // element.style('line-style','dashed'); //not working at all..
+                //     element.style('color', 'blue');
+                //     // element.style('background-color','blue'); //works
+                //     console.log(element.data('label'));
+                //     return(element.data('label'));
+                // }
+                if( element.isEdge() ){
+                    // console.log("got an edge" + element.label);
+                    // console.log("got edge");            
+
+                    if( element.style('label') == ""){
+                        // console.log("got empty label");
+                        element.style('line-style','solid');
+                        element.style('line-color', '#00F');
+                        element.style('target-arrow-color', '#00F');
+                        element.style('curve-style','straight');
+                    }
+                }
+                if( element.isNode() ){
+                    console.log("got an node" + element.style('background-color'));
+                    //todo: add a check for the color of the node   
+                        
+                    if( element.style('background-color') == ""){
+                        // console.log("got empty color");
+                        element.style('background-color','#00F');
+                        element.style('color','#00F');
+                    }
+
+                    //rgb not working below..
+                    // if( element.style('background-color') == 'rgb(0, 255, 255)'){
+
+                    //     console.log("annotation node");
+                    //     element.style('shape','box');
+                        
+                    // }
+                }
+            });
             
     });
 
