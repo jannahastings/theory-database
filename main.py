@@ -326,6 +326,7 @@ def get_annotations_for_graph(theory_list):
     colour_list = ["red", "orange", "cyan", "green", "yellow", "purple"]  
     k = 0
     theory_name_colour_dict = {}
+    extra_edges = []
     for theory_num in theories.keys():
         if theory_num in theory_list:
             theory_name_colour_dict[theories[theory_num].name] = colour_list[k]
@@ -409,26 +410,53 @@ def get_annotations_for_graph(theory_list):
                 #                 callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(ann.label), str(theory_num) + wrap_if_needed(triple.const2.name), label="Annotation of"))
                 #                 print("GOT ONE: ", ann_list.name)
                         # print("ann_list.name: ", ann_list.name, ": ", ann)
-
+                ann_1 = []
+                ann_2 = []
+                for ann_list in theory.constructs.values():
+                    for ann in ann_list.annotations:
+                        if ann_list.name == triple.const1.name: 
+                            if ann.label != ann_list.name:
+                                ann_1.append(ann.label)
+                                # callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label), label = wrap_if_needed(ann.label), color=node_colour))
+                                # callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(ann.label), str(theory_num) + wrap_if_needed(triple.const1.name), label="Annotation of"))
+                                print("GOT ONE", ann_list.name)
+                        if ann_list.name == triple.const2.name:
+                            if ann.label != ann_list.name:
+                                ann_2.append(ann.label)
+                                # callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label), label = wrap_if_needed(ann.label), color=node_colour))
+                                # callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(ann.label), str(theory_num) + wrap_if_needed(triple.const2.name), label="Annotation of"))
+                                print("GOT ONE: ", ann_list.name)
+                if ann_1:
+                    ann_1 = str(list(set(ann_1)))
+                else: 
+                    ann_1 = ""
+                if ann_2:
+                    ann_2 = str(list(set(ann_2)))
+                else: 
+                    ann_2 = ""
+                    
                 if triple.reified_rel is None:
-                    for ann_list in list(set(theory.constructs.values())):
-                        for ann in list(set(ann_list.annotations)):
-                            if ann_list.name == triple.const1.name: 
-                                if ann.label != ann_list.name:
-                                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label), label = wrap_if_needed(ann.label), color=node_colour))
-                                    callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(ann.label), str(theory_num) + wrap_if_needed(triple.const1.name), label="Annotation of"))
-                                    print("GOT ONE", ann_list.name)
-                            if ann_list.name == triple.const2.name:
-                                if ann.label != ann_list.name:
-                                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label), label = wrap_if_needed(ann.label), color=node_colour))
-                                    callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(ann.label), str(theory_num) + wrap_if_needed(triple.const2.name), label="Annotation of"))
-                                    print("GOT ONE: ", ann_list.name)
-                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
-                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
+                    #add annotations to graph:
+                    # tcv = theory.constructs.values()
+                    # for ann_list in theory.constructs.values():
+
+                    #     ann_A = [ann.label for ann in ann_list.annotations if ann_list.name == triple.const1.name and ann.label != ann_list.name]
+                        
+                    #     if ann_A:
+                    #         print("GOT ann_A", ann_A[0])
+                    #         ann_NL = ann_A[0]
+                    #         callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann_NL), label = wrap_if_needed(ann_NL), color=node_colour))
+                    #         callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(ann_NL), str(theory_num) + wrap_if_needed(triple.const1.name), label="Annotation of"))
+                    
+                    # callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label), label = wrap_if_needed(ann.label), color=node_colour))
+                    # callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(ann.label), str(theory_num) + wrap_if_needed(triple.const2.name), label="Annotation of"))
+                    
+                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name) + ann_1, color=node_colour))
+                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name) + ann_2, color=node_colour))
                     callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name), str(theory_num) + wrap_if_needed(triple.const2.name), label=triple.relStr))
                 else:
-                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
-                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label =  wrap_if_needed(triple.const2.name), color=node_colour))
+                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name) + ann_1, color=node_colour))
+                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label =  wrap_if_needed(triple.const2.name) + ann_2, color=node_colour))
                     callgraph.add_node(pydot.Node(str(theory_num) + triple.reified_rel.name, label=triple.relStr, color=node_colour))
                     callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name), str(theory_num) + triple.reified_rel.name, label=Relation.getStringForRelType(Relation.THROUGH)))
                     callgraph.add_edge(pydot.Edge(str(theory_num) + triple.reified_rel.name, str(theory_num) + wrap_if_needed(triple.const2.name), label=Relation.getStringForRelType(Relation.TO)))
@@ -477,7 +505,7 @@ def get_annotations_for_graph(theory_list):
         # except KeyError:
         #     pass
    
-    callgraph.set_graph_defaults(compound='True')  
+    # callgraph.set_graph_defaults(compound='True')  
     # print(callgraph) 
     return callgraph, theory_name_colour_dict
 
