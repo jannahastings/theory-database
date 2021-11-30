@@ -207,9 +207,11 @@ def setup():
                 theory.reified_rels[e.id] = construct
             else:                
                 #todo: add and test Annotations: 
-                #todo: function to add annotations to constructs             
+                #todo: function to add annotations to constructs  
+                # todo: why is below here inside this main looo, done so many times?            
                 for row in sheet.iter_rows(min_row=2, min_col=0, max_row=1466, max_col=10):
                     theory_num_a = row[0].value
+                    construct_id = row[1].value
                     construct_defn = row[2].value
                     ontology_id = row[4].value
                     ontology_label = row[5].value
@@ -219,23 +221,28 @@ def setup():
                     alt_ontology_label2 = row[9].value
                 
                     #todo: add ontology_id to below, make Annotation a dict?
-                    if construct_defn == e.name:
-                        annotation = Annotation(e.id,construct_defn)
-                        construct.annotations.append(annotation)
+                    #todo: construct_defn doesn't always match e.name
+
+                    if construct_defn.strip().upper() == e.name.strip().upper():
+                        # print("Found annotation: ", construct_defn, " for ", e.name)
+                    #     annotation = Annotation(e.id,construct_defn)
+                    #     construct.annotations.append(annotation)
+                        if ontology_label:
+                            ont_label = Annotation(e.name,ontology_label)
+                            construct.annotations.append(ont_label)
+                            print("added annotation: ", e.name, ",", ont_label)
                         if alt_ontology_label:                            
-                            annotation1 = Annotation(e.id, alt_ontology_label)
-                            # if alt_ontology_label != (ann.label for ann in construct.annotations): #avoid duplicates - not working
+                            annotation1 = Annotation(e.name, alt_ontology_label)
                             construct.annotations.append(annotation1)
                         if alt_ontology_label2:    
-                            annotation2 = Annotation(e.id, alt_ontology_label2)  
-                            # if alt_ontology_label2 != (ann.label for ann in construct.annotations): #avoid duplicates  - not working                
+                            annotation2 = Annotation(e.name, alt_ontology_label2)  
                             construct.annotations.append(annotation2)
-                #placeholder annotation (just the construct name):
-                # annotation = Annotation(e_id,e.name)
-                # construct.annotations.append(annotation)
+                
 
                 theory.constructs[e.id] = construct
                 theory.constructs_by_name[e.name] = construct
+
+        
 
         for r in relations:
             rel_type = Relation.getRelTypeForLabelString(r.relType)

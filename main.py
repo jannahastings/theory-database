@@ -415,13 +415,16 @@ def get_annotations_for_graph(theory_list):
                 if triple.reified_rel is None:
                     for ann_list in list(set(theory.constructs.values())):
                         for ann in list(set(ann_list.annotations)):
-                            if ann_list.name == triple.const1.name: 
-                                if ann.label != ann_list.name:
+                            print("ann is: ", ann)
+                            # if ann_list.name.strip().upper() == triple.const1.name.strip().upper(): #works same as below..
+                            if ann.id.strip().upper() == triple.const1.name.strip().upper():
+                                if ann.label.strip().upper() != ann_list.name.strip().upper():
                                     callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label), label = wrap_if_needed(ann.label)))
                                     callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(ann.label), str(theory_num) + wrap_if_needed(triple.const1.name), label=""))
                                     print("GOT ONE", ann_list.name)
-                            if ann_list.name == triple.const2.name:
-                                if ann.label != ann_list.name:
+                            # if ann_list.name.strip().upper() == triple.const2.name.strip().upper():
+                            if ann.id.strip().upper() == triple.const2.name.strip().upper():
+                                if ann.label.strip().upper() != ann_list.name.strip().upper():
                                     callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label), label = wrap_if_needed(ann.label)))
                                     callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(ann.label), str(theory_num) + wrap_if_needed(triple.const2.name), label=""))
                                     print("GOT ONE: ", ann_list.name)
