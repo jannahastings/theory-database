@@ -44,6 +44,8 @@ class Theory:
         return(len(self.triples))
     def getNumber(self):
         return(int(self.number))
+    def getThoeryName(self):
+        return(self.name)
     def getCountReferences(self):
         return ( len(self.taken_from) + len(self.supplemented_by) )
 
@@ -230,7 +232,7 @@ def setup():
                         if ontology_label:
                             ont_label = Annotation(e.name,ontology_label)
                             construct.annotations.append(ont_label)
-                            print("added annotation: ", e.name, ",", ont_label)
+                            # print("added annotation: ", e.name, ",", ont_label)
                         if alt_ontology_label:                            
                             annotation1 = Annotation(e.name, alt_ontology_label)
                             construct.annotations.append(annotation1)
