@@ -109,6 +109,7 @@ function showViewAnnotations() {
         document.body.appendChild(form);
         form.submit();
         document.body.removeChild(form);
+        cleanup();
     }
 
     function showTheoryConsistency() {
@@ -134,6 +135,7 @@ function showViewAnnotations() {
         document.body.appendChild(form);
         form.submit();
         document.body.removeChild(form);
+        cleanup();
     }
     
     function showMergedTheories() {
@@ -159,6 +161,15 @@ function showViewAnnotations() {
         document.body.appendChild(form);
         form.submit();
         document.body.removeChild(form);
+        cleanup();
+    }
+
+    function cleanup() {
+        //clean up:
+        $("input[type=checkbox]").prop('checked', false);
+        $("#show-view-annotations").attr('hidden', true);
+        $("#show-theory-consistency").attr('hidden', true);
+        $("#show-merged-theories").attr('hidden', true);
     }
 
     $(document).ready(function () {
