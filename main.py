@@ -105,7 +105,7 @@ def get_theory_num_from_construct(const_str):
             theory = str(sub["Theory_ID"])
     return theory
 
-def get_ID_from_construct(const_str): #todo: but constructs can appear in multiple theories?
+def get_ID_from_construct(const_str): 
     ID = ""
     for sub in combined_data:
         if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
@@ -206,9 +206,39 @@ def get_theory_visualisation_merged_boxes(theory_list):
                 # add normal graph nodes and edges:
 
                 if triple.reified_rel is None:
+
+
                     callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
                     callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
                     callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name), str(theory_num) + wrap_if_needed(triple.const2.name), label=triple.relStr))
+                
+                    # todo: incorporate this new annotations list code: 
+                    # cluster = None
+                    # cluster2 = None
+                    # for ann_list in list(set(theory.constructs.values())):
+                    #     for ann in list(set(ann_list.annotations)):
+                    #         if ann.id.strip().upper() == triple.const1.name.strip().upper():
+                    #             if ann.label.strip().upper() != ann_list.name.strip().upper():
+                    #                 try:
+                    #                     cluster = pydot.Cluster(
+                    #                         ann.id.strip().upper(), label=ann.label, color='green', fillcolor='green')
+                    #                 except:
+                    #                     pass
+                    #                 # callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label), label = wrap_if_needed(ann.label)))
+                    #                 # callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(ann.label), str(theory_num) + wrap_if_needed(triple.const1.name), label=""))
+                    #         if ann.id.strip().upper() == triple.const2.name.strip().upper():
+                    #             if ann.label.strip().upper() != ann_list.name.strip().upper():
+                    #                 try:
+                    #                     cluster2 = pydot.Cluster(
+                    #                         ann.id.strip().upper(), label=ann.label, color='green', fillcolor='green')
+                    #                 except:
+                    #                     pass                                   
+                    #                 # callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label), label = wrap_if_needed(ann.label)))
+                    #                 # callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(ann.label), str(theory_num) + wrap_if_needed(triple.const2.name), label=""))
+                #     if cluster:
+                #         callgraph.add_subgraph(cluster)
+                #     if cluster2: 
+                #         callgraph.add_subgraph(cluster2)
                 else:
                     callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
                     callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label =  wrap_if_needed(triple.const2.name), color=node_colour))

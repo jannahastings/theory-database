@@ -8,6 +8,7 @@ def parseConstructs(constructs_file):
     sheet = wb['Sheet1']
     for row in sheet.iter_rows(min_row=2, min_col=0, max_row=1466, max_col=10):
         theory_num = row[0].value
+        construct_id = row[1].value
         construct_defn = row[2].value
         ontology_id = row[4].value
         ontology_label = row[5].value
@@ -15,6 +16,7 @@ def parseConstructs(constructs_file):
         alt_ontology_label = row[7].value
         alt_ontology_id2 = row[8].value
         alt_ontology_label2 = row[9].value
+
 
         if not(theory_num == None or construct_defn == None):
             if not(ontology_id == None or ontology_label == None):
