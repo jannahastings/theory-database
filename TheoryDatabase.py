@@ -213,8 +213,10 @@ def setup():
             if re.match(r_pattern, e.name):
                 theory.reified_rels[e.id] = construct
             else:                   
-                construct_labels = PD.loc[PD['Theory_Num'] == int(model_num)]
-                annotations_for_const = construct_labels.loc[construct_labels['Construct_Label'] == e.name]
+                construct_labels = PD.loc[PD['Theory_Num'] == int(model_num)] 
+                #try below with strip and upper:
+                annotations_for_const = construct_labels.loc[construct_labels['Construct_Label'].str.strip().str.upper() == e.name.strip().upper()]
+                # annotations_for_const = construct_labels.loc[construct_labels['Construct_Label'] == e.name]
                 #iterate through annotations_for_const: 
                 for index, row in annotations_for_const.iterrows():
                     if row['Ontology_Label'] is not None:
