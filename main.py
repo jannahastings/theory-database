@@ -331,7 +331,7 @@ def get_annotations_for_graph(theory_list):
                 if triple.reified_rel is None:
                     for ann_list in list(set(theory.constructs.values())):
                         for ann in list(set(ann_list.annotations)):
-                            if ann.label == ann.label: #check for nan
+                            if ann.label == ann.label: #check for nan values
                                 if ann.id.strip().upper() == triple.const1.name.strip().upper():
                                     print("got ann match: " + ann.id)
                                     if ann.label.strip().upper() != ann_list.name.strip().upper():
