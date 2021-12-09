@@ -4,7 +4,7 @@ import os
 # os.chdir('/Users/hastingj/Work/Python/TheoryDatabase')
 import csv
 import codecs
-import pandas
+import pandas as pd
 import os.path
 import re
 from whoosh import index
@@ -178,6 +178,23 @@ ix = None
 
 
 def setup():
+    #todo: parse sheet, row 2, 5, 7, 8, and 9 into pandas dataframe 
+    require_cols = [0,2,5,7,9]
+    PD = pd.read_excel(combined_data_path, usecols = require_cols)
+    # print("PD:", PD)
+    
+    # for row in sheet.iter_rows(min_row=2, min_col=0, max_row=1466, max_col=10):                    
+    #     construct_label = row[2].value                    
+    #     ontology_label = row[5].value                    
+    #     alt_ontology_label = row[7].value                    
+    #     alt_ontology_label2 = row[9].value
+
+    #rename columns: 
+    PD.columns = ['Theory_Num','Construct_Label','Ontology_Label','Alt_Ontology','Alt_Ontology2']
+
+    # print("Got PD: ", PD)
+    # print("PDTheoryNum: ", PD['Theory_Num'])
+
     for f in theory_files:
         model_num = str(f).split('.')[0]
         model_name = str(f).split('.')[1].strip()
@@ -193,7 +210,7 @@ def setup():
         theory = Theory(model_num,model_name)
         theories[model_num] = theory
 
-        print("About to parse theory: ",model_num,model_name)
+        # print("About to parse theory: ",model_num,model_name)
         (entities, relations) = ParseLucidChartCsv.parseCsvEntityData(theory_dir+"/"+f)
 
         r_pattern = re.compile("the .+? relationship$")
@@ -202,43 +219,127 @@ def setup():
         for e_id in entities:
             e = entities[e_id]
             construct = Construct(e_id,e.name)
-            
-
 
             if re.match(r_pattern, e.name):
                 theory.reified_rels[e.id] = construct
-            else:                
-                #todo: add and test Annotations: 
-                #todo: function to add annotations to constructs  
-                # todo: why is below here inside this main looo, done so many times?            
-                for row in sheet.iter_rows(min_row=2, min_col=0, max_row=1466, max_col=10):
-                    theory_num_a = row[0].value
-                    construct_id = row[1].value
-                    construct_defn = row[2].value
-                    ontology_id = row[4].value
-                    ontology_label = row[5].value
-                    alt_ontology_id = row[6].value
-                    alt_ontology_label = row[7].value
-                    alt_ontology_id2 = row[8].value
-                    alt_ontology_label2 = row[9].value
+            else:    
+                #todo: compare e.name to PD 'Construct_Label' if PD 'Theory_Num' == model_num:
+                # print("model_num: ", model_num)
+                # print("Theory_Num: ", PD['Theory_Num'])
+                construct_labels = PD.loc[PD['Theory_Num'] == int(model_num)]
+                # print("construct_labels: ", construct_labels)
+                annotations_for_const = construct_labels.loc[construct_labels['Construct_Label'] == e.name]
+                # print("annotations_for_const: ", annotations_for_const)
+                #iterate through annotations_for_const: 
+                for index, row in annotations_for_const.iterrows():
+                    if row['Ontology_Label'] is not None:
+                        ontology_label = row['Ontology_Label']
+                        if ontology_label != '':
+                            annotation = Annotation(e.name,ontology_label)
+                            construct.annotations.append(annotation)
+                    if row['Alt_Ontology'] is not None:
+                        alt_ontology_label = row['Alt_Ontology']
+                        if alt_ontology_label != '':
+                            annotation1 = Annotation(e.name,alt_ontology_label)
+                            construct.annotations.append(annotation1)
+                    if row['Alt_Ontology2'] is not None:
+                        alt_ontology_label2 = row['Alt_Ontology2']
+                        if alt_ontology_label2 != '':
+                            annotation2 = Annotation(e.name,alt_ontology_label2)
+                            construct.annotations.append(annotation2)
+
+
+                # if annotations_for_const is not None:
+                    # for row in annotations_for_const:
+                    #     print("row: ", row)
+                        # if row['Ontology_Label'] is not None:
+                        #     ontology_label = row['Ontology_Label']
+                        #     if ontology_label != '':
+                        #         construct.ontologies.append(ontology_label)
+                        # if row['Alt_Ontology'] is not None:
+                        #     alt_ontology_label = row['Alt_Ontology']
+                        #     if alt_ontology_label != '':
+                        #         construct.ontologies.append(alt_ontology_label)
+                        # if row['Alt_Ontology2'] is not None:
+                        #     alt_ontology_label2 = row['Alt_Ontology2']
+                        #     if alt_ontology_label2 != '':
+                        #         construct.ontologies.append(alt_ontology_label2)
+
+
+
+                        
+                        # if annotations_for_const['alt_ontology'][row] is not None:
+                        #     ont_label = Annotation(e.name, annotations_for)
+                        #     construct.annotations.append(ont_label)
+                            # print("added annotation: ", e.name, ",", ont_label)
+                        # if annotations_for_const['alt_ontology_label']:                            
+                        #     annotation1 = Annotation(e.name, alt_ontology_label)
+                        #     construct.annotations.append(annotation1)
+                        # if alt_ontology_label2:    
+                        #     annotation2 = Annotation(e.name, alt_ontology_label2)  
+                        #     construct.annotations.append(annotation2)
+                        
+                # if any(construct_labels == e.name):
+
+                # if construct_label.strip().upper() == e.name.strip().upper():                    
+                    # print("Found annotations: ", construct_labels, " for ", e.name)
+                # if model_num in PD['Theory_Num'].values:
+                #     print("Found construct: ",e.name)
+                # if e.name in PD['Construct_Label'].values:
+                #     print(e.name)
+                #todo: compare e.name to PD 'Construct_Label' if PD 'Theory_Num' == model_num:
+                # print("PD: ", PD)
+                # print("model_num: ", model_num)
+                # print("Theory_Num: ", PD['Theory_Num'])
+                # append 5, 7, 9 to construct.annotations if  2 == e.name:
+                # foundAnnotations = PD[((PD['Theory_Num'] == model_num) & (PD['Construct_Label'] == e.name))]
+                # print("FoundAnnotations: ", foundAnnotations)
+                # foundAnnotations = PD[(PD.Theory_Num == str(model_num)) & (PD.Construct_Label == e.name)]
+                # PD2 = PD[PD['Theory_Num'] == model_num]   
+                # print("PD2: ", PD2)             
+                # foundAnnotations = PD2[PD2['Construct_Label'] == e.name]
+                # print("foundAnnotations: " , foundAnnotations)
+                # foundAnnotations = PD.query('Theory_Num == @model_num and Construct_Label == @e.name')
+                # print("foundAnnotations for ",e.name," after filter: ",foundAnnotations)
+                #filter to only the columns we need:
+                # foundAnnotations2 = foundAnnotations[['Ontology_Label','Alt_Ontology','Alt_Ontology2']]
+                # print("foundAnnotations for ",e.name," after filter: ",foundAnnotations)
+                #filter out rows with no data:
+                # foundAnnotations = foundAnnotations.dropna()
+                # print("Found annotations: ",foundAnnotations)
+                # print("foundAnnotations:", foundAnnotations)
+                #append each value in every row of foundAnnotations to construct.annotations:
+                # for row in PD2.iterrows():
+                #     print(row)
+                    # construct.annotations.append(Annotation(e.name,row[0]))
+                    # construct.annotations.append(Annotation(e.name,row[1]))
+                    # construct.annotations.append(Annotation(e.name,row[2]))
+                
+
+                # OLD VERSION:
+                # for row in sheet.iter_rows(min_row=2, min_col=0, max_row=1466, max_col=10):                    
+                #     construct_label = row[2].value                    
+                #     ontology_label = row[5].value                    
+                #     alt_ontology_label = row[7].value                    
+                #     alt_ontology_label2 = row[9].value
                 
                     #todo: add ontology_id to below, make Annotation a dict?
                     #todo: construct_defn doesn't always match e.name
 
-                    if construct_defn.strip().upper() == e.name.strip().upper():
-                        # print("Found annotation: ", construct_defn, " for ", e.name)
-                    #     annotation = Annotation(e.id,construct_defn)
-                    #     construct.annotations.append(annotation)
-                        if ontology_label:
-                            ont_label = Annotation(e.name,ontology_label)
-                            construct.annotations.append(ont_label)
-                            # print("added annotation: ", e.name, ",", ont_label)
-                        if alt_ontology_label:                            
-                            annotation1 = Annotation(e.name, alt_ontology_label)
-                            construct.annotations.append(annotation1)
-                        if alt_ontology_label2:    
-                            annotation2 = Annotation(e.name, alt_ontology_label2)  
-                            construct.annotations.append(annotation2)
+                    # if construct_label.strip().upper() == e.name.strip().upper():
+                    #     # print("Found annotation: ", construct_defn, " for ", e.name)
+                    # #     annotation = Annotation(e.id,construct_defn)
+                    # #     construct.annotations.append(annotation)
+                    #     if ontology_label:
+                    #         ont_label = Annotation(e.name,ontology_label)
+                    #         construct.annotations.append(ont_label)
+                    #         # print("added annotation: ", e.name, ",", ont_label)
+                    #     if alt_ontology_label:                            
+                    #         annotation1 = Annotation(e.name, alt_ontology_label)
+                    #         construct.annotations.append(annotation1)
+                    #     if alt_ontology_label2:    
+                    #         annotation2 = Annotation(e.name, alt_ontology_label2)  
+                    #         construct.annotations.append(annotation2)
                 
 
                 theory.constructs[e.id] = construct
