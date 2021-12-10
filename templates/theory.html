@@ -6,11 +6,11 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-        <script type="text/javascript">
+        <!-- <script type="text/javascript">
             $(function () {
             $('[data-toggle="tooltip"]').tooltip()
             })
-        </script>
+        </script> -->
 
         <title>Theory Database - Theory {{theory.number}}: {{theory.name}}</title>
     </head>
@@ -41,7 +41,16 @@
 
     </ul>
     </p>    
-    <h3> <a name="constructs">Theory constructs</a> </h3>
+    <h3> <a name="constructs">Theory constructs and annotations</a> </h3>
+   
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 bg-light text-center">
+                <button id="show-view-annotations" class="btn btn-outline-info" onclick="showViewAnnotations()"
+                   >View Annotations</button>
+            </div>
+        </div>
+    </div>
     <p>
     <ul>
     {% for item in theory_constructs %}
@@ -82,5 +91,32 @@
     </ul></p>
     {% include 'footer.html' %}
     </body>
-</html>
+    </html>
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+            
+        })
+        function showViewAnnotations() {
+                var selected = [];
+                selected.push({{theory.number}});
+                console.log(selected);
+                //send selected theories to server with formdata
+                window.open('', 'VisualisationWindow');
+                var form = document.createElement("form");
+                form.setAttribute("method", "post");
+                form.setAttribute("action", "{{url_for('show_view_annotations')}}");
+                form.setAttribute("target", 'VisualisationWindow');
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = "theories";
+                input.value = JSON.stringify(selected);
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+                document.body.removeChild(form);
+                cleanup();
+            }
+        </script>
+
 
