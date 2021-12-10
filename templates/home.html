@@ -53,11 +53,10 @@
     <h3> Browse theories </h3>
 
     <p> To view the content of a theory, you can select a theory from the list: </p>
+    <p> To view merged Theories, use the check boxes to select two or more</p>
     <div class="container">
         <div class="row">
             <div class="col-md-12 bg-light text-right">
-                <button id="show-view-annotations" class="btn btn-outline-info" onclick="showViewAnnotations()"
-                    hidden="true">View Annotations</button>
                 <button id="show-theory-consistency" class="btn btn-outline-success" onclick="showTheoryConsistency()"
                     hidden="true">Show Theory Consistency</button>
                 <button id="show-merged-theories" class="btn btn-outline-danger" onclick="showMergedTheories()"
@@ -86,31 +85,6 @@
 </html>
 
 <script type="text/javascript">
-function showViewAnnotations() {
-        var checkboxes = document.getElementsByName('theory');
-        var selected = [];
-        for (var i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].checked) {
-                selected.push(checkboxes[i].id);
-            }
-        }
-        console.log(selected);
-        //send selected theories to server with formdata
-        window.open('', 'VisualisationWindow');
-        var form = document.createElement("form");
-        form.setAttribute("method", "post");
-        form.setAttribute("action", "{{url_for('show_view_annotations')}}");
-        form.setAttribute("target", 'VisualisationWindow');
-        var input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = "theories";
-        input.value = JSON.stringify(selected);
-        form.appendChild(input);
-        document.body.appendChild(form);
-        form.submit();
-        document.body.removeChild(form);
-        cleanup();
-    }
 
     function showTheoryConsistency() {
         var checkboxes = document.getElementsByName('theory');
@@ -177,17 +151,10 @@ function showViewAnnotations() {
             var id = $(this).attr('id');
             var name = $(this).attr('name');
             var checked = $(this).is(':checked'); //not needed anymore..  
-            if(document.querySelectorAll('input[type="checkbox"]:checked').length > 0 && document.querySelectorAll('input[type="checkbox"]:checked').length < 2){
-                $("#show-view-annotations").attr('hidden', false);
-                $("#show-theory-consistency").attr('hidden', true);
-                $("#show-merged-theories").attr('hidden', true);
-            } else if(document.querySelectorAll('input[type="checkbox"]:checked').length > 1 && document.querySelectorAll('input[type="checkbox"]:checked').length < 7){
-                $("#show-view-annotations").attr('hidden', true);
+            if(document.querySelectorAll('input[type="checkbox"]:checked').length > 1 && document.querySelectorAll('input[type="checkbox"]:checked').length < 7){
                 $("#show-theory-consistency").attr('hidden', false);
                 $("#show-merged-theories").attr('hidden', false);
             } else{
-                console.log("should be hidden...");
-                $("#show-view-annotations").attr('hidden', true);
                 $("#show-theory-consistency").attr('hidden', true);
                 $("#show-merged-theories").attr('hidden', true);
             }          
