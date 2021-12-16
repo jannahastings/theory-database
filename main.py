@@ -376,9 +376,9 @@ def displayTheory(theory_number=None, theory_name=None):
         theory = TheoryDatabase.theories[theory_num]
 
     #print Annotations for each construct
-    for ann_list in theory.constructs.values():
-        for ann in ann_list.annotations:
-            # print("ann_list.name: ", ann_list.name, ": ", ann.label)
+    # for ann_list in theory.constructs.values():
+    #     for ann in ann_list.annotations:
+    #         print("ann_list.name: ", ann_list.name, ": ", ann.label)
             
     #get theory ids and labels here:    
     theory_constructs = []
