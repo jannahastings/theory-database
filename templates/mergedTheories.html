@@ -62,13 +62,10 @@
         var key = [];
         var keyText = "{{colourKey | safe}}";
         key = keyText.split(",");
-        console.log(key);
         for (var i = 0; i < key.length; i++){
             $("#s-name").append("<span style='color:" + keyColours[i] + ";'>" + key[i] + "</span");
         }
         cyto = {{cyjs | tojson | safe}};
-
-        console.log("got cyto", cyto);
 
         var cy = cytoscape({
 
@@ -220,17 +217,13 @@
         }
 
         });
-
-        console.log("loaded");
         
             cy.filter(function(element, i){
-                console.log(i);
+               
                 if( element.isNode() && element.isParent()){
-                    console.log("got a parent");
                     // element.style('line-style','dashed'); //not working at all..
                     element.style('color', 'blue');
                     // element.style('background-color','blue'); //works
-                    console.log(element.data('label'));
                     return(element.data('label'));
                 }
             });

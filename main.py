@@ -85,14 +85,14 @@ def get_theory_consistency_stats(theory_list):
             if sub["Theory_ID"] > old_sub:
                 old_sub = sub["Theory_ID"]
                 x_base = x_base + 1
-            print("got sub: ", sub["Theory_ID"])
+            # print("got sub: ", sub["Theory_ID"])
             num = int(sub["Theory_ID"])
             #num - 1 below incorrect
             all_ids_base_lens[x_base].append(sub["Ontology_ID"].strip())
             all_ids_base.append(sub["Ontology_ID"].strip()) 
         # x_base += 1
         # print("x_base: ", x_base)   
-    print("all_ids_base_lens: ", all_ids_base_lens)
+    # print("all_ids_base_lens: ", all_ids_base_lens)
     all_ids_base_nums = [len(x) for x in all_ids_base_lens]
     return all_ids_base_nums
     
@@ -309,7 +309,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
                                 oldTheory = currentTheory                           
         
                 if more and multi_theory:
-                    print("should add subgraph", sub)
+                    # print("should add subgraph", sub)
                     callgraph.add_subgraph(sub) 
     
         except KeyError:
@@ -378,7 +378,7 @@ def displayTheory(theory_number=None, theory_name=None):
     #print Annotations for each construct
     for ann_list in theory.constructs.values():
         for ann in ann_list.annotations:
-            print("ann_list.name: ", ann_list.name, ": ", ann.label)
+            # print("ann_list.name: ", ann_list.name, ": ", ann.label)
             
     #get theory ids and labels here:    
     theory_constructs = []
@@ -393,7 +393,7 @@ def displayTheory(theory_number=None, theory_name=None):
                 line_list.append(triple.const1.definition or "")
                 #annotations:
                 annotations_for_const = from_construct_mixed(triple.const1.name, theory_num)
-                print("annotations_for_const: ", annotations_for_const)
+                # print("annotations_for_const: ", annotations_for_const)
                 for sub in annotations_for_const:
                     # print(sub)
                     line_list.append(sub or "")
@@ -505,7 +505,7 @@ def viewAnnotations():
         theory_list = theories.split(",")
         #get theory name:
         theory_num = theory_list[0]
-        print("theory_num: ", theory_num)
+        # print("theory_num: ", theory_num)
         theory = TheoryDatabase.theories[theory_num]    
         theory_name = theory.name       
         
@@ -522,16 +522,16 @@ def viewAnnotations():
 def theoryConsistency():
     if 'theories' in session:
         theories = session['theories']
-        print("GOT THEORIES: ",theories)
-        print("GOT THEORIES: ",theories)
+        # print("GOT THEORIES: ",theories)
+        # print("GOT THEORIES: ",theories)
         theories = theories.replace("\"", "")
         theories = theories.replace("[", "").replace("]", "")
         theory_list = theories.split(",")
-        print("length of theory_list: ", len(theory_list))
+        # print("length of theory_list: ", len(theory_list))
         session.pop('theories', None)
         num_theories = len(theory_list)
         num_of_ids = get_theory_consistency_stats(theory_list)
-        print("finally got num_of_ids", num_of_ids)
+        # print("finally got num_of_ids", num_of_ids)
         #single graph example:
 #         df = pd.DataFrame({
 #       'Fruit': ['Apples', 'Oranges', 'Bananas', 'Apples', 'Oranges', 'Bananas'],
@@ -589,7 +589,7 @@ def theoryConsistency():
         # fig.update_layout(height=1200, width=1200)
         plotdata = pd.DataFrame({"num_of_ids": num_of_ids})
         plotdata.insert(0, 'theory_list', theory_list)
-        pp.pprint(plotdata)
+        # pp.pprint(plotdata)
         plotdata.plot(kind="bar")
         fig = go.Figure(data=[go.Bar(x=plotdata.theory_list, y=plotdata.num_of_ids)])
         fig.update_layout(height=1200, width=1200)
