@@ -52,7 +52,8 @@
         cyto = {{cyjs | tojson | safe}};
 
         console.log("got cyto", cyto);
-
+        var newheight = 500;
+        var newwidth = 500;
         var cy = cytoscape({
 
         container: document.getElementById('cy'), // container to render in
@@ -69,7 +70,9 @@
                     //todo: width and height 'label' deprecated. see https://stackoverflow.com/questions/68399821/cytoscape-js-warning-the-style-value-of-label-is-deprecated-for-width-whe
                     'width': 'label',
                     'height': 'label',
+                    'padding': '20px',
                     'shape': 'round-rectangle',
+                    // 'shape': 'rectangle',
                     'background-color': 'data(color)',
                     'label': 'data(label)',
                     //text wrapping:
@@ -85,14 +88,25 @@
                 selector: 'edge',
                 style: {
                     'width': 1,
-                    'line-color': '#000',
-                    'line-style': 'dotted',
+                    'line-color': '#00F',
+                    'line-style': 'solid',
                     'label':'data(label)',
                     'color': 'grey', //text colour!
-                    'target-arrow-color': '#000',
+                    'target-arrow-color': '#00F',
                     'target-arrow-shape': 'triangle',
                     'curve-style': 'bezier',
                     
+                }
+            },
+            
+            {
+                selector: 'node[background_color]',
+                style: {
+                    'background-color': 'grey',
+                    // 'height': '500px', 
+                    // 'width': '500px',
+                    'shape': 'diamond',
+                    'padding': '20px',
                 }
             },
             
@@ -141,7 +155,7 @@
             /* incremental layout options */
             
             // Node repulsion (non overlapping) multiplier
-            nodeRepulsion: node => 45000,
+            nodeRepulsion: node => 65000,
             // Ideal edge (non nested) length
             idealEdgeLength: edge => 50,
             // Divisor to compute edge forces
@@ -153,9 +167,9 @@
             // For enabling tiling
             tile: true,  
             // Represents the amount of the vertical space to put between the zero degree members during the tiling operation(can also be a function)
-            tilingPaddingVertical: 10,
+            tilingPaddingVertical: 20,
             // Represents the amount of the horizontal space to put between the zero degree members during the tiling operation(can also be a function)
-            tilingPaddingHorizontal: 10,
+            tilingPaddingHorizontal: 20,
             // Gravity force (constant)
             gravity: 0.25,
             // Gravity range (constant) for compounds
@@ -204,21 +218,42 @@
 
                     if( element.style('label') == ""){
                         // console.log("got empty label");
-                        element.style('line-style','solid');
-                        element.style('line-color', '#00F');
-                        element.style('target-arrow-color', '#00F');
+                        element.style('line-style','dotted');
+                        element.style('line-color', '#000');
+                        element.style('target-arrow-color', '#000');
                         element.style('curve-style','straight');
                     }
                 }
                 if( element.isNode() ){
-                    console.log("got an node" + element.style('background-color'));
-                    //todo: add a check for the color of the node   
-                        
-                    if( element.style('background-color') == ""){
-                        // console.log("got empty color");
-                        element.style('background-color','#00F');
-                        element.style('color','#00F');
-                    }
+                    //todo: remove the below as not working
+                    // console.log("got an node" + element.style('background-color'));
+                    // //todo: add a check for the color of the node   
+                    // if( element.style('background-color')){
+                    //     element.style('height', 'label');
+                    //     element.style('width', 'label');
+                    //     element.style('shape', 'rectangle');
+
+                       
+                    // } else {
+                    //      // console.log("got empty color");
+                    //      element.style('background-color','#00F');
+                    //     element.style('color','#00F');
+                    //     element.style('height', '500px');
+                    //     element.style('width', '500px');
+                    //     element.style('shape', 'round-rectangle');
+                    // }    
+                    // if( element.style('background-color') == ""){
+                    //     // console.log("got empty color");
+                    //     element.style('background-color','#00F');
+                    //     element.style('color','#00F');
+                    //     element.style('height', '500px');
+                    //     element.style('width', '500px');
+                    //     element.style('shape', 'round-rectangle');
+                    // } else {
+                    //     element.style('height', 'label');
+                    //     element.style('width', 'label');
+                    //     element.style('shape', 'rectangle');
+                    // }
 
                     //rgb not working below..
                     // if( element.style('background-color') == 'rgb(0, 255, 255)'){
