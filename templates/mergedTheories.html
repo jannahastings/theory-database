@@ -249,16 +249,20 @@
                if( element.isNode() && element.isParent()){
                 console.log(element.data('name'));
                 if (element.data('name') == n){
-                    console.log(element.data('name'));
-                    element.style('background-color','grey');
-                    element.select();
-                }
-                else{
-                    element.style('background-color','white');
-                    element.deselect();
-                }
-                
-               };
+                    st = element.style('background-color');
+                    console.log(st);
+                    if (element.style('background-color') == 'rgb(128,128,128)'){
+                        element.style('background-color', 'white');
+                        element.deselect();
+                    } else {
+                        element.style('background-color', 'grey');
+                        element.select();
+                    }
+                    // console.log(element.data('name'));
+                    // element.style('background-color','grey');
+                    // element.select();
+                }                
+               }
             });
         });
         
