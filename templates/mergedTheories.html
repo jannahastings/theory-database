@@ -56,6 +56,11 @@
 <script type="text/javascript">
     //on window load:
     $(document).ready(function(){
+        //set background of page to grey:
+        $('body').css('background-color', '#f5f5f5');
+        window.addEventListener('resize', function(event){
+    cy.center();
+});
         //text colours:
         //change key text colour:
         keyColours = ["orange", "cyan", "green","yellow", "red", "purple"];
@@ -223,7 +228,18 @@
                 if( element.isNode() && element.isParent()){
                     // element.style('line-style','dashed'); //not working at all..
                     element.style('color', 'blue');
+                    //random colour:
+                    // element.style('background-color', '#' + Math.floor(Math.random()*16777215).toString(16));
+                    //other options:
                     // element.style('background-color','blue'); //works
+                    // element.style('background-opacity, 0.5'); //doesn't work with background-color
+                    // element.style('background-fill', 'radial-gradient'); //just light grey..
+                    // element.style('background-gradient-stop-colors', 'red', 'yellow', 'magenta');
+                    // element.style('background-image', 'https://upload.wikimedia.org/wikipedia/commons/b/b4/High_above_the_Cloud_the_Sun_Stays_the_Same.jpg');
+                    // element.style('background-image-opacity', 0.5);
+                    // element.style('background-fit', 'cover cover');
+
+                    element.style('border-color', 'red');
                     return(element.data('label'));
                 }
             });
