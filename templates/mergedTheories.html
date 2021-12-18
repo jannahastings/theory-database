@@ -60,6 +60,7 @@
         $('body').css('background-color', '#f5f5f5');
         window.addEventListener('resize', function(event){
     cy.center();
+    
 });
         //text colours:
         //change key text colour:
@@ -101,7 +102,7 @@
                     'shape': 'round-rectangle',
                     'background-color': 'data(color)',
                     'label': 'data(label)',
-                    
+                    'selectable': 'true',
                     
                     
                 }
@@ -120,17 +121,35 @@
                     'curve-style': 'bezier'
                 }
             },
-            // test parent styling - not working..
+            //correct way to do parent styling (boxes):
             {
-            selector: 'parent',
-                style: {
-                    'border-color': 'data(parentColor)',
-                    'line-color': 'black',
-                    
-                    'target-arrow-color': 'black',
-                    'source-arrow-color': 'black'
+                selector: ':parent',
+                css: {
+                    'text-valign': 'center',
+                    'text-halign': 'center',
+                    'border-color': 'red',
                 }
-            }
+            },
+
+            {
+                selector: "node:selected", //works! 
+                style: {
+                    // "background-color": "#33ff00",
+                    // "border-color": "#22ee00"
+                }
+            },
+
+            // test parent styling - not working..
+            // {
+            // selector: 'parent',
+            //     style: {
+            //         'border-color': 'data(parentColor)',
+            //         'line-color': 'black',
+                    
+            //         'target-arrow-color': 'black',
+            //         'source-arrow-color': 'black'
+            //     }
+            // }
         ],
 
         layout: {
@@ -222,12 +241,37 @@
         }
 
         });
+
+        cy.on('tap', 'node', function(evt) { 
+            p = evt.target.data('parent');
+            n = p[0];
+            cy.filter(function(element, i){               
+               if( element.isNode() && element.isParent()){
+                console.log(element.data('name'));
+                if (element.data('name') == n){
+                    console.log(element.data('name'));
+                    element.style('background-color','grey');
+                    element.select();
+                }
+                else{
+                    element.style('background-color','white');
+                    element.deselect();
+                }
+                
+               };
+            });
+        });
         
             cy.filter(function(element, i){
                
                 if( element.isNode() && element.isParent()){
+                    element.children().forEach(function(child){
+                        child.style('shape', 'diamond');
+                        // child.style('background-color', '#f0f0f0');
+                        console.log(child.data('name'));
+                    });
                     // element.style('line-style','dashed'); //not working at all..
-                    element.style('color', 'blue');
+                    // element.style('color', 'blue');
                     //random colour:
                     // element.style('background-color', '#' + Math.floor(Math.random()*16777215).toString(16));
                     //other options:
@@ -241,6 +285,8 @@
 
                     element.style('border-color', 'red');
                     return(element.data('label'));
+                    // show order via animations
+                   
                 }
             });
             
