@@ -127,12 +127,14 @@
                     'text-valign': 'center',
                     'text-halign': 'center',
                     'border-color': 'red',
+                    'selectable': 'true',
                 }
             },
 
             {
                 selector: "node:selected", //works! 
                 style: {
+                    // 'z-compound-depth': 'top', //moves to top (over ALL other nodes, even sub-nodes)
                     // "background-color": "#33ff00",
                     // "border-color": "#22ee00"
                 }
@@ -256,6 +258,10 @@
                         st = element.style('background-color');
                         // console.log(st + " : " + a);
                             element.style('background-color', 'grey');
+                            element.style('z-compound-depth', 'auto');
+                            // element.style('z-compound-depth', 'top'); //todo: not quite right?
+                            // element.selectable(true);
+                            // element.select();//not working..
                     }
                                  
                   }
@@ -281,6 +287,7 @@
                         if (element.data('name') == n){
                             st = element.style('background-color');    
                             element.style('background-color', 'white');
+                            element.style('z-compound-depth', 'bottom');
                         }
                                     
                     }
