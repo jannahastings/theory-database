@@ -58,10 +58,9 @@
     $(document).ready(function(){
         //set background of page to grey:
         $('body').css('background-color', '#f5f5f5');
-        window.addEventListener('resize', function(event){
-    cy.center();
-    
-});
+            window.addEventListener('resize', function(event){
+            cy.center();
+        });
         //text colours:
         //change key text colour:
         keyColours = ["orange", "cyan", "green","yellow", "red", "purple"];
@@ -241,38 +240,65 @@
         }
 
         });
-
-        cy.on('tap', 'node', function(evt) { 
-            p = evt.target.data('parent');
-            n = p[0];
-            cy.filter(function(element, i){               
-               if( element.isNode() && element.isParent()){
-                console.log(element.data('name'));
-                if (element.data('name') == n){
-                    st = element.style('background-color');
-                    console.log(st);
-                    if (element.style('background-color') == 'rgb(128,128,128)'){
-                        element.style('background-color', 'white');
-                        element.deselect();
-                    } else {
-                        element.style('background-color', 'grey');
-                        element.select();
-                    }
-                    // console.log(element.data('name'));
-                    // element.style('background-color','grey');
-                    // element.select();
-                }                
-               }
-            });
-        });
         
+        cy.on('mouseover', 'node', function(evt) { 
+            try{ p = evt.target.data('parent');
+            //remove duplicates:
+            let psorted = p.filter((c, index) => {
+                return p.indexOf(c) === index;
+            });
+            coloured = false;
+            for (var a = 0; a < psorted.length; a++) {
+                n = psorted[a];            
+                cy.filter(function(element, i){    
+                   if( element.isNode() && element.isParent()){
+                    if (element.data('name') == n){
+                        st = element.style('background-color');
+                        // console.log(st + " : " + a);
+                            element.style('background-color', 'grey');
+                    }
+                                 
+                  }
+                });
+            }
+        } catch(err){
+                // console.log("error: " + err);
+            }
+        });
+
+        cy.on('mouseout', 'node', function(evt) { 
+            try{  p = evt.target.data('parent');
+                //remove duplicates:
+                let psorted = p.filter((c, index) => {
+                    return p.indexOf(c) === index;
+                });
+                coloured = false;
+                // console.log("psorted: " + psorted);
+                for (var a = 0; a < psorted.length; a++) {
+                    n = psorted[a];            
+                    cy.filter(function(element, i){    
+                    if( element.isNode() && element.isParent()){
+                        if (element.data('name') == n){
+                            st = element.style('background-color');    
+                            element.style('background-color', 'white');
+                        }
+                                    
+                    }
+                    });
+                }
+            } catch(err){
+                // console.log("error: " + err);
+            }
+            
+        });
+
             cy.filter(function(element, i){
                
                 if( element.isNode() && element.isParent()){
                     element.children().forEach(function(child){
                         child.style('shape', 'diamond');
                         // child.style('background-color', '#f0f0f0');
-                        console.log(child.data('name'));
+                        // console.log(child.data('name'));
                     });
                     // element.style('line-style','dashed'); //not working at all..
                     // element.style('color', 'blue');
