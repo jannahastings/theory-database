@@ -21,64 +21,92 @@
     {% include 'header.html' %}
     {% include 'information.html' %}
 
+    <!-- todo: add tabbed nav bar here -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="browse-tab" data-toggle="tab" href="#browse" role="tab" aria-controls="browse" aria-selected="true">Browse</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="search-tab" data-toggle="tab" href="#search" role="tab" aria-controls="search" aria-selected="false">Search</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="statistics-tab" data-toggle="tab" href="#statistics" role="tab" aria-controls="statistics" aria-selected="false">Statistics</a>
+        </li>
+      </ul>
+
+<div class="tab-content" id="myTabContent">
+
+    <div class="tab-pane fade show active" id="browse" role="tabpanel" aria-labelledby="browse-tab">
+        <h3> Browse theories </h3>
+    
+        <p> To view the content of a theory, you can select a theory from the list: </p>
+        <p> To view merged Theories, use the check boxes to select two or more</p>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 bg-light text-right">
+                    <button id="show-theory-consistency" class="btn btn-outline-success" onclick="showTheoryConsistency()"
+                        hidden="true">Show Theory Consistency</button>
+                    <button id="show-merged-theories" class="btn btn-outline-danger" onclick="showMergedTheories()"
+                        hidden="true">Show Merged Theories</button>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            {% for item in theories %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input type="checkbox" id={{item.number}} name="theory"><a
+                                href="/theory/{{item.number}}">     {{item.number}}: {{item.name}} </a><br />
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <p />
+    </div>
+
+    <div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="search-tab">
+        <h3> Search </h3>
+    
+        <p>
+        <form action="/searchTheory" method="post" name="searchTheory">
+            To search for a theory by name, enter a search string: <input type="search" name="searchtheory"> <input
+                type="submit" value="Search Theory">
+        </form>
+        </p>
+    
+        <p>
+        <form action="/searchConstruct" method="post" name="searchConstruct">
+            To search for a construct within a theory, enter a search string: <input type="search" name="searchconstruct">
+            <input type="submit" value="Search Construct">
+        </form>
+        </p>
+    
+        <p>
+        <form action="/searchRelation" method="post" name="searchRelation">
+            To search for a triple by relation type, enter a search string: <input type="search" name="searchrelation">
+            <input type="submit" value="Search Relation">
+        </form>
+        </p>
+    </div>
+
+<div class="tab-pane fade" id="statistics" role="tabpanel" aria-labelledby="statistics-tab">
+
     <h3> Statistics </h3>
 
     <p> Number of theories: {{num_theories}} <br />
     <p> Number of unique constructs: {{num_constructs}} <br />
     <p> Number of triples: {{num_triples}} </p>
 
-    <h3> Search </h3>
+</div>
 
-    <p>
-    <form action="/searchTheory" method="post" name="searchTheory">
-        To search for a theory by name, enter a search string: <input type="search" name="searchtheory"> <input
-            type="submit" value="Search Theory">
-    </form>
-    </p>
 
-    <p>
-    <form action="/searchConstruct" method="post" name="searchConstruct">
-        To search for a construct within a theory, enter a search string: <input type="search" name="searchconstruct">
-        <input type="submit" value="Search Construct">
-    </form>
-    </p>
 
-    <p>
-    <form action="/searchRelation" method="post" name="searchRelation">
-        To search for a triple by relation type, enter a search string: <input type="search" name="searchrelation">
-        <input type="submit" value="Search Relation">
-    </form>
-    </p>
 
-    <h3> Browse theories </h3>
-
-    <p> To view the content of a theory, you can select a theory from the list: </p>
-    <p> To view merged Theories, use the check boxes to select two or more</p>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 bg-light text-right">
-                <button id="show-theory-consistency" class="btn btn-outline-success" onclick="showTheoryConsistency()"
-                    hidden="true">Show Theory Consistency</button>
-                <button id="show-merged-theories" class="btn btn-outline-danger" onclick="showMergedTheories()"
-                    hidden="true">Show Merged Theories</button>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        {% for item in theories %}
-        <div class="row">
-            <div class="col-md-12">
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        <input type="checkbox" id={{item.number}} name="theory"><a
-                            href="/theory/{{item.number}}">     {{item.number}}: {{item.name}} </a><br />
-                    </span>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-    <p />
+</div>
     {% include 'footer.html' %}
 </body>
 

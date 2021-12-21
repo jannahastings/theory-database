@@ -169,7 +169,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
                     
         try:
             clustered_list_of_all_values[s]["cluster"] = pydot.Cluster(
-                s.upper(), label=s_label, color='green', fillcolor='green')
+                s.upper(), label=s_label, color='green', fillcolor='green') # not actually green but doesn't work well if not defined..
         except:
             pass
 
@@ -292,9 +292,8 @@ def get_theory_visualisation_merged_boxes(theory_list):
             if len(snode_names_list) > 1:  # only for clusters with more than one node
                 #checking theories
                 # check for cross-theory boxes here because I can't go back
-                some = False  # going to be true if we find name in any theory
-                # going to be true if name in more than one theory.
-                more = False
+                some = False  # going to be true if we find name in any theory                
+                more = False # going to be true if name in more than one theory.
                 for name in snode_names_list:
                     # per theory check - don't add if nodes not present across theories 
                     for listA in complete_theory_node_name_dict:
