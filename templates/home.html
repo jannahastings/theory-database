@@ -13,6 +13,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    
     <title>Theory Database (Prototype)</title>
 </head>
 
@@ -101,6 +104,10 @@
     <p> Number of unique constructs: {{num_constructs}} <br />
     <p> Number of triples: {{num_triples}} </p>
 
+    <div id='chart1' class='chart1'></div>
+    <div id='chart2' class='chart2'></div>
+    <div id='chart3' class='chart3'></div>
+
 </div>
 
 
@@ -185,5 +192,14 @@
                 $("#show-merged-theories").attr('hidden', true);
             }          
         });
+
+        var graph1 = {{graphJSON | safe}};
+        Plotly.plot('chart1',graph1,{});
+
+        var graph2 = {{graphJSON2 | safe}};
+        Plotly.plot('chart2',graph2,{});
+
+        var graph3 = {{graphJSON3 | safe}};
+        Plotly.plot('chart3',graph3,{});
     });
 </script>
