@@ -370,7 +370,7 @@ def display_home():
     df["theory_number"] = df["theory_number"].astype(str).astype(int) #convert to str for sort
     df = df.sort_values(by=['theory_number'])
     df["theory_number"] = df["theory_number"].astype(int).astype(str) # convert back for labels
-    fig = go.Figure(data=[go.Bar(x=df.theory_number, y=df.num_of_constructs)])
+    fig = go.Figure(data=[go.Bar(x=df.theory_number, y=df.num_of_constructs, marker_color='blue')])
     fig.update_layout(
         title=dict(
             text='<b>Number of constructs per Theory</b>',
@@ -401,8 +401,9 @@ def display_home():
         font=dict(
         family="Courier New, Monospace",
         size=9,
-        color='#000000'
-      )
+        color='#000000', 
+      ),
+      plot_bgcolor = "white"
     )
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
@@ -415,7 +416,7 @@ def display_home():
     df["theory_number"] = df["theory_number"].astype(str).astype(int) #convert to str for sort
     df = df.sort_values(by=['theory_number'])
     df["theory_number"] = df["theory_number"].astype(int).astype(str) # convert back for labels
-    fig = go.Figure(data=[go.Bar(x=df.theory_number, y=df.num_of_triples)])
+    fig = go.Figure(data=[go.Bar(x=df.theory_number, y=df.num_of_triples, marker_color='red')])
     fig.update_layout(
         title=dict(
             text='<b>Number of triples per theory</b>',
@@ -447,7 +448,8 @@ def display_home():
         family="Courier New, Monospace",
         size=9,
         color='#000000'
-      )
+      ), 
+        plot_bgcolor = "white"
     )
     graphJSON2 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
@@ -478,7 +480,7 @@ def display_home():
     df["theory_number"] = df["theory_number"].astype(str).astype(int) #convert to str for sort
     df = df.sort_values(by=['theory_number'])
     df["theory_number"] = df["theory_number"].astype(int).astype(str) # convert back for labels
-    fig = go.Figure(data=[go.Bar(x=df.theory_number, y=df.num_of_annotations)])
+    fig = go.Figure(data=[go.Bar(x=df.theory_number, y=df.num_of_annotations, marker_color='orange')])
     fig.update_layout(
         title=dict(
             text='<b>Number of annotations per theory</b>',
@@ -510,7 +512,8 @@ def display_home():
         family="Courier New, Monospace",
         size=9,
         color='#000000'
-      )
+      ), 
+        plot_bgcolor = "white"
     )
     graphJSON3 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
