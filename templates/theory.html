@@ -59,11 +59,28 @@
         <i>{{item[1]}}</i>
         {{ "[" if item[2] else "" }}
         {% for i in item %}
-            {% if loop.index > 2 %}
-                {% if i|int(-1) != -1 %} <a href="{{i}}#constructs">{{i}}</a> {% else %} {{i if loop.index == 3 else ", "+i}} {% endif %}
+
+            {% if "BCIO" in i %}
+                {% if loop.index > 3 %}
+                    ,
+                {% endif %}
+                <a href="{{'https://bciovocab.org/' + i.split()[0]}}">{{i}}</a>
+            {% elif "ADDICTO" in i %}
+                {% if loop.index > 3 %}
+                    ,
+                {% endif %}
+                <a href="{{'https://addictovocab.org/' + i.split()[0]}}">{{i}}</a>
+            {% else %}
+
+                {% if loop.index > 2 %}
+                    {% if i|int(-1) != -1 %} <a href="{{i}}#constructs">{{i}}</a> {% else %} {{i if loop.index == 3 else ", "+i}} {% endif %}
+                {% endif %}
+
             {% endif %}
+
         {% endfor %}
         {{ "]" if item[2] else "" }}
+        
     </li>
     {% endfor %}
     </ul>

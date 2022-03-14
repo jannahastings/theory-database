@@ -124,7 +124,12 @@ def from_construct_mixed(const_str, current_theory_num):
                     theory_display_name = " " + str(theory_display_name[2])
                 except:
                     pass
-                ids_labels_links_mixed.append(sub["Ontology_ID"].strip().replace("_", ":") + " (" + sub["Label_L"].strip() + ") " or "")
+                ID_to_link = sub["Ontology_ID"].strip().replace("_", ":") + " (" + sub["Label_L"].strip() + ") " or ""
+                # link_for_id = "<a href='" + ID_to_link + "'>"+ ID_to_link + "</a>" #nope doesn't work, todo: delete
+                ids_labels_links_mixed.append(ID_to_link)
+                
+                # ids_labels_links_mixed.append(sub["Ontology_ID"].strip().replace("_", ":") + " (" + sub["Label_L"].strip() + ") " or "")
+                print("adding Ontology ID? ", sub["Ontology_ID"])
                 ids_labels_links_mixed.append(theory_display_name or "")
                 check_annotation_ids.append(sub["Ontology_ID"])
     #check for annotations in other theories
@@ -135,6 +140,7 @@ def from_construct_mixed(const_str, current_theory_num):
                     #check for duplicates here: 
                     if(str(sub["Theory_ID"]) not in ids_labels_links_mixed):
                         ids_labels_links_mixed.append(str(sub["Theory_ID"]))
+                        # print("adding Theory ID? ", str(sub["Theory_ID"]))
         
     return ids_labels_links_mixed
 
@@ -535,7 +541,8 @@ def displayTheory(theory_number=None, theory_name=None):
     #     for ann in ann_list.annotations:
     #         print("ann_list.name: ", ann_list.name, ": ", ann.label)
             
-    #get theory ids and labels here:    
+    #get theory ids and labels here: 
+    # todo: make Ontology ID a link with a pop-up ("open in addictovocab/bciovocab") - only for bcio or addicto
     theory_constructs = []
     for triple in theory.triples:
         check_for_rel = triple.const1.name.split()
@@ -546,11 +553,12 @@ def displayTheory(theory_number=None, theory_name=None):
                 line_list = []
                 line_list.append(wrap_if_needed(triple.const1.name) or "")
                 line_list.append(triple.const1.definition or "")
+                # print("line_list triple.const1.definition: ", triple.const1.definition)
                 #annotations:
                 annotations_for_const = from_construct_mixed(triple.const1.name, theory_num)
                 # print("annotations_for_const: ", annotations_for_const)
                 for sub in annotations_for_const:
-                    # print(sub)
+                    # print("line_list sub 1: ", sub)
                     line_list.append(sub or "")
                     
                 if line_list[0] not in (item for sublist in theory_constructs for item in sublist):
@@ -564,17 +572,18 @@ def displayTheory(theory_number=None, theory_name=None):
                 line_list = []
                 line_list.append(wrap_if_needed(triple.const2.name) or "")
                 line_list.append(triple.const2.definition or "")
+                # print("line listtriple.const2.definition: ", triple.const2.definition)
                 #annotations:
                 annotations_for_const = from_construct_mixed(triple.const2.name, theory_num)
                 for sub in annotations_for_const:
                     line_list.append(sub or "")
-                    
+                    # print("line_list sub 2: ", sub)
                 if line_list[0] not in (item for sublist in theory_constructs for item in sublist):
                     theory_constructs.append(line_list)            
 
     net_image_file = url_for('static', filename=theory.number+".png")
     wc_image_file = url_for('static', filename=theory.number+"-wc.png")
-    
+    print("THEORY_CONSTRUCTS: ", theory_constructs)
     return render_template('theory.html', theory=theory, net_image_file=net_image_file, wc_image_file=wc_image_file, theory_constructs=theory_constructs)
 
 
