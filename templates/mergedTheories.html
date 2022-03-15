@@ -39,6 +39,9 @@
             </div>
         </div>
     </div>
+    <div id="button-div">
+        <input id="toggle-labels" type="button" onclick="element_label_edge = !element_label_edge; console.log(element_label_edge); changeCy();" value="Toggle edge labels"/>
+    </div>
 
     <div id="cy"></div>
 
@@ -48,7 +51,7 @@
         width: 100%;
         height: 100%;
         position: absolute;
-        top: 0px;
+        top: 250px;
         left: 0px;
     }
 </style>
@@ -56,11 +59,6 @@
 <script type="text/javascript">
     //on window load:
     $(document).ready(function(){
-        //set background of page to grey:
-        $('body').css('background-color', '#f5f5f5');
-            window.addEventListener('resize', function(event){
-            cy.center();
-        });
         //text colours:
         //change key text colour:
         keyColours = ["orange", "cyan", "green","yellow", "red", "purple"];
@@ -70,6 +68,18 @@
         for (var i = 0; i < key.length; i++){
             $("#s-name").append("<span style='color:" + keyColours[i] + ";'>" + key[i] + "</span");
         }
+        element_label_edge = true;   
+        loadCy('grey');
+            
+    });
+
+    function loadCy(text_colour){
+        //set background of page to grey:
+        $('body').css('background-color', '#f5f5f5');
+            window.addEventListener('resize', function(event){
+            cy.center();
+        });
+        
         cyto = {{cyjs | tojson | safe}};
 
         var cy = cytoscape({
@@ -114,7 +124,7 @@
                     'line-color': '#000',
                     'line-style': 'dotted',
                     'label':'data(label)',
-                    'color': 'grey', //text colour!
+                    'color': text_colour, //text colour!
                     'target-arrow-color': '#000',
                     'target-arrow-shape': 'triangle',
                     'curve-style': 'bezier'
@@ -325,9 +335,15 @@
                    
                 }
             });
-            
-    });
+        }
 
+        function changeCy(){
+        if(element_label_edge == false){
+            loadCy('white');
+        } else{
+            loadCy('grey');
+        }
+    }
 </script>
 
 </html>
