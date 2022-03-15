@@ -340,20 +340,47 @@ def get_annotations_for_graph(theory_list):
                             if ann.label == ann.label: #check for nan values
                                 if ann.id.strip().upper() == triple.const1.name.strip().upper():
                                     if ann.label.strip().upper() != ann_list.name.strip().upper():
-                                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label), label = wrap_if_needed(ann.label), background_color="blue"))
+                                        check_for_rel = triple.const1.name.split()
+                                        if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
+                                            callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label), label = wrap_if_needed(ann.label), background_color="white"))
+                                        else:
+                                            callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label), label = wrap_if_needed(ann.label), background_color="blue"))
                                         callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(ann.label), str(theory_num) + wrap_if_needed(triple.const1.name), label=""))
                                 if ann.id.strip().upper() == triple.const2.name.strip().upper():
                                     if ann.label.strip().upper() != ann_list.name.strip().upper():
-                                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label), label = wrap_if_needed(ann.label), background_color="blue"))
+                                        check_for_rel = triple.const2.name.split()
+                                        if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
+                                            callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label), label = wrap_if_needed(ann.label), background_color="white"))
+                                        else:
+                                            callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label), label = wrap_if_needed(ann.label), background_color="blue"))
                                         callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(ann.label), str(theory_num) + wrap_if_needed(triple.const2.name), label=""))
-                    
-                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
-                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
+                    check_for_rel = triple.const1.name.split()
+                    if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color='white'))
+                    else:
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
+                    check_for_rel = triple.const2.name.split()
+                    if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color='white'))
+                    else:
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
                     callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name), str(theory_num) + wrap_if_needed(triple.const2.name), label=triple.relStr))
                 else:
-                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
-                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label =  wrap_if_needed(triple.const2.name), color=node_colour))
-                    callgraph.add_node(pydot.Node(str(theory_num) + triple.reified_rel.name, label=triple.relStr, color=node_colour))
+                    check_for_rel = triple.const1.name.split()
+                    if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color="white"))
+                    else:
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
+                    check_for_rel = triple.const2.name.split()
+                    if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color="white"))
+                    else:
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
+                    check_for_rel = triple.reified_rel.name.split()
+                    if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.reified_rel.name), label = triple.relStr, color="white"))
+                    else:
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.reified_rel.name), label = triple.relStr, color=node_colour))
                     callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name), str(theory_num) + triple.reified_rel.name, label=Relation.getStringForRelType(Relation.THROUGH)))
                     callgraph.add_edge(pydot.Edge(str(theory_num) + triple.reified_rel.name, str(theory_num) + wrap_if_needed(triple.const2.name), label=Relation.getStringForRelType(Relation.TO)))
 
