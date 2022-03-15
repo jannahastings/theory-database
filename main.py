@@ -180,7 +180,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
             pass
 
     complete_theory_node_name_dict = {}
-    colour_list = ["orange", "cyan", "green","yellow", "red", "purple"]  
+    colour_list = ["orange", "cyan", "magenta","yellow", "red", "brown"]  
     k = 0
     theory_name_colour_dict = {}
     for theory_num in theories.keys():

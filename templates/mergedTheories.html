@@ -61,13 +61,14 @@
     $(document).ready(function(){
         //text colours:
         //change key text colour:
-        keyColours = ["orange", "cyan", "green","yellow", "red", "purple"];
+        keyColours = ["orange", "cyan", "magenta","yellow", "red", "brown"];
         var key = [];
         var keyText = "{{colourKey | safe}}";
         key = keyText.split(",");
         for (var i = 0; i < key.length; i++){
-            $("#s-name").append("<span style='color:" + keyColours[i] + ";'>" + key[i] + "</span");
+            $("#s-name").append("<span style='color:" + keyColours[i] + ";'>" + key[i] + "</span");                
         }
+        $("#s-name").append("<span style='color: green;'> Shared</span");
         element_label_edge = true;   
         loadCy('grey');
             
@@ -312,7 +313,8 @@
                
                 if( element.isNode() && element.isParent()){
                     element.children().forEach(function(child){
-                        child.style('shape', 'diamond');
+                        child.style('background-color', 'green');
+                        // child.style('shape', 'diamond');
                         // child.style('background-color', '#f0f0f0');
                         // console.log(child.data('name'));
                     });
