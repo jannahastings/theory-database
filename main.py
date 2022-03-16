@@ -556,7 +556,7 @@ def display_home():
     # fig4 = px.Figure(data=[px.Scatter(x=df2.num_of_triples, y=df.num_of_constructs, mode = 'markers',)]) #not working
     fig4.update_layout(
         title=dict(
-            text='<b>Number of Constructs vs Number of Triples</b>',
+            text='<b>Number of Triples vs Number of Constructs</b>',
             font=dict(
                 family="Arial",
                 size=20,
