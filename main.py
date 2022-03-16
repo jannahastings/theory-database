@@ -446,12 +446,12 @@ def display_home():
     for t in TheoryDatabase.theories:
         triples_per_theory[TheoryDatabase.theories[t].number] = (len(TheoryDatabase.theories[t].triples))
 
-    df = pd.DataFrame({"theory_number": triples_per_theory.keys(), "num_of_triples": triples_per_theory.values()})
-    df["theory_number"] = df["theory_number"].astype(str).astype(int) #convert to str for sort
-    df = df.sort_values(by=['theory_number'])
-    df["theory_number"] = df["theory_number"].astype(int).astype(str) # convert back for labels
-    fig = go.Figure(data=[go.Bar(x=df.theory_number, y=df.num_of_triples, marker_color='red')])
-    fig.update_layout(
+    df2 = pd.DataFrame({"theory_number": triples_per_theory.keys(), "num_of_triples": triples_per_theory.values()})
+    df2["theory_number"] = df2["theory_number"].astype(str).astype(int) #convert to str for sort
+    df2 = df2.sort_values(by=['theory_number'])
+    df2["theory_number"] = df2["theory_number"].astype(int).astype(str) # convert back for labels
+    fig2 = go.Figure(data=[go.Bar(x=df2.theory_number, y=df2.num_of_triples, marker_color='red')])
+    fig2.update_layout(
         title=dict(
             text='<b>Number of triples per theory</b>',
             font=dict(
@@ -485,7 +485,7 @@ def display_home():
       ), 
         plot_bgcolor = "white"
     )
-    graphJSON2 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    graphJSON2 = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)
 
     #3 Number of annotations per theory per theory - bar plot: 
     annotations_per_theory = {key:0 for key in TheoryDatabase.theories.keys()}
@@ -510,12 +510,12 @@ def display_home():
         for ann in annotations_list_full:
             annotations_per_theory[TheoryDatabase.theories[t].number] += 1
 
-    df = pd.DataFrame({"theory_number": annotations_per_theory.keys(), "num_of_annotations": annotations_per_theory.values()})
-    df["theory_number"] = df["theory_number"].astype(str).astype(int) #convert to str for sort
-    df = df.sort_values(by=['theory_number'])
-    df["theory_number"] = df["theory_number"].astype(int).astype(str) # convert back for labels
-    fig = go.Figure(data=[go.Bar(x=df.theory_number, y=df.num_of_annotations, marker_color='orange')])
-    fig.update_layout(
+    df3 = pd.DataFrame({"theory_number": annotations_per_theory.keys(), "num_of_annotations": annotations_per_theory.values()})
+    df3["theory_number"] = df3["theory_number"].astype(str).astype(int) #convert to str for sort
+    df3 = df3.sort_values(by=['theory_number'])
+    df3["theory_number"] = df3["theory_number"].astype(int).astype(str) # convert back for labels
+    fig3 = go.Figure(data=[go.Bar(x=df3.theory_number, y=df3.num_of_annotations, marker_color='orange')])
+    fig3.update_layout(
         title=dict(
             text='<b>Number of annotations per theory</b>',
             font=dict(
@@ -549,9 +549,48 @@ def display_home():
       ), 
         plot_bgcolor = "white"
     )
-    graphJSON3 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    graphJSON3 = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return render_template('home.html', num_theories=num_theories, num_triples=num_triples, num_constructs=num_constructs, theories=sorted(TheoryDatabase.theories.values(), key=Theory.getNumber), graphJSON=graphJSON, graphJSON2=graphJSON2, graphJSON3=graphJSON3)
+    #4 scatter plot - all theories number of constructs vs number of triples:
+    fig4 = go.Figure(data=[go.Scatter(x=df.num_of_constructs, y=df2.num_of_triples, mode = 'markers')])
+    # fig4 = px.Figure(data=[px.Scatter(x=df2.num_of_triples, y=df.num_of_constructs, mode = 'markers',)]) #not working
+    fig4.update_layout(
+        title=dict(
+            text='<b>Number of Constructs vs Number of Triples</b>',
+            font=dict(
+                family="Arial",
+                size=20,
+                color='#000000'
+            )
+        ),
+        xaxis_title=dict(
+            text='Number of Constructs',
+            font=dict(
+                family="Arial",
+                size=14,
+                color='#000000'
+            )
+        ),
+        yaxis_title=dict(
+            text='Number of Triples',
+            font=dict(
+                family="Arial",
+                size=14,
+                color='#000000'
+            )
+        ),
+        height=600, 
+        width=1400, 
+        font=dict(
+        family="Courier New, Monospace",
+        size=9,
+        color='#000000', 
+      ),
+      plot_bgcolor = "white"
+    )
+    graphJSON4 = json.dumps(fig4, cls=plotly.utils.PlotlyJSONEncoder)
+
+    return render_template('home.html', num_theories=num_theories, num_triples=num_triples, num_constructs=num_constructs, theories=sorted(TheoryDatabase.theories.values(), key=Theory.getNumber), graphJSON=graphJSON, graphJSON2=graphJSON2, graphJSON3=graphJSON3, graphJSON4=graphJSON4)
 
 
 @app.route("/theory/name=<theory_name>", methods=['GET', 'POST'])

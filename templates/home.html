@@ -109,6 +109,7 @@
     <div id='chart1' class='chart1'></div>
     <div id='chart2' class='chart2'></div>
     <div id='chart3' class='chart3'></div>
+    <div id='chart4' class='chart4'></div>
 
 </div>
 
@@ -203,5 +204,8 @@
 
         var graph3 = {{graphJSON3 | safe}};
         Plotly.plot('chart3',graph3,{});
+
+        var graph4 = {{graphJSON4 | safe}};
+        Plotly.plot('chart4',graph4,{});
     });
 </script>
