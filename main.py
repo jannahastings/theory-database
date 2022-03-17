@@ -553,7 +553,7 @@ def display_home():
     graphJSON3 = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)
 
     #4 scatter plot - all theories number of constructs vs number of triples:
-    fig4 = go.Figure(data=[go.Scatter(x=df.num_of_constructs, y=df2.num_of_triples, mode = 'markers')])
+    fig4 = go.Figure(data=[go.Scatter(x=df.num_of_constructs, y=df2.num_of_triples, text='Theory: ' + df.theory_number ,mode = 'markers')])
     # fig4 = px.Figure(data=[px.Scatter(x=df2.num_of_triples, y=df.num_of_constructs, mode = 'markers',)]) #not working
     fig4.update_layout(
         title=dict(
