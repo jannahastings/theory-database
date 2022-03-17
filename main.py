@@ -201,20 +201,21 @@ def get_theory_visualisation_merged_boxes(theory_list):
                             if triple.const1.name.strip().upper() in i['Construct'] and i['type'] == "main":
                                 check_for_rel = triple.const1.name.split()
                                 if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
+                                    #todo: "style" not working for text colour below
                                     callgraph.add_node(
-                                        pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color='grey'))
+                                        pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), fontcolor='red', color='white'))
                                 else:
                                     callgraph.add_node(
-                                        pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
+                                        pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), style='color:black', color=node_colour))
                         for i in clustered_list_of_all_values[ID]["alldata"]:
                             if triple.const2.name.strip().upper() in i['Construct'] and i['type'] == "main": 
                                 check_for_rel = triple.const2.name.split()                               
                                 if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
                                     callgraph.add_node(
-                                        pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color='grey'))
+                                        pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), fontcolor='red', color='white'))
                                 else:
                                     callgraph.add_node(
-                                        pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
+                                        pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), style='color:black', color=node_colour))
                                 
                     except Exception as error:
                         pass
@@ -224,33 +225,33 @@ def get_theory_visualisation_merged_boxes(theory_list):
                 if triple.reified_rel is None:
                     check_for_rel = triple.const1.name.split()
                     if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
-                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color='grey')) #no colour means grey
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), fontcolor='red', color='white')) #no colour means grey
                     else:
-                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), style='color:black', color=node_colour))
                     check_for_rel = triple.const2.name.split()
                     if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
-                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color='grey')) #no colour means grey
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), fontcolor='red', color='white')) #no colour means grey
                     else:
-                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))   
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), style='color:black', color=node_colour))   
                     callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name), str(theory_num) + wrap_if_needed(triple.const2.name), label=triple.relStr))
                    
                 else:
                     check_for_rel = triple.const1.name.split()
                     if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
-                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color='grey')) 
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), fontcolor='red', color='white')) #no colour means grey
                     else:
-                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), style='color:black', color=node_colour))
                     check_for_rel = triple.const2.name.split()
                     if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
-                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color='grey')) 
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), fontcolor='red', color='white')) #no colour means grey
                     else:
-                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), style='color:black', color=node_colour))
 
                     check_for_rel = triple.reified_rel.name.split()
                     if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
-                        callgraph.add_node(pydot.Node(str(theory_num) + triple.reified_rel.name, label=triple.relStr)) #no colour means grey
+                        callgraph.add_node(pydot.Node(str(theory_num) + triple.reified_rel.name, label=triple.relStr, fontcolor='red')) #no colour means grey
                     else:
-                        callgraph.add_node(pydot.Node(str(theory_num) + triple.reified_rel.name, label=triple.relStr, color=node_colour))
+                        callgraph.add_node(pydot.Node(str(theory_num) + triple.reified_rel.name, label=triple.relStr, color=node_colour, fontcolor='red'))
                     callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name), str(theory_num) + triple.reified_rel.name, label=Relation.getStringForRelType(Relation.THROUGH)))
                     callgraph.add_edge(pydot.Edge(str(theory_num) + triple.reified_rel.name, str(theory_num) + wrap_if_needed(triple.const2.name), label=Relation.getStringForRelType(Relation.TO)))
 
@@ -265,14 +266,14 @@ def get_theory_visualisation_merged_boxes(theory_list):
                                     str(theory_num) + wrap_if_needed(triple.const1.name))
                                 
                                 clustered_list_of_all_values[ID]["cluster"].add_node(
-                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
+                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), style='color:black', color=node_colour))
                         for i in clustered_list_of_all_values[ID]["alldata"]:
                             if triple.const2.name.strip().upper() in i['Construct']:# and i['Label'] == triple.const2.label:
                                 complete_theory_node_name_dict[theory_num].append(
                                     str(theory_num) + wrap_if_needed(triple.const2.name))
                                 
                                 clustered_list_of_all_values[ID]["cluster"].add_node(
-                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
+                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), style='color:black', color=node_colour))
                     except Exception as error:
                         pass
                         # print(error)

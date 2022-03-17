@@ -97,6 +97,8 @@
                     // 'compound-sizing-wrt-labels': 'exclude',
                     // 'width': '200',
                     //text wrapping:
+                    // 'color':'grey', //text colour?
+                    'color': (node) => {return (node.data('color') =='white') ? 'grey' : 'black'},
                     'text-wrap': 'wrap',
                     'text-max-width':'300px',
                     // 'border-color': 'black', 
