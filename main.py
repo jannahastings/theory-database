@@ -129,7 +129,7 @@ def from_construct_mixed(const_str, current_theory_num):
                 ids_labels_links_mixed.append(ID_to_link)
                 
                 # ids_labels_links_mixed.append(sub["Ontology_ID"].strip().replace("_", ":") + " (" + sub["Label_L"].strip() + ") " or "")
-                print("adding Ontology ID? ", sub["Ontology_ID"])
+                # print("adding Ontology ID? ", sub["Ontology_ID"])
                 ids_labels_links_mixed.append(theory_display_name or "")
                 check_annotation_ids.append(sub["Ontology_ID"])
     #check for annotations in other theories
@@ -651,7 +651,7 @@ def displayTheory(theory_number=None, theory_name=None):
 
     net_image_file = url_for('static', filename=theory.number+".png")
     wc_image_file = url_for('static', filename=theory.number+"-wc.png")
-    print("THEORY_CONSTRUCTS: ", theory_constructs)
+    # print("THEORY_CONSTRUCTS: ", theory_constructs)
     return render_template('theory.html', theory=theory, net_image_file=net_image_file, wc_image_file=wc_image_file, theory_constructs=theory_constructs)
 
 
