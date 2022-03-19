@@ -68,7 +68,7 @@
         for (var i = 0; i < key.length; i++){
             $("#s-name").append("<span style='color:" + keyColours[i] + ";'>" + key[i] + "</span");                
         }
-        $("#s-name").append("<span style='color: green;'> Shared</span");
+        $("#s-name").append("<span style='color: limegreen;'> Shared</span");
         element_label_edge = true;   
         loadCy('grey');
             
@@ -319,13 +319,51 @@
 
             cy.filter(function(element, i){
                
+                //todo: delete this test array for styles [name][color] code below
+                // var styleColours = {}; 
+
                 if( element.isNode() && element.isParent()){
                     element.children().forEach(function(child){
-                        child.style('background-color', 'green');
+                        
+                        child.style('background-color', 'limegreen'); //original
+                        // child.style('background-fill', 'linear-gradient');
+                        // child.style('background-gradient-stop-colors', 'green limegreen limegreen green');
+                        // child.style('background-gradient-direction', 'to-right');
+                        ////////////////////////////// rainbow update ////////////////////////////////////
+                        // child.style('background-fill', 'linear-gradient');
+                        // child.style('background-gradient-stop-colors', 'cyan magenta yellow');
+                        // // child.style('background-gradient-stop-positions', '0% 33% 66%');
+                        // child.style('background-gradient-direction', 'to-right');
+
+                        // //
+                        // // if (element.data('name') == n){
+                        //     cl = child.data('color');
+                        //     st = element.style('background-color'); //this is white right now for all??
+                        //     nm = child.data('name');
+                        //     // console.log('got child of element with color: ' + cl + ', name: ', nm);
+                        //     if(styleColours[nm] && styleColours[nm].contains(cl)){
+                        //         styleColours[nm] = styleColours[nm] + " " + cl;
+                        //     } else{
+                        //         if(!styleColours[nm]){
+                        //             styleColours[nm] = cl;
+                        //         } else{
+                        //             //already put this colour, leave it
+                        //         }
+                                
+                        //     }
+                            
+                        // // }
+                        /////////////////////////// end rainbow update ///////////////////////////////////
+                        //
                         // child.style('shape', 'diamond');
                         // child.style('background-color', '#f0f0f0');
                         // console.log(child.data('name'));
                     });
+                    // for(var k in styleColours){
+                    //     var v = styleColours[k];
+                    //     console.log("got styleColours for " + k + ": " + v);
+                    // }
+                    
                     // element.style('line-style','dashed'); //not working at all..
                     // element.style('color', 'blue');
                     //random colour:
