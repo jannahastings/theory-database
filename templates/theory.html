@@ -125,19 +125,32 @@
   </div>
 
  <div class="tab-pane fade" id="ontology-annotations" role="tabpanel" aria-labelledby="ontology-annotations-tab">
-    <div class="container">
+     Visualisation open in new tab 
+    <!-- <iframe height="500" width="500" 
+        src="http://127.0.0.1:5000/viewAnnotations">         
+     </iframe> -->
+    <!-- <div class="container">
         <div class="row">
             <div class="col-md-12 bg-light text-center">
                 <button id="show-view-annotations" class="btn btn-outline-info" onclick="showViewAnnotations()"
                 >Visualise theory with annotations</button>
             </div>
         </div>
-    </div>
+    </div> -->
  </div>  
     {% include 'footer.html' %}
     </body>
     </html>
     <script type="text/javascript">
+        $(document).ready(function(){
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var target = $(e.target).attr("href") // activated tab
+            if(target == "#ontology-annotations"){
+                showViewAnnotations();
+            }
+            // alert(target);
+            });
+        });
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
             
