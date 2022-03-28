@@ -20,6 +20,25 @@
 
     {% include 'information.html' %}
 
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="theory-tab" data-toggle="tab" href="#theory" role="tab" aria-controls="theory" aria-selected="true">Theory</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="triples-visualisation-tab" data-toggle="tab" href="#triples-visualisation" role="tab" aria-controls="triples-visualisation" aria-selected="false">Triples Visualisation</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="ontology-annotations-tab" data-toggle="tab" href="#ontology-annotations" role="tab" aria-controls="ontology-annotations" aria-selected="false">Ontology annotations visualisation</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="obms-visualisation-tab" data-toggle="tab" href="#obms-annotations" role="tab" aria-controls="obms-visualisation" aria-selected="false">OBMS visualisation</a>
+        </li>
+      </ul>
+
+  <div class="tab-content" id="myTabContent">
+
+   <div class="tab-pane fade show active" id="theory" role="tabpanel" aria-labelledby="theory-tab">
+
     <h3>
             Theory {{theory.number}}: {{theory.name}}
     </h3>
@@ -43,14 +62,6 @@
     </p>    
     <h3> <a name="constructs">Theory constructs and annotations</a> </h3>
    
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 bg-light text-center">
-                <button id="show-view-annotations" class="btn btn-outline-info" onclick="showViewAnnotations()"
-                   >Visualise theory with annotations</button>
-            </div>
-        </div>
-    </div>
     <p>
     <ul>
     {% for item in theory_constructs %}
@@ -85,7 +96,11 @@
     {% endfor %}
     </ul>
     </p>
+  </div>
+   
+  
 
+  <div class="tab-pane fade" id="triples-visualisation" role="tabpanel" aria-labelledby="triples-visualisation-tab">
     <h3> Theory illustration </h3>
 
      <p> <img src="{{net_image_file}}"/> </p>
@@ -106,6 +121,19 @@
     {% endfor %}
 
     </ul></p>
+
+  </div>
+
+ <div class="tab-pane fade" id="ontology-annotations" role="tabpanel" aria-labelledby="ontology-annotations-tab">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 bg-light text-center">
+                <button id="show-view-annotations" class="btn btn-outline-info" onclick="showViewAnnotations()"
+                >Visualise theory with annotations</button>
+            </div>
+        </div>
+    </div>
+ </div>  
     {% include 'footer.html' %}
     </body>
     </html>
