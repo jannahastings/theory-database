@@ -651,8 +651,9 @@ def displayTheory(theory_number=None, theory_name=None):
 
     net_image_file = url_for('static', filename=theory.number+".png")
     wc_image_file = url_for('static', filename=theory.number+"-wc.png")
+    obms_image_file = url_for('static', filename="OBMS"+theory.number+".png")
     # print("THEORY_CONSTRUCTS: ", theory_constructs)
-    return render_template('theory.html', theory=theory, net_image_file=net_image_file, wc_image_file=wc_image_file, theory_constructs=theory_constructs)
+    return render_template('theory.html', theory=theory, net_image_file=net_image_file, wc_image_file=wc_image_file, theory_constructs=theory_constructs, obms_image_file=obms_image_file)
 
 
 @app.route("/searchConstruct", methods=['GET', 'POST'])
