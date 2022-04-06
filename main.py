@@ -654,7 +654,8 @@ def displayTheory(theory_number=None, theory_name=None):
     obms_image_file = url_for('static', filename="OBMS"+theory.number+".png")
     # print("THEORY_CONSTRUCTS: ", theory_constructs)
 
-    theories = theory_num #only one, todo: does this work? Also, theory_name is None..
+    #todo: re-factor below to remove unnecessary code
+    theories = theory_num #only one
     session['theories'] = theories
 
     if 'theories' in session:
@@ -673,7 +674,6 @@ def displayTheory(theory_number=None, theory_name=None):
         cyjs = util.from_networkx(g)
         nodes = cyjs['elements']
         session.pop('theories', None)
-        # return render_template('viewAnnotations.html', theories=theories, cyjs=nodes, colourKey=theory_name)
 
     return render_template('theory.html', theory=theory, net_image_file=net_image_file, wc_image_file=wc_image_file, theory_constructs=theory_constructs, obms_image_file=obms_image_file, theories=theories, cyjs=nodes, colourKey=theory_name)
 

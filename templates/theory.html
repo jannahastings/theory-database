@@ -14,11 +14,7 @@
         <script src="https://unpkg.com/cose-base/cose-base.js"></script>
         <script src="https://unpkg.com/cytoscape-fcose/cytoscape-fcose.js"></script>
 
-        <!-- <script type="text/javascript">
-            $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-            })
-        </script> -->
+        
 
         <title>Theory Database - Theory {{theory.number}}: {{theory.name}}</title>
     </head>
@@ -133,7 +129,6 @@
   </div>
 
  <div class="tab-pane fade" id="ontology-annotations" role="tabpanel" aria-labelledby="ontology-annotations-tab">
-     <!-- Visualisation open in new tab  -->
      <title> Annotations</title>
      <h1>Annotations</h1>
  
@@ -182,12 +177,9 @@
             if(target == "#ontology-annotations"){
                 element_label_edge = true;   
                 loadCy('grey');
-            //     showViewAnnotations();
             }
-            // alert(target);
             });
 
-            //todo: load below on demand? 
             element_label_edge = true;   
             loadCy('grey');
         });
@@ -239,7 +231,7 @@
                     'width': 1,
                     'line-color': '#00F',
                     'line-style': 'solid',
-                    'label':'data(label)', //todo: need to be able to update this on the fly?!   
+                    'label':'data(label)',  
                     'color': text_colour, //text colour!
                     'target-arrow-color': '#00F',
                     'target-arrow-shape': 'triangle',
@@ -373,26 +365,7 @@
             }
         }
 
-        //todo: delete below 
-        function showViewAnnotations() {
-                var selected = [];
-                selected.push({{theory.number}});
-                //send selected theories to server with formdata
-                window.open('', 'VisualisationWindow');
-                var form = document.createElement("form");
-                form.setAttribute("method", "post");
-                form.setAttribute("action", "{{url_for('show_view_annotations')}}");
-                form.setAttribute("target", 'VisualisationWindow');
-                var input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = "theories";
-                input.value = JSON.stringify(selected);
-                form.appendChild(input);
-                document.body.appendChild(form);
-                form.submit();
-                document.body.removeChild(form);
-                cleanup();
-            }
+        
         </script>
 
 
