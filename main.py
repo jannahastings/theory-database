@@ -653,7 +653,29 @@ def displayTheory(theory_number=None, theory_name=None):
     wc_image_file = url_for('static', filename=theory.number+"-wc.png")
     obms_image_file = url_for('static', filename="OBMS"+theory.number+".png")
     # print("THEORY_CONSTRUCTS: ", theory_constructs)
-    return render_template('theory.html', theory=theory, net_image_file=net_image_file, wc_image_file=wc_image_file, theory_constructs=theory_constructs, obms_image_file=obms_image_file)
+
+    theories = theory_num #only one, todo: does this work? Also, theory_name is None..
+    session['theories'] = theories
+
+    if 'theories' in session:
+        theories = session['theories']
+        theories = theories.replace("\"", "")
+        theories = theories.replace("[", "").replace("]", "")
+        theory_list = theories.split(",")
+        #get theory name:
+        theory_num = theory_list[0]
+        # print("theory_num: ", theory_num)
+        theory = TheoryDatabase.theories[theory_num]    
+        theory_name = theory.name       
+        
+        result = get_annotations_for_graph(theory_list)
+        g = nx.drawing.nx_pydot.from_pydot(result)
+        cyjs = util.from_networkx(g)
+        nodes = cyjs['elements']
+        session.pop('theories', None)
+        # return render_template('viewAnnotations.html', theories=theories, cyjs=nodes, colourKey=theory_name)
+
+    return render_template('theory.html', theory=theory, net_image_file=net_image_file, wc_image_file=wc_image_file, theory_constructs=theory_constructs, obms_image_file=obms_image_file, theories=theories, cyjs=nodes, colourKey=theory_name)
 
 
 @app.route("/searchConstruct", methods=['GET', 'POST'])

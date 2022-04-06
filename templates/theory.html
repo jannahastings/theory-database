@@ -6,6 +6,14 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
+        <!-- using modified version of cytoscape locally here: -->
+        <script src="{{url_for('static', filename='cytoscape.min.js')}}"></script> 
+        
+        <!-- fcose layout: -->
+        <script src="https://unpkg.com/layout-base/layout-base.js"></script>
+        <script src="https://unpkg.com/cose-base/cose-base.js"></script>
+        <script src="https://unpkg.com/cytoscape-fcose/cytoscape-fcose.js"></script>
+
         <!-- <script type="text/javascript">
             $(function () {
             $('[data-toggle="tooltip"]').tooltip()
@@ -126,17 +134,31 @@
 
  <div class="tab-pane fade" id="ontology-annotations" role="tabpanel" aria-labelledby="ontology-annotations-tab">
      Visualisation open in new tab 
-    <!-- <iframe height="500" width="500" 
-        src="http://127.0.0.1:5000/viewAnnotations">         
-     </iframe> -->
-    <!-- <div class="container">
-        <div class="row">
-            <div class="col-md-12 bg-light text-center">
-                <button id="show-view-annotations" class="btn btn-outline-info" onclick="showViewAnnotations()"
-                >Visualise theory with annotations</button>
-            </div>
-        </div>
-    </div> -->
+     <title> Annotations</title>
+     <h1>Annotations</h1>
+ 
+     <img src="{{url_for('static', filename='legend.png')}}" width="200px", height="auto" style="float:right"></img>
+ 
+ 
+ <div style="margin:2em;padding:10px">
+     <h4>Theory: {{theories|safe}}. {{colourKey|safe}}</h4>
+     <div id="button-div">
+         <button id="toggle-labels" type="button" class="btn btn-outline-secondary" onclick="element_label_edge = !element_label_edge; console.log(element_label_edge); changeCy();" value="Toggle edge labels">Toggle edge labels</button>
+     </div>
+ 
+ 
+     <div id="cy"></div>
+ </div>
+ 
+ <style>
+     #cy {
+         width: 100%;
+         height: 100%;
+         position: relative;
+         top: 0px;
+         left: 0px;
+     }
+ </style>
  </div>  
 
  <div class="tab-pane fade" id="obms-visualisation" role="tabpanel" aria-labelledby="obms-visualisation-tab">
@@ -147,23 +169,211 @@
      
   </div>
 
-    {% include 'footer.html' %}
+    
     </body>
+    <div>
+        {% include 'footer.html' %}
+    </div>
     </html>
     <script type="text/javascript">
         $(document).ready(function(){
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             var target = $(e.target).attr("href") // activated tab
             if(target == "#ontology-annotations"){
-                showViewAnnotations();
+                element_label_edge = true;   
+                loadCy('grey');
+            //     showViewAnnotations();
             }
             // alert(target);
             });
+
+            //todo: load below on demand? 
+            element_label_edge = true;   
+            loadCy('grey');
         });
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
             
         })
+
+        function loadCy(text_colour){
+        
+       
+        cyto = {{cyjs | tojson | safe}};
+        var newheight = 500;
+        var newwidth = 500;
+        var cy = cytoscape({
+    
+        container: document.getElementById('cy'), // container to render in
+    
+        elements: cyto,
+    
+    
+        style: [ // the stylesheet for the graph
+            {
+                selector: 'node',
+                style: {
+                    //width and height 'label' deprecated. see https://stackoverflow.com/questions/68399821/cytoscape-js-warning-the-style-value-of-label-is-deprecated-for-width-whe
+                    'width': 'label',
+                    'height': 'label',
+                    'padding': '20px',
+                    'shape': 'round-rectangle',
+                    'border-width':'1px',
+                    'border-style':'solid',
+                    'border-color':'black',
+                    
+                    'background-color': 'data(color)',
+                    'label': 'data(label)',
+                    //text wrapping:
+                    'text-wrap': 'wrap', 
+                    'text-max-width':'200px',
+                    //label inside node:
+                    'text-halign': 'center',
+                    'text-valign': 'center',
+                }
+            },
+    
+            {
+                selector: 'edge',
+                style: {
+                    'width': 1,
+                    'line-color': '#00F',
+                    'line-style': 'solid',
+                    'label':'data(label)', //todo: need to be able to update this on the fly?!   
+                    'color': text_colour, //text colour!
+                    'target-arrow-color': '#00F',
+                    'target-arrow-shape': 'triangle',
+                    'curve-style': 'bezier',
+                    
+                }
+            },
+            
+            {
+                selector: 'node[background_color]',
+                style: {
+    
+                    'background-color': 'white',
+                    'shape': 'round-rectangle',
+                    'padding': '20px',
+                }
+            },
+            
+        ],
+    
+        layout: {              
+            name: 'fcose',
+            // 'draft', 'default' or 'proof' 
+            // - "draft" only applies spectral layout 
+            // - "default" improves the quality with incremental layout (fast cooling rate)
+            // - "proof" improves the quality with incremental layout (slow cooling rate) 
+            quality: "proof",
+            // Use random node positions at beginning of layout
+            // if this is set to false, then quality option must be "proof"
+            randomize: false, 
+            // Whether or not to animate the layout
+            animate: false, 
+            // Duration of animation in ms, if enabled
+            // animationDuration: 1000, 
+            // Easing of animation, if enabled
+            // animationEasing: undefined, 
+            // Fit the viewport to the repositioned nodes
+            fit: true, 
+            // Padding around layout
+            padding: 30,
+            // Whether to include labels in node dimensions. Valid in "proof" quality
+            nodeDimensionsIncludeLabels: true,
+            // Whether or not simple nodes (non-compound nodes) are of uniform dimensions
+            uniformNodeDimensions: false,
+            // Whether to pack disconnected components - cytoscape-layout-utilities extension should be registered and initialized
+            packComponents: true,
+            // Layout step - all, transformed, enforced, cose - for debug purpose only
+            step: "all",
+            
+            /* spectral layout options */
+            
+            // False for random, true for greedy sampling
+            samplingType: true,
+            // Sample size to construct distance matrix
+            sampleSize: 25,
+            // Separation amount between nodes
+            nodeSeparation: 75,
+            // Power iteration tolerance
+            piTol: 0.0000001,
+            
+            /* incremental layout options */
+            
+            // Node repulsion (non overlapping) multiplier
+            nodeRepulsion: node => 65000,
+            // Ideal edge (non nested) length
+            idealEdgeLength: edge => 50,
+            // Divisor to compute edge forces
+            edgeElasticity: edge => 0.15,
+            // Nesting factor (multiplier) to compute ideal edge length for nested edges
+            nestingFactor: 0.6,
+            // Maximum number of iterations to perform - this is a suggested value and might be adjusted by the algorithm as required
+            numIter: 2500,
+            // For enabling tiling
+            tile: true,  
+            // Represents the amount of the vertical space to put between the zero degree members during the tiling operation(can also be a function)
+            tilingPaddingVertical: 20,
+            // Represents the amount of the horizontal space to put between the zero degree members during the tiling operation(can also be a function)
+            tilingPaddingHorizontal: 20,
+            // Gravity force (constant)
+            gravity: 0.25,
+            // Gravity range (constant) for compounds
+            gravityRangeCompound: 1.5,
+            // Gravity force (constant) for compounds
+            gravityCompound: 1.0,
+            // Gravity range (constant)
+            gravityRange: 3.8, 
+            // Initial cooling factor for incremental layout  
+            initialEnergyOnIncremental: 0.3,
+    
+            /* constraint options */  
+    
+            // Fix desired nodes to predefined positions
+            // [{nodeId: 'n1', position: {x: 100, y: 200}}, {...}]
+            fixedNodeConstraint: undefined,
+            // Align desired nodes in vertical/horizontal direction
+            // {vertical: [['n1', 'n2'], [...]], horizontal: [['n2', 'n4'], [...]]}
+            alignmentConstraint: undefined,
+            // Place two nodes relatively in vertical/horizontal direction
+            // [{top: 'n1', bottom: 'n2', gap: 100}, {left: 'n3', right: 'n4', gap: 75}, {...}]
+            relativePlacementConstraint: undefined,
+    
+            /* layout event callbacks */
+            ready: () => {}, // on layoutready
+            stop: () => {} // on layoutstop
+        }
+    
+        });
+    
+            cy.filter(function(element, i){
+                if( element.isEdge() ){
+                    
+                    if( element.style('label') == ""){
+                        element.style('line-style','dotted');
+                        element.style('line-color', '#000');
+                        element.style('target-arrow-color', '#000');
+                        element.style('curve-style','straight');
+                    } 
+                               
+                }
+                if( element.isNode() ){
+                    
+                }
+            });
+    };
+    
+        function changeCy(){
+            if(element_label_edge == false){
+                loadCy('white');
+            } else{
+                loadCy('grey');
+            }
+        }
+
+        //todo: delete below 
         function showViewAnnotations() {
                 var selected = [];
                 selected.push({{theory.number}});
