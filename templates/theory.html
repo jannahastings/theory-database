@@ -24,12 +24,33 @@
 
     {% include 'information.html' %}
 
+    <h3>
+        Theory {{theory.number}}: {{theory.name}}
+</h3>
+
+
+<p class="text-center">
+    <img src="{{wc_image_file}}"/> <br/>
+    Number of Constructs: {{theory.getNumConstructs()}} <br/>
+    Number of Triples: {{theory.getNumTriples()}}
+</p>
+
+ <h3> Theory triples </h3>
+ <p>
+ <ul>
+
+{% for item in theory.triples %}
+    <li>{% if item.const1.definition %}<a href="#" data-toggle="tooltip" title="{{item.const1.definition}}" >{{item.const1.name}}</a>{% else %} {{item.const1.name}} {% endif %} <i>{{item.relStr.lower()}}</i> {% if item.const2.definition %}<a href="#" data-toggle="tooltip" title="{{item.const2.definition}}" >{{item.const2.name}}</a>{% else %}{{item.const2.name}}{% endif %}</li>
+{% endfor %}
+
+</ul>
+</p>   
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" id="theory-tab" data-toggle="tab" href="#theory" role="tab" aria-controls="theory" aria-selected="true">Theory</a>
+          <a class="nav-link active" id="theory-tab" data-toggle="tab" href="#theory" role="tab" aria-controls="theory" aria-selected="true">Constructs and annotations</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="triples-visualisation-tab" data-toggle="tab" href="#triples-visualisation" role="tab" aria-controls="triples-visualisation" aria-selected="false">Triples Visualisation</a>
+          <a class="nav-link" id="triples-visualisation-tab" data-toggle="tab" href="#triples-visualisation" role="tab" aria-controls="triples-visualisation" aria-selected="false">Triples visualisation</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="ontology-annotations-tab" data-toggle="tab" href="#ontology-annotations" role="tab" aria-controls="ontology-annotations" aria-selected="false">Ontology annotations visualisation</a>
@@ -43,27 +64,7 @@
 
    <div class="tab-pane fade show active" id="theory" role="tabpanel" aria-labelledby="theory-tab">
 
-    <h3>
-            Theory {{theory.number}}: {{theory.name}}
-    </h3>
-
-
-    <p class="text-center">
-        <img src="{{wc_image_file}}"/> <br/>
-        Number of Constructs: {{theory.getNumConstructs()}} <br/>
-        Number of Triples: {{theory.getNumTriples()}}
-    </p>
-
-     <h3> Theory triples </h3>
-     <p>
-     <ul>
-
-    {% for item in theory.triples %}
-        <li>{% if item.const1.definition %}<a href="#" data-toggle="tooltip" title="{{item.const1.definition}}" >{{item.const1.name}}</a>{% else %} {{item.const1.name}} {% endif %} <i>{{item.relStr.lower()}}</i> {% if item.const2.definition %}<a href="#" data-toggle="tooltip" title="{{item.const2.definition}}" >{{item.const2.name}}</a>{% else %}{{item.const2.name}}{% endif %}</li>
-    {% endfor %}
-
-    </ul>
-    </p>    
+      
     <h3> <a name="constructs">Theory constructs and annotations</a> </h3>
    
     <p>
@@ -111,20 +112,7 @@
 
      <p> </p>
 
-     {% if theory.getCountReferences() == 1 %}
-     <h3> Theory Reference </h3>
-     {% else %}
-     <h3> Theory References </h3>
-     {% endif %}
-     <p><ul>
-    {% for item in theory.taken_from %}
-        <li>{{item}}</li>
-    {% endfor %}
-    {% for item in theory.supplemented_by %}
-        <li>{{item}}</li>
-    {% endfor %}
-
-    </ul></p>
+     
 
   </div>
 
@@ -164,6 +152,22 @@
      
   </div>
 
+  <div>
+    {% if theory.getCountReferences() == 1 %}
+    <h3> Theory Reference </h3>
+    {% else %}
+    <h3> Theory References </h3>
+    {% endif %}
+    <p><ul>
+   {% for item in theory.taken_from %}
+       <li>{{item}}</li>
+   {% endfor %}
+   {% for item in theory.supplemented_by %}
+       <li>{{item}}</li>
+   {% endfor %}
+
+   </ul></p>
+  </div>
     
     </body>
     <div>
