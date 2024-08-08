@@ -10,6 +10,8 @@ from TheoryDatabase import Theory, theories, Relation
 import matplotlib.pyplot as plt
 #% matplotlib inline
 
+TheoryDatabase.setup()
+
 for theory in theories.values():
     # Create and generate a word cloud image:
     wordcloud = WordCloud(background_color="white").generate(" ".join([c.name.replace("'","") for c in theory.constructs.values()]))

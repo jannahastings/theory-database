@@ -1,6 +1,20 @@
 Flask==1.1.1
+  Jinja2==2.10.1
+    MarkupSafe==0.23
+  itsdangerous==0.24
+  Werkzeug==0.16
+
+  click==5.1
+
 pandas
 whoosh
 ontoutils
 gunicorn
 plotly
+networkx==2.2
+    numpy==1.21
+
+
+pydot
+matplotlib
+py2cytoscape

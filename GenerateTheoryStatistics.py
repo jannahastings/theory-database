@@ -10,6 +10,8 @@ import networkx as nx
 import TheoryDatabase
 from TheoryDatabase import Theory, theories, Relation
 
+TheoryDatabase.setup()
+
 theory_names = sorted(theories.keys())
 
 # Average, min and max number of constucts per theory

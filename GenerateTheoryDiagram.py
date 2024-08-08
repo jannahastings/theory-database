@@ -12,6 +12,8 @@ def wrap_if_needed(string_val):
         return( f'"{string_val}"')
     return(string_val)
 
+TheoryDatabase.setup()
+
 for theory_num in theories.keys():
     theory = theories[theory_num]
     G=nx.DiGraph()
