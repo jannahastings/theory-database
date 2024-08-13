@@ -18,3 +18,7 @@ networkx==2.2
 pydot
 matplotlib
 py2cytoscape
+seaborn
+nltk
+scipy
+wordcloud
