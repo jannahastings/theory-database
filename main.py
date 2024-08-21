@@ -50,7 +50,7 @@ class FlaskApp(Flask):
         self._activate_background_job()
 
     def _activate_background_job(self):
-        #index_dir = url_for('static', filename="index_dir")
+        # index_dir = url_for('static', filename="index_dir")
 
         TheoryDatabase.setup()
 
@@ -66,36 +66,37 @@ combined_data_path = os.path.join(os.path.dirname(__file__), data_path)
 
 combined_data = parseConstructs(combined_data_path)
 
+
 def wrap_if_needed(string_val):
     if ":" in string_val:
-        return(f'"{string_val}"')
-    return(string_val)
+        return (f'"{string_val}"')
+    return (string_val)
+
 
 def get_theory_consistency_stats(theory_list):
     # print("theory_list is: ", theory_list)
     # print("using combined_data: ", combined_data)
     clustered_list_of_all_values = {}
     all_ids_base = []
-    all_ids_base_lens =  [[] for i in range(len(theory_list))]
+    all_ids_base_lens = [[] for i in range(len(theory_list))]
     x_base = 0
     old_sub = 1
     for sub in combined_data:
         # print(sub["Theory_ID"])
-        if str(sub["Theory_ID"]) in theory_list: 
+        if str(sub["Theory_ID"]) in theory_list:
             if sub["Theory_ID"] > old_sub:
                 old_sub = sub["Theory_ID"]
                 x_base = x_base + 1
             # print("got sub: ", sub["Theory_ID"])
             num = int(sub["Theory_ID"])
-            #num - 1 below incorrect
+            # num - 1 below incorrect
             all_ids_base_lens[x_base].append(sub["Ontology_ID"].strip())
-            all_ids_base.append(sub["Ontology_ID"].strip()) 
-        # x_base += 1
+            all_ids_base.append(sub["Ontology_ID"].strip())
+            # x_base += 1
         # print("x_base: ", x_base)   
     # print("all_ids_base_lens: ", all_ids_base_lens)
     all_ids_base_nums = [len(x) for x in all_ids_base_lens]
     return all_ids_base_nums
-    
 
 
 def get_theory_num_from_construct(const_str):
@@ -105,16 +106,18 @@ def get_theory_num_from_construct(const_str):
             theory = str(sub["Theory_ID"])
     return theory
 
-def get_ID_from_construct(const_str): 
+
+def get_ID_from_construct(const_str):
     ID = ""
     for sub in combined_data:
         if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
             ID = str(sub["Ontology_ID"])
     return ID
 
-def from_construct_mixed(const_str, current_theory_num):    
-    ids_labels_links_mixed = []  
-    theory_num = current_theory_num    
+
+def from_construct_mixed(const_str, current_theory_num):
+    ids_labels_links_mixed = []
+    theory_num = current_theory_num
     check_annotation_ids = []
     for sub in combined_data:
         if str(sub["Construct"]).strip().upper() == str(const_str).strip().upper():
@@ -124,20 +127,20 @@ def from_construct_mixed(const_str, current_theory_num):
                     theory_display_name = " " + str(theory_display_name[2])
                 except:
                     pass
-                ids_labels_links_mixed.append(sub["Ontology_ID"].strip().replace("_", ":") + " (" + sub["Label_L"].strip() + ") " or "")
+                ids_labels_links_mixed.append(
+                    sub["Ontology_ID"].strip().replace("_", ":") + " (" + sub["Label_L"].strip() + ") " or "")
                 ids_labels_links_mixed.append(theory_display_name or "")
                 check_annotation_ids.append(sub["Ontology_ID"])
-    #check for annotations in other theories
+    # check for annotations in other theories
     for sub in combined_data:
         if str(sub["Theory_ID"]) != str(current_theory_num):
             for annotation_id in list(set(check_annotation_ids)):
                 if str(sub["Ontology_ID"]) == str(annotation_id):
-                    #check for duplicates here: 
-                    if(str(sub["Theory_ID"]) not in ids_labels_links_mixed):
+                    # check for duplicates here:
+                    if (str(sub["Theory_ID"]) not in ids_labels_links_mixed):
                         ids_labels_links_mixed.append(str(sub["Theory_ID"]))
-        
-    return ids_labels_links_mixed
 
+    return ids_labels_links_mixed
 
 
 def get_theory_visualisation_merged_boxes(theory_list):
@@ -150,7 +153,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
     # lots of attributes for pydot here: https://github.com/pydot/pydot/blob/90936e75462c7b0e4bb16d97c1ae7efdf04e895c/src/pydot/core.py
     callgraph = pydot.Dot(graph_type='digraph',
                           fontname="Verdana", fontcolor="green", fontsize="12")
-    
+
     for s in unique_ids_base:
         for d in combined_data:
             if str(d["Theory_ID"]) in theory_list:
@@ -158,23 +161,24 @@ def get_theory_visualisation_merged_boxes(theory_list):
                     fixed_id = d["Ontology_ID"].replace("_", ":")
                     # spacing is important!
                     s_label = "         " + d["Label"] + \
-                        " (" + fixed_id + ")" + "         "
-     
+                              " (" + fixed_id + ")" + "         "
+
                     if s in clustered_list_of_all_values.keys():
                         clustered_list_of_all_values[s]["alldata"].append(d)
                     else:
                         clustered_list_of_all_values[s] = {}
                         clustered_list_of_all_values[s]["alldata"] = []
                         clustered_list_of_all_values[s]["alldata"].append(d)
-                    
+
         try:
             clustered_list_of_all_values[s]["cluster"] = pydot.Cluster(
-                s.upper(), label=s_label, color='green', fillcolor='green') # not actually green but doesn't work well if not defined..
+                s.upper(), label=s_label, color='green',
+                fillcolor='green')  # not actually green but doesn't work well if not defined..
         except:
             pass
 
     complete_theory_node_name_dict = {}
-    colour_list = ["orange", "cyan", "green","yellow", "red", "purple"]  
+    colour_list = ["orange", "cyan", "green", "yellow", "red", "purple"]
     k = 0
     theory_name_colour_dict = {}
     for theory_num in theories.keys():
@@ -182,7 +186,7 @@ def get_theory_visualisation_merged_boxes(theory_list):
             theory_name_colour_dict[theories[theory_num].name] = colour_list[k]
             # generate colour according to theory_num here
             node_colour = colour_list[k]
-            k = k+1
+            k = k + 1
             complete_theory_node_name_dict[theory_num] = []
             theory = theories[theory_num]
 
@@ -194,22 +198,28 @@ def get_theory_visualisation_merged_boxes(theory_list):
                         for i in clustered_list_of_all_values[ID]["alldata"]:
                             if triple.const1.name.strip().upper() in i['Construct'] and i['type'] == "main":
                                 check_for_rel = triple.const1.name.split()
-                                if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
+                                if str(check_for_rel[0]).lower() == "the" and str(
+                                        check_for_rel[-1]).lower() == "relationship":
                                     callgraph.add_node(
-                                        pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name)))
+                                        pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name),
+                                                   label=wrap_if_needed(triple.const1.name)))
                                 else:
                                     callgraph.add_node(
-                                        pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
+                                        pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name),
+                                                   label=wrap_if_needed(triple.const1.name), color=node_colour))
                         for i in clustered_list_of_all_values[ID]["alldata"]:
-                            if triple.const2.name.strip().upper() in i['Construct'] and i['type'] == "main": 
-                                check_for_rel = triple.const2.name.split()                               
-                                if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
+                            if triple.const2.name.strip().upper() in i['Construct'] and i['type'] == "main":
+                                check_for_rel = triple.const2.name.split()
+                                if str(check_for_rel[0]).lower() == "the" and str(
+                                        check_for_rel[-1]).lower() == "relationship":
                                     callgraph.add_node(
-                                        pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name)))
+                                        pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name),
+                                                   label=wrap_if_needed(triple.const2.name)))
                                 else:
                                     callgraph.add_node(
-                                        pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
-                                
+                                        pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name),
+                                                   label=wrap_if_needed(triple.const2.name), color=node_colour))
+
                     except Exception as error:
                         pass
                         # print(error)
@@ -218,35 +228,51 @@ def get_theory_visualisation_merged_boxes(theory_list):
                 if triple.reified_rel is None:
                     check_for_rel = triple.const1.name.split()
                     if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
-                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name))) #no colour means grey
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name),
+                                                      label=wrap_if_needed(triple.const1.name)))  # no colour means grey
                     else:
-                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name),
+                                                      label=wrap_if_needed(triple.const1.name), color=node_colour))
                     check_for_rel = triple.const2.name.split()
                     if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
-                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name))) #no colour means grey
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name),
+                                                      label=wrap_if_needed(triple.const2.name)))  # no colour means grey
                     else:
-                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))   
-                    callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name), str(theory_num) + wrap_if_needed(triple.const2.name), label=triple.relStr))
-                   
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name),
+                                                      label=wrap_if_needed(triple.const2.name), color=node_colour))
+                    callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name),
+                                                  str(theory_num) + wrap_if_needed(triple.const2.name),
+                                                  label=triple.relStr))
+
                 else:
                     check_for_rel = triple.const1.name.split()
                     if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
-                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name))) #no colour means grey
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name),
+                                                      label=wrap_if_needed(triple.const1.name)))  # no colour means grey
                     else:
-                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name),
+                                                      label=wrap_if_needed(triple.const1.name), color=node_colour))
                     check_for_rel = triple.const2.name.split()
                     if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
-                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name))) #no colour means grey
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name),
+                                                      label=wrap_if_needed(triple.const2.name)))  # no colour means grey
                     else:
-                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
+                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name),
+                                                      label=wrap_if_needed(triple.const2.name), color=node_colour))
 
                     check_for_rel = triple.reified_rel.name.split()
                     if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
-                        callgraph.add_node(pydot.Node(str(theory_num) + triple.reified_rel.name, label=triple.relStr)) #no colour means grey
+                        callgraph.add_node(pydot.Node(str(theory_num) + triple.reified_rel.name,
+                                                      label=triple.relStr))  # no colour means grey
                     else:
-                        callgraph.add_node(pydot.Node(str(theory_num) + triple.reified_rel.name, label=triple.relStr, color=node_colour))
-                    callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name), str(theory_num) + triple.reified_rel.name, label=Relation.getStringForRelType(Relation.THROUGH)))
-                    callgraph.add_edge(pydot.Edge(str(theory_num) + triple.reified_rel.name, str(theory_num) + wrap_if_needed(triple.const2.name), label=Relation.getStringForRelType(Relation.TO)))
+                        callgraph.add_node(pydot.Node(str(theory_num) + triple.reified_rel.name, label=triple.relStr,
+                                                      color=node_colour))
+                    callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name),
+                                                  str(theory_num) + triple.reified_rel.name,
+                                                  label=Relation.getStringForRelType(Relation.THROUGH)))
+                    callgraph.add_edge(pydot.Edge(str(theory_num) + triple.reified_rel.name,
+                                                  str(theory_num) + wrap_if_needed(triple.const2.name),
+                                                  label=Relation.getStringForRelType(Relation.TO)))
 
             for triple in theory.triples:
                 # add cluster nodes:
@@ -254,46 +280,49 @@ def get_theory_visualisation_merged_boxes(theory_list):
                     # check in alldata:
                     try:
                         for i in clustered_list_of_all_values[ID]["alldata"]:
-                            if triple.const1.name.strip().upper() in i['Construct']: # and i['Label'] == triple.const1.label:
+                            if triple.const1.name.strip().upper() in i[
+                                'Construct']:  # and i['Label'] == triple.const1.label:
                                 complete_theory_node_name_dict[theory_num].append(
                                     str(theory_num) + wrap_if_needed(triple.const1.name))
-                                
+
                                 clustered_list_of_all_values[ID]["cluster"].add_node(
-                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
+                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name),
+                                               label=wrap_if_needed(triple.const1.name), color=node_colour))
                         for i in clustered_list_of_all_values[ID]["alldata"]:
-                            if triple.const2.name.strip().upper() in i['Construct']:# and i['Label'] == triple.const2.label:
+                            if triple.const2.name.strip().upper() in i[
+                                'Construct']:  # and i['Label'] == triple.const2.label:
                                 complete_theory_node_name_dict[theory_num].append(
                                     str(theory_num) + wrap_if_needed(triple.const2.name))
-                                
+
                                 clustered_list_of_all_values[ID]["cluster"].add_node(
-                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
+                                    pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name),
+                                               label=wrap_if_needed(triple.const2.name), color=node_colour))
                     except Exception as error:
                         pass
                         # print(error)
                 # add normal graph nodes and edges:
 
-                
-    # add all subgraphs: 
+    # add all subgraphs:
     for ID in unique_ids_base:
         try:
             multi_theory = False
-            all_data_in_cluster = clustered_list_of_all_values[ID]['alldata']            
+            all_data_in_cluster = clustered_list_of_all_values[ID]['alldata']
             thelist = [thelist['Theory_ID'] for thelist in all_data_in_cluster if 'Theory_ID' in thelist]
             theset = set(thelist)
             sub = clustered_list_of_all_values[ID]["cluster"]
-            if(len(theset) > 1):
+            if (len(theset) > 1):
                 multi_theory = True
-            snodes_list = sub.get_nodes()            
+            snodes_list = sub.get_nodes()
             snode_names_list = []
             for snode in snodes_list:
                 snode_names_list.append(snode.get_name().replace("\"", ""))
             snode_names_list = list(set(snode_names_list))
             # print(snode_names_list)
             if len(snode_names_list) > 1:  # only for clusters with more than one node
-                #checking theories
+                # checking theories
                 # check for cross-theory boxes here because I can't go back
                 some = False  # going to be true if we find name in any theory                
-                more = False # going to be true if name in more than one theory.
+                more = False  # going to be true if name in more than one theory.
                 for name in snode_names_list:
                     # per theory check - don't add if nodes not present across theories 
                     for listA in complete_theory_node_name_dict:
@@ -301,75 +330,97 @@ def get_theory_visualisation_merged_boxes(theory_list):
                         oldTheory = None
                         if name in list(set(complete_theory_node_name_dict[listA])):
                             if some == True:  # already found this name before, so:
-                                more = True                                
-                            # some=True                            
+                                more = True
+                                # some=True
                             for data_containing_theory in clustered_list_of_all_values[ID]['alldata']:
                                 currentTheory = data_containing_theory['Theory_ID']
                                 if currentTheory != oldTheory and oldTheory != None:
                                     some = True
-                                oldTheory = currentTheory                           
-        
+                                oldTheory = currentTheory
+
                 if more and multi_theory:
-                    callgraph.add_subgraph(sub) 
-    
+                    callgraph.add_subgraph(sub)
+
         except KeyError:
             pass
-            
-    callgraph.set_graph_defaults(compound='True')   
+
+    callgraph.set_graph_defaults(compound='True')
     return callgraph, theory_name_colour_dict
-    
+
+
 def get_annotations_for_graph(theory_list):
     # lots of attributes for pydot here: https://github.com/pydot/pydot/blob/90936e75462c7b0e4bb16d97c1ae7efdf04e895c/src/pydot/core.py
-    callgraph = pydot.Dot(graph_type='digraph', fontname="Verdana", fontcolor="green", fontsize="12")    
-    
+    callgraph = pydot.Dot(graph_type='digraph', fontname="Verdana", fontcolor="green", fontsize="12")
+
     for theory_num in theories.keys():
-        if theory_num in theory_list:            
+        if theory_num in theory_list:
             node_colour = "orange"
-            theory = theories[theory_num]                   
+            theory = theories[theory_num]
 
             for triple in theory.triples:
                 if triple.reified_rel is None:
                     for ann_list in list(set(theory.constructs.values())):
                         for ann in list(set(ann_list.annotations)):
-                            if ann.label == ann.label: #check for nan values
+                            if ann.label == ann.label:  # check for nan values
                                 if ann.id.strip().upper() == triple.const1.name.strip().upper():
                                     if ann.label.strip().upper() != ann_list.name.strip().upper():
-                                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label), label = wrap_if_needed(ann.label), background_color="blue"))
-                                        callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(ann.label), str(theory_num) + wrap_if_needed(triple.const1.name), label=""))
+                                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label),
+                                                                      label=wrap_if_needed(ann.label),
+                                                                      background_color="blue"))
+                                        callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(ann.label),
+                                                                      str(theory_num) + wrap_if_needed(
+                                                                          triple.const1.name), label=""))
                                 if ann.id.strip().upper() == triple.const2.name.strip().upper():
                                     if ann.label.strip().upper() != ann_list.name.strip().upper():
-                                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label), label = wrap_if_needed(ann.label), background_color="blue"))
-                                        callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(ann.label), str(theory_num) + wrap_if_needed(triple.const2.name), label=""))
-                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
-                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label = wrap_if_needed(triple.const2.name), color=node_colour))
-                    callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name), str(theory_num) + wrap_if_needed(triple.const2.name), label=triple.relStr))
+                                        callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(ann.label),
+                                                                      label=wrap_if_needed(ann.label),
+                                                                      background_color="blue"))
+                                        callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(ann.label),
+                                                                      str(theory_num) + wrap_if_needed(
+                                                                          triple.const2.name), label=""))
+                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name),
+                                                  label=wrap_if_needed(triple.const1.name), color=node_colour))
+                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name),
+                                                  label=wrap_if_needed(triple.const2.name), color=node_colour))
+                    callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name),
+                                                  str(theory_num) + wrap_if_needed(triple.const2.name),
+                                                  label=triple.relStr))
                 else:
-                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name), label = wrap_if_needed(triple.const1.name), color=node_colour))
-                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name), label =  wrap_if_needed(triple.const2.name), color=node_colour))
-                    callgraph.add_node(pydot.Node(str(theory_num) + triple.reified_rel.name, label=triple.relStr, color=node_colour))
-                    callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name), str(theory_num) + triple.reified_rel.name, label=Relation.getStringForRelType(Relation.THROUGH)))
-                    callgraph.add_edge(pydot.Edge(str(theory_num) + triple.reified_rel.name, str(theory_num) + wrap_if_needed(triple.const2.name), label=Relation.getStringForRelType(Relation.TO)))
+                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const1.name),
+                                                  label=wrap_if_needed(triple.const1.name), color=node_colour))
+                    callgraph.add_node(pydot.Node(str(theory_num) + wrap_if_needed(triple.const2.name),
+                                                  label=wrap_if_needed(triple.const2.name), color=node_colour))
+                    callgraph.add_node(
+                        pydot.Node(str(theory_num) + triple.reified_rel.name, label=triple.relStr, color=node_colour))
+                    callgraph.add_edge(pydot.Edge(str(theory_num) + wrap_if_needed(triple.const1.name),
+                                                  str(theory_num) + triple.reified_rel.name,
+                                                  label=Relation.getStringForRelType(Relation.THROUGH)))
+                    callgraph.add_edge(pydot.Edge(str(theory_num) + triple.reified_rel.name,
+                                                  str(theory_num) + wrap_if_needed(triple.const2.name),
+                                                  label=Relation.getStringForRelType(Relation.TO)))
 
-    callgraph.set_graph_defaults(compound='True')  
+    callgraph.set_graph_defaults(compound='True')
     return callgraph
+
 
 @app.route('/')
 def display_home():
     num_theories = len(TheoryDatabase.theories)
     num_triples = sum([len(t.triples)
-                      for t in TheoryDatabase.theories.values()])
+                       for t in TheoryDatabase.theories.values()])
     num_constructs = len(set([c for t in TheoryDatabase.theories.values()
-                         for c in t.constructs_by_name.keys()]))
+                              for c in t.constructs_by_name.keys()]))
 
-    #1 Number of constructs per theory - bar plot
-    constructs_per_theory = {key:0 for key in TheoryDatabase.theories.keys()}
+    # 1 Number of constructs per theory - bar plot
+    constructs_per_theory = {key: 0 for key in TheoryDatabase.theories.keys()}
     for t in TheoryDatabase.theories:
         constructs_per_theory[TheoryDatabase.theories[t].number] = (len(TheoryDatabase.theories[t].constructs_by_name))
-    
-    df = pd.DataFrame({"theory_number": constructs_per_theory.keys(), "num_of_constructs": constructs_per_theory.values()})
-    df["theory_number"] = df["theory_number"].astype(str).astype(int) #convert to str for sort
+
+    df = pd.DataFrame(
+        {"theory_number": constructs_per_theory.keys(), "num_of_constructs": constructs_per_theory.values()})
+    df["theory_number"] = df["theory_number"].astype(str).astype(int)  # convert to str for sort
     df = df.sort_values(by=['theory_number'])
-    df["theory_number"] = df["theory_number"].astype(int).astype(str) # convert back for labels
+    df["theory_number"] = df["theory_number"].astype(int).astype(str)  # convert back for labels
     fig = go.Figure(data=[go.Bar(x=df.theory_number, y=df.num_of_constructs, marker_color='blue')])
     fig.update_layout(
         title=dict(
@@ -396,26 +447,26 @@ def display_home():
                 color='#000000'
             )
         ),
-        height=600, 
-        width=1400, 
+        height=600,
+        width=1400,
         font=dict(
-        family="Courier New, Monospace",
-        size=9,
-        color='#000000', 
-      ),
-      plot_bgcolor = "white"
+            family="Courier New, Monospace",
+            size=9,
+            color='#000000',
+        ),
+        plot_bgcolor="white"
     )
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-    #2 Number of triples per theory - bar plot 
-    triples_per_theory = {key:0 for key in TheoryDatabase.theories.keys()}
+    # 2 Number of triples per theory - bar plot
+    triples_per_theory = {key: 0 for key in TheoryDatabase.theories.keys()}
     for t in TheoryDatabase.theories:
         triples_per_theory[TheoryDatabase.theories[t].number] = (len(TheoryDatabase.theories[t].triples))
 
     df = pd.DataFrame({"theory_number": triples_per_theory.keys(), "num_of_triples": triples_per_theory.values()})
-    df["theory_number"] = df["theory_number"].astype(str).astype(int) #convert to str for sort
+    df["theory_number"] = df["theory_number"].astype(str).astype(int)  # convert to str for sort
     df = df.sort_values(by=['theory_number'])
-    df["theory_number"] = df["theory_number"].astype(int).astype(str) # convert back for labels
+    df["theory_number"] = df["theory_number"].astype(int).astype(str)  # convert back for labels
     fig = go.Figure(data=[go.Bar(x=df.theory_number, y=df.num_of_triples, marker_color='red')])
     fig.update_layout(
         title=dict(
@@ -442,14 +493,14 @@ def display_home():
                 color='#000000'
             )
         ),
-        height=600, 
-        width=1400, 
+        height=600,
+        width=1400,
         font=dict(
-        family="Courier New, Monospace",
-        size=9,
-        color='#000000'
-      ), 
-        plot_bgcolor = "white"
+            family="Courier New, Monospace",
+            size=9,
+            color='#000000'
+        ),
+        plot_bgcolor="white"
     )
     graphJSON2 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
@@ -506,18 +557,21 @@ def display_home():
                 color='#000000'
             )
         ),
-        height=600, 
-        width=1400, 
+        height=600,
+        width=1400,
         font=dict(
-        family="Courier New, Monospace",
-        size=9,
-        color='#000000'
-      ), 
-        plot_bgcolor = "white"
+            family="Courier New, Monospace",
+            size=9,
+            color='#000000'
+        ),
+        plot_bgcolor="white"
     )
     graphJSON3 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return render_template('home.html', num_theories=num_theories, num_triples=num_triples, num_constructs=num_constructs, theories=sorted(TheoryDatabase.theories.values(), key=Theory.getNumber), graphJSON=graphJSON, graphJSON2=graphJSON2, graphJSON3=graphJSON3)
+    return render_template('home.html', num_theories=num_theories, num_triples=num_triples,
+                           num_constructs=num_constructs,
+                           theories=sorted(TheoryDatabase.theories.values(), key=Theory.getNumber), graphJSON=graphJSON,
+                           graphJSON2=graphJSON2, graphJSON3=graphJSON3)
 
 
 @app.route("/theory/name=<theory_name>", methods=['GET', 'POST'])
@@ -530,52 +584,53 @@ def displayTheory(theory_number=None, theory_name=None):
         theory_num = TheoryDatabase.theory_names_to_ids[theory_name]
         theory = TheoryDatabase.theories[theory_num]
 
-    #print Annotations for each construct
+    # print Annotations for each construct
     # for ann_list in theory.constructs.values():
     #     for ann in ann_list.annotations:
     #         print("ann_list.name: ", ann_list.name, ": ", ann.label)
-            
-    #get theory ids and labels here:    
+
+    # get theory ids and labels here:
     theory_constructs = []
     for triple in theory.triples:
         check_for_rel = triple.const1.name.split()
         if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
             pass
         else:
-            if triple.const1.name != None and triple.const1.name.strip() != "": 
+            if triple.const1.name != None and triple.const1.name.strip() != "":
                 line_list = []
                 line_list.append(wrap_if_needed(triple.const1.name) or "")
                 line_list.append(triple.const1.definition or "")
-                #annotations:
+                # annotations:
                 annotations_for_const = from_construct_mixed(triple.const1.name, theory_num)
                 # print("annotations_for_const: ", annotations_for_const)
                 for sub in annotations_for_const:
                     # print(sub)
                     line_list.append(sub or "")
-                    
+
                 if line_list[0] not in (item for sublist in theory_constructs for item in sublist):
-                    theory_constructs.append(line_list)            
+                    theory_constructs.append(line_list)
 
         check_for_rel = triple.const2.name.split()
         if str(check_for_rel[0]).lower() == "the" and str(check_for_rel[-1]).lower() == "relationship":
             pass
         else:
-            if triple.const2.name != None and triple.const2.name.strip() != "": 
+            if triple.const2.name != None and triple.const2.name.strip() != "":
                 line_list = []
                 line_list.append(wrap_if_needed(triple.const2.name) or "")
                 line_list.append(triple.const2.definition or "")
-                #annotations:
+                # annotations:
                 annotations_for_const = from_construct_mixed(triple.const2.name, theory_num)
                 for sub in annotations_for_const:
                     line_list.append(sub or "")
-                    
-                if line_list[0] not in (item for sublist in theory_constructs for item in sublist):
-                    theory_constructs.append(line_list)            
 
-    net_image_file = url_for('static', filename=theory.number+".png")
-    wc_image_file = url_for('static', filename=theory.number+"-wc.png")
-    
-    return render_template('theory.html', theory=theory, net_image_file=net_image_file, wc_image_file=wc_image_file, theory_constructs=theory_constructs)
+                if line_list[0] not in (item for sublist in theory_constructs for item in sublist):
+                    theory_constructs.append(line_list)
+
+    net_image_file = url_for('static', filename=theory.number + ".png")
+    wc_image_file = url_for('static', filename=theory.number + "-wc.png")
+
+    return render_template('theory.html', theory=theory, net_image_file=net_image_file, wc_image_file=wc_image_file,
+                           theory_constructs=theory_constructs)
 
 
 @app.route("/searchConstruct", methods=['GET', 'POST'])
@@ -640,7 +695,6 @@ def show_theory_consistency():
         theories = request.form.get('theories')
         session['theories'] = theories
         return redirect('/theoryConsistency')
-       
 
 
 @app.route("/show_merged_theories", methods=['GET', 'POST'])
@@ -658,20 +712,21 @@ def viewAnnotations():
         theories = theories.replace("\"", "")
         theories = theories.replace("[", "").replace("]", "")
         theory_list = theories.split(",")
-        #get theory name:
+        # get theory name:
         theory_num = theory_list[0]
         # print("theory_num: ", theory_num)
-        theory = TheoryDatabase.theories[theory_num]    
-        theory_name = theory.name       
-        
+        theory = TheoryDatabase.theories[theory_num]
+        theory_name = theory.name
+
         result = get_annotations_for_graph(theory_list)
         g = nx.drawing.nx_pydot.from_pydot(result)
         cyjs = util.from_networkx(g)
         nodes = cyjs['elements']
         session.pop('theories', None)
         return render_template('viewAnnotations.html', theories=theories, cyjs=nodes, colourKey=theory_name)
-        #NetworkX: 
+        # NetworkX:
         # return render_template('mergedTheoriesNetworkX.html', theories=theories, dotStr=result, colourKey=theory_name)
+
 
 @app.route("/theoryConsistency")
 def theoryConsistency():
@@ -687,21 +742,21 @@ def theoryConsistency():
         num_theories = len(theory_list)
         num_of_ids = get_theory_consistency_stats(theory_list)
         # print("finally got num_of_ids", num_of_ids)
-        #single graph example:
-#         df = pd.DataFrame({
-#       'Fruit': ['Apples', 'Oranges', 'Bananas', 'Apples', 'Oranges', 'Bananas'],
-#       'Amount': [4, 1, 2, 2, 4, 5],
-#       'City': ['SF', 'SF', 'SF', 'Montreal', 'Montreal', 'Montreal']
-#    })
-#         fig = px.bar(df, x='Fruit', y='Amount', color='City', barmode='group')
+        # single graph example:
+        #         df = pd.DataFrame({
+        #       'Fruit': ['Apples', 'Oranges', 'Bananas', 'Apples', 'Oranges', 'Bananas'],
+        #       'Amount': [4, 1, 2, 2, 4, 5],
+        #       'City': ['SF', 'SF', 'SF', 'Montreal', 'Montreal', 'Montreal']
+        #    })
+        #         fig = px.bar(df, x='Fruit', y='Amount', color='City', barmode='group')
 
-        #multiple subplots example from https://stackoverflow.com/questions/58621197/plotly-how-to-create-subplots-from-each-column-in-a-pandas-dataframe: 
+        # multiple subplots example from https://stackoverflow.com/questions/58621197/plotly-how-to-create-subplots-from-each-column-in-a-pandas-dataframe:
         # np.random.seed(123)
         # frame_rows = 1
         # n_plots = 36
         # # frame_columns = ['V_'+str(e) for e in list(range(n_plots+1))]
         # #make a dataframe from num_of_ids:
-        
+
         # frame_columns = num_of_ids
         # df_list = []
         # for i in range(0, len(frame_columns)):
@@ -712,7 +767,7 @@ def theoryConsistency():
         #     # df = pd.DataFrame(i, index =        columns=frame_rows)
         #     df_list.append(df)
         # # df = pd.DataFrame(num_of_ids, index=pd.date_range('1/1/2020', periods=frame_columns), columns=frame_rows)
-                            
+
         # # df = pd.DataFrame(np.random.uniform(-10,10,size=(frame_rows, len(frame_columns))),
         # #                 index=pd.date_range('1/1/2020', periods=frame_rows),
         # # 
@@ -749,8 +804,9 @@ def theoryConsistency():
         fig = go.Figure(data=[go.Bar(x=plotdata.theory_list, y=plotdata.num_of_ids)])
         fig.update_layout(height=1200, width=1200)
         graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-        return render_template('theoryConsistency.html',theories=theories, graphJSON=graphJSON)
+        return render_template('theoryConsistency.html', theories=theories, graphJSON=graphJSON)
     # return render_template('theoryConsistency.html')
+
 
 @app.route("/mergedTheories")
 def mergedTheories():
@@ -763,7 +819,7 @@ def mergedTheories():
         result, theory_name_colour_dict = get_theory_visualisation_merged_boxes(
             theory_list)
 
-        slist = result.get_subgraph_list()        
+        slist = result.get_subgraph_list()
 
         session.pop('theories', None)
         colourKey = ""
@@ -775,23 +831,56 @@ def mergedTheories():
         nodes = cyjs['elements']
         for n in nodes['nodes']:
             # check for subgraph matches:
-            for sg in slist: #slist is list of subgraphs
+            for sg in slist:  # slist is list of subgraphs
                 for sn in sg.get_nodes():
-                    if(n['data']['id'].replace(" ", "").replace("\"", "").lower() == sn.get_name().replace(" ", "").replace("\"", "").lower()): # is this not finding spaces?
+                    if (n['data']['id'].replace(" ", "").replace("\"", "").lower() == sn.get_name().replace(" ",
+                                                                                                            "").replace(
+                        "\"", "").lower()):  # is this not finding spaces?
                         parentLabel = sg.get_label()
-                        nodes['nodes'].append({'data': {'color': 'white', 'id': parentLabel, 'name': parentLabel, 'label': parentLabel}})
-                        #only if n['data'] doesn't contain 'parent'
+                        nodes['nodes'].append(
+                            {'data': {'color': 'white', 'id': parentLabel, 'name': parentLabel, 'label': parentLabel}})
+                        # only if n['data'] doesn't contain 'parent'
                         if 'parent' not in n['data']:
                             n['data']['parent'] = []
-                            n['data']['parent'].append( parentLabel )
+                            n['data']['parent'].append(parentLabel)
                         else:
-                            n['data']['parent'].append( parentLabel )
-        #cytoscape:
+                            n['data']['parent'].append(parentLabel)
+        # cytoscape:
         return render_template('mergedTheories.html', theories=theories, cyjs=nodes, colourKey=colourKey)
 
-        #NetworkX: 
+        # NetworkX:
         # return render_template('mergedTheoriesNetworkX.html', theories=theories, dotStr=result, colourKey=colourKey)
-    
+
+
+# Favicons
+@app.route('/favicon.ico')
+def fav_favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico')
+
+
+@app.route('/apple-touch-icon.png')
+def fav_apple_touch_icon():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'apple-touch-icon.png')
+
+
+@app.route('/favicon-32x32.png')
+def fav_favicon_32():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon-32x32.png')
+
+
+@app.route('/favicon-16x16.png')
+def fav_favicon_16():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon-16x16.png')
+
+
+@app.route('/site.webmanifest')
+def fav_manifest():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'site.webmanifest')
+
+
+@app.route('/safari-pinned-tab.svg')
+def fav_safari():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'safari-pinned-tab.svg')
 
 
 if __name__ == '__main__':
