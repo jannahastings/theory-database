@@ -4,6 +4,7 @@
 import csv
 import os.path
 import re
+from typing import Dict, List, Any
 
 import openpyxl
 import pandas as pd
@@ -25,7 +26,43 @@ theory_dir = 'theories'
 theory_files = [file for file in os.listdir(theory_dir) if file.endswith(".csv")]
 
 
+class Annotation:
+    def __init__(self, id, label):
+        self.id = id
+        self.label = label
+
+    def __str__(self):
+        return (self.label)
+
+
+class Construct:
+    annotations: List[Annotation]
+
+    def __init__(self, number, name):
+        self.number = number
+        self.name = name
+        self.definition = None
+        self.annotations = []
+
+
+class Triple:
+    def __init__(self, const1, rel, const2, reified_rel=None):
+        self.const1 = const1
+        self.rel = rel
+        self.const2 = const2
+        self.relStr = Relation.getStringForRelType(self.rel)
+        self.reified_rel = reified_rel
+
+    def __str__(self):
+        return (", ".join([self.const1.name, self.relStr, self.const2.name]))
+
+
 class Theory:
+    triples: List[Triple]
+    constructs: Dict[int, Construct]
+    name: str
+    number: int
+
     def __init__(self, number, name):
         self.number = number
         self.name = name
@@ -50,14 +87,6 @@ class Theory:
 
     def getCountReferences(self):
         return (len(self.taken_from) + len(self.supplemented_by))
-
-
-class Construct:
-    def __init__(self, number, name):
-        self.number = number
-        self.name = name
-        self.definition = None
-        self.annotations = []
 
 
 class Relation:
@@ -153,30 +182,9 @@ class Relation:
         return (relstr)
 
 
-class Triple:
-    def __init__(self, const1, rel, const2, reified_rel=None):
-        self.const1 = const1
-        self.rel = rel
-        self.const2 = const2
-        self.relStr = Relation.getStringForRelType(self.rel)
-        self.reified_rel = reified_rel
-
-    def __str__(self):
-        return (", ".join([self.const1.name, self.relStr, self.const2.name]))
-
-
-class Annotation:
-    def __init__(self, id, label):
-        self.id = id
-        self.label = label
-
-    def __str__(self):
-        return (self.label)
-
-
 ### Program execution:
 
-theories = {}
+theories: Dict[str, Theory] = {}
 theory_names_to_ids = {}
 relations = []
 row_data = []

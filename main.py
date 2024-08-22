@@ -13,33 +13,21 @@
 # limitations under the License.
 
 # [START gae_python37_app]
-from ast import parse
-import json
 from config import *
-from flask import Flask, render_template, request, url_for, redirect, session
+from flask import Flask, render_template, request, url_for, redirect, session, send_from_directory
 import TheoryDatabase
 from TheoryDatabase import Theory, theories, Relation
 
 import networkx as nx
 import pydot
-from PIL import Image
-import matplotlib
-# matplotlib.use('TkAgg')
-import matplotlib.pyplot as plt
-import pprint as pp
-from itertools import chain
 import os
-import py2cytoscape as cy
 from py2cytoscape import util
 
 import pandas as pd
-import numpy as np
 
 import json
 import plotly
-from plotly.subplots import make_subplots
 import plotly.graph_objs as go
-import plotly.express as px
 
 from constructs.parse_constructs import parseConstructs
 
@@ -504,33 +492,26 @@ def display_home():
     )
     graphJSON2 = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-    #3 Number of annotations per theory per theory - bar plot: 
-    annotations_per_theory = {key:0 for key in TheoryDatabase.theories.keys()}
-   
-    #todo: pretty sure below is incorrect. Testing needed.    
-    for t in TheoryDatabase.theories:
-        annotations_list_full = []
-        for triple in TheoryDatabase.theories[t].triples:
-            if triple.reified_rel is None:
-                for ann_list in list(set(TheoryDatabase.theories[t].constructs.values())):
-                    for ann in list(set(ann_list.annotations)):
-                        if ann.label == ann.label: #check for nan values
+    # 3 Number of annotations per theory per theory - bar plot:
+    annotations_per_theory = {key: 0 for key in TheoryDatabase.theories.keys()}
 
-                            if ann.id.strip().upper() == triple.const1.name.strip().upper():
-                                if ann.label.strip().upper() != ann_list.name.strip().upper():
-                                    annotations_list_full.append(ann.label)
-                            if ann.id.strip().upper() == triple.const2.name.strip().upper():
-                                if ann.label.strip().upper() != ann_list.name.strip().upper():
-                                    annotations_list_full.append(ann.label)
-    
-        annotations_list_full = list(set(annotations_list_full))
-        for ann in annotations_list_full:
-            annotations_per_theory[TheoryDatabase.theories[t].number] += 1
+    for k, theory in TheoryDatabase.theories.items():
+        def nsu(s):
+            return s.name.strip().upper()
 
-    df = pd.DataFrame({"theory_number": annotations_per_theory.keys(), "num_of_annotations": annotations_per_theory.values()})
-    df["theory_number"] = df["theory_number"].astype(str).astype(int) #convert to str for sort
+        annotations = {nsu(c) for c in theory.constructs.values() if
+                       # at least one (non-empty ("" or NaN) annotation)
+                       any(isinstance(a.label, str) and a.label.strip() for a in c.annotations) and
+                       # is no reified relation
+                       any(t.reified_rel is None and nsu(c) in [nsu(n) for n in [t.const1, t.const2]] for t in
+                           theory.triples)}
+        annotations_per_theory[k] = len(annotations)
+
+    df = pd.DataFrame(
+        {"theory_number": annotations_per_theory.keys(), "num_of_annotations": annotations_per_theory.values()})
+    df["theory_number"] = df["theory_number"].astype(str).astype(int)  # convert to str for sort
     df = df.sort_values(by=['theory_number'])
-    df["theory_number"] = df["theory_number"].astype(int).astype(str) # convert back for labels
+    df["theory_number"] = df["theory_number"].astype(int).astype(str)  # convert back for labels
     fig = go.Figure(data=[go.Bar(x=df.theory_number, y=df.num_of_annotations, marker_color='orange')])
     fig.update_layout(
         title=dict(
