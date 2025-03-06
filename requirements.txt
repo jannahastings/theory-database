@@ -11,8 +11,8 @@ whoosh
 ontoutils
 gunicorn
 plotly
-networkx==2.2
-    numpy==1.21
+networkx
+numpy
 
 
 pydot
