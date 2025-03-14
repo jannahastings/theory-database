@@ -1,0 +1,41 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,Individual knowledge
+3,Process,Flowchart Shapes,1,,,,,,,Behaviour
+4,Process,Flowchart Shapes,1,,,,,,,Individual beliefs
+5,Process,Flowchart Shapes,1,,,,,,,Individual attitudes
+6,Process,Flowchart Shapes,1,,,,,,,Social knowledge
+7,Process,Flowchart Shapes,1,,,,,,,Social beliefs
+8,Process,Flowchart Shapes,1,,,,,,,Social meanings
+9,Process,Flowchart Shapes,1,,,,,,,Social norms
+10,Process,Flowchart Shapes,1,,,,,,,Education
+11,Process,Flowchart Shapes,1,,,,,,,Social environment / consensus 
+12,Process,Flowchart Shapes,1,,,,,,,
+13,Process,Flowchart Shapes,1,,,,,,,Stereotypes
+15,Process,Flowchart Shapes,1,,,,,,,Personal  relevance
+16,Line,,1,,,2,3,None,Arrow,
+17,Line,,1,,,11,46,None,Arrow,relates through
+18,Line,,1,,,10,2,None,Arrow,
+19,Line,,1,,,10,4,None,Arrow,
+20,Line,,1,,,10,5,None,Arrow,
+26,Line,,1,,,4,3,None,Arrow,
+27,Line,,1,,,5,3,None,Arrow,
+28,Line,,1,,,11,5,None,Arrow,
+29,Line,,1,,,11,4,None,Arrow,
+30,Line,,1,,,11,2,None,Arrow,
+31,Line,,1,,,7,15,Arrow,Arrow,
+32,Line,,1,,,6,15,Arrow,Arrow,
+33,Line,,1,,,15,46,None,Arrow,
+34,Line,,1,,,10,6,None,Arrow,
+35,Line,,1,,,10,7,None,Arrow,
+36,Line,,1,,,10,8,None,Arrow,
+37,Line,,1,,,10,9,None,Arrow,
+38,Line,,1,,,10,13,None,Arrow,
+40,Line,,1,,,8,15,None,Arrow,
+41,Line,,1,,,6,11,None,Arrow,Part of
+42,Line,,1,,,7,11,None,Arrow,Part of
+43,Line,,1,,,8,11,None,Arrow,Part of
+44,Line,,1,,,9,11,None,Arrow,Part of
+45,Line,,1,,,13,11,None,Arrow,Part of
+46,Terminator,Flowchart Shapes,1,,,,,,,the 'Social environment / consensus ' to 'Behaviour' Influences relationship
+47,Line,,1,,,46,3,None,Arrow,relates to

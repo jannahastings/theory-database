@@ -1,0 +1,57 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,Page 1
+2,Process,Flowchart Shapes,1,,,,,,,Impulses
+3,Process,Flowchart Shapes,1,,,,,,,Motives
+4,Process,Flowchart Shapes,1,,,,,,,Evaluations
+5,Process,Flowchart Shapes,1,,,,,,,Plans
+6,Process,Flowchart Shapes,1,,,,,,,Internal environment
+7,Process,Flowchart Shapes,1,,,,,,,External environment
+8,Process,Flowchart Shapes,1,,,,,,,Responses
+9,Process,Flowchart Shapes,1,,,,,,,Evaluations about self
+10,Process,Flowchart Shapes,1,,,,,,,Beliefs about self
+11,Process,Flowchart Shapes,1,,,,,,,Emotions about self
+12,Process,Flowchart Shapes,1,,,,,,,Identity
+13,Process,Flowchart Shapes,1,,,,,,,Wants
+14,Process,Flowchart Shapes,1,,,,,,,Needs
+15,Process,Flowchart Shapes,1,,,,,,,Images of self
+16,Process,Flowchart Shapes,1,,,,,,,Inhibitions
+17,Line,,1,,,3,2,None,Arrow,
+18,Line,,1,,,4,3,None,Arrow,
+19,Line,,1,,,5,4,None,Arrow,
+20,Line,,1,,,4,5,None,Arrow,
+21,Line,,1,,,3,4,None,Arrow,
+22,Line,,1,,,6,5,None,Arrow,
+23,Line,,1,,,6,4,None,Arrow,
+24,Line,,1,,,6,3,None,Arrow,
+25,Line,,1,,,6,2,None,Arrow,
+26,Line,,1,,,7,6,None,Arrow,
+27,Line,,1,,,2,8,None,Arrow,
+28,Line,,1,,,8,7,None,Arrow,
+29,Line,,1,,,2,6,None,Arrow,
+30,Line,,1,,,3,6,None,Arrow,
+31,Line,,1,,,4,6,None,Arrow,
+32,Line,,1,,,5,6,None,Arrow,
+33,Line,,1,,,11,6,None,Arrow,Part of
+34,Line,,1,,,10,12,None,Arrow,Part of
+35,Line,,1,,,11,12,None,Arrow,Part of
+36,Line,,1,,,9,12,None,Arrow,Part of
+37,Line,,1,,,5,12,None,Arrow,Part of
+38,Line,,1,,,10,6,None,Arrow,Part of
+39,Line,,1,,,9,10,None,Arrow,Type of
+40,Line,,1,,,10,11,None,Arrow,
+41,Line,,1,,,11,10,None,Arrow,
+42,Line,,1,,,9,4,None,Arrow,Type of
+43,Line,,1,,,13,3,None,Arrow,Type of
+44,Line,,1,,,14,3,None,Arrow,Type of
+45,Line,,1,,,13,14,None,Arrow,
+46,Line,,1,,,14,13,None,Arrow,
+47,Line,,1,,,15,12,None,Arrow,Part of
+48,Line,,1,,,15,11,None,Arrow,
+49,Line,,1,,,11,15,None,Arrow,
+50,Line,,1,,,15,10,None,Arrow,
+51,Line,,1,,,10,15,None,Arrow,
+52,Line,,1,,,15,6,None,Arrow,Part of
+53,Line,,1,,,3,16,None,Arrow,
+54,Line,,1,,,16,8,None,Arrow,
+55,Line,,1,,,6,16,None,Arrow,
+56,Line,,1,,,16,6,None,Arrow,

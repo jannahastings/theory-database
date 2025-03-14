@@ -1,0 +1,44 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,Unaware of issue
+3,Process,Flowchart Shapes,1,,,,,,,Maintenance
+4,Process,Flowchart Shapes,1,,,,,,,Decided not to act
+5,Process,Flowchart Shapes,1,,,,,,,Acting
+6,Process,Flowchart Shapes,1,,,,,,,Decided to act
+7,Process,Flowchart Shapes,1,,,,,,,Undecided about acting
+8,Process,Flowchart Shapes,1,,,,,,,Unengaged by issue
+9,Process,Flowchart Shapes,1,,,,,,,Unspecified  influences (vary by transition)
+10,Line,,1,,,2,38,Arrow,Arrow,relates through
+11,Line,,1,,,8,40,Arrow,Arrow,relates through
+12,Line,,1,,,7,32,Arrow,Arrow,relates through
+13,Line,,1,,,6,36,Arrow,Arrow,relates through
+14,Line,,1,,,5,34,Arrow,Arrow,relates through
+15,Line,,1,,,7,42,Arrow,Arrow,relates through
+16,Line,,1,,,9,32,None,Arrow,
+17,Line,,1,,,9,34,None,Arrow,
+18,Line,,1,,,9,36,None,Arrow,
+19,Line,,1,,,9,38,None,Arrow,
+20,Line,,1,,,9,40,None,Arrow,
+21,Line,,1,,,9,42,None,Arrow,
+22,Line,,1,,,3,6,None,Arrow,Transition
+23,Line,,1,,,3,7,None,Arrow,Transition
+24,Line,,1,,,3,8,None,Arrow,Transition
+25,Line,,1,,,3,2,None,Arrow,Transition
+26,Line,,1,,,5,2,None,Arrow,Transition
+27,Line,,1,,,5,8,None,Arrow,Transition
+28,Line,,1,,,5,7,None,Arrow,Transition
+29,Line,,1,,,6,8,None,Arrow,Transition
+30,Line,,1,,,6,2,None,Arrow,Transition
+31,Line,,1,,,7,2,None,Arrow,Transition
+32,Terminator,Flowchart Shapes,1,,,,,,,the 'Undecided about acting' to 'Decided to act' Transitions to relationship
+33,Line,,1,,,32,6,Arrow,Arrow,relates to
+34,Terminator,Flowchart Shapes,1,,,,,,,the 'Acting' to 'Maintenance' Transitions to relationship
+35,Line,,1,,,34,3,Arrow,Arrow,relates to
+36,Terminator,Flowchart Shapes,1,,,,,,,the 'Decided to act' to 'Acting' Transitions to relationship
+37,Line,,1,,,36,5,Arrow,Arrow,relates to
+38,Terminator,Flowchart Shapes,1,,,,,,,the 'Unaware of issue' to 'Unengaged by issue' Transitions to relationship
+39,Line,,1,,,38,8,Arrow,Arrow,relates to
+40,Terminator,Flowchart Shapes,1,,,,,,,the 'Unengaged by issue' to 'Undecided about acting' Transitions to relationship
+41,Line,,1,,,40,7,Arrow,Arrow,relates to
+42,Terminator,Flowchart Shapes,1,,,,,,,the 'Undecided about acting' to 'Decided not to act' Transitions to relationship
+43,Line,,1,,,42,4,Arrow,Arrow,relates to

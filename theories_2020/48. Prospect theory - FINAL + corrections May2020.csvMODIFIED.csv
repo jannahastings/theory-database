@@ -1,0 +1,46 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,Prospect
+3,Process,Flowchart Shapes,1,,,,,,,Combination
+4,Process,Flowchart Shapes,1,,,,,,,Segregation
+5,Process,Flowchart Shapes,1,,,,,,,Cancellation
+6,Process,Flowchart Shapes,1,,,,,,,Simplification
+7,Process,Flowchart Shapes,1,,,,,,,Detection of dominance
+8,Process,Flowchart Shapes,1,,,,,,,Certainty effect
+9,Process,Flowchart Shapes,1,,,,,,,Isolation effect
+10,Process,Flowchart Shapes,1,,,,,,,Decision weights
+11,Process,Flowchart Shapes,1,,,,,,,Subjective values
+12,Process,Flowchart Shapes,1,,,,,,,Choice / behaviour
+13,Process,Flowchart Shapes,1,,,,,,,Reference point
+14,Process,Flowchart Shapes,1,,,,,,,Gains
+15,Process,Flowchart Shapes,1,,,,,,,Losses
+17,Process,Flowchart Shapes,1,,,,,,,Edited prospects
+19,Process,Flowchart Shapes,1,,,,,,,Coding
+21,Process,Flowchart Shapes,1,,,,,,,Editing phase 
+23,Process,Flowchart Shapes,1,,,,,,,Evaluation phase
+25,Process,Flowchart Shapes,1,,,,,,,Possibility effect
+36,Line,,1,,,2,72,None,Arrow,relates through
+42,Line,,1,,,8,10,None,Arrow,
+43,Line,,1,,,17,10,None,Arrow,
+44,Line,,1,,,17,11,None,Arrow,
+50,Line,,1,,,21,72,None,Arrow,
+54,Line,,1,,,19,17,None,Arrow,Type of
+55,Line,,1,,,14,17,None,Arrow,Type of
+56,Line,,1,,,15,17,None,Arrow,Type of
+57,Line,,1,,,13,19,None,Arrow,*
+58,Line,,1,,,2,19,None,Arrow,*
+59,Line,,1,,,4,21,None,Arrow,Part of
+60,Line,,1,,,8,21,None,Arrow,Part of
+61,Line,,1,,,9,21,None,Arrow,Part of
+62,Line,,1,,,7,21,None,Arrow,Part of
+63,Line,,1,,,6,21,None,Arrow,Part of
+64,Line,,1,,,5,21,None,Arrow,Part of
+65,Line,,1,,,19,21,None,Arrow,Part of
+66,Line,,1,,,3,21,None,Arrow,Part of
+67,Line,,1,,,25,21,None,Arrow,Part of
+68,Line,,1,,,10,12,None,Arrow,*
+69,Line,,1,,,11,12,None,Arrow,*
+70,Line,,1,,,10,23,None,Arrow,Part of
+71,Line,,1,,,11,23,None,Arrow,Part of
+72,Terminator,Flowchart Shapes,1,,,,,,,the 'Prospect' to 'Edited prospects' Transitions to relationship
+73,Line,,1,,,72,17,None,Arrow,relates to

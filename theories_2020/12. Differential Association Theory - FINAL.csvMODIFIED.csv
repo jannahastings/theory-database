@@ -1,0 +1,41 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,Differential association
+3,Process,Flowchart Shapes,1,,,,,,,Learning
+4,Process,Flowchart Shapes,1,,,,,,,Favourable / unfavourable definitions of legal codes
+5,Process,Flowchart Shapes,1,,,,,,,Frequency
+6,Process,Flowchart Shapes,1,,,,,,,Duration
+7,Process,Flowchart Shapes,1,,,,,,,Intensity
+8,Process,Flowchart Shapes,1,,,,,,,Priority
+9,Process,Flowchart Shapes,1,,,,,,,Social organisation
+10,Process,Flowchart Shapes,1,,,,,,,Intimate personal groups
+11,Process,Flowchart Shapes,1,,,,,,,Communication
+12,Process,Flowchart Shapes,1,,,,,,,Techniques of committing crime
+13,Process,Flowchart Shapes,1,,,,,,,"Direction of motives, drives, rationalisations, and attitudes"
+15,Process,Flowchart Shapes,1,,,,,,,Person-situation complex 
+17,Process,Flowchart Shapes,1,,,,,,,Life experience of the person
+18,Process,Flowchart Shapes,1,,,,,,,Situation
+20,Process,Flowchart Shapes,1,,,,,,,Opportunity for a criminal act
+22,Process,Flowchart Shapes,1,,,,,,,Criminal behaviour
+23,Process,Flowchart Shapes,1,,,,,,,Non-verbal communication
+24,Process,Flowchart Shapes,1,,,,,,,Verbal communication
+26,Line,,1,,,10,3,None,Arrow,
+27,Line,,1,,,2,3,None,Arrow,
+28,Line,,1,,,11,3,None,Arrow,
+29,Line,,1,,,3,4,None,Arrow,
+30,Line,,1,,,6,2,None,Arrow,
+31,Line,,1,,,9,2,None,Arrow,
+32,Line,,1,,,7,2,None,Arrow,
+33,Line,,1,,,8,2,None,Arrow,
+34,Line,,1,,,5,2,None,Arrow,
+45,Line,,1,,,4,22,None,Arrow,
+47,Line,,1,,,15,22,None,Arrow,
+51,Line,,1,,,13,3,None,Arrow,Type of
+52,Line,,1,,,12,3,None,Arrow,Type of
+53,Line,,1,,,18,15,None,Arrow,*
+54,Line,,1,,,17,15,None,Arrow,*
+55,Line,,1,,,20,18,None,Arrow,Part of
+56,Line,,1,,,3,17,None,Arrow,Part of
+57,Line,,1,,,2,17,None,Arrow,Part of
+58,Line,,1,,,23,11,None,Arrow,Type of
+59,Line,,1,,,24,11,None,Arrow,Type of

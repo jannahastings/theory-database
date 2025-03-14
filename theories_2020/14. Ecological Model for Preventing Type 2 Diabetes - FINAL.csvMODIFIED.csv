@@ -1,0 +1,48 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,New Page
+2,Process,Flowchart Shapes,1,,,,,,,
+3,Process,Flowchart Shapes,1,,,,,,,Perceived susceptibility
+4,Process,Flowchart Shapes,1,,,,,,,Outcome expectations
+5,Process,Flowchart Shapes,1,,,,,,,Perceived severity
+6,Process,Flowchart Shapes,1,,,,,,,Perceived benefits / costs 
+7,Process,Flowchart Shapes,1,,,,,,,Internal incentive 
+8,Process,Flowchart Shapes,1,,,,,,,Beliefs and knowledge 
+9,Process,Flowchart Shapes,1,,,,,,,Community factors / neighbourhood surroundings
+10,Process,Flowchart Shapes,1,,,,,,,Institutions / corporate interests / media
+11,Process,Flowchart Shapes,1,,,,,,,Public policy
+12,Process,Flowchart Shapes,1,,,,,,,Environmental factors 
+13,Process,Flowchart Shapes,1,,,,,,,Attitudes
+14,Process,Flowchart Shapes,1,,,,,,,Normative beliefs
+15,Process,Flowchart Shapes,1,,,,,,,Interpersonal factors
+16,Process,Flowchart Shapes,1,,,,,,,Social influences: peers / family / community
+17,Process,Flowchart Shapes,1,,,,,,,Social norms
+18,Process,Flowchart Shapes,1,,,,,,,Cognitive factors  (intrapersonal) / cognitive arm of the model
+19,Process,Flowchart Shapes,1,,,,,,,Community and environmental factors  (environmental arm of the model) 
+20,Process,Flowchart Shapes,1,,,,,,,Behavioural intention
+21,Process,Flowchart Shapes,1,,,,,,,Behaviour
+22,Process,Flowchart Shapes,1,,,,,,,Self-efficacy
+23,Process,Flowchart Shapes,1,,,,,,,External incentives
+29,Line,,1,,,8,13,None,Arrow,
+34,Line,,1,,,12,14,None,Arrow,
+39,Line,,1,,,20,71,None,Arrow,relates through
+40,Line,,1,,,23,21,None,Arrow,
+52,Line,,1,,,14,20,None,Arrow,
+53,Line,,1,,,13,20,None,Arrow,
+54,Line,,1,,,22,71,None,Arrow,
+56,Line,,1,,,9,12,None,Arrow,Part of
+57,Line,,1,,,10,12,None,Arrow,Part of
+58,Line,,1,,,11,12,None,Arrow,Part of
+59,Line,,1,,,17,14,None,Arrow,Part of
+60,Line,,1,,,16,14,None,Arrow,Part of
+61,Line,,1,,,15,14,None,Arrow,Part of
+62,Line,,1,,,4,8,None,Arrow,Part of
+63,Line,,1,,,6,8,None,Arrow,Part of
+64,Line,,1,,,3,8,None,Arrow,Part of
+65,Line,,1,,,5,8,None,Arrow,Part of
+66,Line,,1,,,7,8,None,Arrow,Part of
+67,Line,,1,,,8,18,None,Arrow,Part of
+68,Line,,1,,,13,18,None,Arrow,Part of
+69,Line,,1,,,12,19,None,Arrow,Part of
+70,Line,,1,,,14,19,None,Arrow,Part of
+71,Terminator,Flowchart Shapes,1,,,,,,,the 'Behavioural intention' to 'Behaviour' Influences relationship
+72,Line,,1,,,71,21,None,Arrow,relates to

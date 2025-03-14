@@ -1,0 +1,32 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,Page 1
+2,Process,Flowchart Shapes,1,,,,,,,Input function (perception)
+3,Process,Flowchart Shapes,1,,,,,,,Comparator
+4,Process,Flowchart Shapes,1,,,,,,,Output function (behaviour)
+5,Process,Flowchart Shapes,1,,,,,,,Impact on environment
+6,Process,Flowchart Shapes,1,,,,,,,System control
+7,Process,Flowchart Shapes,1,,,,,,,Principle control
+8,Process,Flowchart Shapes,1,,,,,,,Program control
+9,Process,Flowchart Shapes,1,,,,,,,General course of action / senses
+10,Process,Flowchart Shapes,1,,,,,,,Reference value
+11,Process,Flowchart Shapes,1,,,,,,,Disturbance
+12,Process,Flowchart Shapes,1,,,,,,,Hierarchy of systems
+14,Line,,1,,,4,5,None,Arrow,
+15,Line,,1,,,3,4,None,Arrow,
+16,Line,,1,,,5,2,None,Arrow,
+17,Line,,1,,,2,3,None,Arrow,
+18,Line,,1,,,2,6,None,Arrow,
+19,Line,,1,,,2,7,None,Arrow,
+20,Line,,1,,,2,8,None,Arrow,
+21,Line,,1,,,2,9,None,Arrow,
+22,Line,,1,,,6,7,None,Arrow,
+23,Line,,1,,,,,None,Arrow,
+24,Line,,1,,,7,8,None,Arrow,
+25,Line,,1,,,8,9,None,Arrow,
+26,Line,,1,,,9,10,None,Arrow,
+27,Line,,1,,,10,3,None,Arrow,
+33,Line,,1,,,11,5,None,Arrow,
+34,Line,,1,,,6,12,None,Arrow,Part of
+35,Line,,1,,,7,12,None,Arrow,Part of
+36,Line,,1,,,8,12,None,Arrow,Part of
+37,Line,,1,,,9,12,None,Arrow,Part of

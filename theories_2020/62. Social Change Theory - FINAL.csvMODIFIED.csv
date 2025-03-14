@@ -1,0 +1,43 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1
+1,Page,,,,,,,,,62. Social Change Theory
+2,Process,Flowchart Shapes,1,,,,,,,External environment
+3,Process,Flowchart Shapes,1,,,,,,,Community system
+4,Process,Flowchart Shapes,1,,,,,,,Norms
+5,Process,Flowchart Shapes,1,,,,,,,Behaviour
+6,Process,Flowchart Shapes,1,,,,,,,Key events
+7,Process,Flowchart Shapes,1,,,,,,,Secular trends
+8,Process,Flowchart Shapes,1,,,,,,,Policies
+9,Process,Flowchart Shapes,1,,,,,,,Economic conditions
+10,Process,Flowchart Shapes,1,,,,,,,Technologies
+12,Process,Flowchart Shapes,1,,,,,,,Vested interests
+13,Process,Flowchart Shapes,1,,,,,,,Social movements
+14,Process,Flowchart Shapes,1,,,,,,,Community development
+15,Process,Flowchart Shapes,1,,,,,,,Locality development 
+17,Process,Flowchart Shapes,1,,,,,,,Community organisations
+18,Process,Flowchart Shapes,1,,,,,,,Leadership
+19,Process,Flowchart Shapes,1,,,,,,,Organisational development
+20,Process,Flowchart Shapes,1,,,,,,,Diffusion
+22,Process,Flowchart Shapes,1,,,,,,,Role models
+23,Process,Flowchart Shapes,1,,,,,,,Collective action
+24,Process,Flowchart Shapes,1,,,,,,,Social environment
+25,Line,,1,,,2,4,None,Arrow,
+34,Line,,1,,,12,55,None,Arrow,relates through
+35,Line,,1,,,13,55,None,Arrow,
+36,Line,,1,,,14,5,None,Arrow,
+37,Line,,1,,,4,5,None,Arrow,
+38,Line,,1,,,15,5,None,Arrow,
+39,Line,,1,,,17,5,None,Arrow,
+43,Line,,1,,,18,17,None,Arrow,
+44,Line,,1,,,22,4,None,Arrow,
+45,Line,,1,,,23,4,None,Arrow,
+46,Line,,1,,,24,4,None,Arrow,
+47,Line,,1,,,4,3,None,Arrow,Part of
+48,Line,,1,,,6,2,None,Arrow,Type of
+49,Line,,1,,,9,2,None,Arrow,Type of
+50,Line,,1,,,7,2,None,Arrow,Type of
+51,Line,,1,,,8,2,None,Arrow,Type of
+52,Line,,1,,,10,2,None,Arrow,Type of
+53,Line,,1,,,19,4,None,Arrow,*
+54,Line,,1,,,20,4,None,Arrow,*
+55,Terminator,Flowchart Shapes,1,,,,,,,the 'Vested interests' to 'Norms' Influences relationship
+56,Line,,1,,,55,4,None,Arrow,relates to
