@@ -41,7 +41,7 @@ Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,So
 40,Line,,2,,,11,7,None,Arrow,,Part of,
 41,Line,,2,,,10,11,None,Arrow,,Type of,
 42,Line,,2,,,16,11,None,Arrow,,,
-43,Line,,2,,,5,10,Arrow,None,,Type of,
+43,Line,,2,,,10,5,None,Arrow,,Type of,
 44,Line,,2,,,14,4,None,Arrow,,Type of,
 45,Line,,2,,,15,4,None,Arrow,,Type of,
 46,Line,,2,,,14,15,None,Arrow,,,

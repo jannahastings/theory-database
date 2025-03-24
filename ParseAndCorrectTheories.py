@@ -6,7 +6,7 @@ import copy
 import ontoutils
 from ontoutils.lucid_chart import Relation
 
-os.chdir('/Users/hastingj/Work/Projects/100 Behaviour Change/Theory Specification/Automated Parsing of Theories')
+os.chdir(r'C:\Users\maybra\OneDrive - Universität Zürich UZH\git\theory-database\theories_2025')
 
 
 junctions = []
@@ -310,7 +310,7 @@ for model_num in tofix.keys():
 # write the files out again, fixed
 for model_num in theory_row_dicts.keys():
     model_filename = model_filenames[model_num]+"MODIFIED"
-    with codecs.open("test-output/"+model_filename+".csv",mode='w', encoding="utf-8") as outfile:
+    with codecs.open("theories_2025_processed/"+model_filename+".csv",mode='w', encoding="utf-8") as outfile:
         fieldNames = [k for k in theory_row_dicts[model_num]['1'].keys()]
         #print (model_num,fieldNames)
         writer = csv.DictWriter(outfile,fieldNames)
