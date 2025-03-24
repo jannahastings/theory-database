@@ -2,7 +2,7 @@
 
 # os.chdir('/Users/hastingj/Work/Python/TheoryDatabase')
 import os
-os.chdir(r'C:\Users\maybra\OneDrive - Universität Zürich UZH\git\theory-database')
+os.chdir(r'C:\Users\mabraun\OneDrive - Universität Zürich UZH\git\theory-database')
 
 import csv
 import os.path

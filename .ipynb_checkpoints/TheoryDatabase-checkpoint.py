@@ -1,9 +1,13 @@
 # Parse the theories from the CSV files and consolidate information about them
 
 # os.chdir('/Users/hastingj/Work/Python/TheoryDatabase')
+import os
+os.chdir(r'C:\Users\mabraun\OneDrive - Universität Zürich UZH\git\theory-database')
+
 import csv
 import os.path
 import re
+import unicodedata
 from typing import Dict, List, Any
 
 import openpyxl
@@ -22,7 +26,7 @@ combined_data_path = os.path.join(os.path.dirname(__file__), data_path)
 wb = openpyxl.load_workbook(combined_data_path, data_only=True)
 sheet = wb['Sheet1']
 
-theory_dir = 'theories'
+theory_dir = 'theories_2025/processed'
 
 theory_files = [file for file in os.listdir(theory_dir) if file.endswith(".csv")]
 
@@ -83,7 +87,7 @@ class Theory:
     def getNumber(self):
         return (int(self.number))
 
-    def getThoeryName(self):
+    def getTheoryName(self):
         return (self.name)
 
     def getCountReferences(self):
@@ -111,6 +115,9 @@ class Relation:
     # TODO implement a proper dictionary of variants of names for labels in lucid_wrapper
 
     def getRelTypeForLabelString(label):
+        label = label.strip() 
+        label = unicodedata.normalize("NFKC", label)  # Normalize Unicode characters
+        label = label.replace("\u200b", "") 
         if label.lower() == "influences" or label == "" or label == "+/-" or label == 'Bi-directional influence':
             return (Relation.INFLUENCES)
         if label.lower() == "positively influences" or label == "+":
@@ -217,7 +224,11 @@ def setup():
         theories[model_num] = theory
 
         print("About to parse theory: ", model_num, model_name)
-        (entities, relations) = ParseLucidChartCsv.parseCsvEntityData(theory_dir + "/" + f)
+        try:
+            (entities, relations) = ParseLucidChartCsv.parseCsvEntityData(theory_dir + "/" + f)
+        except KeyError:
+            print(f"KeyError encountered while parsing {f}. Skipping this file.")
+            continue
 
         r_pattern = re.compile("the .+? relationship$")
         r_search = re.compile("the \'(.+?)\' to \'(.+?)\' (.+?) relationship")
@@ -436,5 +447,9 @@ def searchForRelation(relation, index_dir):
                 returned_values[relation_name][theory_name] = []
             returned_values[relation_name][theory_name].append(" ".join([const_1, relation_name, const_2]))
         return (returned_values)
+
+def parseTheoryDefinitions(file_path):
+    # Add the implementation of parseTheoryDefinitions here
+    pass
 
 # setup()
