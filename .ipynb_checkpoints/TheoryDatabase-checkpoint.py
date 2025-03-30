@@ -2,7 +2,7 @@
 
 # os.chdir('/Users/hastingj/Work/Python/TheoryDatabase')
 import os
-os.chdir(r'C:\Users\mabraun\OneDrive - Universität Zürich UZH\git\theory-database')
+os.chdir(r'C:\Users\maybra\OneDrive - Universität Zürich UZH\git\theory-database')
 
 import csv
 import os.path
@@ -118,7 +118,7 @@ class Relation:
         label = label.strip() 
         label = unicodedata.normalize("NFKC", label)  # Normalize Unicode characters
         label = label.replace("\u200b", "") 
-        if label.lower() == "influences" or label == "" or label == "+/-" or label == 'Bi-directional influence':
+        if label.lower() == "influences" or label == "" or label == "+/-" or label == 'Bi-directional influence' or label == "Feedback loop":
             return (Relation.INFLUENCES)
         if label.lower() == "positively influences" or label == "+":
             return (Relation.POS_INFLUENCES)

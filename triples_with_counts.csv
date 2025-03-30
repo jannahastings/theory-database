@@ -53,27 +53,33 @@ BCIO:050889,person in a social environmental system,Type of,BCIO:036034,human co
 BCIO:006001,social environmental system,Type of,BCIO:050556,mass media mode of delivery,2
 BCIO:050328,attitude,Influences,BCIO:006016,behavioural intention,2
 BCIO:006099,social influence behaviour,Part of,BCIO:006042,normative belief,2
+ENVO:01000254,environmental system,Part of,BCIO:006001,social environmental system,2
 BCIO:006031,belief about personal susceptibility,Part of,BCIO:006306,belief about threat,2
 BCIO:050603,belief about the discrepancy between one’s current and target state,Part of,BCIO:007012,attend to discrepancy between current behaviour and goal BCT,2
 MF:0000202,personality,Part of,ENVO:01000254,environmental system,2
 BCIO:006040,perceived descriptive behavioural norm,Type of,BCIO:006039,perceived norm,2
 BCIO:006041,perceived evaluative behavioural norm,Type of,BCIO:006039,perceived norm,2
 BCIO:006062,promotion focused motivational orientation,Type of,BCIO:006005,self-regulation capability,2
+MFOEM:000001,emotion process,Influences,BCIO:050328,attitude,2
+BCIO:050328,attitude,Influences,BCIO:050832,reflective behaviour,2
+MFOEM:000001,emotion process,Influences,BCIO:050813,emotional behaviour,2
+MFOEM:000204,emotional personality trait,Influences,MFOEM:000001,emotion process,2
+ENVO:01000254,environmental system,Influences,BCIO:050328,attitude,2
 BCIO:007022,provide feedback BCT,Influences (*),BCIO:006133,behavioural motivation,2
 BCIO:006019,belief about consequences of behaviour,Positively influences,BCIO:006016,behavioural intention,2
 BCIO:006016,behavioural intention,Influences,MF:0000027,planning,2
 BCIO:006043,self-efficacy belief for a behaviour and its associated outcomes,Positively influences,BCIO:050844,action planning,2
-BCIO:050576,behaviour maintenance self-efficacy,Positively influences,BCIO:036000,individual human behaviour,2
 MF:0000027,planning,Influences,BCIO:036000,individual human behaviour,2
-BCIO:050576,behaviour maintenance self-efficacy,Type of,BCIO:006043,self-efficacy belief for a behaviour and its associated outcomes,2
+BCIO:050576,behaviour maintenance self-efficacy,Positively influences,BCIO:036000,individual human behaviour,2
+BCIO:006043,self-efficacy belief for a behaviour and its associated outcomes,Part of,BCIO:006016,behavioural intention,2
 BCIO:050844,action planning,Type of,MF:0000027,planning,2
 BCIO:050624,coping planning,Type of,MF:0000027,planning,2
-BCIO:006043,self-efficacy belief for a behaviour and its associated outcomes,Part of,BCIO:006016,behavioural intention,2
-BCIO:050923,behaviour intender,Part of,BCIO:036000,individual human behaviour,2
 MF:0000027,planning,Part of,BCIO:036000,individual human behaviour,2
 BCIO:050576,behaviour maintenance self-efficacy,Part of,BCIO:036000,individual human behaviour,2
+BCIO:050576,behaviour maintenance self-efficacy,Type of,BCIO:006043,self-efficacy belief for a behaviour and its associated outcomes,2
 BCIO:050219,belief about health consequences of behaviour,Correlates with,BCIO:006020,belief about social consequences of behaviour,2
 BCIO:006154,self-efficacy belief for a behaviour,Correlates with,BCIO:050219,belief about health consequences of behaviour,2
+BCIO:006005,self-regulation capability,Part of,BCIO:050268,self-regulation process,2
 BCIO:006154,self-efficacy belief for a behaviour,Part of,BCIO:006019,belief about consequences of behaviour,2
 BCIO:006133,behavioural motivation,Influences,BCIO:006034,belief about choice over a behaviour,2
 BCIO:006064,psychological need,Part of,BCIO:050767,self-motive,2
@@ -118,7 +124,6 @@ ADDICTO:0000399,self-identity,Part of,MF:0000032,bodily disposition,2
 BCIO:050638,emotion about self,Influences,ADDICTO:0000399,self-identity,2
 BCIO:050819,harm preventing behaviour,Type of,BCIO:050890,protective factor for harmful behaviour,2
 BCIO:050489,personal vulnerability to harmful behaviour,Type of,ENVO:01000254,environmental system,2
-BCIO:006086,behavioural opportunity,Type of,ENVO:01000254,environmental system,2
 BCIO:006099,social influence behaviour,Type of,ENVO:01000254,environmental system,2
 ENVO:01000254,environmental system,Part of,BCIO:006086,behavioural opportunity,2
 BCIO:050231,temporal orientation to the present,Influences,ADDICTO:0000349,addiction,2
@@ -139,6 +144,7 @@ BCIO:036000,individual human behaviour,Influences,BCIO:050215,behavioural capabi
 BCIO:006005,self-regulation capability,Type of,BCIO:050215,behavioural capability,2
 BCIO:050792,traditional personal value,Part of,BCIO:050749,psychological attachment formation to conventional society,2
 BCIO:050215,behavioural capability,Influences (*),BCIO:036025,inter-personal behaviour,2
+BCIO:007252,provide positive consequence for behaviour BCT,Influences (*),BCIO:036025,inter-personal behaviour,2
 BCIO:006002,family environmental system,Type of,BCIO:006001,social environmental system,2
 BCIO:010104,peer,Type of,BCIO:006001,social environmental system,2
 BCIO:050775,social identity process,Part of,BCIO:006090,social behavioural opportunity,2
@@ -300,6 +306,10 @@ BCIO:006031,belief about personal susceptibility,Part of,BCIO:006052,knowledge,1
 BCIO:006031,belief about personal susceptibility,Part of,MF:0000041,belief,1
 BCIO:050597,belief about severity of health condition,Part of,BCIO:006052,knowledge,1
 BCIO:050597,belief about severity of health condition,Part of,MF:0000041,belief,1
+BCIO:006052,knowledge,Part of,MF:0000031,cognitive representation,1
+MF:0000041,belief,Part of,MF:0000031,cognitive representation,1
+BCIO:050328,attitude,Part of,MF:0000031,cognitive representation,1
+BCIO:006042,normative belief,Part of,BCIO:006001,social environmental system,1
 BCIO:006306,belief about threat,Positively influences,MFOEM:000026,fear,1
 MFOEM:000026,fear,Influences,BCIO:006306,belief about threat,1
 BCIO:050713,motivation to reduce harm,Positively influences,BCIO:050819,harm preventing behaviour,1
@@ -380,11 +390,7 @@ BCIO:006147,evaluative belief about a behaviour,Type of,BCIO:050826,parenting be
 MF:00000006,,Type of,BCIO:050826,parenting behaviour,1
 BCIO:007241,provide aversive consequence for behaviour BCT,Type of,BCIO:050826,parenting behaviour,1
 BCIO:050955,attachment to a caregiver,Type of,BCIO:050826,parenting behaviour,1
-MFOEM:000001,emotion process,Influences,BCIO:050328,attitude,1
-BCIO:050328,attitude,Influences,BCIO:050832,reflective behaviour,1
-MFOEM:000001,emotion process,Influences,BCIO:050813,emotional behaviour,1
-MFOEM:000204,emotional personality trait,Influences,MFOEM:000001,emotion process,1
-ENVO:01000254,environmental system,Influences,BCIO:050328,attitude,1
+ENVO:01000254,environmental system,Influences,MFOEM:000001,emotion process,1
 BCIO:050723,negative social environmental system,Influences,ADDICTO:0001377,,1
 BCIO:006059,motivation to comply,Influences,BCIO:050614,cognitive representation of an alternative behaviour,1
 BCIO:050947,motivation to deviate,Influences,BCIO:050614,cognitive representation of an alternative behaviour,1
@@ -419,12 +425,11 @@ BCIO:006063,personal value,Positively influences,BCIO:006016,behavioural intenti
 BCIO:006306,belief about threat,Positively influences,BCIO:006016,behavioural intention,1
 BCIO:050584,behavioural recovery self-efficacy,Positively influences,BCIO:036000,individual human behaviour,1
 BCIO:006146,belief about social support,Influences,BCIO:006016,behavioural intention,1
+BCIO:050584,behavioural recovery self-efficacy,Positively influences,BCIO:006103,self-regulation of behaviour,1
 BCIO:006016,behavioural intention,Positively influences,BCIO:006103,self-regulation of behaviour,1
 BCIO:006103,self-regulation of behaviour,Positively influences,BCIO:036000,individual human behaviour,1
-BCIO:050584,behavioural recovery self-efficacy,Positively influences,BCIO:006103,self-regulation of behaviour,1
-BCIO:050584,behavioural recovery self-efficacy,Type of,BCIO:006043,self-efficacy belief for a behaviour and its associated outcomes,1
-MFOEM:000001,emotion process,Type of,BCIO:006019,belief about consequences of behaviour,1
 BCIO:006089,physical behavioural opportunity,Type of,BCIO:006019,belief about consequences of behaviour,1
+MFOEM:000001,emotion process,Type of,BCIO:006019,belief about consequences of behaviour,1
 BCIO:006042,normative belief,Type of,BCIO:006019,belief about consequences of behaviour,1
 BCIO:006305,belief about susceptibility to a threat,Influences (*),BCIO:006306,belief about threat,1
 BCIO:006030,belief about severity of an outcome,Influences (*),BCIO:006306,belief about threat,1
@@ -432,11 +437,13 @@ BCIO:050936,awareness of standards,Part of,BCIO:006103,self-regulation of behavi
 BCIO:006137,self-monitoring,Part of,BCIO:006103,self-regulation of behaviour,1
 BCIO:050268,self-regulation process,Part of,BCIO:006103,self-regulation of behaviour,1
 BCIO:050924,behaviour non-intender,Part of,BCIO:006016,behavioural intention,1
-BCIO:006019,belief about consequences of behaviour,Part of,BCIO:006016,behavioural intention,1
 BCIO:006306,belief about threat,Part of,BCIO:006016,behavioural intention,1
+BCIO:006019,belief about consequences of behaviour,Part of,BCIO:006016,behavioural intention,1
+BCIO:050923,behaviour intender,Part of,BCIO:036000,individual human behaviour,1
 BCIO:050922,behaviour enacter,Part of,BCIO:036000,individual human behaviour,1
-BCIO:050584,behavioural recovery self-efficacy,Part of,BCIO:036000,individual human behaviour,1
 BCIO:006103,self-regulation of behaviour,Part of,BCIO:036000,individual human behaviour,1
+BCIO:050584,behavioural recovery self-efficacy,Part of,BCIO:036000,individual human behaviour,1
+BCIO:050584,behavioural recovery self-efficacy,Type of,BCIO:006043,self-efficacy belief for a behaviour and its associated outcomes,1
 BCIO:050219,belief about health consequences of behaviour,Correlates with,BCIO:050218,belief about emotional consequences of behaviour,1
 BCIO:050218,belief about emotional consequences of behaviour,Correlates with,BCIO:006020,belief about social consequences of behaviour,1
 BCIO:006020,belief about social consequences of behaviour,Correlates with,BCIO:006154,self-efficacy belief for a behaviour,1
@@ -448,7 +455,6 @@ BCIO:006086,behavioural opportunity,Influences,BCIO:006306,belief about threat,1
 BCIO:050300,personal attribute,Influences,BCIO:006306,belief about threat,1
 BCIO:006086,behavioural opportunity,Influences,BCIO:006019,belief about consequences of behaviour,1
 BCIO:050300,personal attribute,Influences,BCIO:006019,belief about consequences of behaviour,1
-BCIO:006005,self-regulation capability,Part of,BCIO:050268,self-regulation process,1
 BCIO:050768,self-regulation through behavioural feedback,Part of,BCIO:050268,self-regulation process,1
 BCIO:006019,belief about consequences of behaviour,Part of,BCIO:050268,self-regulation process,1
 BCIO:006043,self-efficacy belief for a behaviour and its associated outcomes,Part of,BCIO:050268,self-regulation process,1
@@ -825,6 +831,7 @@ BCIO:006098,,Influences,BCIO:050806,behavioural consequence,1
 BCIO:050776,social influence process,Influences,BCIO:050806,behavioural consequence,1
 BCIO:050565,amount of social reinforcement for a behaviour,Influences,BCIO:050806,behavioural consequence,1
 BCIO:050557,social influence intervention through mass media,Part of,BCIO:006086,behavioural opportunity,1
+BCIO:050568,assertiveness skill,Part of,BCIO:006086,behavioural opportunity,1
 BCIO:050300,personal attribute,Part of,BCIO:006086,behavioural opportunity,1
 BCIO:006001,social environmental system,Part of,BCIO:006086,behavioural opportunity,1
 BCIO:006082,social role,Part of,BCIO:006086,behavioural opportunity,1
@@ -975,6 +982,7 @@ BCIO:050842,role model for a person,Type of,ENVO:01000254,environmental system,1
 BCIO:036075,harmful behaviour,Type of,BCIO:050489,personal vulnerability to harmful behaviour,1
 BCIO:036075,harmful behaviour,Type of,ENVO:01000254,environmental system,1
 BCIO:006086,behavioural opportunity,Type of,BCIO:050489,personal vulnerability to harmful behaviour,1
+BCIO:006086,behavioural opportunity,Type of,ENVO:01000254,environmental system,1
 BCIO:036066,pro-social behaviour,Type of,BCIO:036000,individual human behaviour,1
 BCIO:050821,health-promoting behaviour,Type of,BCIO:036000,individual human behaviour,1
 BCIO:036072,antisocial behaviour,Type of,BCIO:036000,individual human behaviour,1
@@ -987,8 +995,8 @@ MFOEM:000085,appraisal of desirability of consequences,Type of,BCIO:006026,belie
 MFOEM:000085,appraisal of desirability of consequences,Type of,BCIO:050633,dissonance reduction through mental process,1
 BCIO:006024,belief about likelihood of consequences of behaviour,Influences (*),BCIO:006047,decision,1
 BCIO:006038,evaluative belief,Influences (*),BCIO:006047,decision,1
-BCIO:006024,belief about likelihood of consequences of behaviour,Part of,MFOEM:000002,emotional-relevance appraisal process,1
-BCIO:006038,evaluative belief,Part of,MFOEM:000002,emotional-relevance appraisal process,1
+BCIO:006024,belief about likelihood of consequences of behaviour,Part of,MFOEM:000002,appraisal process,1
+BCIO:006038,evaluative belief,Part of,MFOEM:000002,appraisal process,1
 BCIO:050783,stimulus,Influences,BCIO:050791,threat appraisal,1
 BCIO:050783,stimulus,Influences,BCIO:050765,self-efficacy belief for avoiding a threat,1
 BCIO:050791,threat appraisal,Influences,BCIO:006133,behavioural motivation,1
@@ -1085,7 +1093,10 @@ MFOEM:000212,negative emotion,Influences,BCIO:050806,behavioural consequence,1
 BCIO:050806,behavioural consequence,Influences,ADDICTO:0001318,addiction development,1
 ADDICTO:0001318,addiction development,Positively influences,ADDICTO:0000349,addiction,1
 ADDICTO:0000349,addiction,Influences,BCIO:050231,temporal orientation to the present,1
+BCIO:050641,environmental disposition that increases likelihood of harmful behaviour,Influences,BCIO:050635,economic environmental system,1
+BCIO:050635,economic environmental system,Influences,BCIO:050641,environmental disposition that increases likelihood of harmful behaviour,1
 BCIO:050641,environmental disposition that increases likelihood of harmful behaviour,Influences,ADDICTO:0000349,addiction,1
+BCIO:050635,economic environmental system,Influences,ADDICTO:0000349,addiction,1
 ADDICTO:0001350,binge behaviour session,Influences,BCIO:050806,behavioural consequence,1
 BCIO:050806,behavioural consequence,Influences,ADDICTO:0001350,binge behaviour session,1
 BCIO:050207,individual human behaviour pattern cessation,Influences,BCIO:050806,behavioural consequence,1
@@ -1203,17 +1214,16 @@ BCIO:006038,evaluative belief,Influences,MFOEM:000195,affective process,1
 MFOEM:000195,affective process,Influences,BCIO:006038,evaluative belief,1
 MF:0000020,mental process,Influences,BCIO:050843,accepting responsibility for changing one’s behaviour,1
 MF:0000020,mental process,Influences,BCIO:050268,self-regulation process,1
-MF:0000020,mental process,Influences,BCIO:006086,behavioural opportunity,1
+MF:0000020,mental process,Influences,BCIO:006307,extrinsic motivation,1
 BCIO:050822,identity congruence,Influences,BCIO:006136,intrinsic motivation,1
 BCIO:050268,self-regulation process,Influences,BCIO:006307,extrinsic motivation,1
 BCIO:050843,accepting responsibility for changing one’s behaviour,Influences,BCIO:006307,extrinsic motivation,1
-BCIO:006086,behavioural opportunity,Influences,BCIO:006307,extrinsic motivation,1
 BCIO:006136,intrinsic motivation,Type of,BCIO:006133,behavioural motivation,1
 BCIO:050701,low self-efficacy,Type of,BCIO:006133,behavioural motivation,1
 BCIO:006069,need to feel competent,Type of,BCIO:006064,psychological need,1
 BCIO:006065,need for autonomy,Type of,BCIO:006064,psychological need,1
 BCIO:006068,need for a sense of belonging and attachment,Type of,BCIO:006064,psychological need,1
-BCIO:006086,behavioural opportunity,Type of,BCIO:006307,extrinsic motivation,1
+BCIO:006307,extrinsic motivation,Type of,ENVO:01000254,environmental system,1
 BCIO:050268,self-regulation process,Type of,ENVO:01000254,environmental system,1
 BCIO:050268,self-regulation process,Type of,BCIO:006307,extrinsic motivation,1
 BCIO:007055,demonstrate the behaviour BCT,Influences,BCIO:050886,extent of past behavioural achievement,1
@@ -1225,8 +1235,8 @@ BCIO:007140,prompt self-talk BCT,Influences,BCIO:007137,persuade about personal 
 BCIO:050650,evaluative belief formation,Influences,BCIO:007137,persuade about personal capability BCT,1
 MFOEM:000075,appraisal of causal agency,Influences,MF:0000012,arousal,1
 MFOEM:000075,appraisal of causal agency,Influences,MFOEM:000003,physiological process involved in an emotion,1
-MFOEM:000002,emotional-relevance appraisal process,Influences,MF:0000012,arousal,1
-MFOEM:000002,emotional-relevance appraisal process,Influences,MFOEM:000003,physiological process involved in an emotion,1
+MFOEM:000002,appraisal process,Influences,MF:0000012,arousal,1
+MFOEM:000002,appraisal process,Influences,MFOEM:000003,physiological process involved in an emotion,1
 BCIO:007026,provide biofeedback BCT,Influences,MF:0000012,arousal,1
 BCIO:007026,provide biofeedback BCT,Influences,MFOEM:000003,physiological process involved in an emotion,1
 BCIO:007167,advise sensory ways to change emotions BCT,Influences,MF:0000012,arousal,1
@@ -1256,7 +1266,7 @@ BCIO:050237,linguistic communication behaviour,Type of,BCIO:003000,behaviour cha
 BCIO:007140,prompt self-talk BCT,Type of,BCIO:003000,behaviour change intervention,1
 BCIO:050650,evaluative belief formation,Type of,BCIO:003000,behaviour change intervention,1
 MFOEM:000075,appraisal of causal agency,Type of,BCIO:003000,behaviour change intervention,1
-MFOEM:000002,emotional-relevance appraisal process,Type of,BCIO:003000,behaviour change intervention,1
+MFOEM:000002,appraisal process,Type of,BCIO:003000,behaviour change intervention,1
 BCIO:007026,provide biofeedback BCT,Type of,BCIO:003000,behaviour change intervention,1
 BCIO:007167,advise sensory ways to change emotions BCT,Type of,BCIO:003000,behaviour change intervention,1
 BCIO:007085,expose to stimulus BCT,Type of,BCIO:003000,behaviour change intervention,1
@@ -1428,6 +1438,7 @@ BCIO:050671,group evaluative behavioural norm,Part of,BCIO:050669,group belief,1
 BCIO:006072,stereotype,Part of,BCIO:050669,group belief,1
 BCIO:036025,inter-personal behaviour,Influences,BCIO:050749,psychological attachment formation to conventional society,1
 BCIO:006001,social environmental system,Influences,BCIO:050215,behavioural capability,1
+BCIO:006001,social environmental system,Influences,BCIO:007252,provide positive consequence for behaviour BCT,1
 BCIO:006001,social environmental system,Influences,BCIO:050749,psychological attachment formation to conventional society,1
 BCIO:050749,psychological attachment formation to conventional society,Influences,BCIO:006001,social environmental system,1
 BCIO:006147,evaluative belief about a behaviour,Influences,BCIO:006016,behavioural intention,1
@@ -1595,7 +1606,7 @@ BCIO:050599,belief about social influence on oneself,Influences,BCIO:006059,moti
 BCIO:006059,motivation to comply,Influences,BCIO:006114,goal setting process,1
 ADDICTO:0000399,self-identity,Influences,BCIO:050326,affective attitude,1
 BCIO:050326,affective attitude,Influences,BCIO:006114,goal setting process,1
-BCIO:050437,health-related behaviour,Related to,BCIO:050300,personal attribute,1
+BCIO:050437,health-related behaviour,Influences,BCIO:050300,personal attribute,1
 BCIO:050893,socio-demographic characteristic,Influences,ADDICTO:0000399,self-identity,1
 BCIO:050215,behavioural capability,Influences,ADDICTO:0000399,self-identity,1
 BCIO:006029,belief about ones environment,Influences,BCIO:006017,belief about barriers to a behaviour,1
@@ -1605,14 +1616,13 @@ BCIO:050591,belief about enablers of a behaviour,Influences,BCIO:006114,goal set
 BCIO:006114,goal setting process,Influences,BCIO:006016,behavioural intention,1
 BCIO:006114,goal setting process,Influences,BCIO:050228,mental plan,1
 BCIO:050209,individual human behaviour change,Influences,BCIO:050437,health-related behaviour,1
-BCIO:050437,health-related behaviour,Related to,BCIO:050215,behavioural capability,1
-BCIO:050437,health-related behaviour,Related to,BCIO:006001,social environmental system,1
+BCIO:050437,health-related behaviour,Influences,BCIO:050215,behavioural capability,1
+BCIO:050437,health-related behaviour,Influences,BCIO:006001,social environmental system,1
 BCIO:006002,family environmental system,Influences,BCIO:050780,social role learning,1
 BCIO:006001,social environmental system,Part of,MF:0000032,bodily disposition,1
 BCIO:006002,family environmental system,Part of,MF:0000032,bodily disposition,1
 BCIO:006002,family environmental system,Part of,BCIO:006001,social environmental system,1
 ENVO:01000254,environmental system,Part of,MF:0000032,bodily disposition,1
-ENVO:01000254,environmental system,Part of,BCIO:006001,social environmental system,1
 BCIO:050780,social role learning,Part of,BCIO:050893,socio-demographic characteristic,1
 BCIO:050780,social role learning,Part of,BCIO:015092,health status attribute,1
 BCIO:050780,social role learning,Part of,MF:0000021,interpersonal process,1
