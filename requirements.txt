@@ -1,10 +1,4 @@
-Flask==1.1.1
-  Jinja2==2.10.1
-    MarkupSafe==0.23
-  itsdangerous==0.24
-  Werkzeug==0.16
-
-  click==5.1
+Flask
 
 pandas
 whoosh
@@ -17,7 +11,7 @@ numpy
 
 pydot
 matplotlib
-py2cytoscape
+git+https://github.com/ontology-tools/py2cytoscape.git
 seaborn
 nltk
 scipy
