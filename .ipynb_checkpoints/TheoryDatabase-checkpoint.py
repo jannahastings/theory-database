@@ -20,7 +20,7 @@ from whoosh.qparser import QueryParser
 
 exec(open('definitions/ParseDefinitions.py').read())
 
-data_path = 'constructs/ConstructsOntologyMappingTemplate-JH.xlsx'
+data_path = 'definitions/Final Constructs (Across Theory Mapping).xlsx'
 
 combined_data_path = os.path.join(os.path.dirname(__file__), data_path)
 wb = openpyxl.load_workbook(combined_data_path, data_only=True)
