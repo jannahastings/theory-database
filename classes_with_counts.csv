@@ -1,0 +1,581 @@
+Count,ID,label
+38,BCIO:006001,social environmental system
+37,BCIO:036000,individual human behaviour
+37,ENVO:01000254,environmental system
+28,BCIO:006016,behavioural intention
+28,BCIO:006154,self-efficacy belief for a behaviour
+18,BCIO:006133,behavioural motivation
+17,BCIO:006019,belief about consequences of behaviour
+17,BCIO:050215,behavioural capability
+15,BCIO:006086,behavioural opportunity
+14,BCIO:006049,goal
+13,BCIO:006039,perceived norm
+13,BCIO:050300,personal attribute
+13,BCIO:006090,social behavioural opportunity
+12,BCIO:006099,social influence behaviour
+12,BCIO:050328,attitude
+11,BCIO:006052,knowledge
+11,BCIO:050648,evaluative belief about the positive consequences of a behaviour
+10,MF:0000041,belief
+10,BCIO:006148,evaluative belief about the consequences of behaviour
+10,BCIO:006064,psychological need
+10,MF:0000032,bodily disposition
+9,BCIO:006038,evaluative belief
+9,BCIO:050671,group evaluative behavioural norm
+9,BCIO:006005,self-regulation capability
+9,BCIO:050806,behavioural consequence
+9,BCIO:006059,motivation to comply
+9,BCIO:006063,personal value
+9,BCIO:006152,belief about control over behaviour
+9,BCIO:006031,belief about personal susceptibility
+8,BCIO:006115,heuristic process
+8,ADDICTO:0000399,self-identity
+8,BCIO:006042,normative belief
+8,MFOEM:000001,emotion process
+7,BCIO:006041,perceived evaluative behavioural norm
+7,BCIO:006035,evaluation of self
+7,BCIO:050268,self-regulation process
+7,BCIO:050800,observational learning
+7,BCIO:006087,financial behavioural opportunity
+7,BCIO:050893,socio-demographic characteristic
+6,BCIO:050577,behavioural barrier
+6,BCIO:006048,behavioural decision
+6,BCIO:006024,belief about likelihood of consequences of behaviour
+6,BCIO:006306,belief about threat
+6,BCIO:006030,belief about severity of an outcome
+6,BCIO:036100,individual human behaviour pattern
+6,BCIO:050798,willingness to adopt new behaviours
+6,BCIO:050603,belief about the discrepancy between one’s current and target state
+6,BCIO:050776,social influence process
+6,BCIO:050578,behavioural cue
+6,BCIO:050821,health-promoting behaviour
+6,BCIO:050819,harm preventing behaviour
+6,MF:0000043,capability
+5,BCIO:050219,belief about health consequences of behaviour
+5,MFOEM:000006,subjective emotional feeling
+5,BCIO:015161,personal history
+5,BCIO:006116,decision-making
+5,BCIO:006044,situational self-efficacy belief for a behaviour
+5,BCIO:006095,normative behaviour
+5,MF:0000031,cognitive representation
+5,BCIO:050805,behaviour pattern maintenance
+5,MF:0000033,mental disposition
+5,ADDICTO:0001087,social identity
+5,BCIO:006147,evaluative belief about a behaviour
+5,MF:0000045,wanting
+5,BCIO:050209,individual human behaviour change
+5,BCIO:006146,belief about social support
+5,BCIO:036072,antisocial behaviour
+5,BCIO:036034,human communication behaviour
+5,BCIO:006047,decision
+5,BCIO:050756,reinforcer
+5,BCIO:006125,operant conditioning
+4,BCIO:006089,physical behavioural opportunity
+4,MF:0000019,perception
+4,BCIO:050481,past behaviour
+4,BCIO:050597,belief about severity of health condition
+4,BCIO:006029,belief about ones environment
+4,BCIO:006091,temporal behavioural opportunity
+4,BCIO:050886,extent of past behavioural achievement
+4,BCIO:006096,goal pursuit process
+4,BCIO:006149,belief about the personal desirability of consequences of a behaviour
+4,BCIO:006055,knowledge regarding a threat
+4,BCIO:050708,moral personal value
+4,MFOEM:000195,affective process
+4,MF:0000008,cognitive process
+4,BCIO:006307,extrinsic motivation
+4,ENVO:01000452,environmental disposition
+4,BCIO:006137,self-monitoring
+4,BCIO:006017,belief about barriers to a behaviour
+4,BCIO:007055,demonstrate the behaviour BCT
+4,BCIO:050842,role model for a person
+4,BCIO:050818,goal-directed behaviour
+4,BCIO:006062,promotion focused motivational orientation
+4,BCIO:050891,social group
+3,BCIO:050921,behaviour change rate
+3,BCIO:050729,openness-to-change personal value
+3,BCIO:050647,evaluative belief about the negative consequences of a behaviour
+3,BCIO:006074,social embeddedness
+3,BCIO:050764,self-efficacy belief for a behaviour under conditions of stress
+3,BCIO:050697,low motivational disposition to change behaviour
+3,MF:0000012,arousal
+3,BCIO:050489,personal vulnerability to harmful behaviour
+3,BCIO:050783,stimulus
+3,MF:0000020,mental process
+3,BCIO:050649,evaluative belief about the possible future consequences of one’s behaviour
+3,BCIO:006158,habitual behaviour
+3,MF:0000203,personality trait
+3,BCIO:036025,inter-personal behaviour
+3,BCIO:050588,belief about control over valued outcomes
+3,BCIO:050698,low opportunity to enact a behaviour
+3,BCIO:050787,supportive social environmental system
+3,GO:0098596,imitative learning
+3,BCIO:050669,group belief
+3,BCIO:006043,self-efficacy belief for a behaviour and its associated outcomes
+3,BCIO:050637,egoistic personal value
+3,BCIO:050835,response cost
+3,BCIO:006002,family environmental system
+3,BCIO:050781,societal personal value
+3,BCIO:006040,perceived descriptive behavioural norm
+3,BCIO:006114,goal setting process
+3,BCIO:050844,action planning
+3,BCIO:006118,social comparison process
+3,BCIO:050775,social identity process
+3,BCIO:050890,protective factor for harmful behaviour
+3,BCIO:006034,belief about choice over a behaviour
+3,BCIO:050753,reflective mental process
+3,BCIO:006060,motivational orientation
+3,BCIO:050234,impulse
+3,MF:0000048,mental capability
+3,BCIO:050683,intention to enact a behaviour
+3,BCIO:036113,substance use behaviour
+3,BCIO:050789,technology availability
+3,BCIO:050716,motivational disposition to change behaviour
+3,MF:0000027,planning
+3,MFOEM:000040,sexual pleasure
+2,MFOEM:000075,appraisal of causal agency
+2,BCIO:050614,cognitive representation of an alternative behaviour
+2,BCIO:006066,need for self-esteem
+2,BCIO:050967,pro-environmental personal value
+2,OPMI:0000121,socioeconomic status
+2,BCIO:050679,information evaluation process
+2,BCIO:050790,temporal orientation
+2,BCIO:050792,traditional personal value
+2,BCIO:050750,psychological attachment to conventional society
+2,BCIO:050726,normative goal
+2,BCIO:003000,behaviour change intervention
+2,BCIO:050723,negative social environmental system
+2,ADDICTO:0000349,addiction
+2,OMRSE:00000064,school facility
+2,BCIO:007089,systematically desensitise BCT
+2,BCIO:006136,intrinsic motivation
+2,BCIO:032000,behaviour change intervention tailoring
+2,BCIO:050811,cue management behaviour
+2,BCIO:050643,environmental opportunity for pleasure
+2,BCIO:006010,physical skill
+2,BCIO:050768,self-regulation through behavioural feedback
+2,BCIO:050690,knowledge about threat avoidance
+2,BCIO:050654,external stimulus
+2,MFOEM:000035,pleasure (emotion)
+2,MF:0000202,personality
+2,BCIO:006302,autonomous motivation
+2,BCIO:050934,appraisal of immediacy
+2,BCIO:006112,reflective thinking
+2,BCIO:007252,provide positive consequence for behaviour BCT
+2,BCIO:050575,behaviour change through group norm
+2,BCIO:050739,positive reinforcer
+2,BCIO:006057,learned stimulus-reponse co-occurrence
+2,ADDICTO:0001140,addiction strength
+2,BCIO:006088,healthcare access
+2,MFOEM:000212,negative emotion
+2,BCIO:006106,self-reinforcing self-regulation
+2,BCIO:050554,communication source
+2,MFOEM:000072,appraisal of goal importance
+2,BCIO:006102,plan enactment
+2,BCIO:050840,threat-reducing behaviour
+2,BCIO:006305,belief about susceptibility to a threat
+2,BCIO:006145,belief about ones social environment
+2,BCIO:050786,supportive social environmental disposition
+2,BCIO:006065,need for autonomy
+2,BCIO:006067,need for a sense of safety
+2,BCIO:050779,social representation of a behaviour
+2,BCIO:006069,need to feel competent
+2,BCIO:050871,persistent goal pursuit process
+2,BCIO:006020,belief about social consequences of behaviour
+2,BCIO:006082,social role
+2,MFOEM:000053,guilt
+2,BCIO:050735,positive evaluative belief about a behaviour
+2,BCIO:050956,degree of organisational hierarchy
+2,BCIO:050624,coping planning
+2,BCIO:006008,emotional self-regulation capability
+2,BCIO:007028,social support BCT
+2,BCIO:050329,attitude towards a behaviour
+2,BCIO:006103,self-regulation of behaviour
+2,BCIO:006011,social behavioural capability
+2,BCIO:050326,affective attitude
+2,BCIO:050884,total internal influence on behaviour
+2,BCIO:006078,appraisal of obligation to act
+2,BCIO:050705,mental feedback process
+2,BCIO:006110,comprehension
+2,BCIO:007022,provide feedback BCT
+2,BCIO:050655,extrinsic reward
+2,BCIO:050942,empathy
+2,BCIO:050707,misperception of descriptive behavioural norm
+2,BCIO:050656,extrinsic social motivation
+2,BCIO:050760,schedule of reinforcement
+2,BCIO:050318,reflective behavioural motivation
+2,BCIO:041000,human population
+2,BCIO:050650,evaluative belief formation
+2,BCIO:036066,pro-social behaviour
+2,BCIO:050635,economic environmental system
+2,BCIO:050217,belief about consequences of an occurrence
+2,BCIO:006015,awareness
+2,BCIO:050237,linguistic communication behaviour
+2,BCIO:036073,avoidance behaviour
+2,BCIO:006124,stimulus generalisation in learning
+2,BCIO:050437,health-related behaviour
+2,BCIO:050477,having enacted a behaviour
+2,ADDICTO:0000377,feeling of need satisfaction
+2,BCIO:050769,similarity to other people
+2,BCIO:050478,influencer role
+2,BCIO:050492,unawareness of a behaviour
+2,BCIO:006006,behavioural self-regulation capability
+2,BCIO:050493,undecidedness about enacting a behaviour
+2,BCIO:050601,belief about task complexity
+2,BCIO:050868,internal influence on behaviour
+2,BCIO:050641,environmental disposition that increases likelihood of harmful behaviour
+2,BCIO:050887,leadership role
+2,BCIO:006134,automatic behavioural motivation
+2,BCIO:050660,fear reduction mental process
+2,BCIO:006061,prevention focused motivational orientation
+2,BCIO:050817,frequency of past behaviour
+2,BCIO:050483,personal history of events that influence behaviour
+2,BCIO:050859,desired self-regulatory standard
+2,BCIO:006079,desired standard
+2,BCIO:036084,association behaviour
+2,BCIO:050607,belief about the positive health consequences of a behaviour
+2,BCIO:050555,communication message
+2,BCIO:050455,behavioural duration
+2,MFOEM:000026,fear
+2,BCIO:050715,motivational disposition not to change behaviour
+2,BCIO:050231,temporal orientation to the present
+2,MFOEM:000085,appraisal of desirability of consequences
+2,BCIO:006123,extinction in operant learning
+2,BCIO:050646,evaluative belief about the consequences of one’s past behaviour
+1,BFO:0000040,material entity
+1,ADDICTO:0001350,binge behaviour session
+1,BCIO:050207,individual human behaviour pattern cessation
+1,MF:0000018,attending
+1,BCIO:007026,provide biofeedback BCT
+1,BCIO:050613,bodily system
+1,ADDICTO:0001318,addiction development
+1,BCIO:050853,comparison of current behaviour with a standard
+1,BCIO:050874,self-awareness process in relation to a problem
+1,BCIO:050725,non-conscious mental process
+1,BCIO:050689,judging about causation
+1,BCIO:050629,discriminative stimulus
+1,BCIO:050230,temporal orientation to the future
+1,BCIO:050652,external attribution of a behaviour
+1,ADDICTO:0000750,financial cost of a product or service
+1,BCIO:050686,internal attribution of a behaviour
+1,BCIO:036089,political behaviour
+1,BCIO:050854,decisional balance process about changing behaviour
+1,BCIO:050846,behavioural substitution
+1,BCIO:007076,suggest to change behaviour BCT
+1,BCIO:050793,utility maximisation disposition
+1,ADDICTO:0001317,abstinence violation effect
+1,BCIO:006068,need for a sense of belonging and attachment
+1,BCIO:050961,Non self-regulated behaviour
+1,BCIO:050822,identity congruence
+1,BCIO:006303,belief about responsibility to act
+1,BCIO:050875,self-identity appraisal informed by one’s behaviour
+1,BCIO:050785,strength of attention
+1,BCIO:050843,accepting responsibility for changing one’s behaviour
+1,BCIO:050431,mental exertion expended on a behaviour
+1,BCIO:050809,coping behaviour
+1,ADDICTO:0000511,subjective craving
+1,BCIO:050960,feeling of need frustration
+1,BCIO:015160,personal vulnerability
+1,MF:0000083,mental imagery
+1,ADDICTO:0001378,drug withdrawal syndrome
+1,BCIO:050317,subjective want
+1,BCIO:050738,positive reinforcement process
+1,BCIO:050694,logical reasoning
+1,BCIO:050745,propositional cognitive representation
+1,BCIO:006131,mental categorising
+1,BCIO:050880,social consequence of behaviour appraisal process
+1,BCIO:050667,generality of self-efficacy
+1,BCIO:050784,stimulus-impulse association
+1,BCIO:007094,practise behaviour BCT
+1,BCIO:050948,self-talk process
+1,BCIO:007140,prompt self-talk BCT
+1,BCIO:050758,resilience of self-efficacy
+1,MFOEM:000193,mood process
+1,BCIO:007085,expose to stimulus BCT
+1,BCIO:050815,emotionally expressive behaviour
+1,BCIO:050841,approach behaviour
+1,BCIO:007137,persuade about personal capability BCT
+1,BCIO:006304,behavioural importance-based motivation
+1,BCIO:050591,belief about enablers of a behaviour
+1,BCIO:006300,approval-based motivation
+1,BCIO:006100,internal reward for a response
+1,BCIO:050877,social approval pleasure
+1,BCIO:050953,desire for continued life
+1,BCIO:050718,need to hold a world view
+1,BCIO:050928,fear of death
+1,BCIO:050873,positive evaluative belief about interacting with others
+1,BCIO:050672,group facilitation behaviour
+1,BCIO:050879,social connectedness pleasure
+1,BCIO:006141,belief about message
+1,BCIO:050882,social pleasure
+1,BCIO:050935,appraisal of social identity
+1,BCIO:050441,socially-related behaviour
+1,BCIO:050919,negative behavioural consequence
+1,BCIO:050828,positive behavioural consequence
+1,BCIO:050949,social competition process
+1,BCIO:050878,social categorising
+1,BCIO:050866,group identity development
+1,BCIO:050888,out-group
+1,BCIO:050759,risk-taker stereotype
+1,BCIO:050772,social environmental disposition
+1,BCIO:036108,walking
+1,BCIO:050664,feeling safe
+1,BCIO:050926,awareness of mortality
+1,BCIO:050561,acquired drive
+1,BCIO:050748,psychological attachment formation
+1,BCIO:050620,conditioned positive reinforcer
+1,BCIO:050589,belief about effort required for a behaviour
+1,BCIO:050608,belief about the positive social consequences of a behaviour
+1,BCIO:050566,anxiety about use of technology
+1,MF:0000006,judging
+1,BCIO:050661,feedback on behaviour
+1,BCIO:050780,social role learning
+1,BCIO:050599,belief about social influence on oneself
+1,BCIO:050595,belief about own health
+1,BCIO:015092,health status attribute
+1,BCIO:036027,object-using behaviour
+1,BCIO:050609,belief that a behaviour is compulsory
+1,BCIO:050847,belief in false minority
+1,BCIO:050885,underestimated perceived descriptive norm
+1,BCIO:050870,overestimated perceived descriptive norm
+1,BCIO:050838,spontaneous recovery
+1,BCIO:050741,primary reinforcer
+1,BCIO:050680,innate drive
+1,BCIO:006121,discrimination learning
+1,BCIO:050606,belief about the positive emotional consequences of a behaviour
+1,BCIO:050663,feedback process to a person
+1,BCIO:006033,belief about the timing of the consequences of behaviour
+1,BCIO:050902,behavioural ease
+1,BCIO:050702,low social opportunity to enact a behaviour
+1,BCIO:050700,low physical opportunity to enact a behaviour
+1,BCIO:017000,behaviour change intervention effect estimate
+1,BCIO:050744,problem solving
+1,ADDICTO:0000715,group identity
+1,BCIO:050927,control over behaviour
+1,BCIO:050321,goal facilitation
+1,BCIO:050651,evaluative belief formation about a behaviour
+1,BCIO:050848,capability to imagine future scenarios
+1,BCIO:050428,behavioural frequency
+1,BCIO:013000,participant engagement with behaviour change intervention
+1,BCIO:006045,cognitive schema
+1,BCIO:050925,dyad
+1,BCIO:006004,mental skill
+1,BCIO:007081,cue BCT
+1,BCIO:050827,past occurrence of a target behaviour
+1,BCIO:050214,attentional self-regulation capability
+1,BCIO:050688,intrinsic reward
+1,BCIO:050804,behaviour chain
+1,BCIO:050420,digital interaction behaviour
+1,BCIO:050636,egoistic personal health value
+1,BCIO:006022,belief about control over one's future
+1,BCIO:006028,belief about message relevance
+1,BCIO:050862,empathising
+1,BCIO:006046,action schema
+1,BCIO:050933,knowledge regarding social environment
+1,BCIO:050932,social norm monitoring
+1,BCIO:006072,stereotype
+1,BCIO:050883,strength of group support for an intervention
+1,BCIO:050749,psychological attachment formation to conventional society
+1,BCIO:015105,biological sex
+1,BCIO:006161,avoidance mental process
+1,BCIO:015097,ethnic group membership
+1,BCIO:010104,peer
+1,MF:0000088,subliminal process
+1,BCIO:050327,affective attitude towards a behaviour
+1,BCIO:007014,create behavioural contract BCT
+1,BCIO:050291,knowledge development behaviour
+1,BCIO:043000,process attribute
+1,BCIO:050795,vicarious learning capability
+1,BCIO:050788,symbol processing skill
+1,BCIO:050752,reflective capability
+1,ADDICTO:0000179,personal stake
+1,BCIO:050808,collective behaviour
+1,BCIO:006081,personal role
+1,BCIO:050727,norms-related social environmental system
+1,BCIO:050940,creative thinking
+1,BCIO:050931,preparation for social role
+1,BCIO:050946,mental rehearsal to guide and motivate behaviour
+1,BCIO:050590,belief about emotional consequences of goal attainment
+1,BCIO:050791,threat appraisal
+1,BCIO:050713,motivation to reduce harm
+1,BCIO:050673,harmful fear reduction mental process
+1,BCIO:050559,inform about negative consequences BCT
+1,BCIO:050659,fear reducing process
+1,BCIO:050600,belief about social support for a behaviour
+1,ADDICTO:0001273,public health promotion policy
+1,BCIO:050864,feeling of uncertainty about one’s behaviour
+1,BCIO:050773,social environmental system attribute
+1,BCIO:050556,mass media mode of delivery
+1,BCIO:006054,knowledge regarding an innovation
+1,MF:0000016,human being
+1,MFOEM:000226,appraisal of desirability
+1,BCIO:050802,approval seeking behaviour
+1,BCIO:050587,belief about conformity of behaviour to personal values
+1,BCIO:050681,intention for collective behaviour
+1,BCIO:050384,communication
+1,BCIO:036011,social organisation behaviour
+1,BCIO:050938,centralisation of decision-making
+1,MFOEM:000060,appraisal of expectedness
+1,BCIO:050731,person’s environmental system
+1,BCIO:006143,belief about message trustworthiness
+1,MFOEM:000028,anxiety
+1,BCIO:050239,learning
+1,BCIO:050630,disposition to attend to one’s goals
+1,BCIO:050966,hedonic goal
+1,BCIO:050668,goal about one’s resources
+1,BCIO:050574,background goal
+1,ADDICTO:0001377,negative self-identity
+1,BCIO:050947,motivation to deviate
+1,BCIO:007241,provide aversive consequence for behaviour BCT
+1,BCIO:050955,attachment to a caregiver
+1,BCIO:050826,parenting behaviour
+1,BCIO:050807,carer monitoring of child behaviour
+1,BCIO:050677,impulsive disposition
+1,BCIO:050571,attending to a social norm
+1,BCIO:050631,dissonance reduction process for a behaviour
+1,BCIO:050678,information devaluing
+1,BCIO:007012,attend to discrepancy between current behaviour and goal BCT
+1,BCIO:050662,feedback process related to identity
+1,BCIO:050445,change behaviour goal BCT
+1,BCIO:050570,attending to a goal
+1,BCIO:007027,provide feedback on outcome of behaviour BCT
+1,BCIO:050869,low mental capability to enact a behaviour
+1,BCIO:050238,non-linguistic communication behaviour
+1,BCIO:006003,friendship network
+1,BCIO:050937,behavioural goal
+1,BCIO:050557,social influence intervention through mass media
+1,BCIO:050901,wider community behavioural consequence
+1,BCIO:050899,family behavioural consequence
+1,BCIO:050658,family influence behaviour
+1,BCIO:050565,amount of social reinforcement for a behaviour
+1,BCIO:050568,assertiveness skill
+1,BCIO:050670,group descriptive behavioural norm
+1,BCIO:050824,knowledge acquisition about reducing harmful behaviours
+1,BCIO:050596,belief about severity of AIDS
+1,BCIO:050639,emotional opportunity
+1,BCIO:050832,reflective behaviour
+1,MFOEM:000204,emotional personality trait
+1,BCIO:050813,emotional behaviour
+1,BCIO:050453,behaviour end point
+1,BCIO:050564,affective attitude acquired through association
+1,BCIO:050918,low frequency of past behaviour
+1,BCIO:050917,high frequency of past behaviour
+1,BCIO:007023,provide feedback on behaviour BCT
+1,BCIO:050592,belief about goal attainment
+1,BCIO:050617,comparative desirability appraisal
+1,BCIO:036042,physical performance behaviour
+1,BCIO:050730,peer influence behaviour
+1,BCIO:050771,social embeddedness in a social group
+1,BCIO:050761,school influence behaviour
+1,BCIO:050950,social learning
+1,BCIO:050810,criminal behaviour
+1,BCIO:050860,desired standard for self-identity
+1,BCIO:050823,impact of behaviour on environment
+1,BCIO:050619,comparison of current situation with a standard
+1,BCIO:050580,behavioural dissonance reduction through mental process
+1,BCIO:050803,association behaviour with a pro-social group
+1,BCIO:050778,social reinforcement process for a behaviour
+1,BCIO:050954,behavioural substitution capability
+1,OMRSE:00000235,money
+1,BCIO:036035,economic behaviour
+1,BCIO:006009,physical behavioural capability
+1,BCIO:050943,group decision-making
+1,BCIO:050709,motivational disposition for behavioural maintenance
+1,BCIO:050581,behavioural enabler
+1,OGMS:0000060,bodily process
+1,BCIO:050316,subjective need
+1,GO:0007613,memory
+1,BCIO:036030,sexual behaviour
+1,BCIO:050569,assigned goal
+1,BCIO:050941,distal goal
+1,BCIO:050623,coping efficacy belief
+1,BCIO:050856,denial belief about a need
+1,BCIO:050857,denial belief about a responsibility to act
+1,BCIO:050573,awareness of others’ need
+1,BCIO:050963,belief about accountability for the consequences of an action
+1,SDGIO:00010029,employment status
+1,BCIO:050970,need for appreciation by others
+1,BCIO:050751,quality of social relationships
+1,BCIO:050974,need for social justice
+1,BCIO:050972,need for privacy
+1,BCIO:050920,opportunity-seeking behaviour
+1,BCIO:050971,need for natural environment
+1,BCIO:050693,leisure time
+1,BCIO:050622,control over one’s life
+1,BCIO:050642,environmental opportunity for comfort
+1,BCIO:050325,psychological behavioural capability
+1,BCIO:050829,purchasing behaviour
+1,BCIO:050563,aesthetic appreciation disposition
+1,BCIO:050969,need for access to space
+1,BCIO:006053,knowledge regarding a behaviour
+1,BCIO:050816,environmental sustainability behaviour
+1,BCIO:050858,denial belief about norm relevance
+1,BCIO:050585,belief about a behaviour meeting a need
+1,BCIO:050952,willingness to change behaviour
+1,BCIO:050861,efficacy belief for a behaviour and its associated outcomes
+1,BCIO:036075,harmful behaviour
+1,BCIO:050765,self-efficacy belief for avoiding a threat
+1,BCIO:006111,decision simplification
+1,MFOEM:000002,emotional-relevance appraisal process
+1,BCIO:050849,certainty bias
+1,BCIO:006026,belief about likelihood of consequences of an occurrence
+1,BCIO:050582,behavioural inhibition
+1,BCIO:050638,emotion about self
+1,BCIO:050482,personal history of behavioural lapse
+1,BCIO:050682,intention not to enact a behaviour
+1,BCIO:050959,capability-performance gap
+1,BCIO:033000,behaviour change technique
+1,BCIO:050962,response generalisation in learning
+1,BCIO:050720,negative punishing stimulus
+1,BCIO:050684,intermittent schedule of reinforcement
+1,BCIO:050666,generalised reinforcer
+1,BCIO:050628,differential reinforcement
+1,BCIO:050621,conditioned reinforcer
+1,BCIO:050618,comparative evaluation process
+1,BCIO:015042,number of years in education completed
+1,BCIO:015098,gender identity
+1,BCIO:050796,well-specified goal
+1,BCIO:050552,communication channel
+1,BCIO:007041,deliver emotional support BCT
+1,BCIO:050767,self-motive
+1,BCIO:006105,introjected self-regulation
+1,BCIO:006107,value-congruent self-regulation
+1,BCIO:050218,belief about emotional consequences of behaviour
+1,BCIO:050584,behavioural recovery self-efficacy
+1,BCIO:050924,behaviour non-intender
+1,BCIO:050576,behaviour maintenance self-efficacy
+1,BCIO:050923,behaviour intender
+1,BCIO:050936,awareness of standards
+1,BCIO:050922,behaviour enacter
+1,BCIO:050699,low opportunity to enact a goal-directed behaviour
+1,BCIO:050691,knowledge regarding goal attainment
+1,BCIO:050839,task complexity
+1,BCIO:050766,self-initiated goal
+1,MFOEM:000169,satisfaction
+1,BCIO:050746,proximal goal
+1,BCIO:050939,collaborative goal
+1,BCIO:050945,learning goal
+1,BCIO:050615,cognitive representation of one’s behaviour
+1,BCIO:050968,self-awareness process
+1,BCIO:036007,environmental system management behaviour
+1,BCIO:050762,self-efficacy belief for a behaviour during routine activities
+1,BCIO:015093,medication use status
+1,BCIO:050865,goal conflict reduction process
+1,BCIO:050645,evaluative belief about the consequences of one’s behaviour
+1,ADDICTO:0001109,public policy
+1,BCIO:050692,legal behavioural constraint
+1,ADDICTO:0001135,alcohol consumption pattern
+1,BCIO:050801,adherence to healthcare treatment
+1,BCIO:050593,belief about health status
+1,BCIO:050782,stability of living conditions
+1,BCIO:050736,positive mental health
+1,BCIO:010117,health status of person source
+1,BCIO:006056,knowledge regarding treatment
+1,BCIO:050583,behavioural opportunity through information
+1,BCIO:050235,non-judgmental acknowledgement
+1,BCIO:050836,rewarding behaviour
+1,BCIO:050724,negotiating skill
+1,BCIO:050640,emotional-relevance appraisal of possible consequences
+1,BCIO:006070,mental plan for a behaviour
+1,BCIO:050763,self-efficacy belief for a behaviour in the face of social pressure
+1,BCIO:050812,domestic behaviour
