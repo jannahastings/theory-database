@@ -619,7 +619,7 @@ def displayTheory(theory_number=None, theory_name=None):
 def searchConstructResult(string=None):
     if request.method == 'POST':
         searchstr = request.form['searchconstruct']
-        index_dir = "static/index/"
+        index_dir = INDEX_DIR
         results = TheoryDatabase.searchForConstruct(searchstr, index_dir)
         len_results = len(results)
         return render_template('searchConstruct.html', string=searchstr, results=results, len_results=len_results)
@@ -635,7 +635,7 @@ def searchConstructResult(string=None):
 def searchTheoryResult(string=None):
     if request.method == 'POST':
         searchtheory = request.form['searchtheory']
-        index_dir = "static/index/"
+        index_dir = INDEX_DIR
         results = TheoryDatabase.searchForTheory(searchtheory, index_dir)
         len_results = len(results)
         return render_template('searchTheory.html', string=searchtheory, results=results, len_results=len_results)
@@ -651,7 +651,7 @@ def searchTheoryResult(string=None):
 def searchRelationResult(string=None):
     if request.method == 'POST':
         searchstr = request.form['searchrelation']
-        index_dir = "static/index/"
+        index_dir = INDEX_DIR
         results = TheoryDatabase.searchForRelation(searchstr, index_dir)
         len_results = len(results)
         return render_template('searchRelation.html', string=searchstr, results=results, len_results=len_results)
