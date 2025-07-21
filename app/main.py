@@ -49,7 +49,7 @@ app = FlaskApp(__name__)
 
 app.secret_key = SECRET_KEY
 
-data_path = 'constructs/ConstructsOntologyMappingTemplate-JH.xlsx'
+data_path = '../dataconstructs/ConstructsOntologyMappingTemplate-JH.xlsx'
 combined_data_path = os.path.join(os.path.dirname(__file__), data_path)
 
 combined_data = parseConstructs(combined_data_path)
