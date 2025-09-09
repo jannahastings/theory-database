@@ -52,7 +52,7 @@ Count,ID,label
 6,BCIO:050819,harm preventing behaviour
 6,MF:0000043,capability
 5,BCIO:050219,belief about health consequences of behaviour
-5,MFOEM:000006,subjective emotional feeling
+5,MFOEM:000006,subjective affective feeling
 5,BCIO:015161,personal history
 5,BCIO:006116,decision-making
 5,BCIO:006044,situational self-efficacy belief for a behaviour
@@ -265,7 +265,7 @@ Count,ID,label
 1,BCIO:050793,utility maximisation disposition
 1,ADDICTO:0001317,abstinence violation effect
 1,BCIO:006068,need for a sense of belonging and attachment
-1,BCIO:050961,Non self-regulated behaviour
+1,BCIO:036076,impulsiveness
 1,BCIO:050822,identity congruence
 1,BCIO:006303,belief about responsibility to act
 1,BCIO:050875,self-identity appraisal informed by one’s behaviour
@@ -407,7 +407,7 @@ Count,ID,label
 1,BCIO:050773,social environmental system attribute
 1,BCIO:050556,mass media mode of delivery
 1,BCIO:006054,knowledge regarding an innovation
-1,MF:0000016,human being
+1,MF:0000016,person
 1,MFOEM:000226,appraisal of desirability
 1,BCIO:050802,approval seeking behaviour
 1,BCIO:050587,belief about conformity of behaviour to personal values
