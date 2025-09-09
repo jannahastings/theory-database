@@ -10,3 +10,5 @@ if os.environ.get("FLASK_ENV")=='development':
 else:
     SECRET_KEY = secret_key
     # SECRET_KEY = os.environ.get('FLASK_SECRET_KEY')
+
+INDEX_DIR="/data/theory-database/index/"

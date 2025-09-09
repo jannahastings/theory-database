@@ -2,7 +2,7 @@
 
 # os.chdir('/Users/hastingj/Work/Python/TheoryDatabase')
 import os
-os.chdir(r'C:\Users\maybra\OneDrive - Universität Zürich UZH\git\theory-database')
+#os.chdir(r'C:\Users\maybra\OneDrive - Universität Zürich UZH\git\theory-database')
 
 import csv
 import os.path
@@ -18,15 +18,15 @@ from whoosh.fields import Schema, TEXT, ID
 from whoosh.index import open_dir
 from whoosh.qparser import QueryParser
 
-exec(open('definitions/ParseDefinitions.py').read())
+exec(open('../data/definitions/ParseDefinitions.py').read())
 
-data_path = 'definitions/Final Constructs (Across Theory Mapping).xlsx'
+data_path = '../data/definitions/Final Constructs (Across Theory Mapping).xlsx'
 
 combined_data_path = os.path.join(os.path.dirname(__file__), data_path)
 wb = openpyxl.load_workbook(combined_data_path, data_only=True)
 sheet = wb['Sheet1']
 
-theory_dir = 'theories_2025/processed'
+theory_dir = '../data/theories_2025/processed'
 
 theory_files = [file for file in os.listdir(theory_dir) if file.endswith(".csv")]
 
@@ -327,7 +327,7 @@ def setup():
     # table.to_csv("relation-counts.csv")
 
     # load theory references.
-    with open('references/OBMS References.csv', 'r') as csvrefsfile:
+    with open('../data/references/OBMS References.csv', 'r') as csvrefsfile:
         reader = csv.reader(csvrefsfile)
 
         header = next(reader)
@@ -349,7 +349,7 @@ def setup():
                         theory.supplemented_by.append(supplemented_by)
 
     # parse theory construct definitions
-    parseTheoryDefinitions("definitions/Final Constructs (Across Theory Mapping).xlsx")
+    parseTheoryDefinitions("../data/definitions/Final Constructs (Across Theory Mapping).xlsx")
 
 
 def rebuildIndex(index_dir):
